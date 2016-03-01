@@ -25,7 +25,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class Application extends WebMvcConfigurerAdapter {
 	/**
 	 *
+<<<<<<< HEAD
 	 * @param args             lancemant
+=======
+	 * @param args
+	 *            lancemant
+>>>>>>> f65d1cb7e4ed515835905a123ff58c5b45b6c0f2
 	 */
 	public static void main(final String[] args) {
 		SpringApplication.run(Application.class, args);
