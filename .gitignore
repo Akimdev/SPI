@@ -4,6 +4,7 @@ dist
 .sass-cache
 src/main/resources/client/bower_components/
 log/
+target/
 
 .DS_Store
 npm-debug.log
