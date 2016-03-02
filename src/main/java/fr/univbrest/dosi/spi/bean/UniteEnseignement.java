@@ -82,6 +82,9 @@ public class UniteEnseignement implements Serializable {
     @JsonBackReference(value="ue-elemconst")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "uniteEnseignement",fetch=FetchType.LAZY)
     private Collection<ElementConstitutif> elementConstitutifCollection;
+    @JsonBackReference(value="ue-Evaluation")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "uniteEnseignement")
+    private Collection<Evaluation> evaluationCollection;
 
     public UniteEnseignement() {
     }

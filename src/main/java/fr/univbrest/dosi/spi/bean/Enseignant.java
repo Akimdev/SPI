@@ -24,6 +24,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  *
@@ -119,7 +121,22 @@ public class Enseignant implements Serializable {
     @JsonBackReference(value="enseignant-elementConstitutif")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "noEnseignant",fetch=FetchType.LAZY)
     private Collection<ElementConstitutif> elementConstitutifCollection;
-
+    @JsonBackReference(value="auth-Enseignant")
+    @OneToMany(mappedBy = "noEnseignant")
+    private Collection<Authentification> authentificationCollection;
+    @JsonBackReference(value="droit-Enseignant")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "enseignant")
+    private Collection<Droit> droitCollection;
+    @JsonBackReference(value="question-Enseignant")
+    @OneToMany(mappedBy = "noEnseignant")
+    private Collection<Question> questionCollection;
+    @JsonBackReference(value="rubrique-Enseignant")
+    @OneToMany(mappedBy = "noEnseignant")
+    private Collection<Rubrique> rubriqueCollection;
+    @JsonBackReference(value="evaluation-Enseignant")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "noEnseignant")
+    private Collection<Evaluation> evaluationCollection;
+    
     public Enseignant() {
     }
 
