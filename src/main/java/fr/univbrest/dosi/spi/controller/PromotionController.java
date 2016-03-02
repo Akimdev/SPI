@@ -1,10 +1,7 @@
 package fr.univbrest.dosi.spi.controller;
 
+
 import java.util.List;
-
-
-
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -35,7 +32,7 @@ public class PromotionController {
 	private EtudiantService etudiantservice;
 	
 	/**
-	 * Soukaina
+	 * Soukaina BAQLOUL
 	 * @param noEnseignant
 	 * @return
 	 */
@@ -51,7 +48,7 @@ public class PromotionController {
 		return promotionservice.getPromotion(promotionPK);
 	}
 	/**
-	 * soukaina
+	 * soukaina BAQLOUL
 	 * @param promotionPK
 	 * @return
 	 */
@@ -60,8 +57,13 @@ public class PromotionController {
 		return etudiantservice.getEtudiantByPromotion(new PromotionPK(codeFormation, anneeUniversitaire));
 	}
 
-	
-	
-	
-	
+	/**
+	 * Assabar
+	 * Liste des promotions
+	 */
+
+	@RequestMapping(value = "/promotions", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE })
+	public Iterable<Promotion> getPromotions() {
+		return prommotionService.getPromotionALL();
+	}
 }

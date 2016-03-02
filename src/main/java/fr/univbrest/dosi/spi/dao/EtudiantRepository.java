@@ -1,11 +1,7 @@
 package fr.univbrest.dosi.spi.dao;
 
+
 import java.util.List;
-
-
-
-
-
 
 
 
@@ -25,6 +21,7 @@ import fr.univbrest.dosi.spi.bean.PromotionPK;
  */
 @RepositoryRestResource(collectionResourceRel = "etudiant", path = "etudiant")
 public interface EtudiantRepository extends PagingAndSortingRepository<Etudiant, String> {
+
 	
 	/**
 	 * soukaina
@@ -33,5 +30,6 @@ public interface EtudiantRepository extends PagingAndSortingRepository<Etudiant,
 	 */
 	
 	List<Etudiant> findByPromotion(@Param("codeFormation") String codeFormation, @Param("anneeUniversitaire") String anneeUniversitaire);
+
 
 }

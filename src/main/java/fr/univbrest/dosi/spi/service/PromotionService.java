@@ -35,4 +35,10 @@ public class PromotionService {
 		return promotionRepository.findByNoEnseignant(noEnseignant);
 	}
 
+	
+	public final Iterable<Promotion> getPromotionALL() {
+		return promotionRepository.findAll();
+	}
+
+
 }

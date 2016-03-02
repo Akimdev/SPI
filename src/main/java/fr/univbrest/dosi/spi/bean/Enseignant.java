@@ -134,7 +134,7 @@ public class Enseignant implements Serializable {
     @JsonBackReference(value="evaluation-Enseignant")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "noEnseignant")
     private Collection<Evaluation> evaluationCollection;
-    
+
     public Enseignant() {
     }
 
