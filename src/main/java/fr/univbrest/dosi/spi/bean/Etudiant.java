@@ -7,10 +7,9 @@ package fr.univbrest.dosi.spi.bean;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-<<<<<<< HEAD
+
 import java.util.Collection;
-=======
->>>>>>> bab54c840022eca2485704c5aa51700324336ab8
+
 import java.util.Date;
 
 import javax.persistence.Basic;
