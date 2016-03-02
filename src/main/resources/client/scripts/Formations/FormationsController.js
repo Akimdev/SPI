@@ -19,52 +19,10 @@
 	}
 
   app.factory('formationsFactory',['$http', function($http){
-	/*  var getPoneys = function(callbackFn) {
-		    $http.get('/api/poneys').success(function(data) {
-		      callbackFn(data);
-		    });
-		  };
-		    */
 		    
     var list = function() {
-        //var defer = $q.defer();
-
        return  $http.get('http://localhost:8090/frm')
-       /*.then(function(response) {
-          defer.resolve(response.data);
-        });
-
-        return defer.promise;*/
       };
-    	/*function(callbackFn){
-		$http.get("http://localhost:8090/frm").success(function(response) {
-			console.log("TODO 1: entrer response" + response);
-			callbackFn(response);
-		});
-    	}/* [ 
-      // TODO alimenter   
-      {
-    	  code : "M2DOSI", diplome : "M", no_annee : "2", 
-    	  nom :"Master Développement à l'Offshore des Systèmes d'Information", double_diplome : "O", 
-    	  debut_accreditation :"01/09/12" , fin_accreditation : "30/09/17"
-    		  
-      },
-      {
-    	  code : "M1TIIL", diplome : "M", no_annee : "1", 
-    	  nom :"Master technologie de l'Information et Ingénierie du Logiciel", double_diplome : "N", 
-    	  debut_accreditation :"01/09/12" , fin_accreditation : "30/09/17"
-      },
-      {
-    	  code : "M2TIIL", diplome : "M", no_annee : "2", 
-    	  nom :"Master technologie de l'Information et Ingénierie du Logiciel", double_diplome : "N", 
-    	  debut_accreditation :"01/09/12" , fin_accreditation : "30/09/17"
-      },
-      {
-    	  code : "M2LSE", diplome : "M", no_annee : "2", 
-    	  nom :"Master Logiciel pour Système Embarqué", double_diplome : "N", 
-    	  debut_accreditation :"01/09/12" , fin_accreditation : "30/09/17"
-      }
-    ]*/ 
     	;
             
     return {
