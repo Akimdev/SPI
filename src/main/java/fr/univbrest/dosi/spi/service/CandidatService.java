@@ -12,7 +12,6 @@ import fr.univbrest.dosi.spi.dao.CandidatRepository;
  */
 @Service
 public class CandidatService {
-
 	@Autowired
 	private CandidatRepository candidatRepository;
 
