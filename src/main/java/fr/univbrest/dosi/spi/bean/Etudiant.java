@@ -7,6 +7,10 @@ package fr.univbrest.dosi.spi.bean;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+<<<<<<< HEAD
+import java.util.Collection;
+=======
+>>>>>>> bab54c840022eca2485704c5aa51700324336ab8
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -18,14 +22,17 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  *
@@ -134,6 +141,12 @@ public class Etudiant implements Serializable {
     private BigInteger groupeTp;
     @Column(name = "GROUPE_ANGLAIS")
     private BigInteger groupeAnglais;
+    @JsonBackReference(value="auth-Etudiant")
+    @OneToMany(mappedBy = "noEtudiant")
+    private Collection<Authentification> authentificationCollection;
+    @JsonBackReference(value="reponseEvaluation-Etudiant")
+    @OneToMany(mappedBy = "noEtudiant")
+    private Collection<ReponseEvaluation> reponseEvaluationCollection;
     @JsonManagedReference(value="promotion-etudiant")
     @JoinColumns({
         @JoinColumn(name = "ANNEE_UNIVERSITAIRE", referencedColumnName = "ANNEE_UNIVERSITAIRE"),

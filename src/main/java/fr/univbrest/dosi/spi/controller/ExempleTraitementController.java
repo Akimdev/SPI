@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.univbrest.dosi.spi.bean.Greeting;
+import fr.univbrest.dosi.spi.bean.converter.Greeting;
 import fr.univbrest.dosi.spi.service.ExempleService;
 
 /**
