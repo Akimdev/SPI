@@ -6,8 +6,10 @@
 package fr.univbrest.dosi.spi.bean;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -16,11 +18,13 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
@@ -68,7 +72,10 @@ public class ElementConstitutif implements Serializable {
         @JoinColumn(name = "CODE_UE", referencedColumnName = "CODE_UE", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private UniteEnseignement uniteEnseignement;
-
+    @JsonBackReference(value="elementConstitutif-Evaluation")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "elementConstitutif")
+    private Collection<Evaluation> evaluationCollection;
+    
     public ElementConstitutif() {
     }
 

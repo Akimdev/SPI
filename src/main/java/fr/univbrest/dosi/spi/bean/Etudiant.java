@@ -7,6 +7,7 @@ package fr.univbrest.dosi.spi.bean;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -18,6 +19,7 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,6 +27,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
@@ -35,6 +38,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "ETUDIANT")
 @XmlRootElement
 @NamedQueries({
+	@NamedQuery(name = "Etudiant.findByPromotion", query = "SELECT e FROM Etudiant e  WHERE e.promotion.promotionPK.codeFormation = :codeFormation AND e.promotion.promotionPK.anneeUniversitaire = :anneeUniversitaire"),
     @NamedQuery(name = "Etudiant.findAll", query = "SELECT e FROM Etudiant e"),
     @NamedQuery(name = "Etudiant.findByNoEtudiant", query = "SELECT e FROM Etudiant e WHERE e.noEtudiant = :noEtudiant"),
     @NamedQuery(name = "Etudiant.findByNom", query = "SELECT e FROM Etudiant e WHERE e.nom = :nom"),
@@ -134,6 +138,12 @@ public class Etudiant implements Serializable {
     private BigInteger groupeTp;
     @Column(name = "GROUPE_ANGLAIS")
     private BigInteger groupeAnglais;
+    @JsonBackReference(value="auth-Etudiant")
+    @OneToMany(mappedBy = "noEtudiant")
+    private Collection<Authentification> authentificationCollection;
+    @JsonBackReference(value="reponseEvaluation-Etudiant")
+    @OneToMany(mappedBy = "noEtudiant")
+    private Collection<ReponseEvaluation> reponseEvaluationCollection;
     @JsonManagedReference(value="promotion-etudiant")
     @JoinColumns({
         @JoinColumn(name = "ANNEE_UNIVERSITAIRE", referencedColumnName = "ANNEE_UNIVERSITAIRE"),
