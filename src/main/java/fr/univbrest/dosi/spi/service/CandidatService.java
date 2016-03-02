@@ -16,7 +16,6 @@ public class CandidatService {
 	@Autowired
 	private CandidatRepository candidatRepository;
 
-	
 	public void addCandidat(final Candidat candidat) {
 		candidatRepository.save(candidat);
 	}

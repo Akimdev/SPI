@@ -7,7 +7,10 @@ package fr.univbrest.dosi.spi.bean;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+<<<<<<< HEAD
 import java.util.Collection;
+=======
+>>>>>>> bab54c840022eca2485704c5aa51700324336ab8
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -26,7 +29,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;

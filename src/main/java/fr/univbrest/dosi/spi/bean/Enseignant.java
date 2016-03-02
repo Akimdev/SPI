@@ -27,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+
 /**
  *
  * @author DOSI
@@ -136,7 +137,6 @@ public class Enseignant implements Serializable {
     @JsonBackReference(value="evaluation-Enseignant")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "noEnseignant")
     private Collection<Evaluation> evaluationCollection;
-    
     public Enseignant() {
     }
 

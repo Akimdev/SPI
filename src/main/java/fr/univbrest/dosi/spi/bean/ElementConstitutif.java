@@ -7,7 +7,6 @@ package fr.univbrest.dosi.spi.bean;
 
 import java.io.Serializable;
 import java.util.Collection;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -77,7 +76,7 @@ public class ElementConstitutif implements Serializable {
     @JsonBackReference(value="elementConstitutif-Evaluation")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "elementConstitutif")
     private Collection<Evaluation> evaluationCollection;
-    
+
     public ElementConstitutif() {
     }
 
