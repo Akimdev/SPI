@@ -34,7 +34,7 @@ public class PromotionService {
 	public final List<Promotion> getPromotionByEnseignant(final Integer noEnseignant) {
 		return promotionRepository.findByNoEnseignant(noEnseignant);
 	}
-
+	
 	/**
 	 * 
 	 * @return all promotion
