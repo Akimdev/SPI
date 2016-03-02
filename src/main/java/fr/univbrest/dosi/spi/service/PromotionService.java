@@ -35,6 +35,12 @@ public class PromotionService {
 		return promotionRepository.findByNoEnseignant(noEnseignant);
 	}
 
+	/**
+	 * 
+	 * @return all promotion
+	 * @author ASSABBAR
+	 */
+
 	public final Iterable<Promotion> getPromotionALL() {
 		return promotionRepository.findAll();
 	}
