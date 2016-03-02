@@ -3,6 +3,7 @@ dist
 .tmp
 .sass-cache
 src/main/resources/client/bower_components/
+log/
 
 .DS_Store
 npm-debug.log
