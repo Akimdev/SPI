@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,9 +39,9 @@ public class QualificatifController {
 	public void suppressionQualificatif(Qualificatif qualif){
 		qualifServ.deleteQualificatif(qualif);
 	}
-	@RequestMapping(value="/supprimerQualificatifAvecId-{idQualif}")
-	public void suppressionQualificatifById(@PathVariable(value = "idQualif")Long idQualif){
-		qualifServ.deleteQualificatifById(idQualif);
+	@RequestMapping(value="/supprimerQualificatif", headers="Accept=application/json")
+	public void suppressionQualificatifById(@RequestParam("idQualificatif") Long idQualificatif){
+		qualifServ.deleteQualificatifById(idQualificatif);
 	}
 	
 	@RequestMapping(value="/listerQualificatif")

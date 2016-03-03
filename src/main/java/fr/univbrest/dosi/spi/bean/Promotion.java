@@ -27,8 +27,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  *
@@ -80,18 +83,15 @@ public class Promotion implements Serializable {
     @Size(max = 255)
     @Column(name = "COMMENTAIRE")
     private String commentaire;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "promotion",fetch=FetchType.LAZY)
-    private Collection<Etudiant> etudiantCollection;
-    @JsonIgnore
+	private Collection<Etudiant> etudiantCollection;
+    @JsonManagedReference(value="enseignant-promotion")
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne
     private Enseignant noEnseignant;
-    @JsonIgnore
     @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Formation formation;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "promotion",fetch=FetchType.LAZY)
     private Collection<Candidat> candidatCollection;
 

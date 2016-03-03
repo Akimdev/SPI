@@ -27,8 +27,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  *
@@ -80,36 +82,29 @@ public class Evaluation implements Serializable {
     @Column(name = "FIN_REPONSE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date finReponse;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "evaluation")
     private Collection<Droit> droitCollection;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvaluation")
     private Collection<ReponseEvaluation> reponseEvaluationCollection;
-    @JsonIgnore
     @JoinColumns({
         @JoinColumn(name = "CODE_FORMATION_1", referencedColumnName = "CODE_FORMATION"),
         @JoinColumn(name = "CODE_UE_1", referencedColumnName = "CODE_UE"),
         @JoinColumn(name = "CODE_EC_1", referencedColumnName = "CODE_EC")})
     @ManyToOne(optional = false)
     private ElementConstitutif elementConstitutif;
-    @JsonIgnore
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne(optional = false)
     private Enseignant noEnseignant;
-    @JsonIgnore
     @JoinColumns({
         @JoinColumn(name = "ANNEE_UNIVERSITAIRE", referencedColumnName = "ANNEE_UNIVERSITAIRE"),
         @JoinColumn(name = "CODE_FORMATION_2", referencedColumnName = "CODE_FORMATION")})
     @ManyToOne(optional = false)
     private Promotion promotion;
-    @JsonIgnore
     @JoinColumns({
         @JoinColumn(name = "CODE_FORMATION_3", referencedColumnName = "CODE_FORMATION"),
         @JoinColumn(name = "CODE_UE_2", referencedColumnName = "CODE_UE")})
     @ManyToOne(optional = false)
     private UniteEnseignement uniteEnseignement;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvaluation")
     private Collection<RubriqueEvaluation> rubriqueEvaluationCollection;
 

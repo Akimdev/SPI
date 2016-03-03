@@ -33,8 +33,8 @@ public class QualificatifService {
 		qualifRepo.delete(qualif);
 	}
 	
-	public void deleteQualificatifById(Long idQualif){
-		qualifRepo.delete(idQualif);
+	public void deleteQualificatifById(Long idQualificatif){
+		qualifRepo.delete(idQualificatif);
 	}
 	
 	public List<Qualificatif> listeQualificatif(){

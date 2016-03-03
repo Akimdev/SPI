@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 /**
  *
  * @author DOSI

@@ -24,7 +24,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 /**
  *
@@ -33,16 +36,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "ELEMENT_CONSTITUTIF")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "ElementConstitutif.findAll", query = "SELECT e FROM ElementConstitutif e"),
-    @NamedQuery(name = "ElementConstitutif.findByCodeFormation", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeFormation = :codeFormation"),
-    @NamedQuery(name = "ElementConstitutif.findByCodeUe", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeUe = :codeUe"),
-    @NamedQuery(name = "ElementConstitutif.findByCodeEc", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeEc = :codeEc"),
-    @NamedQuery(name = "ElementConstitutif.findByDesignation", query = "SELECT e FROM ElementConstitutif e WHERE e.designation = :designation"),
-    @NamedQuery(name = "ElementConstitutif.findByDescription", query = "SELECT e FROM ElementConstitutif e WHERE e.description = :description"),
-    @NamedQuery(name = "ElementConstitutif.findByNbhCm", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhCm = :nbhCm"),
-    @NamedQuery(name = "ElementConstitutif.findByNbhTd", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhTd = :nbhTd"),
-    @NamedQuery(name = "ElementConstitutif.findByNbhTp", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhTp = :nbhTp")})
+@NamedQueries({ @NamedQuery(name = "ElementConstitutif.findAll", query = "SELECT e FROM ElementConstitutif e"),
+		@NamedQuery(name = "ElementConstitutif.findByCodeFormation", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeFormation = :codeFormation"),
+		@NamedQuery(name = "ElementConstitutif.findByCodeUe", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeUe = :codeUe"),
+		@NamedQuery(name = "ElementConstitutif.findByCodeEc", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeEc = :codeEc"),
+		@NamedQuery(name = "ElementConstitutif.findByDesignation", query = "SELECT e FROM ElementConstitutif e WHERE e.designation = :designation"),
+		@NamedQuery(name = "ElementConstitutif.findByDescription", query = "SELECT e FROM ElementConstitutif e WHERE e.description = :description"),
+		@NamedQuery(name = "ElementConstitutif.findByNbhCm", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhCm = :nbhCm"),
+		@NamedQuery(name = "ElementConstitutif.findByNbhTd", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhTd = :nbhTd"),
+		@NamedQuery(name = "ElementConstitutif.findByNbhTp", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhTp = :nbhTp") })
 public class ElementConstitutif implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -61,17 +63,15 @@ public class ElementConstitutif implements Serializable {
     private Short nbhTd;
     @Column(name = "NBH_TP")
     private Short nbhTp;
-    @JsonIgnore
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne(optional = false)
     private Enseignant noEnseignant;
-    @JsonIgnore
     @JoinColumns({
         @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION", insertable = false, updatable = false),
         @JoinColumn(name = "CODE_UE", referencedColumnName = "CODE_UE", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private UniteEnseignement uniteEnseignement;
-    @JsonIgnore
+    @JsonBackReference(value="elementConstitutif-Evaluation")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "elementConstitutif")
     private Collection<Evaluation> evaluationCollection;
 
@@ -179,5 +179,4 @@ public class ElementConstitutif implements Serializable {
     public String toString() {
         return "entities.ElementConstitutif[ elementConstitutifPK=" + elementConstitutifPK + " ]";
     }
-    
 }

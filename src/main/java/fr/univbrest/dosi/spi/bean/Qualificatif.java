@@ -25,7 +25,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 /**
  *
  * @author DOSI
@@ -103,6 +102,7 @@ public class Qualificatif implements Serializable {
     public Collection<Question> getQuestionCollection() {
         return questionCollection;
     }
+
     public void setQuestionCollection(Collection<Question> questionCollection) {
         this.questionCollection = questionCollection;
     }
@@ -111,7 +111,7 @@ public class Qualificatif implements Serializable {
     public Collection<QuestionEvaluation> getQuestionEvaluationCollection() {
         return questionEvaluationCollection;
     }
-    
+
     public void setQuestionEvaluationCollection(Collection<QuestionEvaluation> questionEvaluationCollection) {
         this.questionEvaluationCollection = questionEvaluationCollection;
     }
