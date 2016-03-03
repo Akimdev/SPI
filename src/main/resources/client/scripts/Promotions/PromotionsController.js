@@ -36,7 +36,6 @@
       get: function(promotionPK) { 
     	  // TODO retourner les promotions
     	  console.log("TODO : get promotion",promotionPK);
-    	  var promo= $http.post("http://localhost:8090/getPromotion/", promotionPK);
     	  return $http.post("http://localhost:8090/getPromotion/", promotionPK);
    	  },
       set: function(promotion) {
@@ -45,17 +44,17 @@
         if(idx){// si modification d'une promotion existante     	  
   	        	$http.post('http://localhost:8090/updatePromotion',promotion);
         } else { // si ajout d'une nouvelle promotion 	  
-	        	$http.post('http://localhost:8090/addPromotion',newPromotion);
+	        	$http.post('http://localhost:8090/addPromotion',promotion);
         }
       },
       delete: function(promotionPK) {
         // TODO Supprimer une promotion
     	  console.log("TODO : supprimer promotion",promotionPK);
-    	  return  $http.get('http://localhost:8090/deletePromotion/'+promotionPK);
+    	  return  $http.post('http://localhost:8090/deletePromotion/', promotionPK);
       },
       
       getEtudiants : function(promotionPK){
-		  return $http.get("http://localhost:8090/getEtudiantsByPromotion/"+promotionPK);
+		  return $http.post("http://localhost:8090/getEtudiantByPromotion/",promotionPK);
       }
     };
   }]);
