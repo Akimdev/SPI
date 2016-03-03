@@ -25,6 +25,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+<<<<<<< HEAD
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 
@@ -106,5 +107,6 @@ public class QualificatifControllerTest {
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpDelete requestDelete = new HttpDelete("http://localhost:8090/supprimerQualificatifAvecId-15");
 		HttpResponse response = client.execute(requestDelete);
+
 	}
 }

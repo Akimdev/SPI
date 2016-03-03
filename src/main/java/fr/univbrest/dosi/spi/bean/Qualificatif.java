@@ -24,7 +24,6 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  *
@@ -55,7 +54,8 @@ public class Qualificatif implements Serializable {
     @Size(min = 1, max = 16)
     @Column(name = "MINIMAL")
     private String minimal;
-    @JsonIgnore
+    //@JsonIgnore
+    @JsonBackReference(value="question-Qualificatif")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idQualificatif")
     private Collection<Question> questionCollection;
     @JsonIgnore
