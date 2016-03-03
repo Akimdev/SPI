@@ -44,140 +44,140 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 		@NamedQuery(name = "ElementConstitutif.findByNbhTd", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhTd = :nbhTd"),
 		@NamedQuery(name = "ElementConstitutif.findByNbhTp", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhTp = :nbhTp") })
 public class ElementConstitutif implements Serializable {
-	private static final long serialVersionUID = 1L;
-	@Size(max = 240)
-	@Column(name = "DESCRIPTION")
-	private String description;
-	@Basic(optional = false)
-	@NotNull
-	@Size(min = 1, max = 64)
-	@Column(name = "DESIGNATION")
-	private String designation;
-	@EmbeddedId
-	protected ElementConstitutifPK elementConstitutifPK;
-	@JsonBackReference(value = "elementConstitutif-Evaluation")
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "elementConstitutif")
-	private Collection<Evaluation> evaluationCollection;
-	@Column(name = "NBH_CM")
-	private Short nbhCm;
-	@Column(name = "NBH_TD")
-	private Short nbhTd;
-	@Column(name = "NBH_TP")
-	private Short nbhTp;
-	@JsonManagedReference(value = "enseignant-elementConstitutif")
-	@JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
-	@ManyToOne(optional = false)
-	private Enseignant noEnseignant;
+    private static final long serialVersionUID = 1L;
+    @EmbeddedId
+    protected ElementConstitutifPK elementConstitutifPK;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 64)
+    @Column(name = "DESIGNATION")
+    private String designation;
+    @Size(max = 240)
+    @Column(name = "DESCRIPTION")
+    private String description;
+    @Column(name = "NBH_CM")
+    private Short nbhCm;
+    @Column(name = "NBH_TD")
+    private Short nbhTd;
+    @Column(name = "NBH_TP")
+    private Short nbhTp;
+    @JsonManagedReference(value="enseignant-elementConstitutif")
+    @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
+    @ManyToOne(optional = false)
+    private Enseignant noEnseignant;
+    @JsonManagedReference(value="ue-elemconst")
+    @JoinColumns({
+        @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION", insertable = false, updatable = false),
+        @JoinColumn(name = "CODE_UE", referencedColumnName = "CODE_UE", insertable = false, updatable = false)})
+    @ManyToOne(optional = false)
+    private UniteEnseignement uniteEnseignement;
 
-	@JsonManagedReference(value = "ue-elemconst")
-	@JoinColumns({ @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION", insertable = false, updatable = false),
-			@JoinColumn(name = "CODE_UE", referencedColumnName = "CODE_UE", insertable = false, updatable = false) })
-	@ManyToOne(optional = false)
-	private UniteEnseignement uniteEnseignement;
+    @JsonBackReference(value="elementConstitutif-Evaluation")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "elementConstitutif")
+    private Collection<Evaluation> evaluationCollection;
 
-	public ElementConstitutif() {
-	}
+    public ElementConstitutif() {
+    }
 
-	public ElementConstitutif(ElementConstitutifPK elementConstitutifPK) {
-		this.elementConstitutifPK = elementConstitutifPK;
-	}
+    public ElementConstitutif(ElementConstitutifPK elementConstitutifPK) {
+        this.elementConstitutifPK = elementConstitutifPK;
+    }
 
-	public ElementConstitutif(ElementConstitutifPK elementConstitutifPK, String designation) {
-		this.elementConstitutifPK = elementConstitutifPK;
-		this.designation = designation;
-	}
+    public ElementConstitutif(ElementConstitutifPK elementConstitutifPK, String designation) {
+        this.elementConstitutifPK = elementConstitutifPK;
+        this.designation = designation;
+    }
 
-	public ElementConstitutif(String codeFormation, String codeUe, String codeEc) {
-		this.elementConstitutifPK = new ElementConstitutifPK(codeFormation, codeUe, codeEc);
-	}
+    public ElementConstitutif(String codeFormation, String codeUe, String codeEc) {
+        this.elementConstitutifPK = new ElementConstitutifPK(codeFormation, codeUe, codeEc);
+    }
 
-	@Override
-	public boolean equals(Object object) {
-		// TODO: Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof ElementConstitutif)) {
-			return false;
-		}
-		ElementConstitutif other = (ElementConstitutif) object;
-		if ((this.elementConstitutifPK == null && other.elementConstitutifPK != null) || (this.elementConstitutifPK != null && !this.elementConstitutifPK.equals(other.elementConstitutifPK))) {
-			return false;
-		}
-		return true;
-	}
+    public ElementConstitutifPK getElementConstitutifPK() {
+        return elementConstitutifPK;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setElementConstitutifPK(ElementConstitutifPK elementConstitutifPK) {
+        this.elementConstitutifPK = elementConstitutifPK;
+    }
 
-	public String getDesignation() {
-		return designation;
-	}
+    public String getDesignation() {
+        return designation;
+    }
 
-	public ElementConstitutifPK getElementConstitutifPK() {
-		return elementConstitutifPK;
-	}
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
 
-	public Short getNbhCm() {
-		return nbhCm;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public Short getNbhTd() {
-		return nbhTd;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public Short getNbhTp() {
-		return nbhTp;
-	}
+    public Short getNbhCm() {
+        return nbhCm;
+    }
 
-	public Enseignant getNoEnseignant() {
-		return noEnseignant;
-	}
+    public void setNbhCm(Short nbhCm) {
+        this.nbhCm = nbhCm;
+    }
 
-	public UniteEnseignement getUniteEnseignement() {
-		return uniteEnseignement;
-	}
+    public Short getNbhTd() {
+        return nbhTd;
+    }
 
-	@Override
-	public int hashCode() {
-		int hash = 0;
-		hash += (elementConstitutifPK != null ? elementConstitutifPK.hashCode() : 0);
-		return hash;
-	}
+    public void setNbhTd(Short nbhTd) {
+        this.nbhTd = nbhTd;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public Short getNbhTp() {
+        return nbhTp;
+    }
 
-	public void setDesignation(String designation) {
-		this.designation = designation;
-	}
+    public void setNbhTp(Short nbhTp) {
+        this.nbhTp = nbhTp;
+    }
 
-	public void setElementConstitutifPK(ElementConstitutifPK elementConstitutifPK) {
-		this.elementConstitutifPK = elementConstitutifPK;
-	}
+    public Enseignant getNoEnseignant() {
+        return noEnseignant;
+    }
 
-	public void setNbhCm(Short nbhCm) {
-		this.nbhCm = nbhCm;
-	}
+    public void setNoEnseignant(Enseignant noEnseignant) {
+        this.noEnseignant = noEnseignant;
+    }
 
-	public void setNbhTd(Short nbhTd) {
-		this.nbhTd = nbhTd;
-	}
+    public UniteEnseignement getUniteEnseignement() {
+        return uniteEnseignement;
+    }
 
-	public void setNbhTp(Short nbhTp) {
-		this.nbhTp = nbhTp;
-	}
+    public void setUniteEnseignement(UniteEnseignement uniteEnseignement) {
+        this.uniteEnseignement = uniteEnseignement;
+    }
 
-	public void setNoEnseignant(Enseignant noEnseignant) {
-		this.noEnseignant = noEnseignant;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (elementConstitutifPK != null ? elementConstitutifPK.hashCode() : 0);
+        return hash;
+    }
 
-	public void setUniteEnseignement(UniteEnseignement uniteEnseignement) {
-		this.uniteEnseignement = uniteEnseignement;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof ElementConstitutif)) {
+            return false;
+        }
+        ElementConstitutif other = (ElementConstitutif) object;
+        if ((this.elementConstitutifPK == null && other.elementConstitutifPK != null) || (this.elementConstitutifPK != null && !this.elementConstitutifPK.equals(other.elementConstitutifPK))) {
+            return false;
+        }
+        return true;
+    }
 
-	@Override
-	public String toString() {
-		return "entities.ElementConstitutif[ elementConstitutifPK=" + elementConstitutifPK + " ]";
-	}
-
+    @Override
+    public String toString() {
+        return "entities.ElementConstitutif[ elementConstitutifPK=" + elementConstitutifPK + " ]";
+    }
 }

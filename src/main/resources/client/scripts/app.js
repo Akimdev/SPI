@@ -5,7 +5,7 @@
 			[ 'ngRoute', 'ngAnimate', 'ui.bootstrap', 'easypiechart',
 					'mgo-angular-wizard', 'textAngular', 'ui.tree',
 					'ngTagsInput', 'app.authentication', 'app.enseignants',
-					'app.formations', 'app.ue', 'app.promotions', 'app.ui.ctrls',
+					'app.formations', 'app.ue', 'app.etudiants', 'app.qualificatifs', 'app.promotions', 'app.ui.ctrls',
 					'app.ui.directives', 'app.ui.services', 'app.controllers',
 					'app.directives', 'app.form.validation',
 					'app.ui.form.ctrls', 'app.ui.form.directives',
@@ -31,6 +31,14 @@
 					templateUrl : 'views/promotions/list.html'
 				}).when('/admin/promotion/:ann,:form', {
 					templateUrl : 'views/promotions/details.html'
+				}).when('/admin/etudiants', {
+					templateUrl : 'views/etudiants/list.html'
+				}).when('/admin/etudiant/:id', {
+					templateUrl : 'views/etudiants/details.html'
+				}).when('/admin/qualificatifs', {
+					templateUrl : 'views/qualificatifs/list.html'
+				}).when('/admin/qualificatif/:id', {
+					templateUrl : 'views/qualificatifs/details.html'
 				}).when('/dashboard', {
 					templateUrl : 'views/dashboard.html'
 				}).when('/ui/typography', {

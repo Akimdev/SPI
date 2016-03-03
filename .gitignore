@@ -3,6 +3,11 @@ dist
 .tmp
 .sass-cache
 src/main/resources/client/bower_components/
+log/
+target/
+.project
+.checkstyle
+CHANGELOG.md
 
 .DS_Store
 npm-debug.log

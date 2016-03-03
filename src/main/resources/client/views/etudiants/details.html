@@ -1,0 +1,59 @@
+<!-- 
+--	Author Youssef
+--	View Details Etudiant
+ -->
+<div class="page" ng-controller="EtudiantDetailsController">
+  <div class="panel panel-default etu-edit">
+    <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Etudiant</strong></div>
+    <div class="panel-body">
+        <!-- Consultation -->
+        <div class="media animate">
+            <div class="media-body"> 
+                <ul class="list-unstyled list-info">
+                    <li>
+                        <span class="icon glyphicon glyphicon-asterisk"></span>
+                        <label>Numéro Etudiant / Formation</label>
+                        {{etudiant.noEtudiant}} / {{etudiant.codeFormation}}<br/>
+                    </li>
+                    <li>
+                        <span class="icon glyphicon glyphicon-user"></span>
+                        <label>Nom</label>                        
+                        {{etudiant.nom}} {{etudiant.prenom}}
+                    </li>
+                    <li>
+                        <span class="icon glyphicon glyphicon-flag"></span>
+                        <label>Sexe</label>
+                        {{etudiant.sexe == "H" ? 'M.' : 'Mme'}}
+                    </li>
+                    <li>
+                        <span class="icon glyphicon glyphicon-calendar"></span>
+                        <label>Date de Naissance</label>
+                        {{etudiant.dateNaissance | date: "dd/MM/yyyy"}}
+                    </li>    
+                    <li>
+                        <span class="icon glyphicon glyphicon-flag"></span>
+                        <label>Pays d'origine</label>
+                        {{etudiant.paysOrigine}}
+                    </li>  
+                    <li>
+                        <span class="icon glyphicon glyphicon-flag"></span>
+                        <label>Nationalité</label>
+                        {{etudiant.nationalite}}
+                    </li>  
+                    <li>
+                        <span class="icon glyphicon glyphicon-envelope"></span>
+                        <label>Email</label>
+                        {{etudiant.emailUbo}}
+                    </li>  
+                    <li>
+                        <span class="icon glyphicon glyphicon-flag"></span>
+                        <label>Université d'Origine</label>
+                        {{etudiant.universiteOrigine}}
+                    </li>             
+                </ul>                
+            </div>
+            <a class="btn btn-primary" href="#/admin/etudiants"><span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+        </div>
+    </div>
+  </div>
+</div>

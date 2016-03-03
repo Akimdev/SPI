@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <fileset-config file-format-version="1.2.0" simple-config="true" sync-formatter="false">
-<<<<<<< HEAD
-  <fileset name="all" enabled="true" check-config-name="SPI Checks (Eclipse)" local="false">
-=======
   <fileset name="all" enabled="true" check-config-name="Google Checks" local="false">
->>>>>>> 75e3f1e831bb46e51082616ac8e148a72e9b3b90
     <file-match-pattern match-pattern="." include-pattern="true"/>
   </fileset>
   <filter name="FilesFromPackage" enabled="true">
