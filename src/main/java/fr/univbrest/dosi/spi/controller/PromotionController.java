@@ -1,24 +1,19 @@
 package fr.univbrest.dosi.spi.controller;
-
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
-
-
 import fr.univbrest.dosi.spi.bean.Etudiant;
 import fr.univbrest.dosi.spi.bean.Promotion;
 import fr.univbrest.dosi.spi.bean.PromotionPK;
+import fr.univbrest.dosi.spi.service.EnseignantService;
 import fr.univbrest.dosi.spi.service.EtudiantService;
+import fr.univbrest.dosi.spi.service.FormationService;
 import fr.univbrest.dosi.spi.service.PromotionService;
 
 @RestController
@@ -31,8 +26,27 @@ public class PromotionController {
 	@Autowired
 	private EtudiantService etudiantservice;
 	
+	@Autowired
+	FormationService formationservice;
+	
+	@Autowired
+	private EnseignantService enseignantService;
 	/**
-	 * Soukaina BAQLOUL
+	 * Author Soukaina
+	 * Cette fontion fait l'ajout d'une promotion
+	 * @param promotion
+	 * @return
+	 */
+	  
+	 /* @RequestMapping(value = "/addPromotion", method = RequestMethod.POST, consumes ="application/json;charset=UTF-8")
+	  public final  String addPromotion(@RequestBody  ProEns proEns) {
+		System.out.println(proEns.getNom()); 
+		  
+    	return proEns.getNom();
+	}*/
+	
+	/**
+	 * Author Soukaina BAQLOUL
 	 * @param noEnseignant
 	 * @return
 	 */
@@ -52,9 +66,14 @@ public class PromotionController {
 	 * @param promotionPK
 	 * @return
 	 */
-	@RequestMapping(value = "/getEtudiantByPromotion/{anneeUniversitaire}/{codeFormation}", produces="application/json")
-	public final List<Etudiant> getEtudiantPromotion(@PathVariable(value = "anneeUniversitaire") final String anneeUniversitaire, @PathVariable(value = "codeFormation") final String codeFormation) {
-		return etudiantservice.getEtudiantByPromotion(new PromotionPK(codeFormation, anneeUniversitaire));
+	//@RequestMapping(value = "/getEtudiantByPromotion/{anneeUniversitaire}/{codeFormation}", produces="application/json")
+	//public final List<Etudiant> getEtudiantPromotion(@PathVariable(value = "anneeUniversitaire") final String anneeUniversitaire, @PathVariable(value = "codeFormation") final String codeFormation) {
+	//	return etudiantservice.getEtudiantByPromotion(new PromotionPK(codeFormation, anneeUniversitaire));
+	//}
+	
+	@RequestMapping(value = "/getEtudiantByPromotion", method = RequestMethod.POST, headers = "Accept=application/json", produces={ MediaType.APPLICATION_JSON_VALUE })
+    public final List<Etudiant> getEtudiantPromotion(@RequestBody PromotionPK promotionPK) {
+	    return etudiantservice.getEtudiantByPromotion(promotionPK);
 	}
 
 	/**
@@ -66,4 +85,19 @@ public class PromotionController {
 	public Iterable<Promotion> getPromotions() {
 		return promotionService.getPromotionALL();
 	}
+	
+	/**
+	 * Soukaina
+	 * @param promotion
+	 * cette methode fait la modification d'une promotion
+	 * @return
+	 */
+	 @RequestMapping(value = "/updatePromotion", method = RequestMethod.POST, consumes = { "application/json;charset=UTF-8" }, produces = { "application/json;charset=UTF-8" })
+	public final String updatePromotion(@RequestBody final Promotion promotion) {
+		promotionService.update(promotion);
+		return "la promotion " + promotion.getSiglePromotion() + " " + promotion.getPromotionPK().getCodeFormation()+ " " +promotion.getPromotionPK().getCodeFormation()+ "est modifiée :D";
+	}
+	 
+	 
+	  
 }
