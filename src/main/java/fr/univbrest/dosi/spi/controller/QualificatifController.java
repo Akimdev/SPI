@@ -21,8 +21,8 @@ public class QualificatifController {
 	QualificatifService qualifServ;
 	
 	@RequestMapping(value = "/ajouterQualificatif", method = RequestMethod.POST, produces =  { MediaType.APPLICATION_JSON_VALUE})
-	public void ajoutQualificatif(@RequestBody final Qualificatif qualif){
-		qualifServ.addQualificatif(qualif);
+	public Qualificatif ajoutQualificatif(@RequestBody final Qualificatif qualif){
+		return qualifServ.addQualificatif(qualif);
 	}
 	
 	@RequestMapping(value="/modifierQualificatif", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -34,7 +34,7 @@ public class QualificatifController {
 	public void suppressionQualificatif(Qualificatif qualif){
 		qualifServ.deleteQualificatif(qualif);
 	}
-	@RequestMapping(value="/supprimerQualificatifAvecId-{idQualif}")
+	@RequestMapping(value="/supprimerQualificatifAvecId-{idQualif}",method=RequestMethod.DELETE)
 	public void suppressionQualificatifById(@PathVariable(value = "idQualif")Long idQualif){
 		qualifServ.deleteQualificatifById(idQualif);
 	}

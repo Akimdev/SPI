@@ -1,4 +1,4 @@
-package test;
+package fr.univbrest.dosi.spi.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,6 +23,15 @@ import fr.univbrest.dosi.spi.exception.SPIException;
 
 public class EtudiantControllerTest {
 	
+//	public class ListEtudiant extends ArrayList<Etudiant> {
+//
+//		/**
+//		 * 
+//		 */
+//		private static final long serialVersionUID = 1L;
+//
+//	}
+
 	/**
 	 * author: hakim ait errami
 	 * 
@@ -63,7 +72,7 @@ public class EtudiantControllerTest {
 		}
 		
 		final ObjectMapper mapper = new ObjectMapper();
-		List<Etudiant> etudiants = new ArrayList<Etudiant>();
+		List<Etudiant> etudiants;
 		try{
 			etudiants = mapper.readValue(rd,ArrayList.class);
 		} catch (JsonParseException e) {
@@ -75,6 +84,7 @@ public class EtudiantControllerTest {
 		}
 		
 		Assert.assertEquals(10,etudiants.size());
+		Assert.assertNotNull(etudiants);
 		
 		
 		

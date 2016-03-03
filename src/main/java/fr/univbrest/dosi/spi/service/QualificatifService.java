@@ -16,8 +16,8 @@ public class QualificatifService {
 	@Autowired
 	QualificatifRepository qualifRepo;
 	
-	public void addQualificatif(Qualificatif qualif){
-		qualifRepo.save(qualif);
+	public Qualificatif addQualificatif(Qualificatif qualif){
+		return qualifRepo.save(qualif);
 	}
 	
 	public void modifyQualificatif(Qualificatif qualif){
