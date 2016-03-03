@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> d2aa54a6cca33ee2ae1cf361c3cf061de554c12c
 ### Changelogs
 
 **VERSION 1.6.0** (latest)

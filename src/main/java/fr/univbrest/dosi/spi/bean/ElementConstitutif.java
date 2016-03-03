@@ -25,10 +25,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 /**
@@ -76,6 +73,7 @@ public class ElementConstitutif implements Serializable {
         @JoinColumn(name = "CODE_UE", referencedColumnName = "CODE_UE", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private UniteEnseignement uniteEnseignement;
+
     @JsonBackReference(value="elementConstitutif-Evaluation")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "elementConstitutif")
     private Collection<Evaluation> evaluationCollection;

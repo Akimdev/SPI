@@ -39,6 +39,4 @@ public class PromotionService {
 	public final Iterable<Promotion> getPromotionALL() {
 		return promotionRepository.findAll();
 	}
-
-
 }
