@@ -15,6 +15,7 @@ import org.apache.http.ProtocolVersion;
 import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -102,6 +103,8 @@ public class QualificatifControllerTest {
 	@Test
 	public void supprimerQualificatifTest() throws ClientProtocolException,IOException{
 		
-		
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpDelete requestDelete = new HttpDelete("http://localhost:8090/supprimerQualificatifAvecId-15");
+		HttpResponse response = client.execute(requestDelete);
 	}
 }
