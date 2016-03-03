@@ -11,18 +11,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.univbrest.dosi.spi.bean.User;
 import fr.univbrest.dosi.spi.exception.SPIException;
-import fr.univbrest.dosi.spi.service.UserService;
+import fr.univbrest.dosi.spi.service.AuthentificationService;
 
+/**
+ * Authentification Controller
+ * @author Youssef
+ */
 @RestController
 public class UserController {
-
+	
 	@Autowired
-	UserService userService;
+	AuthentificationService authentificationService;
 
+	/**
+	 * vérifie si l'utilisateur existe pour s'authentifier sinon l'authentification est refusée 
+	 * @param request
+	 * @param user
+	 */
 	@RequestMapping(value = "/auth", method = RequestMethod.POST, headers = "Accept=application/json")
 	public void authentifier(final HttpServletRequest request, @RequestBody final User user) {
-		final User users = userService.authentifier(user.getUsername(), user.getPwd());
-
+		final User users = authentificationService.logIn(user.getUsername(), user.getPwd());
+		user.setPwd(null);
 		if (users != null) {
 			request.getSession().setAttribute("user", users);
 		} else {
@@ -32,6 +41,12 @@ public class UserController {
 
 	}
 
+	/**
+	 * @param request
+	 * @param response
+	 * @return 
+	 * Retourne l'utilisateur connecté
+	 */
 	@RequestMapping(value = "/user")
 	public User users(final HttpServletRequest request, final HttpServletResponse response) {
 		final User user = (User) request.getSession().getAttribute("user");
@@ -39,6 +54,10 @@ public class UserController {
 
 	}
 	
+	/**
+	 * @param request
+	 * Pour se déconnecter, on supprime l'objet user de la session ouverte
+	 */
 	@RequestMapping(value = "/deconnexion", method = RequestMethod.GET)
 	public void authentifier(final HttpServletRequest request) {
 		request.getSession().removeAttribute("user");

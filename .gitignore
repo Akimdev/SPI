@@ -3,8 +3,8 @@ dist
 .tmp
 .sass-cache
 src/main/resources/client/bower_components/
-log/
 target/
+log/
 .project
 .checkstyle
 CHANGELOG.md

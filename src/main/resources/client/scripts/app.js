@@ -29,7 +29,7 @@
 					templateUrl : 'views/ue/details.html'
 				}).when('/admin/promotions', {
 					templateUrl : 'views/promotions/list.html'
-				}).when('/admin/promotion/:ann,:form', {
+				}).when('/admin/promotion/:ann/:form', {
 					templateUrl : 'views/promotions/details.html'
 				}).when('/admin/etudiants', {
 					templateUrl : 'views/etudiants/list.html'

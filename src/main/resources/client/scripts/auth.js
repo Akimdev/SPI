@@ -56,11 +56,34 @@ angular.module('app.auth', [])
 							"pwd" : $scope.login.password,
 						};
 						AuthService.authLocal(authuser).success(function() {
-							$location.path('/');
+							var promiseAuth = AuthService.getUser();
+							promiseAuth.success(function(data){
+								//Gérer les roles des utilisateurs
+								role = data.roles;
+								//Pour enseignant
+								if(role[0] === "ENS"){
+									console.log("Enseignant connecté !");
+									//$location.path('/');
+								}
+								//Pour administrateur
+								else if(role[0] === "ADM"){
+									console.log("Administrateur connecté !");
+									$location.path('/');
+								}
+								//Pour étudiant
+								else if(role[0] === "ETU"){
+									console.log("Etudiant connecté !");
+									//$location.path('/');
+								}
+								//Pour Secrétariat
+								else if(role[0] === "SEC"){
+									console.log("Secrétariat !");
+									$location.path('/');
+								}
+							});
 						})
 						.error(function() {
-							// si la connexion a échoué : "secoue" le formulaire
-							// de connexion
+							// si la connexion a échoué : "secoue" le formulaire de connexion 
 							// TODO : afficher un message d'erreur de connexion
 							var elt = angular.element('.form-container');
 							$animate.addClass(elt, 'shake', function() {

@@ -1,6 +1,6 @@
 /*
 * Author Kenza ABOUAKIL
-* Script de control des promotion
+* Script de controle des promotions
 */
 
 (function() {
@@ -27,13 +27,9 @@
     var list = function() {
         return  $http.get('http://localhost:8090/promotions')
        };
-            
-    var details = [ 
-      // Constituer le délail de la liste des promotions ici
-    ];
 
     return {
-
+    
     	// Méthode de renvoi la liste des promotions
       all:list, 
       // renvoi la promotion avec l'anneeUniversitaire et codeFormation demandés
@@ -42,24 +38,24 @@
     	  console.log("TODO : get promotion",promotionPK);
     	  return $http.post("http://localhost:8090/getPromotion/", promotionPK);
    	  },
-      set: function(promotion) {//------------------------------------------------------------------------------
+      set: function(promotion) {
         var idx = promotion.promotionPK.anneeUniversitaire;
         
         if(idx){// si modification d'une promotion existante     	  
   	        	$http.post('http://localhost:8090/updatePromotion',promotion);
         } else { // si ajout d'une nouvelle promotion 	  
-	        	$http.post('http://localhost:8090/addPromotion',newPromotion);
+	        	$http.post('http://localhost:8090/addPromotion',promotion);
         }
       },
-      delete: function(promotionPK) { 
-        // TODO Supprimer 
+      delete: function(promotionPK) {
+        // TODO Supprimer une promotion
     	  console.log("TODO : supprimer promotion",promotionPK);
-    	  return  $http.get('http://localhost:8090/deletePromotion/'+promotionPK);
+    	  return  $http.post('http://localhost:8090/deletePromotion/', promotionPK);
       },
       
       getEtudiants : function(promotionPK){
-	      var url = "http://localhost:8090/getEtudiantsByPromotion/"+promotionPK;
-		  return $http.get(url);
+    	  console.log("TODO : recuperation des etudiants par promotion",promotionPK);
+		  return $http.post("http://localhost:8090/getEtudiantByPromotion/",promotionPK);
       }
     };
   }]);
@@ -125,13 +121,12 @@
       
       // Crée la page permettant d'ajouter une promotion
       $scope.ajoutPromotion = function(){
-          $location.path('/admin/promotion/nouveau'); 
+          $location.path('/admin/promotion/nouveau/nouveau'); 
        }
       
       // affiche les détail d'une promotion
       $scope.edit = function (promotionPK){
-    	  $location.path("/admin/promotion/"+ promotionPK.anneeUniversitaire + "," + promotionPK.codeFormation);
-    	  console.log("promotionPK: ", promotionPK);
+    	  $location.path("/admin/promotion/"+ promotionPK.anneeUniversitaire + "/" + promotionPK.codeFormation);
       }
 
       // supprime une promotion
@@ -154,29 +149,29 @@
     function($scope, $routeParams, $location, promotionsFactory){      
       $scope.edit= false;    
       var promoPK = {anneeUniversitaire:  $routeParams.ann, codeFormation: $routeParams.form};
-		console.log("promoPK: ", promoPK);
-		
       // si creation d'une nouvelle promotion
       if($routeParams.ann == "nouveau"){
         $scope.promotion= { };
         $scope.edit= true;    
       } else { // sinon on edite une promotion existante
 			
-            var promise= promotionsFactory.get(promoPK);
-            promise.success(function(data,statut){
+            var promise1= promotionsFactory.get(promoPK);
+            promise1.success(function(data,statut){
           	  $scope.promotion= data ;
+	          	var promise2= promotionsFactory.getEtudiants(promoPK);
+	            promise2.success(function(data,statut){
+	            	console.log("etd: ",data);
+	          	  $scope.promotion.etudiantCollection = data ;
+	            })
+	            .error(function(data,statut){
+	          	  console.log("impossible de recuperer les étudiants de la promotion choisie");
+	            });
             })
             .error(function(data,statut){
           	  console.log("impossible de recuperer les details de la promotion choisie");
             });
             
-            var promise= promotionsFactory.getEtudiants(promoPK);
-            promise.success(function(data,statut){
-          	  $scope.promotion.etudiantCollection = data ;
-            })
-            .error(function(data,statut){
-          	  console.log("impossible de recuperer les étudiants de la promotion choisie");
-            });
+            
       }
 
       $scope.edition = function(){
@@ -192,11 +187,16 @@
       // annule l'édition
       $scope.cancel = function(){
         // si ajout d'une nouvelle promotion => retour à la liste des promotions
-        if($routeParams.ann != "nouveau"){
+        if($routeParams.ann == "nouveau"){
           $location.path('/admin/promotions');
         } else {
-          var e = promotionsFactory.get(promoPK);
-          $scope.promotion = JSON.parse(JSON.stringify(e));
+          var promise = promotionsFactory.get(promoPK);
+          promise.success(function(data,statut){
+          	  $scope.promotion= data ;
+            })
+            .error(function(data,statut){
+          	  console.log("impossible de recuperer les details de la promotion");
+            });
           $scope.edit = false;
         }
       }      
