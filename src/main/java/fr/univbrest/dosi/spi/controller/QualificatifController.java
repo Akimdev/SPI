@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.univbrest.dosi.spi.bean.Qualificatif;
@@ -20,7 +21,12 @@ public class QualificatifController {
 	@Autowired
 	QualificatifService qualifServ;
 	
-	@RequestMapping(value = "/ajouterQualificatif", method = RequestMethod.POST, produces =  { MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value="/supprimerQualificatifBis", headers="Accept=application/json")
+	public void suppressionQualificatifByIdBiss(@RequestParam("idQualificatif") Long idQualificatif){
+		qualifServ.deleteQualificatifById(idQualificatif);
+	}
+	
+	@RequestMapping(value = "/ajouterQualificatif", method = RequestMethod.POST,consumes = {MediaType.APPLICATION_JSON_VALUE}, produces =  { MediaType.APPLICATION_JSON_VALUE})
 	public void ajoutQualificatif(@RequestBody final Qualificatif qualif){
 		qualifServ.addQualificatif(qualif);
 	}

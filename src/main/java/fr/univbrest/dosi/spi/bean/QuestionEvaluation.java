@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -55,19 +56,19 @@ public class QuestionEvaluation implements Serializable {
     @Size(max = 64)
     @Column(name = "INTITULE")
     private String intitule;
-    @JsonManagedReference(value="questionEvaluation-Qualificatif")
+    @JsonIgnore
     @JoinColumn(name = "ID_QUALIFICATIF", referencedColumnName = "ID_QUALIFICATIF")
     @ManyToOne
     private Qualificatif idQualificatif;
-    @JsonManagedReference(value="questionEvaluation-Question")
+    @JsonIgnore
     @JoinColumn(name = "ID_QUESTION", referencedColumnName = "ID_QUESTION")
     @ManyToOne
     private Question idQuestion;
-    @JsonManagedReference(value="rubriqueEvaluation-QuestionEvaluation")
+    @JsonIgnore
     @JoinColumn(name = "ID_RUBRIQUE_EVALUATION", referencedColumnName = "ID_RUBRIQUE_EVALUATION")
     @ManyToOne(optional = false)
     private RubriqueEvaluation idRubriqueEvaluation;
-    @JsonBackReference(value="reponseQuestion-QuestionEvaluation")
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionEvaluation")
     private Collection<ReponseQuestion> reponseQuestionCollection;
 

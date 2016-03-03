@@ -7,10 +7,7 @@ package fr.univbrest.dosi.spi.bean;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-<<<<<<< HEAD
 import java.util.Collection;
-=======
->>>>>>> bab54c840022eca2485704c5aa51700324336ab8
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -29,10 +26,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -141,13 +136,13 @@ public class Etudiant implements Serializable {
     private BigInteger groupeTp;
     @Column(name = "GROUPE_ANGLAIS")
     private BigInteger groupeAnglais;
-    @JsonBackReference(value="auth-Etudiant")
+    @JsonIgnore
     @OneToMany(mappedBy = "noEtudiant")
     private Collection<Authentification> authentificationCollection;
-    @JsonBackReference(value="reponseEvaluation-Etudiant")
+    @JsonIgnore
     @OneToMany(mappedBy = "noEtudiant")
     private Collection<ReponseEvaluation> reponseEvaluationCollection;
-    @JsonManagedReference(value="promotion-etudiant")
+    @JsonIgnore
     @JoinColumns({
         @JoinColumn(name = "ANNEE_UNIVERSITAIRE", referencedColumnName = "ANNEE_UNIVERSITAIRE"),
         @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION")})

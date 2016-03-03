@@ -7,6 +7,7 @@ package fr.univbrest.dosi.spi.bean;
 
 import java.io.Serializable;
 import java.util.Collection;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,10 +24,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -63,17 +61,17 @@ public class ElementConstitutif implements Serializable {
     private Short nbhTd;
     @Column(name = "NBH_TP")
     private Short nbhTp;
-    @JsonManagedReference(value="enseignant-elementConstitutif")
+    @JsonIgnore
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne(optional = false)
     private Enseignant noEnseignant;
-    @JsonManagedReference(value="ue-elemconst")
+    @JsonIgnore
     @JoinColumns({
         @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION", insertable = false, updatable = false),
         @JoinColumn(name = "CODE_UE", referencedColumnName = "CODE_UE", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private UniteEnseignement uniteEnseignement;
-    @JsonBackReference(value="elementConstitutif-Evaluation")
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "elementConstitutif")
     private Collection<Evaluation> evaluationCollection;
 

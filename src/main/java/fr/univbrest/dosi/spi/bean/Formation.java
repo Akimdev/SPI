@@ -26,7 +26,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -76,10 +76,10 @@ public class Formation implements Serializable {
     @Column(name = "FIN_ACCREDITATION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date finAccreditation;
-    @JsonBackReference(value="formation-promotion")
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "formation",fetch=FetchType.LAZY)
     private Collection<Promotion> promotionCollection;
-    @JsonBackReference(value="ue-formation")
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "formation",fetch=FetchType.LAZY)
     private Collection<UniteEnseignement> uniteEnseignementCollection;
 

@@ -8,7 +8,12 @@ import org.springframework.stereotype.Service;
 
 import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.dao.QualificatifRepository;
-
+/**
+ * 
+ * @author Othman
+ *
+ *Cette classe représente la partie service de la gestion de CRUD des qualificatifs
+ */
 
 @Service
 public class QualificatifService {
