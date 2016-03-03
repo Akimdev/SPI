@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +21,12 @@ public class QualificatifController {
 	@Autowired
 	QualificatifService qualifServ;
 	
-	@RequestMapping(value = "/ajouterQualificatif", method = RequestMethod.POST, produces =  { MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value="/supprimerQualificatifBis", headers="Accept=application/json")
+	public void suppressionQualificatifByIdBiss(@RequestParam("idQualificatif") Long idQualificatif){
+		qualifServ.deleteQualificatifById(idQualificatif);
+	}
+	
+	@RequestMapping(value = "/ajouterQualificatif", method = RequestMethod.POST,consumes = {MediaType.APPLICATION_JSON_VALUE}, produces =  { MediaType.APPLICATION_JSON_VALUE})
 	public void ajoutQualificatif(@RequestBody final Qualificatif qualif){
 		qualifServ.addQualificatif(qualif);
 	}
@@ -30,13 +36,18 @@ public class QualificatifController {
 		qualifServ.modifyQualificatif(qualif);
 	}
 	
-	@RequestMapping(value="/supprimerQualificatif")
+	@RequestMapping(value="/supprimerQualificatif",method = RequestMethod.DELETE)
 	public void suppressionQualificatif(Qualificatif qualif){
 		qualifServ.deleteQualificatif(qualif);
 	}
-	@RequestMapping(value="/supprimerQualificatif", headers="Accept=application/json")
+	@RequestMapping(value="/supprimerQualificatif",headers="Accept=application/json")
 	public void suppressionQualificatifById(@RequestParam("idQualificatif") Long idQualificatif){
 		qualifServ.deleteQualificatifById(idQualificatif);
+	}
+	
+	@RequestMapping(value="/qualificatif/{idQualificatif}", headers="Accept=application/json")
+	public Qualificatif getQualificatifById(@PathVariable("idQualificatif")Long idQualificatif){
+		return qualifServ.getQualificatif(idQualificatif);
 	}
 	
 	@RequestMapping(value="/listerQualificatif")

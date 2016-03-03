@@ -8,7 +8,12 @@ import org.springframework.stereotype.Service;
 
 import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.dao.QualificatifRepository;
-
+/**
+ * 
+ * @author Othman
+ *
+ *Cette classe représente la partie service de la gestion de CRUD des qualificatifs
+ */
 
 @Service
 public class QualificatifService {
@@ -30,6 +35,10 @@ public class QualificatifService {
 	
 	public void deleteQualificatifById(Long idQualificatif){
 		qualifRepo.delete(idQualificatif);
+	}
+	
+	public Qualificatif getQualificatif(Long idQualificatif){
+		return qualifRepo.findOne(idQualificatif);
 	}
 	
 	public List<Qualificatif> listeQualificatif(){
