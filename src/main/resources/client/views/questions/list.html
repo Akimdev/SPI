@@ -1,0 +1,77 @@
+<div class="page page-table" data-ng-controller="QuestionsController">
+
+    <section class="panel panel-default table-dynamic">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Questions</strong>
+        <span class="add fa fa-user-plus pull-right" ng-click="ajoutQuestion()"></span>
+        </div>
+
+        <table class="table table-bordered table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th><div class="th">
+                        ID Question
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('idQuestion') "
+                              data-ng-class="{active: row == 'idQuestion'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('idQuestion') "
+                              data-ng-class="{active: row == 'idQuestion'}"></span>
+                    </div></th>
+                    <th><div class="th">
+                        Type
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('type') "
+                              data-ng-class="{active: row == 'type'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-type') "
+                              data-ng-class="{active: row == '-type'}"></span>
+                    </div></th>                    
+                    <th><div class="th">
+                        Intitul&eacute;
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('intitulé') "
+                              data-ng-class="{active: row == 'intitulé'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-intitulé') "
+                              data-ng-class="{active: row == '-intitulé'}"></span>
+                    </div></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="q in questions" class="question">
+                    <td ng-click="edit(f)">{{q.idQuestion}}</td>
+                    <td ng-click="edit(f)">{{q.type}}</td>
+                    <td ng-click="edit(f)">{{q.intitulé}}</td>
+                    <td><span class="remove fa fa-remove" ng-click="supprime(q)"></span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <footer class="table-footer">
+            <div class="row">
+                <div class="col-md-6 page-num-info">
+                    <span>
+                        Show 
+                        <select data-ng-model="numPerPage"
+                                data-ng-options="num for num in numPerPageOpt"
+                                data-ng-change="onNumPerPageChange()">
+                        </select> 
+                        entries per page
+                    </span>
+                </div>
+                <div class="col-md-6 text-right pagination-container">
+                    <pagination class="pagination-sm"
+                                ng-model="currentPage"
+                                total-items="filteredStores.length"
+                                max-size="4"
+                                ng-change="select(currentPage)"
+                                items-per-page="numPerPage"
+                                rotate="false"
+                                boundary-links="true"></pagination>
+                </div>
+            </div>
+        </footer>
+    </section>
+
+</div>
