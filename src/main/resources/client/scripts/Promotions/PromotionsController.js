@@ -54,6 +54,7 @@
       },
       
       getEtudiants : function(promotionPK){
+    	  console.log("TODO : recuperation des etudiants par promotion",promotionPK);
 		  return $http.post("http://localhost:8090/getEtudiantByPromotion/",promotionPK);
       }
     };
@@ -157,18 +158,20 @@
             var promise1= promotionsFactory.get(promoPK);
             promise1.success(function(data,statut){
           	  $scope.promotion= data ;
+	          	var promise2= promotionsFactory.getEtudiants(promoPK);
+	            promise2.success(function(data,statut){
+	            	console.log("etd: ",data);
+	          	  $scope.promotion.etudiantCollection = data ;
+	            })
+	            .error(function(data,statut){
+	          	  console.log("impossible de recuperer les étudiants de la promotion choisie");
+	            });
             })
             .error(function(data,statut){
           	  console.log("impossible de recuperer les details de la promotion choisie");
             });
             
-            var promise2= promotionsFactory.getEtudiants(promoPK);
-            promise2.success(function(data,statut){
-          	  $scope.promotion.etudiantCollection = data ;
-            })
-            .error(function(data,statut){
-          	  console.log("impossible de recuperer les étudiants de la promotion choisie");
-            });
+            
       }
 
       $scope.edition = function(){
