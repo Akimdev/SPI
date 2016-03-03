@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -99,7 +99,6 @@ public class Candidat implements Serializable {
     @Size(max = 20)
     @Column(name = "MOBILE")
     private String mobile;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -138,7 +137,7 @@ public class Candidat implements Serializable {
     @Column(name = "DATE_REPONSE_CANDIDAT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateReponseCandidat;
-    @JsonManagedReference(value="promotion-candidat")
+    @JsonIgnore
     @JoinColumns({
         @JoinColumn(name = "ANNEE_UNIVERSITAIRE", referencedColumnName = "ANNEE_UNIVERSITAIRE"),
         @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION")})

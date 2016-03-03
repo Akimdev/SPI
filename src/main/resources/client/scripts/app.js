@@ -5,13 +5,14 @@
 			[ 'ngRoute', 'ngAnimate', 'ui.bootstrap', 'easypiechart',
 					'mgo-angular-wizard', 'textAngular', 'ui.tree',
 					'ngTagsInput', 'app.authentication', 'app.enseignants',
-					'app.formations', 'app.ue', 'app.etudiants', 'app.qualificatifs', 'app.ui.ctrls',
+					'app.formations', 'app.ue', 'app.etudiants', 'app.qualificatifs',
+					'app.promotions', 'app.ui.ctrls',
 					'app.ui.directives', 'app.ui.services', 'app.controllers',
 					'app.directives', 'app.form.validation',
 					'app.ui.form.ctrls', 'app.ui.form.directives',
 					'app.tables', 'app.task', 'app.localization',
 					'app.chart.ctrls', 'app.chart.directives',
-					'app.page.ctrls', 'app.auth' ]).config(
+					'app.page.ctrls', 'app.auth']).config(
 			[ '$routeProvider', function($routeProvider, $urlRouterProvider) {
 				return $routeProvider.when('/', {
 					redirectTo : '/dashboard'
@@ -27,6 +28,10 @@
 					templateUrl : 'views/ue/list.html'
 				}).when('/admin/ue/:id', {
 					templateUrl : 'views/ue/details.html'
+				}).when('/admin/promotions', {
+					templateUrl : 'views/promotions/list.html'
+				}).when('/admin/promotion/:ann/:form', {
+					templateUrl : 'views/promotions/details.html'
 				}).when('/admin/etudiants', {
 					templateUrl : 'views/etudiants/list.html'
 				}).when('/admin/etudiant/:id', {
