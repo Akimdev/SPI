@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import fr.univbrest.dosi.spi.bean.Promotion;
 import fr.univbrest.dosi.spi.bean.PromotionPK;
 import fr.univbrest.dosi.spi.dao.PromotionRepository;
+import fr.univbrest.dosi.spi.exception.SPIException;
 
 @Service
 public class PromotionService {
@@ -20,7 +21,10 @@ public class PromotionService {
 	}
 
 	public final void deletePromotion(final PromotionPK promotionPK) {
-		promotionRepository.delete(promotionPK);
+		if (promotionRepository.findOne(promotionPK) != null)
+			promotionRepository.delete(promotionPK);
+		else
+			throw new SPIException("promotion non trouvée");
 	}
 
 	public final Boolean existPromotion(final PromotionPK promotionPK) {
@@ -34,7 +38,7 @@ public class PromotionService {
 	public final List<Promotion> getPromotionByEnseignant(final Integer noEnseignant) {
 		return promotionRepository.findByNoEnseignant(noEnseignant);
 	}
-	
+
 	/**
 	 * 
 	 * @return all promotion
