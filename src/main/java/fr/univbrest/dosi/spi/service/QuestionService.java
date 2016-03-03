@@ -6,8 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.bean.Question;
+import fr.univbrest.dosi.spi.dao.QualificatifRepository;
 import fr.univbrest.dosi.spi.dao.QuestionRepository;
+import fr.univbrest.dosi.spi.exception.SPIException;
 
 /**
  * 
@@ -19,12 +22,20 @@ import fr.univbrest.dosi.spi.dao.QuestionRepository;
 public class QuestionService {
 	@Autowired 
 	QuestionRepository questRepo;
+	@Autowired
+	QualificatifRepository qualifRepo;
 	/**
 	 * La méthode pour ajouter une question
 	 * @param question
 	 */
-	public void addQuestion(Question question){
-		questRepo.save(question);
+	public void addQuestion(Question question, Qualificatif qualif){
+			if(qualifRepo.exists(qualif.getIdQualificatif())){
+				question.setIdQualificatif(qualif);
+				questRepo.save(question);
+			}
+			else{
+				throw new SPIException("Echec de l'ajout d'une nouvelle question, Qualificatif inexistant");
+			}
 	}
 	/**
 	 * La méthode pour modifier une question

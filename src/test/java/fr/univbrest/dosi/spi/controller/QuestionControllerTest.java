@@ -23,7 +23,6 @@ public class QuestionControllerTest {
 
 		Question question = new Question((long) 25, "QUS", "nouvelle question");
 		Qualificatif qualif = new Qualificatif((long)1, "Pauvre", "Riche");
-		question.setIdQualificatif(qualif);
 		// Création du client et éxécution d'une requete GET
 		final HttpClient client = HttpClientBuilder.create().build();
 		final HttpPost mockRequestPost = new HttpPost("http://localhost:8090/ajouterQuestion");

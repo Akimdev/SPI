@@ -1,6 +1,7 @@
 package fr.univbrest.dosi.spi.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.bean.Question;
 import fr.univbrest.dosi.spi.service.QuestionService;
 /**
@@ -34,8 +37,8 @@ public class QuestionController {
 	 * @param question
 	 */
 	@RequestMapping(value = "/ajouterQuestion", method = RequestMethod.POST,consumes = {MediaType.APPLICATION_JSON_VALUE}, produces =  { MediaType.APPLICATION_JSON_VALUE})
-	public void ajoutQuestion(@RequestBody final Question question){
-		questServ.addQuestion(question);
+	public void ajoutQuestion(@RequestBody final Question question,@RequestBody final Qualificatif qualif){
+		questServ.addQuestion(question,qualif);
 	}
 	/**
 	 * Cette méthode modifie une question
