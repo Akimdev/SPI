@@ -26,7 +26,7 @@ public class PromotionController {
 	
 	
 	@Autowired 
-	private PromotionService promotionservice;
+	private PromotionService promotionService;
 	
 	@Autowired
 	private EtudiantService etudiantservice;
@@ -45,7 +45,7 @@ public class PromotionController {
 	
 	@RequestMapping(value = "/getPromotion",method = RequestMethod.POST, headers = "Accept=application/json", produces={ MediaType.APPLICATION_JSON_VALUE })
 	public final Promotion getPromotion(@RequestBody PromotionPK promotionPK) {
-		return promotionservice.getPromotion(promotionPK);
+		return promotionService.getPromotion(promotionPK);
 	}
 	/**
 	 * soukaina BAQLOUL
@@ -64,6 +64,6 @@ public class PromotionController {
 
 	@RequestMapping(value = "/promotions", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE })
 	public Iterable<Promotion> getPromotions() {
-		return prommotionService.getPromotionALL();
+		return promotionService.getPromotionALL();
 	}
 }

@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-<<<<<<< HEAD
+
 	<name>SPI</name>
-=======
-	<name>Kim</name>
->>>>>>> d2aa54a6cca33ee2ae1cf361c3cf061de554c12c
 	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
 		<buildCommand>
-<<<<<<< HEAD
-=======
-			<name>org.eclipse.wst.common.project.facet.core.builder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
->>>>>>> d2aa54a6cca33ee2ae1cf361c3cf061de554c12c
 			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
 			</arguments>
@@ -32,23 +21,10 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
-<<<<<<< HEAD
-=======
-		<buildCommand>
-			<name>net.sf.eclipsecs.core.CheckstyleBuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
->>>>>>> d2aa54a6cca33ee2ae1cf361c3cf061de554c12c
 	</buildSpec>
 	<natures>
 		<nature>org.springframework.ide.eclipse.core.springnature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
-<<<<<<< HEAD
-=======
-		<nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
-		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
->>>>>>> d2aa54a6cca33ee2ae1cf361c3cf061de554c12c
 	</natures>
 </projectDescription>

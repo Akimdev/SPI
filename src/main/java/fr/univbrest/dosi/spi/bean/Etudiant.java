@@ -44,10 +44,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name = "ETUDIANT")
 @XmlRootElement
 @NamedQueries({
-<<<<<<< HEAD
+
 	@NamedQuery(name = "Etudiant.findByPromotion", query = "SELECT e FROM Etudiant e  WHERE e.promotion.promotionPK.codeFormation = :codeFormation AND e.promotion.promotionPK.anneeUniversitaire = :anneeUniversitaire"),
-=======
->>>>>>> d2aa54a6cca33ee2ae1cf361c3cf061de554c12c
+
     @NamedQuery(name = "Etudiant.findAll", query = "SELECT e FROM Etudiant e"),
     @NamedQuery(name = "Etudiant.findByNoEtudiant", query = "SELECT e FROM Etudiant e WHERE e.noEtudiant = :noEtudiant"),
     @NamedQuery(name = "Etudiant.findByNom", query = "SELECT e FROM Etudiant e WHERE e.nom = :nom"),
