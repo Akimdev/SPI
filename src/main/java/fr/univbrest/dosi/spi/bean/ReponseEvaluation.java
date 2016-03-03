@@ -24,8 +24,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -56,15 +55,15 @@ public class ReponseEvaluation implements Serializable {
     @Size(max = 32)
     @Column(name = "PRENOM")
     private String prenom;
-    @JsonManagedReference(value="reponseEvaluation-Etudiant")
+    @JsonIgnore
     @JoinColumn(name = "NO_ETUDIANT", referencedColumnName = "NO_ETUDIANT")
     @ManyToOne
     private Etudiant noEtudiant;
-    @JsonManagedReference(value="reponseEvaluation-Evaluation")
+    @JsonIgnore
     @JoinColumn(name = "ID_EVALUATION", referencedColumnName = "ID_EVALUATION")
     @ManyToOne(optional = false)
     private Evaluation idEvaluation;
-    @JsonBackReference(value="reponseQuestion-ReponseEvaluation")
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reponseEvaluation")
     private Collection<ReponseQuestion> reponseQuestionCollection;
 
