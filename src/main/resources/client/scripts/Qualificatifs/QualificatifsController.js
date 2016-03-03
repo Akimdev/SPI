@@ -33,10 +33,70 @@
     ['$scope', '$location','$http','$filter', 'qualificatifsFactory',
     function($scope, $location,$http,$filter, qualificatifsFactory){
     	$scope.refresh = function (){
-    		 var promiseFormation = qualificatifsFactory.all();          
+//    		 var promiseFormation = qualificatifsFactory.all();          
+//    	      promiseFormation.success(function(data) {
+//    	          $scope.qualificatifs = data;
+//    	      });
+    	      
+    	      var promiseFormation = qualificatifsFactory.all();          
     	      promiseFormation.success(function(data) {
-    	          $scope.qualificatifs = data;
-    	      });
+    	          $scope.listQualificatifs = data;
+    			      
+    			      $scope.searchKeywords = '';
+    			      $scope.filteredQualificatif = [];
+    			      $scope.row = '';
+    			      
+    			      $scope.select = function(page) {
+    			        var end, start;
+    			        start = (page - 1) * $scope.numPerPage;
+    			        end = start + $scope.numPerPage;
+    			        return $scope.qualificatifs = $scope.filteredQualificatif.slice(start, end);
+    			      };
+    			      
+    			      $scope.onFilterChange = function() {
+    			        $scope.select(1);
+    			        $scope.currentPage = 1;
+    			        return $scope.row = '';
+    			      };
+    			      
+    			      $scope.onNumPerPageChange = function() {
+    			        $scope.select(1);
+    			        return $scope.currentPage = 1;
+    			      };
+    			      
+    			      $scope.onOrderChange = function() {
+    			        $scope.select(1);
+    			        return $scope.currentPage = 1;
+    			      };
+    			      
+    			      $scope.search = function() {
+    			        $scope.filteredQualificatif = $filter('filter')($scope.listQualificatifs, $scope.searchKeywords);
+    			        return $scope.onFilterChange();
+    			      };
+    			      $scope.order = function(rowName) {
+    			        if ($scope.row === rowName) {
+    			          return;
+    			        }
+    			        $scope.row = rowName;
+    			        $scope.filteredQualificatif = $filter('orderBy')($scope.listQualificatifs, rowName);
+    			        return $scope.onOrderChange();
+    			      };
+    			      $scope.numPerPageOpt = [3, 5, 10, 20];
+    			      $scope.numPerPage = $scope.numPerPageOpt[2];
+    			      $scope.currentPage = 1;
+    			      $scope.qualificatifs = [];
+    			      var init = null;
+    			      init = function() {
+    			        $scope.search();
+    			        return $scope.select($scope.currentPage);
+    			      };
+    			      return init();
+    			  }
+    			)
+    			.error(function(data) {
+    				 $scope.error = 'unable to get the poneys';
+    			  }
+    			);
     	}
      
       $scope.ajoutQualificatif = function(){
@@ -53,7 +113,7 @@
 			$scope.refresh();
 		});
 	  promisessuppression.error(function(data, status, headers, config) {
-			alert( "failure message: " + JSON.stringify({data: data}));
+			alert( "Vous n'avez pas le droit de supprimer ce qualificatif!");
 		});	
 	  
       }
