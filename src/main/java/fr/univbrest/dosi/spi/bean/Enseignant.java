@@ -22,8 +22,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  *
@@ -32,276 +32,283 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name = "ENSEIGNANT")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Enseignant.findAll", query = "SELECT e FROM Enseignant e"),
-    @NamedQuery(name = "Enseignant.findByNoEnseignant", query = "SELECT e FROM Enseignant e WHERE e.noEnseignant = :noEnseignant"),
-    @NamedQuery(name = "Enseignant.findByType", query = "SELECT e FROM Enseignant e WHERE e.type = :type"),
-    @NamedQuery(name = "Enseignant.findBySexe", query = "SELECT e FROM Enseignant e WHERE e.sexe = :sexe"),
-    @NamedQuery(name = "Enseignant.findByNom", query = "SELECT e FROM Enseignant e WHERE e.nom = :nom"),
-    @NamedQuery(name = "Enseignant.findByPrenom", query = "SELECT e FROM Enseignant e WHERE e.prenom = :prenom"),
-    @NamedQuery(name = "Enseignant.findByAdresse", query = "SELECT e FROM Enseignant e WHERE e.adresse = :adresse"),
-    @NamedQuery(name = "Enseignant.findByCodePostal", query = "SELECT e FROM Enseignant e WHERE e.codePostal = :codePostal"),
-    @NamedQuery(name = "Enseignant.findByVille", query = "SELECT e FROM Enseignant e WHERE e.ville = :ville"),
-    @NamedQuery(name = "Enseignant.findByPays", query = "SELECT e FROM Enseignant e WHERE e.pays = :pays"),
-    @NamedQuery(name = "Enseignant.findByMobile", query = "SELECT e FROM Enseignant e WHERE e.mobile = :mobile"),
-    @NamedQuery(name = "Enseignant.findByTelephone", query = "SELECT e FROM Enseignant e WHERE e.telephone = :telephone"),
-    @NamedQuery(name = "Enseignant.findByEmailUbo", query = "SELECT e FROM Enseignant e WHERE e.emailUbo = :emailUbo"),
-    @NamedQuery(name = "Enseignant.findByEmailPerso", query = "SELECT e FROM Enseignant e WHERE e.emailPerso = :emailPerso")})
+@NamedQueries({ @NamedQuery(name = "Enseignant.findAll", query = "SELECT e FROM Enseignant e"),
+		@NamedQuery(name = "Enseignant.findByNoEnseignant", query = "SELECT e FROM Enseignant e WHERE e.noEnseignant = :noEnseignant"),
+		@NamedQuery(name = "Enseignant.findByType", query = "SELECT e FROM Enseignant e WHERE e.type = :type"),
+		@NamedQuery(name = "Enseignant.findBySexe", query = "SELECT e FROM Enseignant e WHERE e.sexe = :sexe"),
+		@NamedQuery(name = "Enseignant.findByNom", query = "SELECT e FROM Enseignant e WHERE e.nom = :nom"),
+		@NamedQuery(name = "Enseignant.findByPrenom", query = "SELECT e FROM Enseignant e WHERE e.prenom = :prenom"),
+		@NamedQuery(name = "Enseignant.findByAdresse", query = "SELECT e FROM Enseignant e WHERE e.adresse = :adresse"),
+		@NamedQuery(name = "Enseignant.findByCodePostal", query = "SELECT e FROM Enseignant e WHERE e.codePostal = :codePostal"),
+		@NamedQuery(name = "Enseignant.findByVille", query = "SELECT e FROM Enseignant e WHERE e.ville = :ville"),
+		@NamedQuery(name = "Enseignant.findByPays", query = "SELECT e FROM Enseignant e WHERE e.pays = :pays"),
+		@NamedQuery(name = "Enseignant.findByMobile", query = "SELECT e FROM Enseignant e WHERE e.mobile = :mobile"),
+		@NamedQuery(name = "Enseignant.findByTelephone", query = "SELECT e FROM Enseignant e WHERE e.telephone = :telephone"),
+		@NamedQuery(name = "Enseignant.findByEmailUbo", query = "SELECT e FROM Enseignant e WHERE e.emailUbo = :emailUbo"),
+		@NamedQuery(name = "Enseignant.findByEmailPerso", query = "SELECT e FROM Enseignant e WHERE e.emailPerso = :emailPerso") })
 public class Enseignant implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "NO_ENSEIGNANT")
-    private Integer noEnseignant;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 5)
-    @Column(name = "TYPE")
-    private String type;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 1)
-    @Column(name = "SEXE")
-    private String sexe;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "NOM")
-    private String nom;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "PRENOM")
-    private String prenom;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "ADRESSE")
-    private String adresse;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "CODE_POSTAL")
-    private String codePostal;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "VILLE")
-    private String ville;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 5)
-    @Column(name = "PAYS")
-    private String pays;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "MOBILE")
-    private String mobile;
-    @Size(max = 20)
-    @Column(name = "TELEPHONE")
-    private String telephone;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "EMAIL_UBO")
-    private String emailUbo;
-    @Size(max = 255)
-    @Column(name = "EMAIL_PERSO")
-    private String emailPerso;
-    @OneToMany(mappedBy = "noEnseignant",fetch=FetchType.LAZY)
-    private Collection<Promotion> promotionCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "noEnseignant",fetch=FetchType.LAZY)
-    private Collection<UniteEnseignement> uniteEnseignementCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "noEnseignant",fetch=FetchType.LAZY)
-    private Collection<ElementConstitutif> elementConstitutifCollection;
-    @OneToMany(mappedBy = "noEnseignant")
-    private Collection<Authentification> authentificationCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "enseignant")
-    private Collection<Droit> droitCollection;
-    @OneToMany(mappedBy = "noEnseignant")
-    private Collection<Question> questionCollection;
-    @OneToMany(mappedBy = "noEnseignant")
-    private Collection<Rubrique> rubriqueCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "noEnseignant")
-    private Collection<Evaluation> evaluationCollection;
+	private static final long serialVersionUID = 1L;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 255)
+	@Column(name = "ADRESSE")
+	private String adresse;
+	@JsonBackReference(value = "auth-Enseignant")
+	@OneToMany(mappedBy = "noEnseignant")
+	private Collection<Authentification> authentificationCollection;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 10)
+	@Column(name = "CODE_POSTAL")
+	private String codePostal;
+	@JsonBackReference(value = "droit-Enseignant")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "enseignant")
+	private Collection<Droit> droitCollection;
+	@JsonBackReference(value = "enseignant-elementConstitutif")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "noEnseignant", fetch = FetchType.LAZY)
+	private Collection<ElementConstitutif> elementConstitutifCollection;
+	@Size(max = 255)
+	@Column(name = "EMAIL_PERSO")
+	private String emailPerso;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 255)
+	@Column(name = "EMAIL_UBO")
+	private String emailUbo;
+	@JsonBackReference(value = "evaluation-Enseignant")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "noEnseignant")
+	private Collection<Evaluation> evaluationCollection;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 20)
+	@Column(name = "MOBILE")
+	private String mobile;
+	@Id
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "NO_ENSEIGNANT")
+	private Integer noEnseignant;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 50)
+	@Column(name = "NOM")
+	private String nom;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 5)
+	@Column(name = "PAYS")
+	private String pays;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 50)
+	@Column(name = "PRENOM")
+	private String prenom;
+	@JsonBackReference(value = "enseignant-promotion")
+	@OneToMany(mappedBy = "noEnseignant", fetch = FetchType.LAZY)
+	private Collection<Promotion> promotionCollection;
+	@JsonBackReference(value = "question-Enseignant")
+	@OneToMany(mappedBy = "noEnseignant")
+	private Collection<Question> questionCollection;
+	@JsonBackReference(value = "rubrique-Enseignant")
+	@OneToMany(mappedBy = "noEnseignant")
+	private Collection<Rubrique> rubriqueCollection;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 1)
+	@Column(name = "SEXE")
+	private String sexe;
+	@Size(max = 20)
+	@Column(name = "TELEPHONE")
+	private String telephone;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 5)
+	@Column(name = "TYPE")
+	private String type;
+	@JsonBackReference(value = "enseignant-uniteEnseignement")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "noEnseignant", fetch = FetchType.LAZY)
+	private Collection<UniteEnseignement> uniteEnseignementCollection;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 255)
+	@Column(name = "VILLE")
+	private String ville;
 
-    public Enseignant() {
-    }
+	public Enseignant() {
+	}
 
-    public Enseignant(Integer noEnseignant) {
-        this.noEnseignant = noEnseignant;
-    }
+	public Enseignant(Integer noEnseignant) {
+		this.noEnseignant = noEnseignant;
+	}
 
-    public Enseignant(Integer noEnseignant, String type, String sexe, String nom, String prenom, String adresse, String codePostal, String ville, String pays, String mobile, String emailUbo) {
-        this.noEnseignant = noEnseignant;
-        this.type = type;
-        this.sexe = sexe;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.adresse = adresse;
-        this.codePostal = codePostal;
-        this.ville = ville;
-        this.pays = pays;
-        this.mobile = mobile;
-        this.emailUbo = emailUbo;
-    }
+	public Enseignant(Integer noEnseignant, String type, String sexe, String nom, String prenom, String adresse, String codePostal, String ville, String pays, String mobile, String emailUbo) {
+		this.noEnseignant = noEnseignant;
+		this.type = type;
+		this.sexe = sexe;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresse = adresse;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		this.pays = pays;
+		this.mobile = mobile;
+		this.emailUbo = emailUbo;
+	}
 
-    public Integer getNoEnseignant() {
-        return noEnseignant;
-    }
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof Enseignant)) {
+			return false;
+		}
+		Enseignant other = (Enseignant) object;
+		if ((this.noEnseignant == null && other.noEnseignant != null) || (this.noEnseignant != null && !this.noEnseignant.equals(other.noEnseignant))) {
+			return false;
+		}
+		return true;
+	}
 
-    public void setNoEnseignant(Integer noEnseignant) {
-        this.noEnseignant = noEnseignant;
-    }
+	public String getAdresse() {
+		return adresse;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public String getCodePostal() {
+		return codePostal;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	@XmlTransient
+	public Collection<ElementConstitutif> getElementConstitutifCollection() {
+		return elementConstitutifCollection;
+	}
 
-    public String getSexe() {
-        return sexe;
-    }
+	public String getEmailPerso() {
+		return emailPerso;
+	}
 
-    public void setSexe(String sexe) {
-        this.sexe = sexe;
-    }
+	public String getEmailUbo() {
+		return emailUbo;
+	}
 
-    public String getNom() {
-        return nom;
-    }
+	public String getMobile() {
+		return mobile;
+	}
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
+	public Integer getNoEnseignant() {
+		return noEnseignant;
+	}
 
-    public String getPrenom() {
-        return prenom;
-    }
+	public String getNom() {
+		return nom;
+	}
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
+	public String getPays() {
+		return pays;
+	}
 
-    public String getAdresse() {
-        return adresse;
-    }
+	public String getPrenom() {
+		return prenom;
+	}
 
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
+	@XmlTransient
+	public Collection<Promotion> getPromotionCollection() {
+		return promotionCollection;
+	}
 
-    public String getCodePostal() {
-        return codePostal;
-    }
+	public String getSexe() {
+		return sexe;
+	}
 
-    public void setCodePostal(String codePostal) {
-        this.codePostal = codePostal;
-    }
+	public String getTelephone() {
+		return telephone;
+	}
 
-    public String getVille() {
-        return ville;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setVille(String ville) {
-        this.ville = ville;
-    }
+	@XmlTransient
+	public Collection<UniteEnseignement> getUniteEnseignementCollection() {
+		return uniteEnseignementCollection;
+	}
 
-    public String getPays() {
-        return pays;
-    }
+	public String getVille() {
+		return ville;
+	}
 
-    public void setPays(String pays) {
-        this.pays = pays;
-    }
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (noEnseignant != null ? noEnseignant.hashCode() : 0);
+		return hash;
+	}
 
-    public String getMobile() {
-        return mobile;
-    }
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
+	}
 
-    public String getTelephone() {
-        return telephone;
-    }
+	public void setElementConstitutifCollection(Collection<ElementConstitutif> elementConstitutifCollection) {
+		this.elementConstitutifCollection = elementConstitutifCollection;
+	}
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
+	public void setEmailPerso(String emailPerso) {
+		this.emailPerso = emailPerso;
+	}
 
-    public String getEmailUbo() {
-        return emailUbo;
-    }
+	public void setEmailUbo(String emailUbo) {
+		this.emailUbo = emailUbo;
+	}
 
-    public void setEmailUbo(String emailUbo) {
-        this.emailUbo = emailUbo;
-    }
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 
-    public String getEmailPerso() {
-        return emailPerso;
-    }
+	public void setNoEnseignant(Integer noEnseignant) {
+		this.noEnseignant = noEnseignant;
+	}
 
-    public void setEmailPerso(String emailPerso) {
-        this.emailPerso = emailPerso;
-    }
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
 
-    @XmlTransient
-    public Collection<Promotion> getPromotionCollection() {
-        return promotionCollection;
-    }
+	public void setPays(String pays) {
+		this.pays = pays;
+	}
 
-    public void setPromotionCollection(Collection<Promotion> promotionCollection) {
-        this.promotionCollection = promotionCollection;
-    }
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
 
-    @XmlTransient
-    public Collection<UniteEnseignement> getUniteEnseignementCollection() {
-        return uniteEnseignementCollection;
-    }
+	public void setPromotionCollection(Collection<Promotion> promotionCollection) {
+		this.promotionCollection = promotionCollection;
+	}
 
-    public void setUniteEnseignementCollection(Collection<UniteEnseignement> uniteEnseignementCollection) {
-        this.uniteEnseignementCollection = uniteEnseignementCollection;
-    }
+	public void setSexe(String sexe) {
+		this.sexe = sexe;
+	}
 
-    @XmlTransient
-    public Collection<ElementConstitutif> getElementConstitutifCollection() {
-        return elementConstitutifCollection;
-    }
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
 
-    public void setElementConstitutifCollection(Collection<ElementConstitutif> elementConstitutifCollection) {
-        this.elementConstitutifCollection = elementConstitutifCollection;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (noEnseignant != null ? noEnseignant.hashCode() : 0);
-        return hash;
-    }
+	public void setUniteEnseignementCollection(Collection<UniteEnseignement> uniteEnseignementCollection) {
+		this.uniteEnseignementCollection = uniteEnseignementCollection;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Enseignant)) {
-            return false;
-        }
-        Enseignant other = (Enseignant) object;
-        if ((this.noEnseignant == null && other.noEnseignant != null) || (this.noEnseignant != null && !this.noEnseignant.equals(other.noEnseignant))) {
-            return false;
-        }
-        return true;
-    }
+	public void setVille(String ville) {
+		this.ville = ville;
+	}
 
-    @Override
-    public String toString() {
-        return "entities.Enseignant[ noEnseignant=" + noEnseignant + " ]";
-    }
-    
+	@Override
+	public String toString() {
+		return "entities.Enseignant[ noEnseignant=" + noEnseignant + " ]";
+	}
+
 }
