@@ -7,6 +7,7 @@ package fr.univbrest.dosi.spi.bean;
 
 import java.io.Serializable;
 import java.util.Collection;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,9 +25,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  *
@@ -35,16 +34,15 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @Table(name = "ELEMENT_CONSTITUTIF")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "ElementConstitutif.findAll", query = "SELECT e FROM ElementConstitutif e"),
-    @NamedQuery(name = "ElementConstitutif.findByCodeFormation", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeFormation = :codeFormation"),
-    @NamedQuery(name = "ElementConstitutif.findByCodeUe", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeUe = :codeUe"),
-    @NamedQuery(name = "ElementConstitutif.findByCodeEc", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeEc = :codeEc"),
-    @NamedQuery(name = "ElementConstitutif.findByDesignation", query = "SELECT e FROM ElementConstitutif e WHERE e.designation = :designation"),
-    @NamedQuery(name = "ElementConstitutif.findByDescription", query = "SELECT e FROM ElementConstitutif e WHERE e.description = :description"),
-    @NamedQuery(name = "ElementConstitutif.findByNbhCm", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhCm = :nbhCm"),
-    @NamedQuery(name = "ElementConstitutif.findByNbhTd", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhTd = :nbhTd"),
-    @NamedQuery(name = "ElementConstitutif.findByNbhTp", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhTp = :nbhTp")})
+@NamedQueries({ @NamedQuery(name = "ElementConstitutif.findAll", query = "SELECT e FROM ElementConstitutif e"),
+		@NamedQuery(name = "ElementConstitutif.findByCodeFormation", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeFormation = :codeFormation"),
+		@NamedQuery(name = "ElementConstitutif.findByCodeUe", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeUe = :codeUe"),
+		@NamedQuery(name = "ElementConstitutif.findByCodeEc", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeEc = :codeEc"),
+		@NamedQuery(name = "ElementConstitutif.findByDesignation", query = "SELECT e FROM ElementConstitutif e WHERE e.designation = :designation"),
+		@NamedQuery(name = "ElementConstitutif.findByDescription", query = "SELECT e FROM ElementConstitutif e WHERE e.description = :description"),
+		@NamedQuery(name = "ElementConstitutif.findByNbhCm", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhCm = :nbhCm"),
+		@NamedQuery(name = "ElementConstitutif.findByNbhTd", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhTd = :nbhTd"),
+		@NamedQuery(name = "ElementConstitutif.findByNbhTp", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhTp = :nbhTp") })
 public class ElementConstitutif implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -73,6 +71,7 @@ public class ElementConstitutif implements Serializable {
         @JoinColumn(name = "CODE_UE", referencedColumnName = "CODE_UE", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private UniteEnseignement uniteEnseignement;
+
     @JsonBackReference(value="elementConstitutif-Evaluation")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "elementConstitutif")
     private Collection<Evaluation> evaluationCollection;
@@ -181,5 +180,4 @@ public class ElementConstitutif implements Serializable {
     public String toString() {
         return "entities.ElementConstitutif[ elementConstitutifPK=" + elementConstitutifPK + " ]";
     }
-    
 }
