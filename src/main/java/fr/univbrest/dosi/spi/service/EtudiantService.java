@@ -1,5 +1,7 @@
 package fr.univbrest.dosi.spi.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +32,9 @@ public class EtudiantService {
 
 	public final Etudiant getEtudiant(final String noEtudiant) {
 		return etudiantRepository.findOne(noEtudiant);
+	}
+	
+	public final Iterable<Etudiant> getAllEtudiant(){
+		return etudiantRepository.findAll();
 	}
 }

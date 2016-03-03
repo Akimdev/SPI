@@ -25,7 +25,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class Application extends WebMvcConfigurerAdapter {
 	/**
 	 *
-	 * @param args             lancemant
 	 * @param args
 	 *            lancemant
 	 */
