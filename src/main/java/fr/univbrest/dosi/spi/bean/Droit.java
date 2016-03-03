@@ -19,9 +19,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  *
@@ -48,11 +47,11 @@ public class Droit implements Serializable {
     @NotNull
     @Column(name = "DUPLICATION")
     private Character duplication;
-    @JsonManagedReference(value="droit-Enseignant")
+    @JsonIgnore
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Enseignant enseignant;
-    @JsonManagedReference(value="droit-Evaluation")
+    @JsonIgnore
     @JoinColumn(name = "ID_EVALUATION", referencedColumnName = "ID_EVALUATION", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Evaluation evaluation;

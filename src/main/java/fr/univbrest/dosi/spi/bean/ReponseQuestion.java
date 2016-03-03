@@ -18,7 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -38,11 +38,11 @@ public class ReponseQuestion implements Serializable {
     protected ReponseQuestionPK reponseQuestionPK;
     @Column(name = "POSITIONNEMENT")
     private BigInteger positionnement;
-    @JsonManagedReference(value="reponseQuestion-QuestionEvaluation")
+    @JsonIgnore
     @JoinColumn(name = "ID_QUESTION_EVALUATION", referencedColumnName = "ID_QUESTION_EVALUATION", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private QuestionEvaluation questionEvaluation;
-    @JsonManagedReference(value="reponseQuestion-ReponseEvaluation")
+    @JsonIgnore
     @JoinColumn(name = "ID_REPONSE_EVALUATION", referencedColumnName = "ID_REPONSE_EVALUATION", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private ReponseEvaluation reponseEvaluation;
