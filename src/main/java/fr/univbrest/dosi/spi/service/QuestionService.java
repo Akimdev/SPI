@@ -69,4 +69,13 @@ public class QuestionService {
 		questionList = (List<Question>) questRepo.findAll();
 		return questionList;
 	}
+	/**
+	 * Cette méthode retourne un qualificatif 
+	 * @param idQualificatif
+	 * @return
+	 */
+	public Question getQuestion(Long idQuestion){
+		return questRepo.findOne(idQuestion);
+	}
+	
 }
