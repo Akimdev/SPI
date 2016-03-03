@@ -39,7 +39,7 @@
     	  var promo= $http.post("http://localhost:8090/getPromotion/", promotionPK);
     	  return $http.post("http://localhost:8090/getPromotion/", promotionPK);
    	  },
-      set: function(promotion) {//------------------------------------------------------------------------------
+      set: function(promotion) {
         var idx = promotion.promotionPK.anneeUniversitaire;
         
         if(idx){// si modification d'une promotion existante     	  
@@ -127,7 +127,6 @@
       // affiche les détail d'une promotion
       $scope.edit = function (promotionPK){
     	  $location.path("/admin/promotion/"+ promotionPK.anneeUniversitaire + "/" + promotionPK.codeFormation);
-    	  console.log("promotionPK: ", promotionPK);
       }
 
       // supprime une promotion
@@ -149,7 +148,6 @@
     ['$scope', '$routeParams', '$location', 'promotionsFactory',
     function($scope, $routeParams, $location, promotionsFactory){      
       $scope.edit= false;    
-      console.log($routeParams);
       var promoPK = {anneeUniversitaire:  $routeParams.ann, codeFormation: $routeParams.form};
       // si creation d'une nouvelle promotion
       if($routeParams.ann == "nouveau"){
@@ -160,7 +158,6 @@
             var promise1= promotionsFactory.get(promoPK);
             promise1.success(function(data,statut){
           	  $scope.promotion= data ;
-          	  console.log(data);
             })
             .error(function(data,statut){
           	  console.log("impossible de recuperer les details de la promotion choisie");
@@ -191,7 +188,6 @@
         if($routeParams.ann == "nouveau"){
           $location.path('/admin/promotions');
         } else {
-        	console.log("promoPK: ", promoPK);
           var promise = promotionsFactory.get(promoPK);
           promise.success(function(data,statut){
           	  $scope.promotion= data ;
