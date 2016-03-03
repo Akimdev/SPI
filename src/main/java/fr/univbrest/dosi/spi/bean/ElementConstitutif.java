@@ -34,16 +34,15 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name = "ELEMENT_CONSTITUTIF")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "ElementConstitutif.findAll", query = "SELECT e FROM ElementConstitutif e"),
-    @NamedQuery(name = "ElementConstitutif.findByCodeFormation", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeFormation = :codeFormation"),
-    @NamedQuery(name = "ElementConstitutif.findByCodeUe", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeUe = :codeUe"),
-    @NamedQuery(name = "ElementConstitutif.findByCodeEc", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeEc = :codeEc"),
-    @NamedQuery(name = "ElementConstitutif.findByDesignation", query = "SELECT e FROM ElementConstitutif e WHERE e.designation = :designation"),
-    @NamedQuery(name = "ElementConstitutif.findByDescription", query = "SELECT e FROM ElementConstitutif e WHERE e.description = :description"),
-    @NamedQuery(name = "ElementConstitutif.findByNbhCm", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhCm = :nbhCm"),
-    @NamedQuery(name = "ElementConstitutif.findByNbhTd", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhTd = :nbhTd"),
-    @NamedQuery(name = "ElementConstitutif.findByNbhTp", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhTp = :nbhTp")})
+@NamedQueries({ @NamedQuery(name = "ElementConstitutif.findAll", query = "SELECT e FROM ElementConstitutif e"),
+		@NamedQuery(name = "ElementConstitutif.findByCodeFormation", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeFormation = :codeFormation"),
+		@NamedQuery(name = "ElementConstitutif.findByCodeUe", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeUe = :codeUe"),
+		@NamedQuery(name = "ElementConstitutif.findByCodeEc", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeEc = :codeEc"),
+		@NamedQuery(name = "ElementConstitutif.findByDesignation", query = "SELECT e FROM ElementConstitutif e WHERE e.designation = :designation"),
+		@NamedQuery(name = "ElementConstitutif.findByDescription", query = "SELECT e FROM ElementConstitutif e WHERE e.description = :description"),
+		@NamedQuery(name = "ElementConstitutif.findByNbhCm", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhCm = :nbhCm"),
+		@NamedQuery(name = "ElementConstitutif.findByNbhTd", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhTd = :nbhTd"),
+		@NamedQuery(name = "ElementConstitutif.findByNbhTp", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhTp = :nbhTp") })
 public class ElementConstitutif implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -181,5 +180,4 @@ public class ElementConstitutif implements Serializable {
     public String toString() {
         return "entities.ElementConstitutif[ elementConstitutifPK=" + elementConstitutifPK + " ]";
     }
-    
 }

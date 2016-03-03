@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+
 /**
  *
  * @author DOSI
@@ -38,6 +39,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "ETUDIANT")
 @XmlRootElement
 @NamedQueries({
+
+	@NamedQuery(name = "Etudiant.findByPromotion", query = "SELECT e FROM Etudiant e  WHERE e.promotion.promotionPK.codeFormation = :codeFormation AND e.promotion.promotionPK.anneeUniversitaire = :anneeUniversitaire"),
+
     @NamedQuery(name = "Etudiant.findAll", query = "SELECT e FROM Etudiant e"),
     @NamedQuery(name = "Etudiant.findByNoEtudiant", query = "SELECT e FROM Etudiant e WHERE e.noEtudiant = :noEtudiant"),
     @NamedQuery(name = "Etudiant.findByNom", query = "SELECT e FROM Etudiant e WHERE e.nom = :nom"),
