@@ -22,8 +22,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 /**
  *
@@ -110,28 +110,20 @@ public class Enseignant implements Serializable {
     @Size(max = 255)
     @Column(name = "EMAIL_PERSO")
     private String emailPerso;
-    @JsonBackReference(value="enseignant-promotion")
     @OneToMany(mappedBy = "noEnseignant",fetch=FetchType.LAZY)
     private Collection<Promotion> promotionCollection;
-    @JsonBackReference(value="enseignant-uniteEnseignement")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "noEnseignant",fetch=FetchType.LAZY)
     private Collection<UniteEnseignement> uniteEnseignementCollection;
-    @JsonBackReference(value="enseignant-elementConstitutif")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "noEnseignant",fetch=FetchType.LAZY)
     private Collection<ElementConstitutif> elementConstitutifCollection;
-    @JsonBackReference(value="auth-Enseignant")
     @OneToMany(mappedBy = "noEnseignant")
     private Collection<Authentification> authentificationCollection;
-    @JsonBackReference(value="droit-Enseignant")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "enseignant")
     private Collection<Droit> droitCollection;
-    @JsonBackReference(value="question-Enseignant")
     @OneToMany(mappedBy = "noEnseignant")
     private Collection<Question> questionCollection;
-    @JsonBackReference(value="rubrique-Enseignant")
     @OneToMany(mappedBy = "noEnseignant")
     private Collection<Rubrique> rubriqueCollection;
-    @JsonBackReference(value="evaluation-Enseignant")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "noEnseignant")
     private Collection<Evaluation> evaluationCollection;
 

@@ -64,10 +64,10 @@ public class EnseignantControllerTest {
 
 		/*
 		 * final BufferedReader rd = new BufferedReader(new InputStreamReader(mockResponse.getEntity().getContent()));
-
-		 *
+		 * 
+		 * 
 		 * Iterable<Enseignant> ens = mapper.readValue(rd, Iterable.class);
-		 *
+		 * 
 		 * Assert.assertNotNull(ens);
 		 */
 
@@ -75,15 +75,15 @@ public class EnseignantControllerTest {
 
 	/*
 	 * public void makeHTTPPOSTRequest() { try { HttpClient c = new DefaultHttpClient(); HttpPost p = new HttpPost(this.apiURL);
-
-	 *
+	 * 
+	 * 
 	 * p.setEntity(new StringEntity("{\"username\":\"" + this.apiusername + "\",\"password\":\"" + this.apipassword + "\"}", ContentType.create("application/json")));
-	 *
+	 * 
 	 * HttpResponse r = c.execute(p);
-	 *
+	 * 
 	 * BufferedReader rd = new BufferedReader(new InputStreamReader(r.getEntity().getContent())); String line = ""; while ((line = rd.readLine()) != null) { //Parse our JSON response JSONParser j =
 	 * new JSONParser(); JSONObject o = (JSONObject)j.parse(line); Map response = (Map)o.get("response");
-	 *
+	 * 
 	 * System.out.println(response.get("somevalue")); } } catch(ParseException e) { System.out.println(e); } catch(IOException e) { System.out.println(e); } }
 	 */
 
@@ -130,15 +130,15 @@ public class EnseignantControllerTest {
 
 	/*
 	 * public void makeHTTPPOSTRequest() { try { HttpClient c = new DefaultHttpClient(); HttpPost p = new HttpPost(this.apiURL);
-
-	 *
+	 * 
+	 * 
 	 * p.setEntity(new StringEntity("{\"username\":\"" + this.apiusername + "\",\"password\":\"" + this.apipassword + "\"}", ContentType.create("application/json")));
-	 *
+	 * 
 	 * HttpResponse r = c.execute(p);
-	 *
+	 * 
 	 * BufferedReader rd = new BufferedReader(new InputStreamReader(r.getEntity().getContent())); String line = ""; while ((line = rd.readLine()) != null) { //Parse our JSON response JSONParser j =
 	 * new JSONParser(); JSONObject o = (JSONObject)j.parse(line); Map response = (Map)o.get("response");
-	 *
+	 * 
 	 * System.out.println(response.get("somevalue")); } } catch(ParseException e) { System.out.println(e); } catch(IOException e) { System.out.println(e); } }
 	 */
 
