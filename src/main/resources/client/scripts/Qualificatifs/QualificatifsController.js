@@ -14,7 +14,13 @@
       },
       
       set: function(qualificatif) {	
-    	  return $http.post('http://localhost:8090/ajouterQualificatif', qualificatif);
+    	  //return $http.post('http://localhost:8090/ajouterQualificatif', qualificatif);
+    	  return $http({
+    		  method: 'POST',
+    		  url: 'http://localhost:8090/ajouterQualificatif',
+    		  data: qualificatif,
+    		  headers:{ 'Content-Type' : 'application/json'}
+    	  });
       },
       
       delete: function(idQualificatif) { 
