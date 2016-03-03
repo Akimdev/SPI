@@ -28,8 +28,9 @@ public class QuestionService {
 	 * La méthode pour ajouter une question
 	 * @param question
 	 */
-	public void addQuestion(Question question, Qualificatif qualif){
-			if(qualifRepo.exists(qualif.getIdQualificatif())){
+	public void addQuestion(Question question, Long idQualificatif){
+			if(qualifRepo.exists(idQualificatif)){
+				Qualificatif qualif = qualifRepo.findOne(idQualificatif);
 				question.setIdQualificatif(qualif);
 				questRepo.save(question);
 			}

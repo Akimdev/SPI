@@ -37,6 +37,10 @@ public class QualificatifService {
 		qualifRepo.delete(idQualificatif);
 	}
 	
+	public Qualificatif getQualificatif(Long idQualificatif){
+		return qualifRepo.findOne(idQualificatif);
+	}
+	
 	public List<Qualificatif> listeQualificatif(){
 		List<Qualificatif> qualifList = new ArrayList<Qualificatif>();
 		qualifList = (List<Qualificatif>) qualifRepo.findAll();

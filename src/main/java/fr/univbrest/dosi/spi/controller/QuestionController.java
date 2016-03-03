@@ -37,8 +37,8 @@ public class QuestionController {
 	 * @param question
 	 */
 	@RequestMapping(value = "/ajouterQuestion", method = RequestMethod.POST,consumes = {MediaType.APPLICATION_JSON_VALUE}, produces =  { MediaType.APPLICATION_JSON_VALUE})
-	public void ajoutQuestion(@RequestBody final Question question,@RequestBody final Qualificatif qualif){
-		questServ.addQuestion(question,qualif);
+	public void ajoutQuestion(@RequestBody final Question question,@RequestBody final Long idQualificatif){
+		questServ.addQuestion(question,idQualificatif);
 	}
 	/**
 	 * Cette méthode modifie une question

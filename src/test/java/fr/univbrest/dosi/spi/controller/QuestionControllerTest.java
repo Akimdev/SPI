@@ -22,16 +22,18 @@ public class QuestionControllerTest {
 	public void ajoutQuestionTest() throws ClientProtocolException, IOException {
 
 		Question question = new Question((long) 25, "QUS", "nouvelle question");
-		Qualificatif qualif = new Qualificatif((long)1, "Pauvre", "Riche");
+		Long idQualificatif = (long)1;
 		// Création du client et éxécution d'une requete GET
 		final HttpClient client = HttpClientBuilder.create().build();
 		final HttpPost mockRequestPost = new HttpPost("http://localhost:8090/ajouterQuestion");
 		final ObjectMapper mapper = new ObjectMapper();
 		final com.fasterxml.jackson.databind.ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
 		final String jsonInString = ow.writeValueAsString(question);
+		final String jsonInString2 = ow.writeValueAsString(idQualificatif);
 		mockRequestPost.addHeader("content-type", "application/json");
 		mockRequestPost.addHeader("Accept", "application/json");
 		mockRequestPost.setEntity(new StringEntity(jsonInString));
+		mockRequestPost.setEntity(new StringEntity(jsonInString2));
 
 		try {
 		final HttpResponse mockResponse = client.execute(mockRequestPost);
