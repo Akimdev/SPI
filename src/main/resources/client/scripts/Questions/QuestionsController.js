@@ -1,4 +1,6 @@
-
+/*
+ * @author ZOuhair
+ */
 (function() {
   'use strict';
 
@@ -21,7 +23,7 @@
       },*/
       
       delete: function(idQuestion) { 
-    	  return $http.get('http://localhost:8090/supprimerQuestion?idQuestion=' + idQuestion);
+    	  return $http.get('http://localhost:8090/supprimerQuestionBis?idQuestion=' + idQuestion);
       }
     };
   });
@@ -33,6 +35,7 @@
     	$scope.refresh = function (){
     		 var promiseQuestion = questionsFactory.all();          
     	      promiseQuestion.success(function(data) {
+    	    	  console.log(data);
     	          $scope.questions = data;
     	      });
     	}
@@ -125,5 +128,5 @@
 
     }]
   );
-})();
+}).call(this);
 

@@ -34,7 +34,7 @@ public class FormationServiceTest {
 	
 	@Test
 	public void testEns(){
-		Iterable<Formation> listeFor =  formationService.getAll();
+		Iterable<Formation> listeFor =  formationService.listFormations();
 		Assert.assertNotNull(listeFor);
 		Assert.assertEquals(5, Iterables.size(listeFor));
 	}
@@ -51,10 +51,10 @@ public class FormationServiceTest {
 		formation.setNomFormation("2eme annee Science de l'information...");
 	 	formation.setDebutAccreditation(new java.util.Date("11/11/2011"));	
 	 	formation.setFinAccreditation(new java.util.Date("11/11/2019"));
-		formationService.createFormation(formation);
+		formationService.addFormation(formation);
 		
 		String codeF="M2SII";
-		Formation f=formationService.traitement(codeF);		
+		Formation f=formationService.getFormation(codeF);		
 		
 		Assert.assertEquals(formation, f);	
 	}
@@ -63,7 +63,7 @@ public class FormationServiceTest {
 	@Test
 	public void getFormationByCodeFormationTest() {
 		
-		Formation formation =  formationService.traitement("M2DOSI");
+		Formation formation =  formationService.getFormation("M2DOSI");
 		Assert.assertNotNull(formation);
 		Assert.assertEquals("Master Développement à l'Offshore des Systèmes d'Information", formation.getNomFormation());	
 	}

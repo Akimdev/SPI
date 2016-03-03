@@ -106,9 +106,17 @@ public class Question implements Serializable {
     public String getIntitulé() {
         return intitulé;
     }
+    
+    public String getIntitule() {
+        return intitulé;
+    }
 
     public void setIntitulé(String intitulé) {
         this.intitulé = intitulé;
+    }
+    
+    public void setIntitule(String intitule) {
+        this.intitulé = intitule;
     }
 
     public Enseignant getNoEnseignant() {

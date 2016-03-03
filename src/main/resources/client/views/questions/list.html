@@ -29,11 +29,11 @@
                     <th><div class="th">
                         Intitul&eacute;
                         <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('intitulé') "
-                              data-ng-class="{active: row == 'intitulé'}"></span>
+                              data-ng-click=" order('intitule') "
+                              data-ng-class="{active: row == 'intitule'}"></span>
                         <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-intitulé') "
-                              data-ng-class="{active: row == '-intitulé'}"></span>
+                              data-ng-click=" order('-intitule') "
+                              data-ng-class="{active: row == '-intitule'}"></span>
                     </div></th>
                     <th></th>
                 </tr>
@@ -42,7 +42,7 @@
                 <tr data-ng-repeat="q in questions" class="question">
                     <td ng-click="edit(f)">{{q.idQuestion}}</td>
                     <td ng-click="edit(f)">{{q.type}}</td>
-                    <td ng-click="edit(f)">{{q.intitulé}}</td>
+                    <td ng-click="edit(f)">{{q.intitule}}</td>
                     <td><span class="remove fa fa-remove" ng-click="supprime(q)"></span></td>
                 </tr>
             </tbody>
