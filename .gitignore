@@ -4,7 +4,6 @@ dist
 .sass-cache
 src/main/resources/client/bower_components/
 target/
-log/
 .project
 .checkstyle
 CHANGELOG.md

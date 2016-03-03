@@ -14,8 +14,8 @@ import fr.univbrest.dosi.spi.bean.Etudiant;
 import fr.univbrest.dosi.spi.bean.Promotion;
 import fr.univbrest.dosi.spi.bean.PromotionPK;
 /**
- * 
- * @author ASSABBAR 
+ *
+ * @author ASSABBAR
  *classe Controle du service PromotionService
  */
 import fr.univbrest.dosi.spi.service.EtudiantService;
@@ -25,14 +25,36 @@ import fr.univbrest.dosi.spi.service.PromotionService;
 public class PromotionController {
 
 	@Autowired
-	private PromotionService promotionService;
+	private EtudiantService etudiantservice;
 
 	@Autowired
-	private EtudiantService etudiantservice;
+	private PromotionService promotionService;
+
+	/**
+	 * @author ASSABBAR
+	 *
+	 * @param promotionPK
+	 *            la methode permet de supprimer une promotion par anneUniversitaire et codeFormation
+	 */
+	@RequestMapping(value = "/deletePromotion", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public void deletePromotionPK(@RequestBody final PromotionPK promotionPK) {
+		promotionService.deletePromotion(promotionPK);
+	}
+
+	/**
+	 * soukaina BAQLOUL
+	 *
+	 * @param promotionPK
+	 * @return
+	 */
+	@RequestMapping(value = "/getEtudiantByPromotion/{anneeUniversitaire}/{codeFormation}", produces = "application/json")
+	public final List<Etudiant> getEtudiantPromotion(@PathVariable(value = "anneeUniversitaire") final String anneeUniversitaire, @PathVariable(value = "codeFormation") final String codeFormation) {
+		return etudiantservice.getEtudiantByPromotion(new PromotionPK(codeFormation, anneeUniversitaire));
+	}
 
 	/**
 	 * Soukaina BAQLOUL
-	 * 
+	 *
 	 * @param noEnseignant
 	 * @return
 	 */
@@ -48,35 +70,13 @@ public class PromotionController {
 	}
 
 	/**
-	 * soukaina BAQLOUL
-	 * 
-	 * @param promotionPK
-	 * @return
-	 */
-	@RequestMapping(value = "/getEtudiantByPromotion/{anneeUniversitaire}/{codeFormation}", produces = "application/json")
-	public final List<Etudiant> getEtudiantPromotion(@PathVariable(value = "anneeUniversitaire") final String anneeUniversitaire, @PathVariable(value = "codeFormation") final String codeFormation) {
-		return etudiantservice.getEtudiantByPromotion(new PromotionPK(codeFormation, anneeUniversitaire));
-	}
-
-	/**
 	 * ASSABBAR la methode permet de Lister toutes les promotions
 	 *
-	 * 
+	 *
 	 */
 
 	@RequestMapping(value = "/promotions", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE })
 	public Iterable<Promotion> getPromotions() {
 		return promotionService.getPromotionALL();
-	}
-
-	/**
-	 * ASSABBAR
-	 * 
-	 * @param promotionPK
-	 *            la methode permet de supprimer une promotion par anneUniversitaire et codeFormation
-	 */
-	@RequestMapping(value = "/deletePromotion", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public void deletePromotionPK(@RequestBody final PromotionPK promotionPK) {
-		promotionService.deletePromotion(promotionPK);
 	}
 }
