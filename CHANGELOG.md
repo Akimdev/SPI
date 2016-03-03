@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 75e3f1e831bb46e51082616ac8e148a72e9b3b90
 ### Changelogs
 
 **VERSION 1.6.0** (latest)

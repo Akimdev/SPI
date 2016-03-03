@@ -1,3 +1,8 @@
+/*
+* Author Kenza ABOUAKIL
+* Script de control des promotion
+*/
+
 (function() {
   'use strict';
 
@@ -20,75 +25,39 @@
   
   app.factory('promotionsFactory', ['$http',function($http){
     var list = function() {
-        //var defer = $q.defer();
-
-        return  $http.get('http://localhost:8090/ens')//promotions')
-        /*.then(function(response) {
-           defer.resolve(response.data);
-         });
-
-         return defer.promise;*/
+        return  $http.get('http://localhost:8090/promotions')
        };
             
     var details = [ 
-      // Constituer le délail de la liste des enseignants ici
+      // Constituer le délail de la liste des promotions ici
     ];
 
     return {
-      // renvoi la liste de tous les enseignants
-      all:list,// function() { //return list; 
 
-     // },
-      // renvoi l'enseignant avec le no_enseignant demandé
+    	// Méthode de renvoi la liste des promotions
+      all:list, 
+      // renvoi la promotion avec l'anneeUniversitaire et codeFormation demandés
       get: function(promotionPK) { 
-    	  // TODO retourner les enseignants
+    	  // TODO retourner les promotions
     	  console.log("TODO : get promotion",promotionPK);
-    	  //return list.retourValue("no_enseignant",idx);
-    	  return  $http.get('http://localhost:8090/getPromotion/'+promotionPK);
-    	  
+    	  return $http.post("http://localhost:8090/getPromotion/", promotionPK);
    	  },
       set: function(promotion) {//------------------------------------------------------------------------------
         var idx = promotion.promotionPK.anneeUniversitaire;
         
-        if(idx){// si modification d'un enseignant existant
-          // TODO alimenter l'objet enseignant trouvé
-        	console.log("TODO : update enseignant",idx);
-        	//list.removeValue("no_enseignant",enseignant.no_enseignant);
-        	//return list.push(enseignant);
-        	
-        	var newEnseignant = {
-          		      "noEnseignant" : idx,
-         			  "nom" : enseignant.nom,
-         			  //....
-         		  };      	  
+        if(idx){// si modification d'une promotion existante     	  
   	        	$http.post('http://localhost:8090/updatePromotion',promotion);
-        } else { // si ajout d'un nouvel enseignant
-          // TODO ajouter un enseignant à la liste
-        	
-        	  var newEnseignant = {
-        		  "noEnseignant" : "8",
-       			  "nom" : enseignant.nom,
-       			  //....
-       		  };      	  
-	        	$http.post('http://localhost:8090/ajouterPromotion',newPromotion);
-        	
-        	//return list.push(enseignant);
+        } else { // si ajout d'une nouvelle promotion 	  
+	        	$http.post('http://localhost:8090/addPromotion',newPromotion);
         }
       },
       delete: function(promotionPK) { 
         // TODO Supprimer 
-    	  console.log("TODO : supprimer enseignant",promotionPK);
-    	  return  $http.get('http://localhost:8090/deletePromotion/'+promotionPK)
-    	  //list.removeValue("no_enseignant",enseignant.no_enseignant);
-    	  //return list;
-      },
-
-      getPromotion : function(promotionPK){
-    	  var url = "http://localhost:8090/getPromotion/"+promotionPK;
-    	  return $http.get(url);
+    	  console.log("TODO : supprimer promotion",promotionPK);
+    	  return  $http.get('http://localhost:8090/deletePromotion/'+promotionPK);
       },
       
-      getEtudiant : function(promotionPK){
+      getEtudiants : function(promotionPK){
 	      var url = "http://localhost:8090/getEtudiantsByPromotion/"+promotionPK;
 		  return $http.get(url);
       }
@@ -103,7 +72,7 @@
     	var init;
     	promotionsFactory.all()
 		.success(function(data) {
-		    $scope.enseignants = data;
+		    $scope.promotions = data;
 		      $scope.searchKeywords = '';
 		      $scope.filteredPromotions = [];
 		      $scope.row = '';
@@ -154,25 +123,22 @@
 		  }
 		);
       
-      // Crée la page permettant d'ajouter un enseignant
-      // TODO Lien vers la page permettant de créer un enseignant /admin/enseignant/nouveau
+      // Crée la page permettant d'ajouter une promotion
       $scope.ajoutPromotion = function(){
           $location.path('/admin/promotion/nouveau'); 
        }
       
       // affiche les détail d'une promotion
       $scope.edit = function (promotionPK){
-    	  $location.path("/admin/promotion/"+ promotionPK);
-    	  alert(promotionPK);
+    	  $location.path("/admin/promotion/"+ promotionPK.anneeUniversitaire + "," + promotionPK.codeFormation);
+    	  console.log("promotionPK: ", promotionPK);
       }
 
       // supprime une promotion
       $scope.supprime = function(promotionPK){
     	  
-    	  
-    	  var promise= enseignantsFactory.delete(promotionPK);
+    	  var promise= promotionsFactory.delete(promotionPK);
           promise.success(function(data,statut){
-        	  //$scope.enseignant.promotions = data ;
         	  $scope.currentPagePromotion.removeValue("promotionPK",promotionPK);
           })
           .error(function(data,statut){
@@ -187,55 +153,50 @@
     ['$scope', '$routeParams', '$location', 'promotionsFactory',
     function($scope, $routeParams, $location, promotionsFactory){      
       $scope.edit= false;    
-
+      var promoPK = {anneeUniversitaire:  $routeParams.ann, codeFormation: $routeParams.form};
+		console.log("promoPK: ", promoPK);
+		
       // si creation d'une nouvelle promotion
-      if($routeParams.id == "nouveau"){
+      if($routeParams.ann == "nouveau"){
         $scope.promotion= { };
         $scope.edit= true;    
       } else { // sinon on edite une promotion existante
-    	  
-        var promise = promotionsFactory.get($routeParams.id);
-        promise.success(function(data){
-      	  $scope.promotion = data ;
-            var promise= promotionsFactory.getPromotion($routeParams.id);
+			
+            var promise= promotionsFactory.get(promoPK);
             promise.success(function(data,statut){
-          	  $scope.promotion.promotions = data ;
+          	  $scope.promotion= data ;
             })
             .error(function(data,statut){
           	  console.log("impossible de recuperer les details de la promotion choisie");
             });
             
-            var promise= enseignantsFactory.getUE($routeParams.id);
+            var promise= promotionsFactory.getEtudiants(promoPK);
             promise.success(function(data,statut){
-          	  $scope.enseignant.ue = data ;
+          	  $scope.promotion.etudiantCollection = data ;
             })
             .error(function(data,statut){
-          	  console.log("impossible de recuperer les details de la promotion choisie");
+          	  console.log("impossible de recuperer les étudiants de la promotion choisie");
             });
-        })
-        .error(function(data){
-      	  console.log("impossible de recuperer les details de la promotion choisie");
-        });
       }
 
       $scope.edition = function(){
         $scope.edit = true;
       }
 
-      // valide le formulaire d'édition d'un enseignant
+      // valide le formulaire d'édition d'une promotion
       $scope.submit = function(){    	 
-        enseignantsFactory.set($scope.promotion);        
+        promotionsFactory.set($scope.promotion);        
         $scope.edit = false;        
       }
 
       // annule l'édition
       $scope.cancel = function(){
-        // si ajout d'un nouvel enseignant => retour à la liste des enseignants
-        if(!$scope.enseignant.noEnseignant){
-          $location.path('/admin/enseignants');
+        // si ajout d'une nouvelle promotion => retour à la liste des promotions
+        if($routeParams.ann != "nouveau"){
+          $location.path('/admin/promotions');
         } else {
-          var e = enseignantsFactory.get($routeParams.id);
-          $scope.enseignant = JSON.parse(JSON.stringify(e));
+          var e = promotionsFactory.get(promoPK);
+          $scope.promotion = JSON.parse(JSON.stringify(e));
           $scope.edit = false;
         }
       }      

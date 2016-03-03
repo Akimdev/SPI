@@ -27,13 +27,11 @@
 					templateUrl : 'views/ue/list.html'
 				}).when('/admin/ue/:id', {
 					templateUrl : 'views/ue/details.html'
-				})
-				.when('/admin/promotions', {
+				}).when('/admin/promotions', {
 					templateUrl : 'views/promotions/list.html'
-				}).when('/admin/promotion/:id', {
+				}).when('/admin/promotion/:ann,:form', {
 					templateUrl : 'views/promotions/details.html'
-				})
-				.when('/dashboard', {
+				}).when('/dashboard', {
 					templateUrl : 'views/dashboard.html'
 				}).when('/ui/typography', {
 					templateUrl : 'views/ui/typography.html'

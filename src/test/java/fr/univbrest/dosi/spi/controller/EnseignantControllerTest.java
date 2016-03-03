@@ -64,6 +64,7 @@ public class EnseignantControllerTest {
 
 		/*
 		 * final BufferedReader rd = new BufferedReader(new InputStreamReader(mockResponse.getEntity().getContent()));
+
 		 *
 		 * Iterable<Enseignant> ens = mapper.readValue(rd, Iterable.class);
 		 *
@@ -74,6 +75,7 @@ public class EnseignantControllerTest {
 
 	/*
 	 * public void makeHTTPPOSTRequest() { try { HttpClient c = new DefaultHttpClient(); HttpPost p = new HttpPost(this.apiURL);
+
 	 *
 	 * p.setEntity(new StringEntity("{\"username\":\"" + this.apiusername + "\",\"password\":\"" + this.apipassword + "\"}", ContentType.create("application/json")));
 	 *
@@ -91,6 +93,7 @@ public class EnseignantControllerTest {
 		// Création du client et éxécution d'une requete GET
 		final HttpClient client = HttpClientBuilder.create().build();
 		final HttpGet mockRequest = new HttpGet("http://localhost:8090/deleteEnseignant/7");
+
 		final HttpResponse mockResponse = client.execute(mockRequest);
 
 		// Le code retour HTTP doit être un succès (200)
@@ -98,10 +101,10 @@ public class EnseignantControllerTest {
 
 		final BufferedReader rd = new BufferedReader(new InputStreamReader(mockResponse.getEntity().getContent()));
 		final ObjectMapper mapper = new ObjectMapper();
+
 		final Iterable<Enseignant> ens = mapper.readValue(rd, Iterable.class);
 
 		Assert.assertNotNull(ens);
-
 	}
 
 	@Test
@@ -110,6 +113,7 @@ public class EnseignantControllerTest {
 		// Création du client et éxécution d'une requete GET
 		final HttpClient client = HttpClientBuilder.create().build();
 		final HttpGet mockRequest = new HttpGet("http://localhost:8090/getens/1");
+
 		final HttpResponse mockResponse = client.execute(mockRequest);
 
 		// Le code retour HTTP doit être un succès (200)
@@ -117,6 +121,7 @@ public class EnseignantControllerTest {
 
 		final BufferedReader rd = new BufferedReader(new InputStreamReader(mockResponse.getEntity().getContent()));
 		final ObjectMapper mapper = new ObjectMapper();
+
 		// Enseignant ens = mapper.readValue(rd, Enseignant.class);
 
 		// Assert.assertNotNull(ens);
@@ -125,6 +130,7 @@ public class EnseignantControllerTest {
 
 	/*
 	 * public void makeHTTPPOSTRequest() { try { HttpClient c = new DefaultHttpClient(); HttpPost p = new HttpPost(this.apiURL);
+
 	 *
 	 * p.setEntity(new StringEntity("{\"username\":\"" + this.apiusername + "\",\"password\":\"" + this.apipassword + "\"}", ContentType.create("application/json")));
 	 *
@@ -152,6 +158,5 @@ public class EnseignantControllerTest {
 		final Iterable<Enseignant> ens = mapper.readValue(rd, Iterable.class);
 
 		Assert.assertNotNull(ens);
-
 	}
 }
