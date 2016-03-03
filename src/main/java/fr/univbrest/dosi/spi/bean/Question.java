@@ -60,7 +60,8 @@ public class Question implements Serializable {
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne
     private Enseignant noEnseignant;
-    @JsonIgnore
+    //@JsonIgnore
+    @JsonManagedReference(value="question-Qualificatif")
     @JoinColumn(name = "ID_QUALIFICATIF", referencedColumnName = "ID_QUALIFICATIF")
     @ManyToOne(optional = false)
     private Qualificatif idQualificatif;

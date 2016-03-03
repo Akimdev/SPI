@@ -54,7 +54,8 @@ public class Qualificatif implements Serializable {
     @Size(min = 1, max = 16)
     @Column(name = "MINIMAL")
     private String minimal;
-    @JsonIgnore
+    //@JsonIgnore
+    @JsonBackReference(value="question-Qualificatif")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idQualificatif")
     private Collection<Question> questionCollection;
     @JsonIgnore
