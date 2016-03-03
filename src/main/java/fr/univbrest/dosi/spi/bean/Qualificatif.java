@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -54,10 +54,11 @@ public class Qualificatif implements Serializable {
     @Size(min = 1, max = 16)
     @Column(name = "MINIMAL")
     private String minimal;
+    //@JsonIgnore
     @JsonBackReference(value="question-Qualificatif")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idQualificatif")
     private Collection<Question> questionCollection;
-    @JsonBackReference(value="questionEvaluation-Qualificatif")
+    @JsonIgnore
     @OneToMany(mappedBy = "idQualificatif")
     private Collection<QuestionEvaluation> questionEvaluationCollection;
 
@@ -102,6 +103,7 @@ public class Qualificatif implements Serializable {
     public Collection<Question> getQuestionCollection() {
         return questionCollection;
     }
+
     public void setQuestionCollection(Collection<Question> questionCollection) {
         this.questionCollection = questionCollection;
     }
@@ -110,7 +112,7 @@ public class Qualificatif implements Serializable {
     public Collection<QuestionEvaluation> getQuestionEvaluationCollection() {
         return questionEvaluationCollection;
     }
-    
+
     public void setQuestionEvaluationCollection(Collection<QuestionEvaluation> questionEvaluationCollection) {
         this.questionEvaluationCollection = questionEvaluationCollection;
     }

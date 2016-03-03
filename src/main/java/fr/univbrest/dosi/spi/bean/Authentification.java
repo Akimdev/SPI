@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -60,11 +60,11 @@ public class Authentification implements Serializable {
     @Size(max = 32)
     @Column(name = "MOT_PASSE")
     private String motPasse;
-    @JsonManagedReference(value="auth-Enseignant")
+    @JsonIgnore
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne
     private Enseignant noEnseignant;
-    @JsonManagedReference(value="auth-Etudiant")
+    @JsonIgnore
     @JoinColumn(name = "NO_ETUDIANT", referencedColumnName = "NO_ETUDIANT")
     @ManyToOne
     private Etudiant noEtudiant;

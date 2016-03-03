@@ -20,9 +20,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  *
@@ -44,11 +43,11 @@ public class RubriqueQuestion implements Serializable {
     @NotNull
     @Column(name = "ORDRE")
     private BigInteger ordre;
-    @JsonManagedReference(value="rubriqueQuestion-Question")
+    @JsonIgnore
     @JoinColumn(name = "ID_QUESTION", referencedColumnName = "ID_QUESTION", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Question question;
-    @JsonManagedReference(value="rubriqueQuestion-Rubrique")
+    @JsonIgnore
     @JoinColumn(name = "ID_RUBRIQUE", referencedColumnName = "ID_RUBRIQUE", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Rubrique rubrique;

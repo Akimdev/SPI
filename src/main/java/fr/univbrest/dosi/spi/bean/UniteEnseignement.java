@@ -26,8 +26,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -71,18 +70,18 @@ public class UniteEnseignement implements Serializable {
     private Short nbhTd;
     @Column(name = "NBH_TP")
     private Short nbhTp;
-    @JsonManagedReference(value="enseignant-uniteEnseignement")
+    @JsonIgnore
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne(optional = false)
     private Enseignant noEnseignant;
-    @JsonManagedReference(value="ue-formation")
+    @JsonIgnore
     @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Formation formation;
-    @JsonBackReference(value="ue-elemconst")
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "uniteEnseignement",fetch=FetchType.LAZY)
     private Collection<ElementConstitutif> elementConstitutifCollection;
-    @JsonBackReference(value="ue-Evaluation")
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "uniteEnseignement")
     private Collection<Evaluation> evaluationCollection;
 
