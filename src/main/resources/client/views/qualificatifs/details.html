@@ -7,30 +7,40 @@
 		<div class="panel-body">
 			<!-- Edition -->
 			<div>
-				<form class="form-horizontal">
+				<form class="form-horizontal elegant-aero" name="qualificatifForm">
 					<div class="form-group">
-						<label for="" class="col-sm-2">idQualificatif</label>
+						<label for="" class="col-sm-2">idQualificatif<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control"
-								ng-model="qualificatif.idQualificatif">
+							<input type="number" class="form-control" name="idQualificatif" min="1"
+								ng-model="qualificatif.idQualificatif" ng-disabled="isVisible" required>
+								<span style="color:red" ng-show="qualificatifForm.idQualificatif.$dirty && qualificatifForm.idQualificatif.$invalid">
+								<span ng-show="qualificatifForm.idQualificatif.$error.required">IdQualificatif obligatoire ou type invalide.</span>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Maximal</label>
+						<label for="" class="col-sm-2">Maximal<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control"
-								ng-model="qualificatif.maximal">
+							<input type="text" class="form-control" name="maximal"
+								ng-model="qualificatif.maximal" required>
+								<span style="color:red" ng-show="qualificatifForm.maximal.$dirty && qualificatifForm.maximal.$invalid">
+								<span ng-show="qualificatifForm.maximal.$error.required">Maximal obligatoire ou type invalide.</span>
+								
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Minimal</label>
+						<label for="" class="col-sm-2">Minimal<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control"
-								ng-model="qualificatif.minimal">
+							<input type="text" class="form-control" name="minimal"
+								ng-model="qualificatif.minimal" required>
+								<span style="color:red" ng-show="qualificatifForm.minimal.$dirty && qualificatifForm.minimal.$invalid">
+								<span ng-show="qualificatifForm.minimal.$error.required">Minimal obligatoire ou type invalide.</span>
 						</div>
 					</div>
 				</form>
-				<a class="btn btn-success" ng-click="submit()"><span
+				<a class="btn btn-success" ng-click="submit()"
+				ng-disabled="qualificatifForm.idQualificatif.$dirty && qualificatifForm.idQualificatif.$invalid ||  
+				qualificatifForm.maximal.$dirty && qualificatifForm.maximal.$invalid ||  
+				qualificatifForm.minimal.$dirty && qualificatifForm.minimal.$invalid|| qualificatifForm.$invalid"><span
 					class="glyphicon glyphicon-ok"></span> Valider</a>
 				<button class="btn btn-danger pull-right" ng-click="cancel()">
 					Annuler</button>

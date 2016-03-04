@@ -2581,6 +2581,7 @@ input[type="search"] {
 }
 .form-group {
   margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 .radio,
 .checkbox {
@@ -11264,4 +11265,18 @@ lesshat-selector {
 }
 .form-validation .ng-invalid.ng-dirty {
   border-color: #e87352;
+}
+
+#required-field {
+	color: red;
+	font-size: 18px;
+	font-weight: bold;
+	padding-left: 10px;
+}
+
+.ng-invalid.ng-dirty{
+  border-color: #FA787E;
+}
+.ng-valid.ng-dirty{
+  border-color: #78FA89;
 }

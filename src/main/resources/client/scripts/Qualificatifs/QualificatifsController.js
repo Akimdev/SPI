@@ -133,14 +133,16 @@
         var f = qualificatifsFactory.get($routeParams.id);
         var promisesFactory = qualificatifsFactory.get($routeParams.id);
      	promisesFactory.success(function(data) {
+       		$scope.isVisible = true;
      		$scope.qualificatif = data;   
      	});
       }      
       
       $scope.edition = function(){
+    	  
     	  var promisesedit = qualificatifsFactory.set($scope.qualificatif);
     	  promisesedit.success(function(data) {
-       		$scope.qualificatif = data;   
+       		$scope.qualificatif = data;  
        	});
     	  $scope.edit = true;
         }
@@ -163,6 +165,7 @@
 
       $scope.edition = function(){
         $scope.edit = true;
+        $scope.button_clicked = true;
       }
 
    // annule l'édition
