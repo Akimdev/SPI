@@ -35,7 +35,43 @@
         return $scope.taskRemainingCount = count;
       });
     }
-  ]).controller('DashboardCtrl', ['$scope', function($scope) {}]);
+  ]).factory('informationFactory',['$http',function($http){
+	  return{
+		  getEtudiants:function(){
+			  return $http.get("http://localhost:8090/nombreEtudiants");
+		  },
+		  getFormations:function(){
+			  return $http.get("http://localhost:8090/nombreFormations");
+		  },
+		  getUEs:function(){
+			  return $http.get("http://localhost:8090/nombreUEs");
+		  }
+	  };
+  }
+  ]).controller('DashboardCtrl', ['$scope','informationFactory',function($scope, informationFactory) {
+	  var promise= informationFactory.getEtudiants();
+      promise.success(function(data){
+    	  $scope.nombreEtudiants = data ;
+      })
+      .error(function(data){
+    	  console.log("impossible de recuperer le nombre d'étudiants");
+      });
+      var promise= informationFactory.getFormations();
+      promise.success(function(data){
+    	  $scope.nombreFormations = data ;
+      })
+      .error(function(data){
+    	  console.log("impossible de recuperer le nombre de formations");
+      });
+      
+      var promise= informationFactory.getUEs();
+      promise.success(function(data){
+    	  $scope.nombreUEs = data ;
+      })
+      .error(function(data){
+    	  console.log("impossible de recuperer le nombre des unités d'enseignement");
+      });
+  }]);
 
 }).call(this);
 

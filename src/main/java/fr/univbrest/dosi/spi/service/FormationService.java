@@ -1,5 +1,7 @@
 package fr.univbrest.dosi.spi.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +44,13 @@ public class FormationService {
 		return formationRepository.save(formation);
 
 	}
-
+	/**
+	 * @author Othman
+	 * méthode retourne le nombre de formations
+	 * @return
+	 */
+	public int nombreFormations(){
+	List<Formation> listeFormations = (List<Formation>) formationRepository.findAll();
+	return listeFormations.size();
+	}
 }

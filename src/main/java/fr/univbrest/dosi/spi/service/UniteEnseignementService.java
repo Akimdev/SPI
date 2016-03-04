@@ -40,4 +40,9 @@ public class UniteEnseignementService {
 	public final UniteEnseignement uniteEnseignement(final UniteEnseignementPK uniteEnseignementPK) {
 		return uniteEnseignementRepository.findOne(uniteEnseignementPK);
 	}
+	
+	public int nombreUEs(){
+		List<UniteEnseignement> listeUEs= (List<UniteEnseignement>) uniteEnseignementRepository.findAll();
+		return listeUEs.size();
+	}
 }
