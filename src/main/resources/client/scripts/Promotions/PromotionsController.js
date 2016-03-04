@@ -145,8 +145,8 @@
   );
 
   app.controller('PromotionDetailsController', 
-    ['$scope', '$routeParams', '$location', 'promotionsFactory',
-    function($scope, $routeParams, $location, promotionsFactory){      
+    ['$scope', '$routeParams', '$location', '$filter', 'promotionsFactory',
+    function($scope, $routeParams, $location,$filter, promotionsFactory){      
       $scope.edit= false;    
       var promoPK = {anneeUniversitaire:  $routeParams.ann, codeFormation: $routeParams.form};
       // si creation d'une nouvelle promotion
@@ -158,10 +158,12 @@
             var promise1= promotionsFactory.get(promoPK);
             promise1.success(function(data,statut){
           	  $scope.promotion= data ;
+          	$scope.promotion.dateRentree = $filter('date')(data.dateRentree, "dd/MM/yyyy");
 	          	var promise2= promotionsFactory.getEtudiants(promoPK);
 	            promise2.success(function(data,statut){
 	            	console.log("etd: ",data);
 	          	  $scope.promotion.etudiantCollection = data ;
+	          	  
 	            })
 	            .error(function(data,statut){
 	          	  console.log("impossible de recuperer les étudiants de la promotion choisie");

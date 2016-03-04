@@ -20,7 +20,7 @@
 						<li><label>Code formation</label> {{promotion.promotionPK.codeFormation}}</li>
 						<li><label>Sigle</label>{{promotion.siglePromotion}}</li>
 						<li><label>Responsable</label>{{promotion.noEnseignant.nom}} {{promotion.noEnseignant.prenom}}</li>
-						<li><label>Date de rentrée</label> {{promotion.dateRentree}}</li>
+						<li><label>Date de rentrée</label> {{promotion.dateRentree | date: "dd/MM/yyyy"}}</li>
 						<li><label>Lieu de rentrée</label> {{promotion.lieuRentree}}</li>
 						<li><label>Processus de stage</label> {{promotion.processusStage}}</li>
 						<li><label>Commentaire</label>{{promotion.commentaire}}</li>
