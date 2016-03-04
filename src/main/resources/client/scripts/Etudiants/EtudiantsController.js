@@ -36,7 +36,7 @@
     	var promiseEtudiants = etudiantsFactory.all();
 		promiseEtudiants.success(function(data, status) {
 		      $scope.etudiants = data;
-		      
+		      		      
 		      $scope.searchKeywords = '';
 		      $scope.filteredEtudiant = [];
 		      $scope.row = '';
