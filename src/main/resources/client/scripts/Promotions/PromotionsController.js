@@ -36,7 +36,6 @@
       get: function(promotionPK) { 
     	  // TODO retourner les promotions
     	  console.log("TODO : get promotion",promotionPK);
-    	  var promo= $http.post("http://localhost:8090/getPromotion/", promotionPK);
     	  return $http.post("http://localhost:8090/getPromotion/", promotionPK);
    	  },
       set: function(promotion) {
@@ -45,17 +44,18 @@
         if(idx){// si modification d'une promotion existante     	  
   	        	$http.post('http://localhost:8090/updatePromotion',promotion);
         } else { // si ajout d'une nouvelle promotion 	  
-	        	$http.post('http://localhost:8090/addPromotion',newPromotion);
+	        	$http.post('http://localhost:8090/addPromotion',promotion);
         }
       },
       delete: function(promotionPK) {
         // TODO Supprimer une promotion
     	  console.log("TODO : supprimer promotion",promotionPK);
-    	  return  $http.get('http://localhost:8090/deletePromotion/'+promotionPK);
+    	  return  $http.post('http://localhost:8090/deletePromotion/', promotionPK);
       },
       
       getEtudiants : function(promotionPK){
-		  return $http.get("http://localhost:8090/getEtudiantsByPromotion/"+promotionPK);
+    	  console.log("TODO : recuperation des etudiants par promotion",promotionPK);
+		  return $http.post("http://localhost:8090/getEtudiantByPromotion/",promotionPK);
       }
     };
   }]);
@@ -158,18 +158,20 @@
             var promise1= promotionsFactory.get(promoPK);
             promise1.success(function(data,statut){
           	  $scope.promotion= data ;
+	          	var promise2= promotionsFactory.getEtudiants(promoPK);
+	            promise2.success(function(data,statut){
+	            	console.log("etd: ",data);
+	          	  $scope.promotion.etudiantCollection = data ;
+	            })
+	            .error(function(data,statut){
+	          	  console.log("impossible de recuperer les étudiants de la promotion choisie");
+	            });
             })
             .error(function(data,statut){
           	  console.log("impossible de recuperer les details de la promotion choisie");
             });
             
-            var promise2= promotionsFactory.getEtudiants(promoPK);
-            promise2.success(function(data,statut){
-          	  $scope.promotion.etudiantCollection = data ;
-            })
-            .error(function(data,statut){
-          	  console.log("impossible de recuperer les étudiants de la promotion choisie");
-            });
+            
       }
 
       $scope.edition = function(){

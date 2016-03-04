@@ -6,17 +6,21 @@
   app.factory('qualificatifsFactory', function($http, $window){
             
     return {
-      // renvoi la liste de tous les enseignants
       all: function() { 
     	  return $http.get('http://localhost:8090/listerQualificatif');
       },
-      // renvoi l'enseignant avec le code demandé
-      get: function(code) { 
-    	//  return $http.get('http://localhost:8090/formation/' + code);    
+      get: function(idQualificatif) { 
+    	  return $http.get('http://localhost:8090/qualificatif/' + idQualificatif); 
       },
       
       set: function(qualificatif) {	
-    	  return $http.post('http://localhost:8090/ajouterQualificatif', qualificatif);
+    	  //return $http.post('http://localhost:8090/ajouterQualificatif', qualificatif);
+    	  return $http({
+    		  method: 'POST',
+    		  url: 'http://localhost:8090/ajouterQualificatif',
+    		  data: qualificatif,
+    		  headers:{ 'Content-Type' : 'application/json'}
+    	  });
       },
       
       delete: function(idQualificatif) { 
@@ -28,32 +32,88 @@
   app.controller('QualificatifsController', 
     ['$scope', '$location','$http','$filter', 'qualificatifsFactory',
     function($scope, $location,$http,$filter, qualificatifsFactory){
-      // la liste globale des formations
     	$scope.refresh = function (){
-    		 var promiseFormation = qualificatifsFactory.all();          
+//    		 var promiseFormation = qualificatifsFactory.all();          
+//    	      promiseFormation.success(function(data) {
+//    	          $scope.qualificatifs = data;
+//    	      });
+    	      
+    	      var promiseFormation = qualificatifsFactory.all();          
     	      promiseFormation.success(function(data) {
-    	          $scope.qualificatifs = data;
-    	      });
+    	          $scope.listQualificatifs = data;
+    			      
+    			      $scope.searchKeywords = '';
+    			      $scope.filteredQualificatif = [];
+    			      $scope.row = '';
+    			      
+    			      $scope.select = function(page) {
+    			        var end, start;
+    			        start = (page - 1) * $scope.numPerPage;
+    			        end = start + $scope.numPerPage;
+    			        return $scope.qualificatifs = $scope.filteredQualificatif.slice(start, end);
+    			      };
+    			      
+    			      $scope.onFilterChange = function() {
+    			        $scope.select(1);
+    			        $scope.currentPage = 1;
+    			        return $scope.row = '';
+    			      };
+    			      
+    			      $scope.onNumPerPageChange = function() {
+    			        $scope.select(1);
+    			        return $scope.currentPage = 1;
+    			      };
+    			      
+    			      $scope.onOrderChange = function() {
+    			        $scope.select(1);
+    			        return $scope.currentPage = 1;
+    			      };
+    			      
+    			      $scope.search = function() {
+    			        $scope.filteredQualificatif = $filter('filter')($scope.listQualificatifs, $scope.searchKeywords);
+    			        return $scope.onFilterChange();
+    			      };
+    			      $scope.order = function(rowName) {
+    			        if ($scope.row === rowName) {
+    			          return;
+    			        }
+    			        $scope.row = rowName;
+    			        $scope.filteredQualificatif = $filter('orderBy')($scope.listQualificatifs, rowName);
+    			        return $scope.onOrderChange();
+    			      };
+    			      $scope.numPerPageOpt = [3, 5, 10, 20];
+    			      $scope.numPerPage = $scope.numPerPageOpt[2];
+    			      $scope.currentPage = 1;
+    			      $scope.qualificatifs = [];
+    			      var init = null;
+    			      init = function() {
+    			        $scope.search();
+    			        return $scope.select($scope.currentPage);
+    			      };
+    			      return init();
+    			  }
+    			)
+    			.error(function(data) {
+    				 $scope.error = 'unable to get the poneys';
+    			  }
+    			);
     	}
      
-      // Crée la page permettant d'ajouter une formation
       $scope.ajoutQualificatif = function(){
         $location.path('/admin/qualificatif/nouveau'); 
       }
 
-      // affiche les détails d'une formation
       $scope.edit = function(qualificatif){
-        $location.path('/admin/qualificatif/' + qualificatifs.idQualificatif);
+        $location.path('/admin/qualificatif/' + qualificatif.idQualificatif);
       }
 
-      // supprime une formation
       $scope.supprime = function(qualificatif){
     	  var promisessuppression  = qualificatifsFactory.delete(qualificatif.idQualificatif);
     	  promisessuppression.success(function(data, status, headers, config) {
 			$scope.refresh();
 		});
 	  promisessuppression.error(function(data, status, headers, config) {
-			alert( "failure message: " + JSON.stringify({data: data}));
+			alert( "Vous n'avez pas le droit de supprimer ce qualificatif!");
 		});	
 	  
       }
@@ -66,11 +126,10 @@
     function($scope, $routeParams, $http, $location,$filter, qualificatifsFactory){      
       $scope.edit= false;    
 
-      // si creation d'une nouvelle formation
       if($routeParams.id == "nouveau"){
         $scope.qualificatif= { };
         $scope.edit= true;    
-      } else { // sinon on edite une formation existante
+      } else { 
         var f = qualificatifsFactory.get($routeParams.id);
         var promisesFactory = qualificatifsFactory.get($routeParams.id);
      	promisesFactory.success(function(data) {
@@ -79,9 +138,11 @@
       }      
       
       $scope.edition = function(){
-    	  var promisessuppression = qualificatifsFactory.set($scope.qualificatif);    	  
-    	  qualificatifsFactory.get($scope.qualificatif);
-          $scope.edit = true;
+    	  var promisesedit = qualificatifsFactory.set($scope.qualificatif);
+    	  promisesedit.success(function(data) {
+       		$scope.qualificatif = data;   
+       	});
+    	  $scope.edit = true;
         }
 
         $scope.submit = function(){
@@ -103,12 +164,6 @@
       $scope.edition = function(){
         $scope.edit = true;
       }
-
-      // valide le formulaire d'édition d'une formation
-      
-      // TODO coder une fonction submit permettant de modifier une formation
-		// et rediriger vers /admin/formations
-
 
    // annule l'édition
       $scope.cancel = function(){
