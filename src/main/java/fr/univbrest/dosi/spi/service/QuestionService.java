@@ -29,7 +29,7 @@ public class QuestionService {
 	 * @param question
 	 */
 	public void addQuestion(Question question){
-			if(qualifRepo.exists(question.getIdQualificatif().getIdQualificatif())){
+			if(qualifRepo.exists(question.getIdQualificatif().getIdQualificatif()) && (!(questRepo.exists(question.getIdQuestion())))){
 				Qualificatif qualif = qualifRepo.findOne(question.getIdQualificatif().getIdQualificatif());
 				question.setIdQualificatif(qualif);
 				questRepo.save(question);
@@ -69,4 +69,13 @@ public class QuestionService {
 		questionList = (List<Question>) questRepo.findAll();
 		return questionList;
 	}
+	/**
+	 * Cette méthode retourne un qualificatif 
+	 * @param idQualificatif
+	 * @return
+	 */
+	public Question getQuestion(Long idQuestion){
+		return questRepo.findOne(idQuestion);
+	}
+	
 }

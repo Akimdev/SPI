@@ -1,4 +1,4 @@
-package test;
+package fr.univbrest.dosi.spi.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;

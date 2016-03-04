@@ -29,7 +29,7 @@ public class EnseignantService {
 	 */
 	public final Enseignant addEnseignant(final Enseignant enseignant) {
 		if (enseignantRepository.exists(enseignant.getNoEnseignant())) {
-			throw new SPIException("l'enseignant que vous souhaitez ajouter exsite déja ");
+			throw new SPIException("l'enseignant que vous souhaitez ajouter existe déjà ");
 		}
 		return enseignantRepository.save(enseignant);
 	}
