@@ -45,6 +45,12 @@
 		  },
 		  getUEs:function(){
 			  return $http.get("http://localhost:8090/nombreUEs");
+		  },
+		  getQuestions:function(){
+			  return $http.get("http://localhost:8090/nombreQuestions");
+		  },
+		  getEnseignants:function(){
+			  return $http.get("http://localhost:8090/nombreEnseignants");
 		  }
 	  };
   }
@@ -70,6 +76,22 @@
       })
       .error(function(data){
     	  console.log("impossible de recuperer le nombre des unités d'enseignement");
+      });
+      
+      var promise= informationFactory.getQuestions();
+      promise.success(function(data){
+    	  $scope.nombreQuestions = data ;
+      })
+      .error(function(data){
+    	  console.log("impossible de recuperer le nombre de questions");
+      });
+      
+      var promise= informationFactory.getEnseignants();
+      promise.success(function(data){
+    	  $scope.nombreEnseignants = data ;
+      })
+      .error(function(data){
+    	  console.log("impossible de recuperer le nombre d'enseignants");
       });
   }]);
 

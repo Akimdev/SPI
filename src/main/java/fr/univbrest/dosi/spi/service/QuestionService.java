@@ -77,5 +77,13 @@ public class QuestionService {
 	public Question getQuestion(Long idQuestion){
 		return questRepo.findOne(idQuestion);
 	}
+	/**
+	 * Cette méthode retourne le nombre de questions
+	 * @return
+	 */
+	public int nombreQuestions(){
+		List<Question> listeQuestions = (List<Question>) questRepo.findAll();
+		return listeQuestions.size();
+	}
 	
 }
