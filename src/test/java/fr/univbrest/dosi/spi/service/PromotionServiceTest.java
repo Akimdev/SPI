@@ -1,6 +1,8 @@
 
 package fr.univbrest.dosi.spi.service;
 
+import java.util.List;
+
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -9,42 +11,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.google.common.collect.Iterables;
+
 import fr.univbrest.dosi.spi.Application;
+import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Promotion;
 import fr.univbrest.dosi.spi.bean.PromotionPK;
 
 /**
- * @author DOSI
+ * @author Soukaina BAQLOUL
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 public class PromotionServiceTest {
 
-	public PromotionService getPromotionService() {
-		return promotionService;
-	}
-
-	public void setPromotionService(PromotionService promotionService) {
-		this.promotionService = promotionService;
-	}
-
-	public String getSiglePromotion() {
-		return siglePromotion;
-	}
-
-	public void setSiglePromotion(String siglePromotion) {
-		this.siglePromotion = siglePromotion;
-	}
-
 	@Autowired
 	private PromotionService promotionService;
 	
-	private String siglePromotion="DOSI5";
+	private final String siglePromotion="DOSI5";
 	
-	public PromotionServiceTest() {
-		// TODO Auto-generated constructor stub
-	}
  
 	@Test
 	public final void getPromotion(){
@@ -52,7 +38,22 @@ public class PromotionServiceTest {
 		PromotionPK promotionPK= new PromotionPK("M2DOSI","2014-2015");
 		final Promotion promotion= promotionService.getPromotion(promotionPK);
 		Assert.assertNotNull(promotion);
-		Assert.assertEquals(this.getSiglePromotion(), promotion.getSiglePromotion());
+		Assert.assertEquals(this.siglePromotion, promotion.getSiglePromotion());
 		
+	}
+	
+	@Test
+	public final void deletePromotion(){
+		
+		PromotionPK promotionPK= new PromotionPK("M2DOSI","10-2014");
+		promotionService.deletePromotion(promotionPK);
+		List<Promotion> listePromos = (List<Promotion>) promotionService.getPromotionALL();
+		Assert.assertEquals(18, listePromos.size());
+}
+	
+	@Test
+	public final void getPromotionAll(){
+		final Iterable<Promotion> promotions = promotionService.getPromotionALL();
+		Assert.assertNotNull(promotions);
 	}
 }
