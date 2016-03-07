@@ -1,13 +1,16 @@
 <!doctype html>
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
-        <meta charset="utf-8">
+        	
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
         <title>SPI</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- needs images, font... therefore can not be part of ui.css -->
+        <link rel="stylesheet" href="bower_components/sweetalert/dist/sweetalert.css">
+        <link href="bower_components/angularjs-toaster/toaster.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="bower_components/weather-icons/css/weather-icons.min.css">
         <!-- end needs images -->
@@ -46,6 +49,8 @@
         <!-- endbuild -->
 
         <!-- build:js scripts/ui.js -->
+        <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="bower_components/angularjs-toaster/toaster.min.js"></script>
         <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
         <script src="bower_components/jquery-spinner/dist/js/jquery.spinner.min.js"></script>
         <script src="bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>

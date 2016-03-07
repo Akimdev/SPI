@@ -153,8 +153,8 @@
   );
 
   app.controller('PromotionDetailsController', 
-    ['$scope', '$routeParams', '$location', 'promotionsFactory',
-    function($scope, $routeParams, $location, promotionsFactory){      
+    ['$scope', '$routeParams', '$location', '$filter', 'promotionsFactory',
+    function($scope, $routeParams, $location,$filter, promotionsFactory){      
       $scope.edit= false;    
       var promoPK = {anneeUniversitaire:  $routeParams.ann, codeFormation: $routeParams.form};
       // si creation d'une nouvelle promotion

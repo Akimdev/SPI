@@ -54,7 +54,7 @@ public class FormationService {
 		}
 		return nomFormations;
 	}
-
+	
 	/**
 	 * @author Othman méthode retourne le nombre de formations
 	 * @return

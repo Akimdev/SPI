@@ -111,8 +111,8 @@
   );
 
   app.controller('FormationDetailsController', 
-    ['$scope', '$routeParams', '$location', 'formationsFactory',
-    function($scope, $routeParams, $location, formationsFactory){      
+    ['$scope', '$routeParams', '$location','$filter', 'formationsFactory',
+    function($scope, $routeParams, $location,$filter, formationsFactory){      
       $scope.edit= false;    
 
       // si creation d'une nouvelle formation
@@ -129,6 +129,8 @@
 			$scope.formation = data ;
         	console.log("Dans FormationDetailsController : success : "+$scope.formation.nomFormation);
 			//$scope.formation = JSON.parse(JSON.stringify(data));
+     		$scope.formation.debutAccreditation = $filter('date')(data.debutAccreditation, "dd/MM/yyyy");
+			$scope.formation.finAccreditation = $filter('date')(data.finAccreditation, "dd/MM/yyyy");
 		  }
 		)
 		 .error(function(data,status){
@@ -142,6 +144,10 @@
 
       // valide le formulaire d'édition d'une formation
       $scope.submit = function(){
+    	  var date = $scope.formation.debutAccreditation.split('/');
+      	$scope.formation.debutAccreditation = new Date(date[1] + '-' + date[0] + '-' + date[2]);
+      	var date2 = $scope.formation.finAccreditation.split('/');
+      	$scope.formation.finAccreditation = new Date(date2[1] + '-' + date2[0] + '-' + date2[2]);
     	  formationsFactory.set($scope.formation);        
           $scope.edit = false;  
           $location.path('/admin/formations'); 

@@ -3,7 +3,7 @@
 	var app = angular.module(
 			'app',
 			[ 'ngRoute', 'ngAnimate', 'ui.bootstrap', 'easypiechart',
-					'mgo-angular-wizard', 'textAngular', 'ui.tree',
+					'mgo-angular-wizard', 'textAngular', 'ui.tree', 'toaster', 
 					'ngTagsInput', 'app.authentication', 'app.enseignants',
 					'app.formations', 'app.ue', 'app.etudiants', 'app.qualificatifs', 'app.questions', 'app.promotions', 'app.ui.ctrls',
 					'app.ui.directives', 'app.ui.services', 'app.controllers',
