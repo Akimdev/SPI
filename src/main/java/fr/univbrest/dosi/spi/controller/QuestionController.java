@@ -85,7 +85,7 @@ public class QuestionController {
 	 * Cette méthode retourne une liste de questions non ordonnées
 	 * @return
 	 */
-	@RequestMapping(value="/getAllQuestions")
+	@RequestMapping(value="/questions")
 	public List<Question> listerQuestion(){
 		return questServ.getAllQuestions();
 	}
