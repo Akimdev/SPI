@@ -4,7 +4,7 @@
 			'app',
 			[ 'ngRoute', 'ngAnimate', 'ui.bootstrap', 'easypiechart',
 					'mgo-angular-wizard', 'textAngular', 'ui.tree', 'toaster', 
-					'ngTagsInput', 'app.authentication', 'app.enseignants',
+					'ngTagsInput', 'app.authentication', 'app.enseignants','app.evaluations',
 					'app.formations', 'app.ue', 'app.etudiants', 'app.qualificatifs', 'app.questions', 'app.promotions', 'app.ui.ctrls',
 					'app.ui.directives', 'app.ui.services', 'app.controllers',
 					'app.directives', 'app.form.validation',

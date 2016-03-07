@@ -1,74 +1,11 @@
 (function() {
   'use strict';
 
-  var app = angular.module('app.enseignants', []);
+  var app = angular.module('app.evaluations', []);
 
-  Array.prototype.removeValue = function(name, value){
-	   var array = $.map(this, function(v,i){
-	      return v[name] === value ? null : v;
-	   });
-	   this.length = 0; //clear original array
-	   this.push.apply(this, array); //push all elements except the one we want to delete
-	}
-  
-  Array.prototype.retourValue = function(name, value){
-	   var array = $.map(this, function(v,i){
-	      return v[name] === value ? v : null;
-	   });
-	   return array[0];
-	}
-  
-  app.factory('enseignantsFactory', ['$http',function($http){
-    var list = function() {
-        //var defer = $q.defer();
-
-        return  $http.get('http://localhost:8090/ens')
-        /*.then(function(response) {
-           defer.resolve(response.data);
-         });
-
-         return defer.promise;*/
-       };
-    	/*[ 
-      // TODO Constituer la liste des enseignants ici
-      {
-    	  no_enseignant : "1", nom : "SALIOU", prenom : "Philippe", 
-    	  email :"philippe.saliou@gmail.com", sexe : "H", adresse :"6 rue de l'Argoat" ,
-    	  code_postal : "29860", ville : "LE DRENNEC", telephone : "06.29.24.01.00",
-    	  pays : "FR", type : "MCF"
-    		  
-      },
-      {
-    	  no_enseignant : "2", nom : "LALLALI", prenom : "Mounir", 
-    	  email :"mouni.lallali@gmail.com", sexe : "H", adresse :"18rue Jean Jaurès" ,
-    	  code_postal : "29200", ville : "BREST", telephone : "06.32.03.56.32",
-    	  pays : "FR", type : "MCF"
-      },
-      {
-    	  no_enseignant : "3", nom : "LEROUX", prenom : "Pierre", 
-    	  email :"pileroux@gmail.com" , sexe : "H", adresse :"65 route de Gouesnou" ,
-    	  code_postal : "29200", ville : "BREST", telephone : "06.45.95.47.29",
-    	  pays : "FR", type : "INT"
-      }
-    ];*/
-            
-    var details = [ 
-      // Constituer le délail de la liste des enseignants ici
-    ];
-
+ 
+  app.factory('evaluationsFactory', ['$http',function($http){
     return {
-      // renvoi la liste de tous les enseignants
-      all:list,// function() { //return list; 
-
-     // },
-      // renvoi l'enseignant avec le no_enseignant demandé
-      get: function(noEnseignant) { 
-    	  // TODO retourner les enseignants
-    	  console.log("TODO : get enseignant",noEnseignant);
-    	  //return list.retourValue("no_enseignant",idx);
-    	  return  $http.get('http://localhost:8090/getens/'+noEnseignant);
-    	  
-   	  },
       set: function(enseignant) {
         var idx = enseignant.noEnseignant;
         // si modification d'un enseignant existant
@@ -139,10 +76,11 @@
 
   
 
-  app.controller('EnseignantsController', 
+  app.controller('EvaluationsController', 
     ['$scope', '$filter','$location', 'enseignantsFactory',
     function($scope, $filter, $location, enseignantsFactory){
-    	var init;
+    	
+    	/*var init;
     	enseignantsFactory.all()
 		.success(function(data) {
 		    $scope.enseignants = data;
@@ -194,23 +132,10 @@
 		.error(function(data) {
 			 $scope.error = 'unable to get the poneys';
 		  }
-		);
-      // la liste globale des enseignants
-      //$scope.enseignants = enseignantsFactory.all();          
+		);*/
 
-      //$scope.formations = [];
-      
-      /*listfrm.fetchPopular(function(data) {
-        	  console.log("TODO 1: entrer fetchpopular");
-    			$scope.formations = data;
-    			console.log("TODO 2: donnee " + data);
-    			console.log("TODO 3: fin fetchpopular");
-    		});*/
-      
-      // Crée la page permettant d'ajouter un enseignant
-      // TODO Lien vers la page permettant de créer un enseignant /admin/enseignant/nouveau
       $scope.ajoutEnseignant = function(){
-          $location.path('/admin/enseignant/nouveau'); 
+          $location.path('/admin/evaluation/nouveau'); 
        }
       
       // affiche les détail d'un enseignant
@@ -238,11 +163,11 @@
     }]
   );
 
-  app.controller('EnsDetailsController', 
-    ['$scope', '$routeParams', '$location', 'enseignantsFactory',
-    function($scope, $routeParams, $location, enseignantsFactory){      
+  app.controller('EvasDetailsController', 
+    ['$scope', '$routeParams', '$location', 'evaluationsFactory',
+    function($scope, $routeParams, $location, evaluationsFactory){      
       $scope.edit= false;    
-
+      
       // si creation d'un nouvel enseignant
       if($routeParams.id == "nouveau"){
         $scope.enseignant= { };
