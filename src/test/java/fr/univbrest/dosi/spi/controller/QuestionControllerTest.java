@@ -8,13 +8,10 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.bean.Question;
 import fr.univbrest.dosi.spi.exception.SPIException;
 import fr.univbrest.dosi.spi.service.QualificatifService;
@@ -25,7 +22,7 @@ public class QuestionControllerTest {
 	QualificatifService qualificatifService;
 	
 	@Test
-	public void ajoutQuestionTest() throws ClientProtocolException, IOException {
+	public void addQuestionTest() throws ClientProtocolException, IOException {
 
 		Question question = new Question(99L, "QUS", "Some question");
 		question.setIdQualificatif(qualificatifService.getQualificatif(1L));

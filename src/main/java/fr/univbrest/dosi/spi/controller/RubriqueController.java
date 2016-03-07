@@ -37,7 +37,7 @@ public class RubriqueController {
 	 * @param rubrique
 	 * @return la rubrique ajoutée
 	 */
-	@RequestMapping(value = "/rubrique/ajouterRubrique", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/addRubrique", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public final Rubrique ajouterRubrique(@RequestBody final Rubrique rubrique) {
 		return rubriqueService.addRubrique(rubrique);
 	}
@@ -48,7 +48,7 @@ public class RubriqueController {
 	 * @param rubrique
 	 * @return une rubrique
 	 */
-	@RequestMapping(value = "/rubrique/modifierRubrique", method = RequestMethod.POST, headers = "Accept=application/json")
+	@RequestMapping(value = "/updateRubrique", method = RequestMethod.POST, headers = "Accept=application/json")
 	public final Rubrique editRubrique(@RequestBody final Rubrique rubrique) {
 		return rubriqueService.updateRubrique(rubrique);
 	}
@@ -58,7 +58,7 @@ public class RubriqueController {
 	 * 
 	 * @param idRubrique
 	 */
-	@RequestMapping(value = "/rubrique/delete/{idRubrique}", headers = "Accept=application/json")
+	@RequestMapping(value = "/deleteRubrique/{idRubrique}", headers = "Accept=application/json", method=RequestMethod.DELETE)
 	public final void removeRubrique(@PathVariable("idRubrique") final Long idRubrique) {
 		rubriqueService.deleteRubrique(idRubrique);
 	}

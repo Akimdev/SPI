@@ -25,7 +25,7 @@
       delete: function(idRubrique) { 
         // TODO Supprimer 
     	  console.log("TODO : supprimer rubrique", idRubrique);
-    	  return  $http.get('http://localhost:8090/deleteRubrique/'+ idRubrique)
+    	  return  $http.get('http://localhost:8090/rubrique/delete/'+ idRubrique)
       }
 
     };
