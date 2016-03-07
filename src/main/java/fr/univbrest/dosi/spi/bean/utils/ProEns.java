@@ -8,24 +8,20 @@ import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Formation;
 import fr.univbrest.dosi.spi.bean.Promotion;
 
+public class ProEns {
 
-
-public class ProEns{
-	
 	private Enseignant enseignant;
-	private String test;
-	public  Promotion promotion;
+	public Promotion promotion;
 	private Formation formation;
-	
-	
+
 	public ProEns(Enseignant enseignant, String test, Promotion promotion, Formation formation) {
 		super();
 		this.enseignant = enseignant;
-		this.test = test;
+
 		this.promotion = promotion;
 		this.formation = formation;
 	}
-	
+
 	public Formation getFormation() {
 		return formation;
 	}
@@ -42,14 +38,6 @@ public class ProEns{
 		this.promotion = promotion;
 	}
 
-	public String getTest() {
-		return test;
-	}
-
-	public void setTest(String test) {
-		this.test = test;
-	}
-
 	public Enseignant getEnseignant() {
 		return enseignant;
 	}
@@ -59,6 +47,6 @@ public class ProEns{
 	}
 
 	public ProEns() {
-		
+
 	}
 }

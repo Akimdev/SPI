@@ -18,9 +18,9 @@
     	//  return $http.get('http://localhost:8090/question/' + code);    
       },
       
-     /* set: function(question) {	
+      set: function(question) {	
     	  return $http.post('http://localhost:8090/ajouterQuestion', question);
-      },*/
+      },
       
       delete: function(idQuestion) { 
     	  return $http.get('http://localhost:8090/supprimerQuestionBis?idQuestion=' + idQuestion);
