@@ -1,5 +1,8 @@
 package fr.univbrest.dosi.spi.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,40 +10,48 @@ import fr.univbrest.dosi.spi.bean.Formation;
 import fr.univbrest.dosi.spi.dao.FormationRepository;
 
 /**
- * @author DOSI
+ * @author Kenza ABOUAKIL
  *
  */
 @Service
 public class FormationService {
 
 	@Autowired
-	private FormationRepository formationRepository;
+	FormationRepository formationRepository;
 
-	public final Formation addFormation(final Formation formation) {
-		return formationRepository.save(formation);
+	public void createFormation(Formation formation) {
+		formationRepository.save(formation);
 	}
 
-	public final void deleteFormation(final String codeFormation) {
-		formationRepository.delete(codeFormation);
+	public void deleteFormation(String codeformation) {
+		try {
+			formationRepository.delete(codeformation);
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
 	}
 
-	public final Boolean existeFormation(final String code) {
-		return formationRepository.exists(code);
+	public List<Formation> findAll() {
+		return (List<Formation>) formationRepository.findAll();
 	}
 
-	public final Formation getFormation(final String code) {
-		return formationRepository.findOne(code);
+	public Formation findByCodeFormation(String codeFormation) {
+		return formationRepository.findByCodeFormation(codeFormation);
 	}
 
-	public final Iterable<Formation> listFormations() {
-		final Iterable<Formation> formations = formationRepository.findAll();
-		return formations;
+	public List<Formation> findByNomFormation(String nomFormation) {
+		return formationRepository.findByNomFormation(nomFormation);
 	}
 
-	public final Formation updateFormation(final Formation formation) {
-
-		return formationRepository.save(formation);
-
+	public String getNomFormation(String codeFormation) {
+		return formationRepository.findByCodeFormation(codeFormation).getNomFormation();
 	}
 
+	public List<String> getNomFormations(List<String> codeFormations) {
+		List<String> nomFormations = new ArrayList<String>();
+		for (String code : codeFormations) {
+			nomFormations.add(formationRepository.findOne(code).getNomFormation());
+		}
+		return nomFormations;
+	}
 }
