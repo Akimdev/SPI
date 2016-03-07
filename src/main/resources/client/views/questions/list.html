@@ -1,10 +1,12 @@
+<!-- @Author Zouhair -->
+
 <div class="page page-table" data-ng-controller="QuestionsController">
 
     <section class="panel panel-default table-dynamic">
         <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Questions</strong>
         <span class="add fa fa-user-plus pull-right" ng-click="ajoutQuestion()"></span>
         </div>
-
+        
         <table class="table table-bordered table-striped table-responsive">
             <thead>
                 <tr>
@@ -40,9 +42,9 @@
             </thead>
             <tbody>
                 <tr data-ng-repeat="q in questions" class="question">
-                    <td ng-click="edit(f)">{{q.idQuestion}}</td>
-                    <td ng-click="edit(f)">{{q.type}}</td>
-                    <td ng-click="edit(f)">{{q.intitule}}</td>
+                    <td ng-click="edit(q)">{{q.idQuestion}}</td>
+                    <td ng-click="edit(q)">{{q.type}}</td>
+                    <td ng-click="edit(q)">{{q.intitule}}</td>
                     <td><span class="remove fa fa-remove" ng-click="supprime(q)"></span></td>
                 </tr>
             </tbody>

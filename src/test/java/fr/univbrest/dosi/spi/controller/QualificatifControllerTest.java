@@ -16,7 +16,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.exception.SPIException;
 
-
+/**
+ * 
+ * @author Othman
+ *
+ */
 
 
 public class QualificatifControllerTest {

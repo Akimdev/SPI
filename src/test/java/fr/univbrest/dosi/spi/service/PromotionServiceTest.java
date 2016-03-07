@@ -1,7 +1,4 @@
 package fr.univbrest.dosi.spi.service;
-
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -13,8 +10,6 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fr.univbrest.dosi.spi.Application;
-import fr.univbrest.dosi.spi.bean.Enseignant;
-import fr.univbrest.dosi.spi.bean.Etudiant;
 import fr.univbrest.dosi.spi.bean.Promotion;
 import fr.univbrest.dosi.spi.bean.PromotionPK;
 import fr.univbrest.dosi.spi.exception.SPIException;
@@ -29,7 +24,6 @@ public class PromotionServiceTest {
 
 	@Autowired
 	private PromotionService promotionService;
-	
 	private final String siglePromotion="DOSI5";
 	
     final String noEtudiant="1";
@@ -39,11 +33,12 @@ public class PromotionServiceTest {
 	private FormationService formationService;
 	private EtudiantService etudiantService;
  
+
 	@Test
-	public final void getPromotion(){
-		
-		PromotionPK promotionPK= new PromotionPK("M2DOSI","2014-2015");
-		final Promotion promotion= promotionService.getPromotion(promotionPK);
+	public final void getPromotion() {
+
+		PromotionPK promotionPK = new PromotionPK("M2DOSI", "2014-2015");
+		final Promotion promotion = promotionService.getPromotion(promotionPK);
 		Assert.assertNotNull(promotion);
 		Assert.assertEquals(this.siglePromotion, promotion.getSiglePromotion());
 		
