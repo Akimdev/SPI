@@ -83,82 +83,103 @@
 
         <!-- Edition -->
         <div ng-show="edit">            
-            <form class="form-horizontal">
+            <form class="form-horizontal elegant-aero" name="enseignantForm">
+            <div ng-repeat="alert in alerts" ng-show="alert.show">
+       				 <alert type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+      		</div>
                 <div class="form-group">
-                    <label for="" class="col-sm-2">Nom</label>
+                    <label for="" class="col-sm-2">Nom<span id="required-field">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" 
-                               ng-model="enseignant.nom">
+                        <input type="text" class="form-control"  name="nom"
+                               ng-model="enseignant.nom"  placeholder="Nom de l'enseignant" required>
+                               <span style="color:red" ng-show="enseignantForm.nom.$dirty && enseignantForm.nom.$invalid">
+								<span ng-show="enseignantForm.nom.$error.required">nom obligatoire</span>
                     </div>                    
                 </div>
                 <div class="form-group">
-                    <label for="" class="col-sm-2">Prénom</label>
+                    <label for="" class="col-sm-2">Prénom<span id="required-field">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control"
-                               ng-model="enseignant.prenom">
+                        <input type="text" class="form-control" name="prenom"
+                               ng-model="enseignant.prenom" placeholder="Pr&eacute;nom de l'enseignant" required>
+                               <span style="color:red" ng-show="enseignantForm.prenom.$dirty && enseignantForm.prenom.$invalid">
+								<span ng-show="enseignantForm.prenom.$error.required">Pr&eacute;nom obligatoire</span>
                     </div>                    
                 </div>
                 <div class="form-group">
-                    <label for="" class="col-sm-2">Sexe</label>
+                    <label for="" class="col-sm-2">Sexe<span id="required-field">*</span></label>
                     <div class="col-sm-10">
-                        <label class="ui-radio"><input name="radio1" type="radio" value="H" ng-model="enseignant.sexe"><span>Homme</span></label>
+                        <label class="ui-radio"><input name="radio1" type="radio" value="H" ng-model="enseignant.sexe" ng-checked="true"><span>Homme</span></label>
                         <label class="ui-radio"><input name="radio1" type="radio" value="F" ng-model="enseignant.sexe"><span>Femme</span></label>
                     </div>                    
                 </div>
                 <div class="form-group">
-                    <label for="" class="col-sm-2">Type</label>
+                    <label for="" class="col-sm-2">Type<span id="required-field">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control"
-                               ng-model="enseignant.type" placeholder="Type de contrat (eg. MCF, PRAG, ...)">
+                        <input type="text" class="form-control" name="type"
+                               ng-model="enseignant.type" placeholder="Type de contrat (eg. MCF, PRAG, ...)" required>
+                               <span style="color:red" ng-show="enseignantForm.type.$dirty && enseignantForm.type.$invalid">
+								<span ng-show="enseignantForm.type.$error.required">Type obligatoire</span>
                     </div>                    
                 </div>
                 <div class="form-group">
-                    <label for="" class="col-sm-2">E-mail</label>
+                    <label for="" class="col-sm-2">E-mail<span id="required-field">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control"
-                               ng-model="enseignant.emailUbo">
+                        <input type="email" class="form-control" name="email"
+                               ng-model="enseignant.emailUbo" placeholder="example@example.com" required>
+                               <span style="color:red" ng-show="enseignantForm.email.$dirty && enseignantForm.email.$invalid">
+								<span ng-show="enseignantForm.email.$error.required">Email obligatoire</span>
                     </div>                    
                 </div>
                 <div class="form-group">
                     <label for="" class="col-sm-2">Téléphone</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control"
-                               ng-model="enseignant.telephone">
+                        <input class="form-control" type="text"
+                               ng-model="enseignant.telephone" placeholder="0512345678">
                     </div>                    
                 </div>
                 <div class="form-group">
-                    <label for="" class="col-sm-2">Mobile</label>
+                    <label for="" class="col-sm-2">Mobile<span id="required-field">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control"
-                               ng-model="enseignant.mobile">
+                        <input class="form-control" name="text" type="text"
+                               ng-model="enseignant.mobile" placeholder="0612345678" required>
+                               <span style="color:red" ng-show="enseignantForm.mobile.$dirty && enseignantForm.mobile.$invalid">
+								<span ng-show="enseignantForm.mobile.$error.required">T&eacute;l&eacute;phone mobile obligatoire</span>
                     </div>                    
                 </div>
                 <div class="form-group">
-                    <label for="" class="col-sm-2">Adresse</label>
+                    <label for="" class="col-sm-2">Adresse<span id="required-field">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control"
-                               ng-model="enseignant.adresse">
+                        <input type="text" class="form-control" name="adresse"
+                               ng-model="enseignant.adresse" required>
+                               <span style="color:red" ng-show="enseignantForm.adresse.$dirty && enseignantForm.adresse.$invalid">
+								<span ng-show="enseignantForm.adresse.$error.required">Adresse obligatoire</span>
                     </div>                    
                 </div>
                 <div class="form-group">
-                    <label for="" class="col-sm-2">Code postal</label>
+                    <label for="" class="col-sm-2">Code postal<span id="required-field">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control"
-                               ng-model="enseignant.codePostal">
+                        <input type="text" class="form-control" name="codePostale" ng-minlength="5" ng-maxlength="5" 
+                               ng-model="enseignant.codePostal" placeholder="Example: 29000" required>
+                               <span style="color:red" ng-show="enseignantForm.codePostale.$dirty && enseignantForm.codePostale.$invalid">
+								<span ng-show="enseignantForm.codePostale.$error.required">Code Postale obligatoire</span>
                     </div>                    
                 </div>
                 <div class="form-group">
-                    <label for="" class="col-sm-2">Ville</label>
+                    <label for="" class="col-sm-2">Ville<span id="required-field">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control"
-                               ng-model="enseignant.ville">
+                        <input type="text" class="form-control"  name="ville"
+                               ng-model="enseignant.ville" placeholder="Example: Brest" required>
+                                 <span style="color:red" ng-show="enseignantForm.ville.$dirty && enseignantForm.ville.$invalid">
+								<span ng-show="enseignantForm.ville.$error.required">Ville obligatoire</span>
                     </div>                    
                 </div>
                 <div class="form-group">
-                    <label for="" class="col-sm-2">Pays</label>
+                    <label for="" class="col-sm-2">Pays<span id="required-field">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control"
-                               ng-model="enseignant.pays">
+                        <input type="text" class="form-control" name="pays"
+                               ng-model="enseignant.pays" placeholder="Example: France" required>
+                                 <span style="color:red" ng-show="enseignantForm.pays.$dirty && enseignantForm.pays.$invalid">
+								<span ng-show="enseignantForm.pays.$error.required">Pays obligatoire</span>
                     </div>                    
                 </div>
             </form>

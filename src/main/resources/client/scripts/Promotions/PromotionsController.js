@@ -52,10 +52,17 @@
     	  console.log("TODO : supprimer promotion",promotionPK);
     	  return  $http.post('http://localhost:8090/deletePromotion/', promotionPK);
       },
-      
       getEtudiants : function(promotionPK){
     	  console.log("TODO : recuperation des etudiants par promotion",promotionPK);
 		  return $http.post("http://localhost:8090/getEtudiantByPromotion/",promotionPK);
+      },
+      getEnseignants: function(){
+    	  console.log("TODO : recuperation de la liste des enseignants");
+		  return $http.get("http://localhost:8090/ens");
+      },
+      getFormations: function(){
+    	  console.log("TODO : recuperation de la liste des formations");
+		  return $http.get("http://localhost:8090/formations");
       }
     };
   }]);
@@ -126,6 +133,7 @@
       
       // affiche les détail d'une promotion
       $scope.edit = function (promotionPK){
+    	  $scope.ajout= true;
     	  $location.path("/admin/promotion/"+ promotionPK.anneeUniversitaire + "/" + promotionPK.codeFormation);
       }
 
@@ -145,23 +153,44 @@
   );
 
   app.controller('PromotionDetailsController', 
-    ['$scope', '$routeParams', '$location', 'promotionsFactory',
-    function($scope, $routeParams, $location, promotionsFactory){      
+    ['$scope', '$routeParams', '$location', '$filter', 'promotionsFactory',
+    function($scope, $routeParams, $location,$filter, promotionsFactory){      
       $scope.edit= false;    
       var promoPK = {anneeUniversitaire:  $routeParams.ann, codeFormation: $routeParams.form};
       // si creation d'une nouvelle promotion
       if($routeParams.ann == "nouveau"){
-        $scope.promotion= { };
-        $scope.edit= true;    
+	        $scope.promotion= { };
+	        // Récuperation des enseignants
+	        var promise1= promotionsFactory.getEnseignants();
+	        promise1.success(function(data,statut){
+	        	$scope.enseignants= data;
+	        	console.log("\tEnseignants récupérés: ", data);
+	        })
+	        .error(function(data,statut){
+	      	  console.log("impossible de recuperer la liste des enseignants");
+	        });
+	        // Récuperation des formations
+	        var promise2= promotionsFactory.getFormations();
+	        promise2.success(function(data,statut){
+	        	$scope.formations= data;
+	        	console.log("\tFormations récupérées: ", data);
+	        })
+	        .error(function(data,statut){
+	      	  console.log("impossible de recuperer la liste des formations");
+	        });
+	        $scope.ajout = true;
+	        $scope.edit= true;
+	        
       } else { // sinon on edite une promotion existante
 			
             var promise1= promotionsFactory.get(promoPK);
             promise1.success(function(data,statut){
           	  $scope.promotion= data ;
+          	console.log("TODO: recuperation de la promotion: ", $scope.promotion);
 	          	var promise2= promotionsFactory.getEtudiants(promoPK);
 	            promise2.success(function(data,statut){
-	            	console.log("etd: ",data);
-	          	  $scope.promotion.etudiantCollection = data ;
+	            	$scope.promotion.etudiantCollection = data ;
+	            	console.log("TODO: recuperation de la liste des étudiants pour la promotion selectionnée ",data);
 	            })
 	            .error(function(data,statut){
 	          	  console.log("impossible de recuperer les étudiants de la promotion choisie");
@@ -170,7 +199,6 @@
             .error(function(data,statut){
           	  console.log("impossible de recuperer les details de la promotion choisie");
             });
-            
             
       }
 
@@ -199,7 +227,7 @@
             });
           $scope.edit = false;
         }
-      }      
+      }
     }]
   );
 }).call(this);

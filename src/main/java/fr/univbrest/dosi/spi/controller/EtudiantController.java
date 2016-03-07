@@ -37,5 +37,9 @@ public class EtudiantController {
 	public final Etudiant etudiant(@PathVariable(value = "noEtudiant") final String noEtudiant) {
 		return etudiantService.getEtudiant(noEtudiant);
 	}
-
+	
+	@RequestMapping(value="/nombreEtudiants", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public int nombreEtudiants(){
+		return etudiantService.getNombreEtudiants();
+	}
 }
