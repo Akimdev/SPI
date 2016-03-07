@@ -18,8 +18,6 @@ public class PromotionService {
 
 	public final void addPromotion(final Promotion promotion) {
 		
-		
-		
 		if(promotionRepository.exists(promotion.getPromotionPK())){
 			throw new SPIException("cette Promotion que vous souhaitez ajouter exsite déja :D");
 		} 
@@ -35,7 +33,7 @@ public class PromotionService {
 	}
 
 	public final void deletePromotion(final PromotionPK promotionPK) {
-		if (promotionRepository.findOne(promotionPK) != null)
+		if (promotionRepository.exists(promotionPK) )
 			promotionRepository.delete(promotionPK);
 		else
 			throw new SPIException("promotion non trouvée");

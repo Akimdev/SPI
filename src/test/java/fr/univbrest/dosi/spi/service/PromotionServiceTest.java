@@ -1,4 +1,5 @@
 package fr.univbrest.dosi.spi.service;
+import java.util.List;
 
 import junit.framework.Assert;
 
@@ -11,39 +12,27 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import fr.univbrest.dosi.spi.Application;
 import fr.univbrest.dosi.spi.bean.Promotion;
 import fr.univbrest.dosi.spi.bean.PromotionPK;
+import fr.univbrest.dosi.spi.exception.SPIException;
 
 /**
- * @author DOSI
+ * @author Soukaina BAQLOUL
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 public class PromotionServiceTest {
 
-	public PromotionService getPromotionService() {
-		return promotionService;
-	}
-
-	public void setPromotionService(PromotionService promotionService) {
-		this.promotionService = promotionService;
-	}
-
-	public String getSiglePromotion() {
-		return siglePromotion;
-	}
-
-	public void setSiglePromotion(String siglePromotion) {
-		this.siglePromotion = siglePromotion;
-	}
-
 	@Autowired
 	private PromotionService promotionService;
-
-	private String siglePromotion = "DOSI5";
-
-	public PromotionServiceTest() {
-		// TODO Auto-generated constructor stub
-	}
+	private final String siglePromotion="DOSI5";
+	
+    final String noEtudiant="1";
+	
+	private EnseignantService enseignantService;
+	
+	private FormationService formationService;
+	private EtudiantService etudiantService;
+ 
 
 	@Test
 	public final void getPromotion() {
@@ -51,7 +40,80 @@ public class PromotionServiceTest {
 		PromotionPK promotionPK = new PromotionPK("M2DOSI", "2014-2015");
 		final Promotion promotion = promotionService.getPromotion(promotionPK);
 		Assert.assertNotNull(promotion);
-		Assert.assertEquals(this.getSiglePromotion(), promotion.getSiglePromotion());
-
+		Assert.assertEquals(this.siglePromotion, promotion.getSiglePromotion());
+		
+	}
+	
+	@Test
+	public final void deletePromotion(){
+		
+		PromotionPK promotionPK= new PromotionPK("M2DOSI","10-2014");
+		promotionService.deletePromotion(promotionPK);
+		List<Promotion> listePromos = (List<Promotion>) promotionService.getPromotionALL();
+		Assert.assertEquals(18, listePromos.size());
+}
+	
+	@Test
+	public final void getPromotionAll(){
+		final Iterable<Promotion> promotions = promotionService.getPromotionALL();
+		Assert.assertNotNull(promotions);
+	}
+	
+	@Test
+	public final void addPromotion(){
+		try {
+	//final Integer noEnseignant=1;
+	//final String code="M2DOSI";
+    Promotion promotion=new Promotion();
+	PromotionPK promotionPK= new PromotionPK("M2DOSI","10-2014"); 
+	promotion.setPromotionPK(promotionPK);
+	//promotion.setNoEnseignant(enseignantService.getEnseignant(noEnseignant));
+	promotion.setSiglePromotion("MDOSI");
+	promotion.setProcessusStage("dosi");
+	promotion.setDateRentree(new java.util.Date(13,5,4));
+	promotion.setDateReponseLalp(new java.util.Date(13,5,4));
+	promotion.setDateReponseLp(new java.util.Date(13,5,4));
+	promotion.setLieuRentree("LC117B");
+	promotion.setNbMaxEtudiant((short) 24);
+	//promotion.setFormation(formationService.getFormation(code));
+	promotion.setCommentaire("commentaire");
+	//promotion.setEtudiantCollection(etudiantService.getEtudiantByPromotion(promotionPK));
+	
+	promotionService.addPromotion(promotion);
+	List<Promotion> listePromos = (List<Promotion>) promotionService.getPromotionALL();
+	Assert.assertEquals(19, listePromos.size());
+		//Assert.fail();
+	} catch (final SPIException ex) {
+		Assert.assertEquals("la promotion que vous souhaitez ajouter exsite déja ", ex.getMessage());
+	}
+	}
+	
+	@Test
+	public final void updatePromotion(){
+		try {
+			//final Integer noEnseignant=1;
+			//final String code="M2DOSI";
+		    Promotion promotion=new Promotion();
+			PromotionPK promotionPK= new PromotionPK("M2DOSI","10-2014"); 
+			promotion.setPromotionPK(promotionPK);
+			//promotion.setNoEnseignant(enseignantService.getEnseignant(noEnseignant));
+			promotion.setSiglePromotion("MDOSI");
+			promotion.setProcessusStage("dosi");
+			promotion.setDateRentree(new java.util.Date(13,5,4));
+			promotion.setDateReponseLalp(new java.util.Date(13,5,4));
+			promotion.setDateReponseLp(new java.util.Date(13,5,4));
+			promotion.setLieuRentree("LC117B");
+			promotion.setNbMaxEtudiant((short) 24);
+			//promotion.setFormation(formationService.getFormation(code));
+			promotion.setCommentaire("soukaina");
+			//promotion.setEtudiantCollection(etudiantService.getEtudiantByPromotion(promotionPK));
+			
+			promotionService.update(promotion);
+			List<Promotion> listePromos = (List<Promotion>) promotionService.getPromotionALL();
+			Assert.assertEquals(19, listePromos.size());
+				//Assert.fail();
+			} catch (final SPIException ex) {
+				Assert.assertEquals("la promotion que vous souhaitez modifier exsite déja ", ex.getMessage());
+			}
 	}
 }
