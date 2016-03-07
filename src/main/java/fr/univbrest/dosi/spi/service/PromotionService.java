@@ -28,7 +28,7 @@ public class PromotionService {
 	}
 
 	public final void deletePromotion(final PromotionPK promotionPK) {
-		if (promotionRepository.findOne(promotionPK) != null)
+		if (promotionRepository.exists(promotionPK) )
 			promotionRepository.delete(promotionPK);
 		else
 			throw new SPIException("promotion non trouvée");

@@ -1,5 +1,4 @@
 package fr.univbrest.dosi.spi.controller;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,11 @@ import fr.univbrest.dosi.spi.bean.Etudiant;
 import fr.univbrest.dosi.spi.bean.Formation;
 import fr.univbrest.dosi.spi.bean.Promotion;
 import fr.univbrest.dosi.spi.bean.PromotionPK;
+
 import fr.univbrest.dosi.spi.bean.utils.ProEns;
 import fr.univbrest.dosi.spi.service.EnseignantService;
+
+
 import fr.univbrest.dosi.spi.service.EtudiantService;
 import fr.univbrest.dosi.spi.service.FormationService;
 import fr.univbrest.dosi.spi.service.PromotionService;
@@ -31,6 +33,7 @@ public class PromotionController {
 
 	@Autowired
 	private PromotionService promotionService;
+
 	@Autowired
 	private EtudiantService etudiantservice;
 	@Autowired
@@ -39,25 +42,34 @@ public class PromotionController {
 	private EnseignantService enseignantService;
 
 	/**
-	 * Author Soukaina Cette fontion fait l'ajout d'une promotion
-	 * 
-	 * @param promotion
-	 * @return
+	 * @author soukaina BAQLOUL
+	 *
+	 * @param promotionPK
+	 * @return la liste des étudiants correspondants à une promotion
 	 */
-	@RequestMapping(value = "/getPromotion", method = RequestMethod.POST, headers = "Accept=application/json", produces = {
-			MediaType.APPLICATION_JSON_VALUE })
+
+	@RequestMapping(value = "/getEtudiantByPromotion", method = RequestMethod.POST, headers = "Accept=application/json", produces={ MediaType.APPLICATION_JSON_VALUE })
+    public final List<Etudiant> getEtudiantPromotion(@RequestBody PromotionPK promotionPK) {
+	    return etudiantservice.getEtudiantByPromotion(promotionPK);
+
+	}
+
+	/**
+	 * @author Soukaina BAQLOUL
+	 *
+	 * @param noEnseignant
+	 */
+
+	@RequestMapping(value = "/getPromotion", method = RequestMethod.POST, headers = "Accept=application/json", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public final Promotion getPromotion(@RequestBody PromotionPK promotionPK) {
 		return promotionService.getPromotion(promotionPK);
 	}
 
-	@RequestMapping(value = "/getEtudiantByPromotion", method = RequestMethod.POST, headers = "Accept=application/json", produces = {
-			MediaType.APPLICATION_JSON_VALUE })
-	public final List<Etudiant> getEtudiantPromotion(@RequestBody PromotionPK promotionPK) {
-		return etudiantservice.getEtudiantByPromotion(promotionPK);
-	}
-
 	/**
-	 * Assabar Liste des promotions
+	 * @author ASSABBAR
+	 *
+	 *         la methode permet de Lister toutes les promotions
+
 	 */
 	@RequestMapping(value = "/promotions", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE })
 	public Iterable<Promotion> getPromotions() {
