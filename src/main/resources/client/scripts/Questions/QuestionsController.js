@@ -11,7 +11,7 @@
     return {
       // renvoi la liste de tous les questions
       all: function() { 
-    	  return $http.get('http://localhost:8090/listerQuestions');
+    	  return $http.get('http://localhost:8090/questions');
       },
       // renvoi la question avec le code demandé
       get: function(code) { 
