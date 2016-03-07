@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.bean.Question;
 import fr.univbrest.dosi.spi.service.QuestionService;
 /**
@@ -71,5 +70,17 @@ public class QuestionController {
 	@RequestMapping(value="/listerQuestions")
 	public List<Question> listerQuestion(){
 		return questServ.listeQuestion();
+	}
+	/**
+	 * Retourne une question par ID
+	 */
+	@RequestMapping(value="/question/{idQuestion}")
+	public Question getQuestionById(@PathVariable(value="idQuestion") Long idQuestion){
+		return questServ.getQuestionById(idQuestion);
+	}
+	
+	@RequestMapping(value="/nombreQuestions")
+	public int nombreQuestions(){
+		return questServ.nombreQuestions();
 	}
 }

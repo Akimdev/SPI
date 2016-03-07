@@ -11,14 +11,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.google.common.collect.Iterables;
 
 import fr.univbrest.dosi.spi.Application;
-import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Formation;
-import fr.univbrest.dosi.spi.service.FormationService;
 
 /**
  * Classe de test d'int�gration permettant de tester le service
  *
- * @author DOSI
+ * @author Kenza ABOUAKIL
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,48 +29,46 @@ public class FormationServiceTest {
 	 */
 	@Autowired
 	FormationService formationService;
-	
-	@Test
-	public void testEns(){
-		Iterable<Formation> listeFor =  formationService.listFormations();
-		Assert.assertNotNull(listeFor);
-		Assert.assertEquals(5, Iterables.size(listeFor));
-	}
-	
-	
-	@Test
-	public void insertFormationTest() {
-		
-		Formation formation = new Formation();
-		formation.setCodeFormation("M2SII");
-		formation.setDiplome("M");
-		formation.setDoubleDiplome('O');
-		formation.setN0Annee((short) 2);
-		formation.setNomFormation("2eme annee Science de l'information...");
-	 	formation.setDebutAccreditation(new java.util.Date("11/11/2011"));	
-	 	formation.setFinAccreditation(new java.util.Date("11/11/2019"));
-		formationService.addFormation(formation);
-		
-		String codeF="M2SII";
-		Formation f=formationService.getFormation(codeF);		
-		
-		Assert.assertEquals(formation, f);	
-	}
-	
-	
+
 	@Test
 	public void getFormationByCodeFormationTest() {
-		
-		Formation formation =  formationService.getFormation("M2DOSI");
+
+		Formation formation = formationService.findByCodeFormation("M2DOSI");
 		Assert.assertNotNull(formation);
-		Assert.assertEquals("Master Développement à l'Offshore des Systèmes d'Information", formation.getNomFormation());	
+		Assert.assertEquals("Master Développement à l'Offshore des Systèmes d'Information", formation.getNomFormation());
 	}
-	
+
 	/**
 	 * Initialisation de param�tres avant chaque test
 	 */
 	@Before
 	public void init() {
 
+	}
+
+	@Test
+	public void insertFormationTest() {
+
+		Formation formation = new Formation();
+		formation.setCodeFormation("M2SII");
+		formation.setDiplome("M");
+		formation.setDoubleDiplome('O');
+		formation.setN0Annee((short) 2);
+		formation.setNomFormation("2eme annee Science de l'information...");
+		formation.setDebutAccreditation(new java.util.Date("11/11/2011"));
+		formation.setFinAccreditation(new java.util.Date("11/11/2019"));
+		formationService.createFormation(formation);
+
+		String codeF = "M2SII";
+		Formation f = formationService.findByCodeFormation(codeF);
+
+		Assert.assertEquals(formation, f);
+	}
+
+	@Test
+	public void testEns() {
+		Iterable<Formation> listeFor = formationService.findAll();
+		Assert.assertNotNull(listeFor);
+		Assert.assertEquals(5, Iterables.size(listeFor));
 	}
 }

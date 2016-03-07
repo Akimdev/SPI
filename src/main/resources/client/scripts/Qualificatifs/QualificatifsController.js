@@ -14,7 +14,8 @@
       },
       
       set: function(qualificatif) {	
-    	  //return $http.post('http://localhost:8090/ajouterQualificatif', qualificatif);
+    	  // return $http.post('http://localhost:8090/ajouterQualificatif',
+			// qualificatif);
     	  return $http({
     		  method: 'POST',
     		  url: 'http://localhost:8090/ajouterQualificatif',
@@ -33,10 +34,6 @@
     ['$scope', '$location','$http','$filter', 'qualificatifsFactory',
     function($scope, $location,$http,$filter, qualificatifsFactory){
     	$scope.refresh = function (){
-//    		 var promiseFormation = qualificatifsFactory.all();          
-//    	      promiseFormation.success(function(data) {
-//    	          $scope.qualificatifs = data;
-//    	      });
     	      
     	      var promiseFormation = qualificatifsFactory.all();          
     	      promiseFormation.success(function(data) {
@@ -108,39 +105,54 @@
       }
 
       $scope.supprime = function(qualificatif){
-    	  var promisessuppression  = qualificatifsFactory.delete(qualificatif.idQualificatif);
-    	  promisessuppression.success(function(data, status, headers, config) {
-			$scope.refresh();
-		});
-	  promisessuppression.error(function(data, status, headers, config) {
-			alert( "Vous n'avez pas le droit de supprimer ce qualificatif!");
-		});	
-	  
+		  swal({   
+			  title: "Voulez-vous vraiment supprimer ce qualificatif ?",      
+			  type: "warning",   
+			  showCancelButton: true,   
+			  confirmButtonColor: "#DD6B55",   
+			  confirmButtonText: "Oui, je veux le supprimer!",  
+			  cancelButtonText: "Non, ignorer!",   
+			  closeOnConfirm: false,   closeOnCancel: false },
+			  function(isConfirm){
+				  if (isConfirm) {  
+					  var promisessuppression  = qualificatifsFactory.delete(qualificatif.idQualificatif);
+			    	  promisessuppression.success(function(data, status, headers, config) {
+						$scope.refresh();
+						swal("Supprimé!", "le qualificatif est supprimé", "success");
+					});
+			    	  promisessuppression.error(function(data, status, headers, config) {
+			    		  swal("Erreur!", "vous pouvez pas supprimer ce qualificatif", "error");
+			  		});	
+					  } else {     
+						  swal("Ignorer", "", "error");
+						  }
+				  });  
       }
       $scope.refresh();
     }]
   );
 
   app.controller('QualificatifDetailsController', 
-    ['$scope', '$routeParams','$http', '$location','$filter', 'qualificatifsFactory',
-    function($scope, $routeParams, $http, $location,$filter, qualificatifsFactory){      
+    ['$scope', '$routeParams','$http', '$location','$filter', 'qualificatifsFactory', 'toaster',
+    function($scope, $routeParams, $http, $location,$filter, qualificatifsFactory , toaster){ 
       $scope.edit= false;    
-
       if($routeParams.id == "nouveau"){
         $scope.qualificatif= { };
-        $scope.edit= true;    
+        $scope.edit= true;       
       } else { 
         var f = qualificatifsFactory.get($routeParams.id);
         var promisesFactory = qualificatifsFactory.get($routeParams.id);
      	promisesFactory.success(function(data) {
-     		$scope.qualificatif = data;   
+       		$scope.isVisible = true;
+     		$scope.qualificatif = data;
      	});
       }      
       
       $scope.edition = function(){
+    	  
     	  var promisesedit = qualificatifsFactory.set($scope.qualificatif);
     	  promisesedit.success(function(data) {
-       		$scope.qualificatif = data;   
+       		$scope.qualificatif = data;  
        	});
     	  $scope.edit = true;
         }
@@ -148,11 +160,16 @@
         $scope.submit = function(){
         	var promisesajout = qualificatifsFactory.set($scope.qualificatif);
         	promisesajout.success(function(data, status, headers, config) {
+        		swal("Félicitation!", "Le nouveau qualificatif est ajouté!", "success");
         		$location.path('/admin/qualificatifs');
-				
 			});
         	promisesajout.error(function(data, status, headers, config) {
-				alert( "failure message: " + JSON.stringify({data: data}));
+        		toaster.pop({
+                    type: 'error',
+                    title: 'Insertion ou modification impossible. ID Qualificatif déjà	 existant',
+                    positionClass: 'toast-bottom-right',
+                    showCloseButton: true
+                });
 			});		
         	
 			// Making the fields empty
@@ -163,12 +180,13 @@
 
       $scope.edition = function(){
         $scope.edit = true;
+        $scope.button_clicked = true;
       }
 
    // annule l'édition
       $scope.cancel = function(){
         if(!$scope.qualificatifs.idQualificatif){
-          $location.path('/admin/qualificatif');
+          $location.path('/admin/qualificatifs');
         } else {
         	$location.path('/admin/qualificatifs');
           var e = qualificatifFactory.get($routeParams.id);
