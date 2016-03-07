@@ -1,4 +1,3 @@
-
 package fr.univbrest.dosi.spi.service;
 
 import junit.framework.Assert;
@@ -39,20 +38,20 @@ public class PromotionServiceTest {
 
 	@Autowired
 	private PromotionService promotionService;
-	
-	private String siglePromotion="DOSI5";
-	
+
+	private String siglePromotion = "DOSI5";
+
 	public PromotionServiceTest() {
 		// TODO Auto-generated constructor stub
 	}
- 
+
 	@Test
-	public final void getPromotion(){
-		
-		PromotionPK promotionPK= new PromotionPK("M2DOSI","2014-2015");
-		final Promotion promotion= promotionService.getPromotion(promotionPK);
+	public final void getPromotion() {
+
+		PromotionPK promotionPK = new PromotionPK("M2DOSI", "2014-2015");
+		final Promotion promotion = promotionService.getPromotion(promotionPK);
 		Assert.assertNotNull(promotion);
 		Assert.assertEquals(this.getSiglePromotion(), promotion.getSiglePromotion());
-		
+
 	}
 }
