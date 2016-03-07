@@ -72,4 +72,11 @@ public class QuestionController {
 	public List<Question> listerQuestion(){
 		return questServ.listeQuestion();
 	}
+	/**
+	 * Retourne une question par ID
+	 */
+	@RequestMapping(value="/question/{idQuestion}")
+	public Question getQuestionById(@PathVariable(value="idQuestion") Long idQuestion){
+		return questServ.getQuestionById(idQuestion);
+	}
 }

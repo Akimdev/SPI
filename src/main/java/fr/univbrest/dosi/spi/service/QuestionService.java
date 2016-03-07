@@ -69,4 +69,11 @@ public class QuestionService {
 		questionList = (List<Question>) questRepo.findAll();
 		return questionList;
 	}
+	/**
+	 * @return
+	 * Retourne une question par ID
+	 */
+	public Question getQuestionById(Long idQuestion){
+		return questRepo.findOne(idQuestion);
+	}
 }
