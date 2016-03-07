@@ -34,8 +34,14 @@ public class EtudiantService {
 	public final Etudiant getEtudiant(final String noEtudiant) {
 		return etudiantRepository.findOne(noEtudiant);
 	}
-	
-
+	/**
+	 * @author Othman 
+	 * Fonction pour récupérer le nombre d'étudiants
+	 */
+	public int getNombreEtudiants(){
+		List<Etudiant> listeEtudiants = (List<Etudiant>) etudiantRepository.findAll();
+		return listeEtudiants.size();
+	}
 	/**
 	 * soukaina
 	 * @param promotionPK

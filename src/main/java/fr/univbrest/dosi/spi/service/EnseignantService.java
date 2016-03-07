@@ -133,5 +133,14 @@ public class EnseignantService {
 			throw new SPIException("l'enseignant que vous souhaitez modifier n'exsite pas ");
 		}
 	}
+	
+	/**
+	 * Cette méthode retourne le nombre d'enseignants
+	 * @return nombre d'enseignants
+	 */
+	public int nombreEnseignants(){
+		List<Enseignant> listeEnseignants = (List<Enseignant>) enseignantRepository.findAll();
+		return listeEnseignants.size();
+	}
 
 }

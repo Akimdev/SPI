@@ -89,4 +89,13 @@ public class FormationController {
 	public final void removeFormation(@PathVariable("codeformation") final String codeFormation) {
 		formationService.deleteFormation(codeFormation);
 	}
+	
+	/**
+	 * @author Othman
+	 * controlleur pour retourner le nombre de formations
+	 */
+	@RequestMapping(value="/nombreFormations", headers = "Accept=application/json")
+	public int nombreFormations(){
+		return formationService.nombreFormations();
+	}
 }
