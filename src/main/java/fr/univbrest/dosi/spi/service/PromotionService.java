@@ -17,9 +17,6 @@ public class PromotionService {
 	private PromotionRepository promotionRepository;
 
 	public final void addPromotion(final Promotion promotion) {
-		
-		
-		
 		if(promotionRepository.exists(promotion.getPromotionPK())){
 			throw new SPIException("cette Promotion que vous souhaitez ajouter exsite déja :D");
 		} 

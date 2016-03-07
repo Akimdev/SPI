@@ -45,7 +45,7 @@ public class QuestionController {
 	 * @param question
 	 */
 		
-	@RequestMapping(value = "/ajouterQuestion", method = RequestMethod.POST, headers = "Accept=application/json")
+	@RequestMapping(value = "/addQuestion", method = RequestMethod.POST, headers = "Accept=application/json")
 	public  void ajoutQuestion(@RequestBody  QuesQual quesQual){
 		/** récupération de la question à créer ! */
 		Question ques = quesQual.getQuestion();

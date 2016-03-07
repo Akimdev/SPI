@@ -65,7 +65,7 @@ public class PromotionController {
 	 * @param proEns
 	 * @return
 	 */
-	@RequestMapping(value = "/ajoutPromotion", method = RequestMethod.POST, headers = "Accept=application/json")
+	@RequestMapping(value = "/addPromotion", method = RequestMethod.POST, headers = "Accept=application/json")
 	public @ResponseBody String addTest(@RequestBody ProEns proEns) {
 		/** récupération de la promotion à créer ! */
 		Promotion promotion = proEns.getPromotion();
