@@ -163,7 +163,7 @@
 	        // Récuperation des enseignants
 	        var promise1= promotionsFactory.getEnseignants();
 	        promise1.success(function(data,statut){
-	        	$scope.enseignants= data;
+	        	$scope.promotion.responsable= data;
 	        	console.log("\tEnseignants récupérés: ", data);
 	        })
 	        .error(function(data,statut){
@@ -186,7 +186,7 @@
             var promise1= promotionsFactory.get(promoPK);
             promise1.success(function(data,statut){
           	  $scope.promotion= data ;
-          	console.log("TODO: recuperation de la promotion: ", $scope.promotion);
+          	  console.log("TODO: recuperation de la promotion: ", $scope.promotion);
 	          	var promise2= promotionsFactory.getEtudiants(promoPK);
 	            promise2.success(function(data,statut){
 	            	$scope.promotion.etudiantCollection = data ;
@@ -195,6 +195,14 @@
 	            .error(function(data,statut){
 	          	  console.log("impossible de recuperer les étudiants de la promotion choisie");
 	            });
+	            var promise3= promotionsFactory.getEnseignants();
+		        promise3.success(function(data,statut){
+		        	$scope.promotion.responsable= data;
+		        	console.log("\tEnseignants récupérés: ", data);
+		        })
+		        .error(function(data,statut){
+		      	  console.log("impossible de recuperer la liste des enseignants");
+		        });
             })
             .error(function(data,statut){
           	  console.log("impossible de recuperer les details de la promotion choisie");

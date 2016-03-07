@@ -53,13 +53,14 @@ public class FormationService {
 			nomFormations.add(formationRepository.findOne(code).getNomFormation());
 		}
 		return nomFormations;
+	}
+
 	/**
-	 * @author Othman
-	 * méthode retourne le nombre de formations
+	 * @author Othman méthode retourne le nombre de formations
 	 * @return
 	 */
-	public int nombreFormations(){
-	List<Formation> listeFormations = (List<Formation>) formationRepository.findAll();
-	return listeFormations.size();
+	public int nombreFormations() {
+		List<Formation> listeFormations = (List<Formation>) formationRepository.findAll();
+		return listeFormations.size();
 	}
 }

@@ -29,7 +29,9 @@
     "flot.tooltip": "~0.8.4",
     "angular-ui-tree": "~2.1.5",
     "ng-tags-input": "~2.1.1",
-    "jquery-spinner": "jquery.spinner#~0.2.0"
+    "jquery-spinner": "jquery.spinner#~0.2.0",
+    "angularjs-toaster": "~1.2.0",
+    "sweetalert": "latest"
   },
   "devDependencies": {
     "bootstrap-sass-official": "~3.3.0",
