@@ -38,15 +38,15 @@
     	  console.log("TODO : get promotion",promotionPK);
     	  return $http.post("http://localhost:8090/getPromotion/", promotionPK);
    	  },
-      set: function(promotion) {
-        var idx = promotion.promotionPK.anneeUniversitaire;
-        
-        if(idx){// si modification d'une promotion existante     	  
-  	        	$http.post('http://localhost:8090/updatePromotion',promotion);
-        } else { // si ajout d'une nouvelle promotion 	  
-	        	$http.post('http://localhost:8090/addPromotion',promotion);
-        }
+      add: function(promotion, enseignant) {//ajout d'une nouvelle promotion 
+        console.log("new promotion: ",promotion, enseignant);
+	    $http.post('http://localhost:8090/addPromotion',promotion);
       },
+      set: function(promotion, enseignant) {//modification d'une promotion existante
+          console.log("promotion: ",promotion);
+          console.log("new: ",$scope.ajout);   	  
+    	  $http.post('http://localhost:8090/updatePromotion',promotion);
+        },
       delete: function(promotionPK) {
         // TODO Supprimer une promotion
     	  console.log("TODO : supprimer promotion",promotionPK);
@@ -186,7 +186,7 @@
             var promise1= promotionsFactory.get(promoPK);
             promise1.success(function(data,statut){
           	  $scope.promotion= data ;
-          	console.log("TODO: recuperation de la promotion: ", $scope.promotion);
+          	  console.log("TODO: recuperation de la promotion: ", $scope.promotion);
 	          	var promise2= promotionsFactory.getEtudiants(promoPK);
 	            promise2.success(function(data,statut){
 	            	$scope.promotion.etudiantCollection = data ;
@@ -195,6 +195,14 @@
 	            .error(function(data,statut){
 	          	  console.log("impossible de recuperer les étudiants de la promotion choisie");
 	            });
+	            var promise3= promotionsFactory.getEnseignants();
+		        promise3.success(function(data,statut){
+		        	$scope.enseignants= data;
+		        	console.log("\tEnseignants récupérés: ", data);
+		        })
+		        .error(function(data,statut){
+		      	  console.log("impossible de recuperer la liste des enseignants");
+		        });
             })
             .error(function(data,statut){
           	  console.log("impossible de recuperer les details de la promotion choisie");
@@ -207,8 +215,11 @@
       }
 
       // valide le formulaire d'édition d'une promotion
-      $scope.submit = function(){    	 
-        promotionsFactory.set($scope.promotion);        
+      $scope.submit = function(){
+    	  if($routeParams.ann == "nouveau")
+    		  promotionsFactory.add($scope.promotion, $scope.enseignantSelected);
+    	  else// modification
+    		  promotionsFactory.set($scope.promotion, $scope.enseignantSelected);
         $scope.edit = false;        
       }
 

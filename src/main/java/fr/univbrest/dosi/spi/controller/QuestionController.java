@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.bean.Question;
 import fr.univbrest.dosi.spi.bean.utils.QuesQual;
 import fr.univbrest.dosi.spi.service.QualificatifService;

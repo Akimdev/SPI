@@ -70,7 +70,7 @@ public class PromotionController {
 		/** récupération de la promotion à créer ! */
 		Promotion promotion = proEns.getPromotion();
 		/** récupération des objets à partir de leur id envoyer du JSON */
-		Formation formationExistante = formationservice.getFormation(proEns.getFormation().getCodeFormation());
+		Formation formationExistante = formationservice.getFormation(proEns.getPromotion().getPromotionPK().getCodeFormation());
 		Enseignant enseignantExistante = enseignantService.getEnseignant(proEns.getEnseignant().getNoEnseignant());
 		/**
 		 * construction de l'objet promotion avec formation et enseignant reçu
