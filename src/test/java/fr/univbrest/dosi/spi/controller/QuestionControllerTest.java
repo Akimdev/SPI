@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
@@ -27,44 +26,45 @@ import fr.univbrest.dosi.spi.bean.utils.QuesQual;
 import fr.univbrest.dosi.spi.exception.SPIException;
 import fr.univbrest.dosi.spi.service.QualificatifService;
 
+/**
+ * 
+ * @author hakim
+ *
+ */
 public class QuestionControllerTest {
-	
-	
-	
+
 	@Test
 	public void ajoutQuestionTest() throws ClientProtocolException, IOException {
-		
+
 		Long idq = 2L;
-		
-		Question ques = new Question(800L,"QUS","hh");
- 		Qualificatif qua = new Qualificatif(1L,"Pauvre","Riche");
- 		
+
+		Question ques = new Question(800L, "QUS", "hh");
+		Qualificatif qua = new Qualificatif(1L, "Pauvre", "Riche");
+
 		QuesQual quesQual = new QuesQual(qua, ques);
-		
-		// Création du client et  d'une requete POST
-				final HttpClient client = HttpClientBuilder.create().build();
-				final HttpPost mockRequestPost = new HttpPost("http://localhost:8090/ajouterQuestion");
-				// création de l'objet mapper afin de convertir l'objet en jsonInSTring
-				ObjectMapper mapper = new ObjectMapper();
-				com.fasterxml.jackson.databind.ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-				String jsonInString = ow.writeValueAsString(quesQual);
-				// établition  de la requette (header+body)
-				mockRequestPost.addHeader("content-type", "application/json");
-				mockRequestPost.setEntity(new StringEntity(jsonInString));
-				System.out.println(jsonInString);
-				
-				// création de la réponse 
-				try {
-				HttpResponse	mockResponse = client.execute(mockRequestPost);
-				
-				Assert.assertEquals(200, mockResponse.getStatusLine().getStatusCode());
-				} catch (ClientProtocolException e) {
-					System.out.println(e);
-				} catch (IOException e) {
-					System.out.println(e);
-				}
-				
-		
+
+		// Création du client et d'une requete POST
+		final HttpClient client = HttpClientBuilder.create().build();
+		final HttpPost mockRequestPost = new HttpPost("http://localhost:8090/ajouterQuestion");
+		// création de l'objet mapper afin de convertir l'objet en jsonInSTring
+		ObjectMapper mapper = new ObjectMapper();
+		com.fasterxml.jackson.databind.ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+		String jsonInString = ow.writeValueAsString(quesQual);
+		// établition de la requette (header+body)
+		mockRequestPost.addHeader("content-type", "application/json");
+		mockRequestPost.setEntity(new StringEntity(jsonInString));
+		System.out.println(jsonInString);
+
+		// création de la réponse
+		try {
+			HttpResponse mockResponse = client.execute(mockRequestPost);
+
+			Assert.assertEquals(200, mockResponse.getStatusLine().getStatusCode());
+		} catch (ClientProtocolException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		}
 
 	}
 }

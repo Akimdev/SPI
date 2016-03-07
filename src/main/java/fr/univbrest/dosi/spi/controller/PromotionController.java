@@ -21,6 +21,11 @@ import fr.univbrest.dosi.spi.service.EtudiantService;
 import fr.univbrest.dosi.spi.service.FormationService;
 import fr.univbrest.dosi.spi.service.PromotionService;
 
+/**
+ * 
+ * @author hakim
+ *
+ */
 @RestController
 public class PromotionController {
 
@@ -66,11 +71,12 @@ public class PromotionController {
 	 * @return
 	 */
 	@RequestMapping(value = "/addPromotion", method = RequestMethod.POST, headers = "Accept=application/json")
-	public @ResponseBody String addTest(@RequestBody ProEns proEns) {
+	public @ResponseBody String addPromotion(@RequestBody ProEns proEns) {
 		/** récupération de la promotion à créer ! */
 		Promotion promotion = proEns.getPromotion();
 		/** récupération des objets à partir de leur id envoyer du JSON */
-		Formation formationExistante = formationservice.getFormation(proEns.getPromotion().getPromotionPK().getCodeFormation());
+		Formation formationExistante = formationservice
+				.getFormation(proEns.getPromotion().getPromotionPK().getCodeFormation());
 		Enseignant enseignantExistante = enseignantService.getEnseignant(proEns.getEnseignant().getNoEnseignant());
 		/**
 		 * construction de l'objet promotion avec formation et enseignant reçu
@@ -80,6 +86,25 @@ public class PromotionController {
 		promotion.setFormation(formationExistante);
 		/** ajout de la promotion */
 		promotionService.addPromotion(promotion);
+		return "succés";
+	}
+
+	@RequestMapping(value = "/updatePromotion", method = RequestMethod.PUT, headers = "Accept=application/json")
+	public @ResponseBody String updatePromotion(@RequestBody ProEns proEns) {
+		/** récupération de la promotion à créer ! */
+		Promotion promotion = proEns.getPromotion();
+		/** récupération des objets à partir de leur id envoyer du JSON */
+		Formation formationExistante = formationservice
+				.getFormation(proEns.getPromotion().getPromotionPK().getCodeFormation());
+		Enseignant enseignantExistante = enseignantService.getEnseignant(proEns.getEnseignant().getNoEnseignant());
+		/**
+		 * construction de l'objet promotion avec formation et enseignant reçu
+		 * de JSON
+		 */
+		promotion.setNoEnseignant(enseignantExistante);
+		promotion.setFormation(formationExistante);
+		/** ajout de la promotion */
+		promotionService.update(promotion);
 		return "succés";
 	}
 }

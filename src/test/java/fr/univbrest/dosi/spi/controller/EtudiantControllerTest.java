@@ -22,17 +22,7 @@ import fr.univbrest.dosi.spi.bean.Etudiant;
 import fr.univbrest.dosi.spi.exception.SPIException;
 
 public class EtudiantControllerTest {
-	
-//	public class ListEtudiant extends ArrayList<Etudiant> {
-//
-//		/**
-//		 * 
-//		 */
-//		private static final long serialVersionUID = 1L;
-//
-//	}
-
-	/**
+/**
 	 * author: hakim ait errami
 	 * 
 	 * test intégration de la méthode : getAllEtudiants

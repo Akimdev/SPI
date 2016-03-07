@@ -17,6 +17,12 @@ import fr.univbrest.dosi.spi.bean.Question;
 import fr.univbrest.dosi.spi.bean.utils.ProEns;
 import fr.univbrest.dosi.spi.bean.utils.QuesQual;
 
+/**
+ * 
+ * @author hakim
+ * cet classe permet de tester l'intégration de promotion 
+ *
+ */
 public class PromotionControllerTest {
 	@Test
 	public void ajoutProTest() throws ClientProtocolException, IOException {

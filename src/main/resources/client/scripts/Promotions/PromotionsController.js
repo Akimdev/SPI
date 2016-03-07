@@ -233,9 +233,10 @@
 
       // valide le formulaire d'édition d'une promotion
       $scope.submit = function(){
-    	  $scope.promotion.promotionPK.codeFormation= $scope.formationSelected;
-    	  if($routeParams.ann == "nouveau")
+    	  if($routeParams.ann == "nouveau"){
+    		  $scope.promotion.promotionPK.codeFormation= $scope.formationSelected;
     		  promotionsFactory.add($scope.promotion, $scope.enseignantSelected);
+    	  }
     	  else// modification
     		  promotionsFactory.set($scope.promotion, $scope.enseignantSelected);
          $scope.edit = false;        

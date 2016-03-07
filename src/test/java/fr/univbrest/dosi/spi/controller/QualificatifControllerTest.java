@@ -27,6 +27,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import fr.univbrest.dosi.spi.bean.Qualificatif;
 
+/**
+ * 
+ * @author hakim
+ * test intégration de qualificatif
+ *
+ */
 public class QualificatifControllerTest {
 
 	@Test
