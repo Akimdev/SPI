@@ -29,14 +29,7 @@ public class QuestionService {
 	 * @param question
 	 */
 	public void addQuestion(Question question){
-			if(qualifRepo.exists(question.getIdQualificatif().getIdQualificatif())){
-				Qualificatif qualif = qualifRepo.findOne(question.getIdQualificatif().getIdQualificatif());
-				question.setIdQualificatif(qualif);
-				questRepo.save(question);
-			}
-			else{
-				throw new SPIException("Echec de l'ajout d'une nouvelle question, Qualificatif inexistant");
-			}
+		questRepo.save(question);
 	}
 	/**
 	 * La méthode pour modifier une question

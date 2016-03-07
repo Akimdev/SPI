@@ -25,7 +25,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-<<<<<<< HEAD
+
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 
@@ -74,7 +74,7 @@ public class QualificatifControllerTest {
 		List<Qualificatif> qualif;
 		qualif = mapper.readValue(rd, ArrayList.class);
 		
-		Assert.assertEquals(15,qualif.size());
+		Assert.assertEquals(18,qualif.size());
 		
 	}
 	
@@ -103,9 +103,9 @@ public class QualificatifControllerTest {
 	
 	@Test
 	public void supprimerQualificatifTest() throws ClientProtocolException,IOException{
-		
+		long id = 25;
 		HttpClient client = HttpClientBuilder.create().build();
-		HttpDelete requestDelete = new HttpDelete("http://localhost:8090/supprimerQualificatifAvecId-15");
+		HttpDelete requestDelete = new HttpDelete("http://localhost:8090/supprimerQualificatifAvecId-"+id);
 		HttpResponse response = client.execute(requestDelete);
 
 	}

@@ -60,8 +60,8 @@ public class Question implements Serializable {
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne
     private Enseignant noEnseignant;
-    //@JsonIgnore
-    @JsonManagedReference(value="question-Qualificatif")
+    @JsonIgnore
+    //@JsonManagedReference(value="question-Qualificatif")
     @JoinColumn(name = "ID_QUALIFICATIF", referencedColumnName = "ID_QUALIFICATIF")
     @ManyToOne(optional = false)
     private Qualificatif idQualificatif;
@@ -104,9 +104,17 @@ public class Question implements Serializable {
     public String getIntitulé() {
         return intitulé;
     }
+    
+    public String getIntitule() {
+        return intitulé;
+    }
 
     public void setIntitulé(String intitulé) {
         this.intitulé = intitulé;
+    }
+    
+    public void setIntitule(String intitule) {
+        this.intitulé = intitule;
     }
 
     public Enseignant getNoEnseignant() {

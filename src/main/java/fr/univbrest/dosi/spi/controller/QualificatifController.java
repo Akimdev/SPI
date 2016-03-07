@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.service.QualificatifService;
-
+/**
+ * 
+ * @author othman
+ *cet classe permet de gérer le CRUD d'un qualificatif
+ */
 @RestController
 public class QualificatifController {
 

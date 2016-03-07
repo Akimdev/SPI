@@ -28,6 +28,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
@@ -54,7 +55,7 @@ public class Promotion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected PromotionPK promotionPK;
+    private PromotionPK promotionPK;
     @Size(max = 16)
     @Column(name = "SIGLE_PROMOTION")
     private String siglePromotion;
@@ -82,7 +83,8 @@ public class Promotion implements Serializable {
     private String commentaire;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "promotion",fetch=FetchType.LAZY)
 	private Collection<Etudiant> etudiantCollection;
-    @JsonManagedReference(value="enseignant-promotion")
+    //@JsonManagedReference(value="enseignant-promotion")
+    @JsonIgnore
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne
     private Enseignant noEnseignant;
