@@ -20,8 +20,8 @@ import com.google.gson.Gson;
 
 import fr.univbrest.dosi.spi.Application;
 import fr.univbrest.dosi.spi.bean.Qualificatif;
-import fr.univbrest.dosi.spi.bean.QuesQual;
 import fr.univbrest.dosi.spi.bean.Question;
+import fr.univbrest.dosi.spi.bean.utils.QuesQual;
 import fr.univbrest.dosi.spi.exception.SPIException;
 import fr.univbrest.dosi.spi.service.QualificatifService;
 

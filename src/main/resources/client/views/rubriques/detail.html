@@ -1,32 +1,39 @@
-<div class="page" ng-controller="QualificatifDetailsController">
+<div class="page" ng-controller="RubriqueDetailsController">
 	<div class="panel panel-default ens-edit">
 		<div class="panel-heading">
 			<strong><span class="glyphicon glyphicon-th"></span>
-				Qualificatif</strong>
+				Rubriques</strong>
 		</div>
 		<div class="panel-body">
 			<!-- Edition -->
 			<div>
 				<form class="form-horizontal">
 					<div class="form-group">
-						<label for="" class="col-sm-2">idQualificatif</label>
+						<label for="" class="col-sm-2">id_Rubrique</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control"
-								ng-model="qualificatif.idQualificatif">
+								ng-model="rubrique.idRubrique">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Maximal</label>
+						<label for="" class="col-sm-2">Type</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control"
-								ng-model="qualificatif.maximal">
+								ng-model="rubrique.type">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Minimal</label>
+						<label for="" class="col-sm-2">Designation</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control"
-								ng-model="qualificatif.minimal">
+								ng-model="rubrique.designation">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="" class="col-sm-2">Ordre</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control"
+								ng-model="rubrique.ordre">
 						</div>
 					</div>
 				</form>

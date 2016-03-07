@@ -15,30 +15,7 @@
     	  return $http.get('http://localhost:8090/etudiants');
 	  },	  
       get: function(noEtudiant) { 
-    	  //return $http.get('http://localhost:8090/etudiant/', {params: {noEtudiant: noEtudiant}});
-    	  
-    	  var etudiant = {
-    			  noEtudiant : "21406961",
-    			  codeFormation : "M2DOSI",
-    			  nom : "AFKIR",
-    			  prenom :"Zakaria",
-    			  sexe :"M",
-    			  dateNaissance :697590000000,
-    			  lieuNaissance :"Tanger",
-    			  nationalite :"Marocaine",
-    			  telephone : null,
-    			  mobile :"06 61 13 60 05",
-    			  email :"afkir.zakaria@gmail.com",
-    			  emailUbo : "afkir.zakaria@univ-brest.fr",
-    			  adresse : "2 rue des Archives",
-    			  codePostal : "29287",
-    			  ville : "BREST",
-    			  paysOrigine : "MA",
-    			  universiteOrigine : "UAE",
-    			  groupeTp : 1
-    	  }
-    	  return etudiant;
-    	  
+    	  return $http.get('http://localhost:8090/etudiants/' + noEtudiant);
       },
       set: function(formation) {
     	  //return $http.post('http://localhost:8090/formations/nouveau', formation);
@@ -59,7 +36,7 @@
     	var promiseEtudiants = etudiantsFactory.all();
 		promiseEtudiants.success(function(data, status) {
 		      $scope.etudiants = data;
-		      
+		      		      
 		      $scope.searchKeywords = '';
 		      $scope.filteredEtudiant = [];
 		      $scope.row = '';
@@ -116,7 +93,7 @@
 		);
       
 
-      $scope.editEtudiant = function (noEtudiant){
+      $scope.show = function (noEtudiant){
     	  $location.path("/admin/etudiant/"+ noEtudiant);
       }
 
@@ -137,7 +114,10 @@
     ['$scope', '$routeParams', '$location', '$filter', 'etudiantsFactory',
     function($scope, $routeParams, $location, $filter, etudiantsFactory){      
       
-    	$scope.etudiant = etudiantsFactory.get($routeParams.noEtudiant);
+    	var promise = etudiantsFactory.get($routeParams.id);
+        promise.success(function(data){
+        	$scope.etudiant = data;
+        });
       
     }]
   );

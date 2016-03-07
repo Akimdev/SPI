@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Etudiant;
 import fr.univbrest.dosi.spi.bean.Formation;
-import fr.univbrest.dosi.spi.bean.ProEns;
 import fr.univbrest.dosi.spi.bean.Promotion;
 import fr.univbrest.dosi.spi.bean.PromotionPK;
+import fr.univbrest.dosi.spi.bean.utils.ProEns;
 import fr.univbrest.dosi.spi.service.EnseignantService;
 import fr.univbrest.dosi.spi.service.EtudiantService;
 import fr.univbrest.dosi.spi.service.FormationService;
 import fr.univbrest.dosi.spi.service.PromotionService;
 
 @RestController
-public class PromotionControler {
+public class PromotionController {
 
 	@Autowired
 	private PromotionService promotionService;

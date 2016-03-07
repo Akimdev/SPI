@@ -1,7 +1,5 @@
 package fr.univbrest.dosi.spi.controller;
-
 import java.io.IOException;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -10,16 +8,14 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.Assert;
 import org.junit.Test;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Formation;
-import fr.univbrest.dosi.spi.bean.ProEns;
 import fr.univbrest.dosi.spi.bean.Promotion;
 import fr.univbrest.dosi.spi.bean.Qualificatif;
-import fr.univbrest.dosi.spi.bean.QuesQual;
 import fr.univbrest.dosi.spi.bean.Question;
+import fr.univbrest.dosi.spi.bean.utils.ProEns;
+import fr.univbrest.dosi.spi.bean.utils.QuesQual;
 
 public class PromotionControllerTest {
 	@Test
@@ -27,13 +23,10 @@ public class PromotionControllerTest {
 		
 		Enseignant ens = new Enseignant(1);
 		Formation form = new Formation("M2DOSI");
-		Promotion pro = new Promotion(form.getCodeFormation(), "8888");
+		Promotion pro = new Promotion(form.getCodeFormation(), "4849");
 		ProEns proens = new ProEns(ens, null, pro, form);
 		
-		
-		
-		
-		// Création du client et  d'une requete POST
+				// Création du client et  d'une requete POST
 				final HttpClient client = HttpClientBuilder.create().build();
 				final HttpPost mockRequestPost = new HttpPost("http://localhost:8090/ajoutPromotion");
 				// création de l'objet mapper afin de convertir l'objet en jsonInSTring
@@ -54,7 +47,5 @@ public class PromotionControllerTest {
 				} catch (IOException e) {
 					System.out.println(e);
 				}
-				
-		
 	}
 }

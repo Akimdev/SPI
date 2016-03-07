@@ -1,8 +1,13 @@
-package fr.univbrest.dosi.spi.bean;
+package fr.univbrest.dosi.spi.bean.utils;
 
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+
+import fr.univbrest.dosi.spi.bean.Enseignant;
+import fr.univbrest.dosi.spi.bean.Formation;
+import fr.univbrest.dosi.spi.bean.Promotion;
+
 
 
 public class ProEns{
@@ -56,5 +61,4 @@ public class ProEns{
 	public ProEns() {
 		
 	}
-
 }

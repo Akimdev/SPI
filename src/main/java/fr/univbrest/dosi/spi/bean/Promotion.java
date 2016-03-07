@@ -28,9 +28,10 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  *
@@ -39,20 +40,21 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name = "PROMOTION")
 @XmlRootElement
-@NamedQueries({ @NamedQuery(name = "Promotion.findAll", query = "SELECT p FROM Promotion p  "),
-		@NamedQuery(name = "Promotion.findByCodeFormation", query = "SELECT p FROM Promotion p WHERE p.promotionPK.codeFormation = :codeFormation"),
-		@NamedQuery(name = "Promotion.findByAnneeUniversitaire", query = "SELECT p FROM Promotion p WHERE p.promotionPK.anneeUniversitaire = :anneeUniversitaire"),
-		@NamedQuery(name = "Promotion.findBySiglePromotion", query = "SELECT p FROM Promotion p WHERE p.siglePromotion = :siglePromotion"),
-		@NamedQuery(name = "Promotion.findByNbMaxEtudiant", query = "SELECT p FROM Promotion p WHERE p.nbMaxEtudiant = :nbMaxEtudiant"),
-		@NamedQuery(name = "Promotion.findByDateReponseLp", query = "SELECT p FROM Promotion p WHERE p.dateReponseLp = :dateReponseLp"),
-		@NamedQuery(name = "Promotion.findByDateReponseLalp", query = "SELECT p FROM Promotion p WHERE p.dateReponseLalp = :dateReponseLalp"),
-		@NamedQuery(name = "Promotion.findByDateRentree", query = "SELECT p FROM Promotion p WHERE p.dateRentree = :dateRentree"),
-		@NamedQuery(name = "Promotion.findByLieuRentree", query = "SELECT p FROM Promotion p WHERE p.lieuRentree = :lieuRentree"),
-		@NamedQuery(name = "Promotion.findByProcessusStage", query = "SELECT p FROM Promotion p WHERE p.processusStage = :processusStage"),
-		@NamedQuery(name = "Promotion.findByCommentaire", query = "SELECT p FROM Promotion p WHERE p.commentaire = :commentaire"),
-		@NamedQuery(name = "Promotion.findByNoEnseignant", query = "SELECT p FROM Promotion p WHERE p.noEnseignant.noEnseignant = :noEnseignant") })
+@NamedQueries({
+    @NamedQuery(name = "Promotion.findAll", query = "SELECT p FROM Promotion p"),
+    @NamedQuery(name = "Promotion.findByCodeFormation", query = "SELECT p FROM Promotion p WHERE p.promotionPK.codeFormation = :codeFormation"),
+    @NamedQuery(name = "Promotion.findByAnneeUniversitaire", query = "SELECT p FROM Promotion p WHERE p.promotionPK.anneeUniversitaire = :anneeUniversitaire"),
+    @NamedQuery(name = "Promotion.findBySiglePromotion", query = "SELECT p FROM Promotion p WHERE p.siglePromotion = :siglePromotion"),
+    @NamedQuery(name = "Promotion.findByNbMaxEtudiant", query = "SELECT p FROM Promotion p WHERE p.nbMaxEtudiant = :nbMaxEtudiant"),
+    @NamedQuery(name = "Promotion.findByDateReponseLp", query = "SELECT p FROM Promotion p WHERE p.dateReponseLp = :dateReponseLp"),
+    @NamedQuery(name = "Promotion.findByDateReponseLalp", query = "SELECT p FROM Promotion p WHERE p.dateReponseLalp = :dateReponseLalp"),
+    @NamedQuery(name = "Promotion.findByDateRentree", query = "SELECT p FROM Promotion p WHERE p.dateRentree = :dateRentree"),
+    @NamedQuery(name = "Promotion.findByLieuRentree", query = "SELECT p FROM Promotion p WHERE p.lieuRentree = :lieuRentree"),
+    @NamedQuery(name = "Promotion.findByProcessusStage", query = "SELECT p FROM Promotion p WHERE p.processusStage = :processusStage"),
+    @NamedQuery(name = "Promotion.findByCommentaire", query = "SELECT p FROM Promotion p WHERE p.commentaire = :commentaire"),
+    @NamedQuery(name = "Promotion.findByNoEnseignant", query = "SELECT p FROM Promotion p WHERE p.noEnseignant.noEnseignant = :noEnseignant")
+    })
 public class Promotion implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     private PromotionPK promotionPK;
@@ -81,16 +83,18 @@ public class Promotion implements Serializable {
     @Size(max = 255)
     @Column(name = "COMMENTAIRE")
     private String commentaire;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "promotion",fetch=FetchType.LAZY)
-	private Collection<Etudiant> etudiantCollection;
-    //@JsonManagedReference(value="enseignant-promotion")
+    private Collection<Etudiant> etudiantCollection;
     @JsonIgnore
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne
     private Enseignant noEnseignant;
+    @JsonIgnore
     @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Formation formation;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "promotion",fetch=FetchType.LAZY)
     private Collection<Candidat> candidatCollection;
 
@@ -240,4 +244,5 @@ public class Promotion implements Serializable {
     public String toString() {
         return "entities.Promotion[ promotionPK=" + promotionPK + " ]";
     }
+    
 }
