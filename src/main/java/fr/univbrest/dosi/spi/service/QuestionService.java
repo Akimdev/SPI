@@ -80,7 +80,13 @@ public class QuestionService {
 		return questionList;
 	}
 	/**
-	 * Cette méthode retourne un qualificatif 
+	 * @return
+	 * Retourne une question par ID
+	 */
+	public Question getQuestionById(Long idQuestion){
+		return questRepo.findOne(idQuestion);
+	}
+	/** Cette méthode retourne un qualificatif 
 	 * @param idQualificatif
 	 * @return
 	 */
@@ -94,6 +100,5 @@ public class QuestionService {
 	public int nombreQuestions(){
 		List<Question> listeQuestions = (List<Question>) questRepo.findAll();
 		return listeQuestions.size();
-	}
-	
+	}	
 }

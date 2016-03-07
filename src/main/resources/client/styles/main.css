@@ -2581,6 +2581,7 @@ input[type="search"] {
 }
 .form-group {
   margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 .radio,
 .checkbox {
@@ -5240,7 +5241,7 @@ a.list-group-item-danger.active:focus {
   padding: 15px;
 }
 .panel-heading {
-  padding: 10px 15px;
+  padding: 15px 15px;
   border-bottom: 1px solid transparent;
   border-top-right-radius: -1;
   border-top-left-radius: -1;
@@ -10083,6 +10084,7 @@ button.toast-close-button {
 .ui-tags-input .tags .tag-item .remove-button:active {
   color: #e87352;
 }
+
 .ui-tags-input .tags .input {
   border: 0;
   outline: none;
@@ -10153,7 +10155,12 @@ tr.formation:hover {
 }
 .remove {
   cursor: pointer;
-  color: #D55;
+  color: red;
+}
+
+.edit {
+  cursor: pointer;
+  color: green;
 }
 /* Animation pour "secouer" le login lors d'un mauvais user/password. */
 .shake {
@@ -11264,4 +11271,46 @@ lesshat-selector {
 }
 .form-validation .ng-invalid.ng-dirty {
   border-color: #e87352;
+}
+
+#required-field {
+	color: red;
+	font-size: 18px;
+	font-weight: bold;
+	padding-left: 10px;
+}
+
+.ng-invalid.ng-dirty{
+  border-color: #FA787E;
+}
+.ng-valid.ng-dirty{
+  border-color: #78FA89;
+}
+
+.icon-list {
+	width: 40px;
+}
+
+.btn.btn-cyan.active, .btn.btn-cyan:active, .btn.btn-cyan:hover{
+	background-color: #5bc0de;
+    border-color: #5bc0de;
+    color: #fff;
+}
+
+.btn.btn-cyan {
+    background-color: #31c0be;
+    color: #fff;
+    border-color: #31c0be;
+    border-radius: 20px;
+}
+
+.btn-ef.btn-ef-7 {
+    border-width: 1px;
+    border-style: solid;
+    padding: 3px 20px 6px 21px;
+    height: 27px;
+}
+
+.fa.pull-right {
+    margin-left: 0.7em;
 }
