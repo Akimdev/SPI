@@ -221,19 +221,30 @@
       }
 
       // supprime un enseignant
-      $scope.supprime = function(noEnseignant){ 
-    	// TODO Suppression d'un enseignant de la liste
-    	  
-    	  
-    	  var promise= enseignantsFactory.delete(noEnseignant);
-          promise.success(function(data,statut){
-        	  //$scope.enseignant.promotions = data ;
-        	  $scope.currentPageEnseignant.removeValue("noEnseignant",noEnseignant);
-          })
-          .error(function(data,statut){
-        	  console.log("impossible de supprimer l'enseignant choisi");
-          });
-    	  
+      $scope.supprime = function(noEnseignant){   
+		  swal({   
+			  title: "Voulez-vous vraiment supprimer cet enseignant ?",      
+			  type: "warning",   
+			  showCancelButton: true,   
+			  confirmButtonColor: "#DD6B55",   
+			  confirmButtonText: "Oui, je veux le supprimer!",  
+			  cancelButtonText: "Non, ignorer!",   
+			  closeOnConfirm: false,   closeOnCancel: false },
+			  function(isConfirm){
+				  if (isConfirm) {  
+					  var promise= enseignantsFactory.delete(noEnseignant);
+					  promise.success(function(data,statut){
+						$scope.refresh();
+						$scope.currentPageEnseignant.removeValue("noEnseignant",noEnseignant);
+						swal("Supprimé!", "l'enseignant est supprimé", "success");
+					});
+					  promise.error(function(data,statut){
+			    		  swal("Erreur!", "vous pouvez pas supprimer cet enseignant", "error");
+			  		});	
+					  } else {     
+						  swal("Ignorer", "", "error");
+						  }
+				  });  
       }
     }]
   );
