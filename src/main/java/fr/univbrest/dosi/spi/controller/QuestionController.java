@@ -72,4 +72,9 @@ public class QuestionController {
 	public List<Question> listerQuestion(){
 		return questServ.listeQuestion();
 	}
+	
+	@RequestMapping(value="/nombreQuestions")
+	public int nombreQuestions(){
+		return questServ.nombreQuestions();
+	}
 }
