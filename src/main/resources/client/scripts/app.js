@@ -3,8 +3,8 @@
 	var app = angular.module(
 			'app',
 			[ 'ngRoute', 'ngAnimate', 'ui.bootstrap', 'easypiechart',
-					'mgo-angular-wizard', 'textAngular', 'ui.tree', 'toaster', 
-					'ngTagsInput', 'app.authentication', 'app.enseignants',
+					'mgo-angular-wizard', 'textAngular', 'ui.tree','toaster',
+					'ngTagsInput', 'app.authentication', 'app.enseignants','app.rubriques',
 					'app.formations', 'app.ue', 'app.etudiants', 'app.qualificatifs', 'app.questions', 'app.promotions', 'app.ui.ctrls',
 					'app.ui.directives', 'app.ui.services', 'app.controllers',
 					'app.directives', 'app.form.validation',
@@ -43,6 +43,10 @@
 					templateUrl : 'views/questions/list.html'
 				}).when('/admin/question/:id', {
 					templateUrl : 'views/questions/details.html'
+				}).when('/admin/rubriques', {
+					templateUrl : 'views/rubriques/list.html'
+				}).when('/admin/rubriques/:id', {
+					templateUrl : 'views/rubriques/details.html'
 				}).when('/dashboard', {
 					templateUrl : 'views/dashboard.html'
 				}).when('/ui/typography', {

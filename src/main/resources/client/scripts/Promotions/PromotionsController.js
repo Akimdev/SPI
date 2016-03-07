@@ -1,5 +1,6 @@
 /*
 * Author Kenza ABOUAKIL
+
 * Script de controle des promotions
 */
 
@@ -12,8 +13,9 @@
 	   var array = $.map(this, function(v,i){
 	      return v[name] === value ? null : v;
 	   });
-	   this.length = 0; //clear original array
-	   this.push.apply(this, array); //push all elements except the one we want to delete
+	   this.length = 0; // clear original array
+	   this.push.apply(this, array); // push all elements except the one we
+										// want to delete
 	}
   
   Array.prototype.retourValue = function(name, value){
@@ -39,15 +41,15 @@
     	  return $http.post("http://localhost:8090/getPromotion/", promotionPK);
    	  },
       add: function(promotion, noEnseignant) {//ajout d'une nouvelle promotion 
-        //La promotion à envoyé au controlleur possède une structure un peu différente (promotion + noEnseignant)
-    	var newPromotion= {"promotion": promotion, "enseignant": {"noEnseignant": noEnseignant}};
-    	console.log("new promotion: ",newPromotion);
-	    $http.post('http://localhost:8090/addPromotion',newPromotion);
+        //La promotion à envoyer au controlleur possède une structure un peu différente (promotion + noEnseignant)
+      	var newPromotion= {"promotion": promotion, "enseignant": {"noEnseignant": noEnseignant}};
+      	console.log("new promotion: ",newPromotion);
+  	    $http.post('http://localhost:8090/addPromotion',newPromotion);
       },
-      set: function(promotion, noEnseignant) {//modification d'une promotion existante
-    	  //La promotion à envoyé au controlleur possède une structure un peu différente (promotion + noEnseignant)
-          var newPromotion= {"promotion": promotion, "enseignant": {"noEnseignant": noEnseignant}};
-          console.log("newPromotion: ",newPromotion);
+      set: function(promotion, noEnseignant) {// modification d'une promotion existante
+    	  // La promotion à envoyé au controlleur possède une structure un peu différente (promotion + noEnseignant)
+        var newPromotion= {"promotion": promotion, "enseignant": {"noEnseignant": noEnseignant}};
+        console.log("newPromotion: ",newPromotion);
     	  $http.post('http://localhost:8090/updatePromotion',newPromotion);
         },
       delete: function(promotionPK) {
@@ -57,15 +59,15 @@
       },
       getEtudiants : function(promotionPK){
     	  console.log("TODO : recuperation des etudiants par promotion",promotionPK);
-		  return $http.post("http://localhost:8090/getEtudiantByPromotion/",promotionPK);
+		    return $http.post("http://localhost:8090/getEtudiantByPromotion/",promotionPK);
       },
       getEnseignants: function(){
     	  console.log("TODO : recuperation de la liste des enseignants");
-		  return $http.get("http://localhost:8090/ens");
+		    return $http.get("http://localhost:8090/ens");
       },
       getFormations: function(){
     	  console.log("TODO : recuperation de la liste des formations");
-		  return $http.get("http://localhost:8090/formations");
+		    return $http.get("http://localhost:8090/formations");
       }
     };
   }]);
@@ -225,7 +227,7 @@
     	  }
     	  else// modification
     		  promotionsFactory.set($scope.promotion, $scope.enseignantSelected);
-        $scope.edit = false;        
+         $scope.edit = false;        
       }
 
       // annule l'édition
