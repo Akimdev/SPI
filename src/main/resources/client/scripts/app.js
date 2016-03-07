@@ -43,6 +43,10 @@
 					templateUrl : 'views/questions/list.html'
 				}).when('/admin/question/:id', {
 					templateUrl : 'views/questions/details.html'
+				}).when('/admin/evaluations', {
+					templateUrl : 'views/evaluations/list.html'
+				}).when('/admin/evaluation/:id', {
+					templateUrl : 'views/evaluations/details.html'
 				}).when('/dashboard', {
 					templateUrl : 'views/dashboard.html'
 				}).when('/ui/typography', {
