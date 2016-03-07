@@ -33,7 +33,7 @@ public class FormationServiceTest {
 	@Test
 	public void getFormationByCodeFormationTest() {
 
-		Formation formation = formationService.findByCodeFormation("M2DOSI");
+		Formation formation = formationService.getFormation("M2DOSI");
 		Assert.assertNotNull(formation);
 		Assert.assertEquals("Master Développement à l'Offshore des Systèmes d'Information", formation.getNomFormation());
 	}
@@ -60,7 +60,7 @@ public class FormationServiceTest {
 		formationService.createFormation(formation);
 
 		String codeF = "M2SII";
-		Formation f = formationService.findByCodeFormation(codeF);
+		Formation f = formationService.getFormation(codeF);
 
 		Assert.assertEquals(formation, f);
 	}

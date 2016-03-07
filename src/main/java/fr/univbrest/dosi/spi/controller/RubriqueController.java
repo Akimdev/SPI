@@ -12,12 +12,15 @@ import fr.univbrest.dosi.spi.bean.Rubrique;
 import fr.univbrest.dosi.spi.service.RubriqueService;
 
 /**
+
  * 
  * @author ASSABBAR
+
  *
  */
 @RestController
 public class RubriqueController {
+
 	@Autowired
 	RubriqueService rubriqueService;
 
@@ -73,4 +76,5 @@ public class RubriqueController {
 	public final Rubrique rubrique(@PathVariable(value = "idRubrique") final Long idRubrique) {
 		return rubriqueService.getRubrique(idRubrique);
 	}
+
 }

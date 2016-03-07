@@ -123,12 +123,14 @@
 			    	  promisessuppression.error(function(data, status, headers, config) {
 			    		  swal("Erreur!", "vous pouvez pas supprimer ce qualificatif", "error");
 			  		});	
-					  } else {     
+				  } else {     
 						  swal("Ignorer", "", "error");
-						  }
-				  });  
-      }
-      $scope.refresh();
+				  }
+	  	 });  
+	}
+      
+    $scope.refresh();
+    
     }]
   );
 

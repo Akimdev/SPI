@@ -17,19 +17,14 @@ public class PromotionService {
 	private PromotionRepository promotionRepository;
 
 	public final void addPromotion(final Promotion promotion) {
-		
 		if(promotionRepository.exists(promotion.getPromotionPK())){
 			throw new SPIException("cette Promotion que vous souhaitez ajouter exsite déja :D");
 		} 
 		promotionRepository.save(promotion);
 	}
 	
-	public final Promotion update(final Promotion promotion){
-		if (promotionRepository.exists(promotion.getPromotionPK())) {
-			return promotionRepository.save(promotion);
-		} else {
-			throw new SPIException("la promotion que vous souhaitez modifier n'exsite pas ");
-		}
+	public final void update(final Promotion promotion){
+		promotionRepository.save(promotion);
 	}
 
 	public final void deletePromotion(final PromotionPK promotionPK) {

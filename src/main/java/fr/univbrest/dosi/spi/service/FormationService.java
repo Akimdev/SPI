@@ -35,7 +35,7 @@ public class FormationService {
 		return (List<Formation>) formationRepository.findAll();
 	}
 
-	public Formation findByCodeFormation(String codeFormation) {
+	public Formation getFormation(String codeFormation) {
 		return formationRepository.findByCodeFormation(codeFormation);
 	}
 

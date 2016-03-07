@@ -15,4 +15,5 @@ import fr.univbrest.dosi.spi.bean.Rubrique;
 @RepositoryRestResource(collectionResourceRel = "rubrique", path = "rubrique")
 public interface RubriqueRepository extends PagingAndSortingRepository<Rubrique, Long> {
 
+
 }
