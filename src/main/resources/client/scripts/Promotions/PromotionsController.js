@@ -38,23 +38,6 @@
     	  console.log("TODO : get promotion",promotionPK);
     	  return $http.post("http://localhost:8090/getPromotion/", promotionPK);
    	  },
-   	  /*
-		   	   * {
-		 "enseignant":{
-		  "noEnseignant":2
-		   },
-		 "promotion":{
-		    "promotionPK": {
-		    "codeFormation":"M2KIM",
-		    "anneeUniversitaire":"82"
-		  	},
-		    "siglePromotion":"sigle",
-		    "nbMaxEtudiant":2,
-		    "lieuRentree":"lieu",
-		    "processusStage":"mod"
-		   }
-		  }
-   	   */
       add: function(promotion, noEnseignant) {//ajout d'une nouvelle promotion 
         //La promotion à envoyé au controlleur possède une structure un peu différente (promotion + noEnseignant)
     	var newPromotion= {"promotion": promotion, "enseignant": {"noEnseignant": noEnseignant}};
@@ -236,9 +219,10 @@
 
       // valide le formulaire d'édition d'une promotion
       $scope.submit = function(){
-    	  $scope.promotion.promotionPK.codeFormation= $scope.formationSelected;
-    	  if($routeParams.ann == "nouveau")
+    	  if($routeParams.ann == "nouveau"){
+    		  $scope.promotion.promotionPK.codeFormation= $scope.formationSelected;
     		  promotionsFactory.add($scope.promotion, $scope.enseignantSelected);
+    	  }
     	  else// modification
     		  promotionsFactory.set($scope.promotion, $scope.enseignantSelected);
         $scope.edit = false;        

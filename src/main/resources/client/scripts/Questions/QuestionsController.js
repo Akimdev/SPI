@@ -84,14 +84,17 @@
       // si creation d'une nouvelle question
       if($routeParams.id == "nouveau"){
         $scope.question= { };
-        $scope.edit= true;    
+        $scope.edit= true;
+        $scope.ajout= true;
       } else { // sinon on edite une question existante
         var f = questionsFactory.get($routeParams.id);
         var promisesFactory = questionsFactory.get($routeParams.id);
      	promisesFactory.success(function(data) {
-     		$scope.question = data;   
+     		$scope.question = data;
+     		console.log("question: ",$scope.question);
      	});
-      }      
+     	$scope.ajout= false;
+      }
       
       $scope.edition = function(){
     	  var promisessuppression = questionsFactory.set($scope.question);    	  
@@ -128,7 +131,7 @@
    // annule l'édition
       $scope.cancel = function(){
         if(!$scope.questions.idQuestion){
-          $location.path('/admin/question');
+          $location.path('/admin/questions');
         } else {
         	$location.path('/admin/questions');
           var e = questionFactory.get($routeParams.id);

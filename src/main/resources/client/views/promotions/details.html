@@ -5,26 +5,25 @@
 <div class="page" ng-controller="PromotionDetailsController">
 	<div class="panel panel-default ens-edit">
 		<div class="panel-heading">
-			<strong><span class="glyphicon glyphicon-th"></span>
-				Promotion</strong>
+			<strong><span class="glyphicon glyphicon-th"></span>Promotion</strong>
 		</div>
 		<div class="panel-body">
-			<!-- Consultation -->
+			<!--------------------------- Consultation --------------------------->
 			<div class="media animate" ng-hide="edit">
 				<button class="btn btn-warning pull-right" ng-click="edition()">
 					<span class="glyphicon glyphicon-pencil"></span> Editer
 				</button>
 				<div class="media-body">
 					<ul class="list-unstyled list-info">
-						<li><label>Année universitaire</label> {{promotion.promotionPK.anneeUniversitaire}}<br /></li>
+						<li><label>Ann&eacute;e universitaire</label> {{promotion.promotionPK.anneeUniversitaire}}<br /></li>
 						<li><label>Code formation</label> {{promotion.promotionPK.codeFormation}}</li>
 						<li><label>Sigle</label>{{promotion.siglePromotion}}</li>
 						<li><label>Responsable</label>{{promotion.responsable.nom}} {{promotion.responsable.prenom}}</li>
-						<li><label>Date de rentrée</label> {{promotion.dateRentree | date: "dd/MM/yyyy"}}</li>
-						<li><label>Lieu de rentrée</label> {{promotion.lieuRentree}}</li>
+						<li><label>Date de rentr&eacute;e</label> {{promotion.dateRentree | date: "dd/MM/yyyy"}}</li>
+						<li><label>Lieu de rentr&eacute;e</label> {{promotion.lieuRentree}}</li>
 						<li><label>Processus de stage</label> {{promotion.processusStage}}</li>
 						<li><label>Commentaire</label>{{promotion.commentaire}}</li>
-						<li><label>Nombre max d'étudiants</label> {{promotion.nbMaxEtudiant}}</li>
+						<li><label>Nombre max d'&eacute;tudiants</label> {{promotion.nbMaxEtudiant}}</li>
 					</ul>
 				</div>
 				<div class="row">
@@ -34,9 +33,9 @@
 							<table class="table">
 								<thead>
 									<tr>
-										<th>Num etudiant</th>
+										<th>Num &eacute;tudiant</th>
 										<th>Nom</th>
-										<th>Prenom</th>
+										<th>Pr&eacute;nom</th>
 										<th>E-mail</th>
 									</tr>
 								</thead>
@@ -60,14 +59,14 @@
 			<div ng-show="edit">
 				<form class="form-horizontal">
 					<div class="form-group">
-						<label for="" class="col-sm-2">Année universitaire</label>
+						<label for="" class="col-sm-2">Ann&eacute;e universitaire<span id="required-field">*</span></label>
 						<div class="col-sm-10">
 							<input  type="text" class="form-control"
 								ng-model="promotion.promotionPK.anneeUniversitaire" ng-readonly="!ajout">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Code formation</label>
+						<label for="" class="col-sm-2">Code formation<span id="required-field">*</span></label>
 						<div class="col-sm-10">
 							<select ng-show="ajout" ng-model="formationSelected">
 								<option data-ng-repeat="f in formations" value="{{f.codeFormation}}">{{f.codeFormation}}</option>
@@ -77,10 +76,9 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Sigle</label>
+						<label for="" class="col-sm-2">Sigle<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="text"
-							class="form-control" ng-model="promotion.siglePromotion">
+							<input type="text" class="form-control" ng-model="promotion.siglePromotion" required>
 						</div>
 					</div>
 					<div class="form-group">
@@ -94,18 +92,18 @@
 								placeholder="Nom Responsable"></br>
 							<input ng-hide="edit" type="text"
 								class="form-control" ng-model="enseignants.prenom"
-								placeholder="Prénom Responsable">
+								placeholder="Pr&eacute;nom Responsable">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Date de rentrée</label>
+						<label for="" class="col-sm-2">Date de rentr&eacute;e</label>
 						<div class="col-sm-10">
 							<input type="date" class="form-control"
 								ng-model="promotion.dateRentree">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Lieu de rentrée</label>
+						<label for="" class="col-sm-2">Lieu de rentr&eacute;e</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control"
 								ng-model="promotion.lieuRentree">
@@ -126,10 +124,9 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Nombre max d'étudiants</label>
+						<label for="" class="col-sm-2">Nombre max d'&eacute;tudiants<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="number" class="form-control"
-								ng-model="promotion.nbMaxEtudiant">
+							<input type="number" class="form-control" ng-model="promotion.nbMaxEtudiant" required>
 						</div>
 					</div>
 				</form>
