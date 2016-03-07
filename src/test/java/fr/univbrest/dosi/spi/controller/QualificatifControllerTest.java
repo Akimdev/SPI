@@ -23,12 +23,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.params.HttpParams;
 import org.junit.Assert;
 import org.junit.Test;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.fasterxml.jackson.databind.ObjectWriter;
-
-
 import fr.univbrest.dosi.spi.bean.Qualificatif;
 
 public class QualificatifControllerTest {

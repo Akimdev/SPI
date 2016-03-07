@@ -15,13 +15,14 @@
       },
       // renvoi la question avec le code demandé
       get: function(code) { 
-    	//  return $http.get('http://localhost:8090/question/' + code);    
+    	  return $http.get('http://localhost:8090/question/' + code);    
       },
-      
       set: function(question) {	
-    	  return $http.post('http://localhost:8090/ajouterQuestion', question);
+    	  return $http.post('http://localhost:8090/modifierQuestion', question);
       },
-      
+      add: function(question) {
+    	  return $http.post('http://localhost:8090/ajouterQuestion', question)
+      },
       delete: function(idQuestion) { 
     	  return $http.get('http://localhost:8090/supprimerQuestionBis?idQuestion=' + idQuestion);
       }
@@ -47,7 +48,7 @@
 
       // affiche les détails d'une question
       $scope.edit = function(question){
-        $location.path('/admin/question/' + questions.idQuestion);
+        $location.path('/admin/question/' + question.idQuestion);
       }
 
       // supprime une question
@@ -55,11 +56,21 @@
     	  var promisessuppression  = questionsFactory.delete(question.idQuestion);
     	  promisessuppression.success(function(data, status, headers, config) {
 			$scope.refresh();
-		});
-	  promisessuppression.error(function(data, status, headers, config) {
+    	  });
+    	  promisessuppression.error(function(data, status, headers, config) {
 			alert( "failure message: " + JSON.stringify({data: data}));
-		});	
-	  
+    	  });	
+      }
+      
+      // ajouter une question
+      $scope.ajouter = function(question){
+    	  var promiseAjout = questionsFactory.add(question);
+    	  promiseAjout.success(function(data, status, headers, config) {
+    		  $scope.refresh();
+    	  });
+    	  promiseAjout.error(function(data, status, headers, config) {
+			alert( "failure message: " + JSON.stringify({data: data}));
+    	  });	
       }
       $scope.refresh();
     }]

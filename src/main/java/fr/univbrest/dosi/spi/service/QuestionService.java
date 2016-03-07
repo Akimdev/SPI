@@ -62,4 +62,26 @@ public class QuestionService {
 		questionList = (List<Question>) questRepo.findAll();
 		return questionList;
 	}
+	/**
+	 * @return
+	 * Retourne une question par ID
+	 */
+	public Question getQuestionById(Long idQuestion){
+		return questRepo.findOne(idQuestion);
+	}
+	/** Cette méthode retourne un qualificatif 
+	 * @param idQualificatif
+	 * @return
+	 */
+	public Question getQuestion(Long idQuestion){
+		return questRepo.findOne(idQuestion);
+	}
+	/**
+	 * Cette méthode retourne le nombre de questions
+	 * @return
+	 */
+	public int nombreQuestions(){
+		List<Question> listeQuestions = (List<Question>) questRepo.findAll();
+		return listeQuestions.size();
+	}	
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.dao.QualificatifRepository;
+import fr.univbrest.dosi.spi.exception.SPIException;
 /**
  * 
  * @author Othman
@@ -22,7 +23,12 @@ public class QualificatifService {
 	QualificatifRepository qualifRepo;
 
 	public void addQualificatif(Qualificatif qualif) {
+		if(!(qualifRepo.exists(qualif.getIdQualificatif()))){
 		qualifRepo.save(qualif);
+		}
+		else{
+			throw new SPIException("Echec de l'ajout d'un nouveau qualificatif, Qualificatif existant!");
+		}
 	}
 
 	public void modifyQualificatif(Qualificatif qualif) {

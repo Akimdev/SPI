@@ -81,7 +81,7 @@
                     <td ng-click="edit(f)">{{f.diplome}}{{f.n0Annee}}</td>
                     <td ng-click="edit(f)">{{f.nomFormation}}</td>
                     <td ng-click="edit(f)">{{f.doubleDiplome}}</td>
-                    <td ng-click="edit(f)">{{f.debutAccreditation}} => {{f.finAccreditation}}</td>
+                    <td ng-click="edit(f)">{{f.debutAccreditation | date: "dd/MM/yyyy"}} => {{f.finAccreditation | date: "dd/MM/yyyy"}}</td>
                     <td><span class="remove fa fa-remove" ng-click="supprime(f)"></span></td>
                 </tr>
             </tbody>

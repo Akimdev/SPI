@@ -10,10 +10,12 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.Assert;
 import org.junit.Test;
+
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -27,8 +29,7 @@ import fr.univbrest.dosi.spi.service.QualificatifService;
 
 public class QuestionControllerTest {
 	
-	@Autowired
-	QualificatifService qualificatifService;
+	
 	
 	@Test
 	public void ajoutQuestionTest() throws ClientProtocolException, IOException {
@@ -64,5 +65,6 @@ public class QuestionControllerTest {
 				}
 				
 		
+
 	}
 }
