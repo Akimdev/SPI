@@ -12,8 +12,9 @@
 	   var array = $.map(this, function(v,i){
 	      return v[name] === value ? null : v;
 	   });
-	   this.length = 0; //clear original array
-	   this.push.apply(this, array); //push all elements except the one we want to delete
+	   this.length = 0; // clear original array
+	   this.push.apply(this, array); // push all elements except the one we
+										// want to delete
 	}
   
   Array.prototype.retourValue = function(name, value){
@@ -32,20 +33,36 @@
     
     	// Méthode de renvoi la liste des promotions
       all:list, 
-      // renvoi la promotion avec l'anneeUniversitaire et codeFormation demandés
+      // renvoi la promotion avec l'anneeUniversitaire et codeFormation
+		// demandés
       get: function(promotionPK) { 
     	  // TODO retourner les promotions
     	  console.log("TODO : get promotion",promotionPK);
     	  return $http.post("http://localhost:8090/getPromotion/", promotionPK);
    	  },
-      add: function(promotion, enseignant) {//ajout d'une nouvelle promotion 
-        console.log("new promotion: ",promotion, enseignant);
-	    $http.post('http://localhost:8090/addPromotion',promotion);
+
+   	  /*
+		 * { "enseignant":{ "noEnseignant":2 }, "promotion":{ "promotionPK": {
+		 * "codeFormation":"M2KIM", "anneeUniversitaire":"82" },
+		 * "siglePromotion":"sigle", "nbMaxEtudiant":2, "lieuRentree":"lieu",
+		 * "processusStage":"mod" } }
+		 */
+      add: function(promotion, noEnseignant) {// ajout d'une nouvelle
+												// promotion
+        // La promotion à envoyé au controlleur possède une structure un peu
+		// différente (promotion + noEnseignant)
+    	var newPromotion= {"promotion": promotion, "enseignant": {"noEnseignant": noEnseignant}};
+    	console.log("new promotion: ",newPromotion);
+	    $http.post('http://localhost:8090/addPromotion',newPromotion);
       },
-      set: function(promotion, enseignant) {//modification d'une promotion existante
-          console.log("promotion: ",promotion);
-          console.log("new: ",$scope.ajout);   	  
-    	  $http.post('http://localhost:8090/updatePromotion',promotion);
+      set: function(promotion, noEnseignant) {// modification d'une promotion
+												// existante
+    	  // La promotion à envoyé au controlleur possède une structure un peu
+			// différente (promotion + noEnseignant)
+          var newPromotion= {"promotion": promotion, "enseignant": {"noEnseignant": noEnseignant}};
+          console.log("newPromotion: ",newPromotion);
+    	  $http.post('http://localhost:8090/updatePromotion',newPromotion);
+
         },
       delete: function(promotionPK) {
         // TODO Supprimer une promotion
@@ -216,11 +233,12 @@
 
       // valide le formulaire d'édition d'une promotion
       $scope.submit = function(){
+    	  $scope.promotion.promotionPK.codeFormation= $scope.formationSelected;
     	  if($routeParams.ann == "nouveau")
     		  promotionsFactory.add($scope.promotion, $scope.enseignantSelected);
     	  else// modification
     		  promotionsFactory.set($scope.promotion, $scope.enseignantSelected);
-        $scope.edit = false;        
+         $scope.edit = false;        
       }
 
       // annule l'édition
