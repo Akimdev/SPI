@@ -19,8 +19,8 @@
 						<li><label>Année universitaire</label> {{promotion.promotionPK.anneeUniversitaire}}<br /></li>
 						<li><label>Code formation</label> {{promotion.promotionPK.codeFormation}}</li>
 						<li><label>Sigle</label>{{promotion.siglePromotion}}</li>
-						<li><label>Date de rentrée</label> {{promotion.dateRentree | date: "dd/MM/yyyy"}}</li>
 						<li><label>Responsable</label>{{promotion.responsable.nom}} {{promotion.responsable.prenom}}</li>
+						<li><label>Date de rentrée</label> {{promotion.dateRentree | date: "dd/MM/yyyy"}}</li>
 						<li><label>Lieu de rentrée</label> {{promotion.lieuRentree}}</li>
 						<li><label>Processus de stage</label> {{promotion.processusStage}}</li>
 						<li><label>Commentaire</label>{{promotion.commentaire}}</li>
@@ -56,14 +56,14 @@
 					class="glyphicon glyphicon-arrow-left"></span> Retour</a>
 			</div>
 
-			<!-- Edition -->
+			<!--------------------------- Edition --------------------------->
 			<div ng-show="edit">
 				<form class="form-horizontal">
 					<div class="form-group">
 						<label for="" class="col-sm-2">Année universitaire</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control"
-								ng-model="promotion.promotionPK.anneeUniversitaire" ng-readonly="true">
+							<input  type="text" class="form-control"
+								ng-model="promotion.promotionPK.anneeUniversitaire" ng-readonly="!ajout">
 						</div>
 					</div>
 					<div class="form-group">
@@ -90,10 +90,10 @@
 								<option data-ng-repeat="e in enseignants" value="{{e.noEnseignant}}">{{e.nom}} {{e.prenom}}</option>
 							</select>
 							<input ng-hide="edit" type="text" class="form-control"
-								ng-model="promotion.responsable.nom"
+								ng-model="enseignants.nom"
 								placeholder="Nom Responsable"></br>
 							<input ng-hide="edit" type="text"
-								class="form-control" ng-model="promotion.responsable.prenom"
+								class="form-control" ng-model="enseignants.prenom"
 								placeholder="Prénom Responsable">
 						</div>
 					</div>
