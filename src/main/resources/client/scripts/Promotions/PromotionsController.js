@@ -271,13 +271,14 @@
         if($routeParams.ann == "nouveau"){
           $location.path('/admin/promotions');
         } else {
-          var promise = promotionsFactory.get(promoPK);
-          promise.success(function(data,statut){
-          	  $scope.promotion= data ;
-            })
-            .error(function(data,statut){
-          	  console.log("impossible de recuperer les details de la promotion");
-            });
+//          var promise = promotionsFactory.get(promoPK);
+//          promise.success(function(data,statut){
+//          	  $scope.promotion= data ;
+//            })
+//            .error(function(data,statut){
+//          	  console.log("impossible de recuperer les details de la promotion");
+//            });
+        	$location.path('/admin/promotion/' + $routeParams.ann + '/' + $routeParams.form);
           $scope.edit = false;
         }
       }
