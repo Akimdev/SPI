@@ -12,43 +12,39 @@
                 <ul class="list-unstyled list-info">
                     <li>
                         <span class="icon glyphicon glyphicon-asterisk"></span>
-                        <label>Numéro Etudiant / Formation</label>
-                        {{etudiant.noEtudiant}} / {{etudiant.promotion.promotionPK.codeFormation}}<br/>
+                        <label>Formation</label>{{etudiant.promotion.promotionPK.codeFormation}}<br/>
                     </li>
                     <li>
                         <span class="icon glyphicon glyphicon-user"></span>
-                        <label>Nom</label>                        
-                        {{etudiant.nom}} {{etudiant.prenom}}
+                        <label>Numéro Etudiant</label>{{etudiant.noEtudiant}}<br/>
+                    </li>
+                    <li>
+                        <span class="icon glyphicon glyphicon-user"></span>
+                        <label>Nom</label>{{etudiant.nom}} {{etudiant.prenom}}
                     </li>
                     <li>
                         <span class="icon glyphicon glyphicon-flag"></span>
-                        <label>Sexe</label>
-                        {{etudiant.sexe == "H" ? 'M.' : 'Mme'}}
+                        <label>Sexe</label>{{etudiant.sexe == "M" ? 'Homme' : 'Femme'}}
                     </li>
                     <li>
                         <span class="icon glyphicon glyphicon-calendar"></span>
-                        <label>Date de Naissance</label>
-                        {{etudiant.dateNaissance | date: "dd/MM/yyyy"}}
+                        <label>Date de Naissance</label>{{etudiant.dateNaissance | date: "dd/MM/yyyy"}}
                     </li>    
                     <li>
                         <span class="icon glyphicon glyphicon-flag"></span>
-                        <label>Pays d'origine</label>
-                        {{etudiant.paysOrigine}}
+                        <label>Pays d'origine</label>{{etudiant.paysOrigine}}
                     </li>  
                     <li>
                         <span class="icon glyphicon glyphicon-flag"></span>
-                        <label>Nationalité</label>
-                        {{etudiant.nationalite}}
+                        <label>Nationalité</label>{{etudiant.nationalite}}
                     </li>  
                     <li>
                         <span class="icon glyphicon glyphicon-envelope"></span>
-                        <label>Email</label>
-                        {{etudiant.emailUbo}}
+                        <label>Email</label>{{etudiant.emailUbo}}
                     </li>  
                     <li>
                         <span class="icon glyphicon glyphicon-flag"></span>
-                        <label>Université d'Origine</label>
-                        {{etudiant.universiteOrigine}}
+                        <label>Université d'origine</label>{{etudiant.universiteOrigine}}
                     </li>             
                 </ul>                
             </div>

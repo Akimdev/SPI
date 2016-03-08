@@ -105,7 +105,6 @@
           .error(function(data,statut){
         	  console.log("impossible de supprimer l'enseignant choisi");
           });
-    	  
       }
     }]
   );
