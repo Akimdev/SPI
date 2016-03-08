@@ -32,13 +32,6 @@
     };
   });
   
-  app.factory('qualificatifsFactory', function($http, $window){
-	  return {
-		  all: function() {
-			  return $http.get('http://localhost:8090/listerQualificatif');
-		  }
-	  }
-  })
   
   app.controller('QuestionsController', 
     ['$scope', '$location','$http','$filter', 'questionsFactory',
