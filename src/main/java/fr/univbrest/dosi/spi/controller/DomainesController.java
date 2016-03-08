@@ -38,5 +38,4 @@ public class DomainesController {
 			@PathVariable(value = "rvDomain") BigDecimal idCgrc) {
 		return domainesService.getDomainById(idCgrc);
 	}
-
 }
