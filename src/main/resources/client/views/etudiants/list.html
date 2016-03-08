@@ -75,8 +75,8 @@
                 </tr>
             </thead>
             <tbody><!-- currentPageEnseignant / enseignants -->
-                <tr data-ng-repeat="e in currentPageEtudiant" class="etudiant">
-                    <td ng-click="show(e.noEtudiant)">{{e.noEtudiant}}</td>
+                <tr data-ng-repeat="e in currentPageEtudiant" class="etudiant" id="{{e.noEtudiant}}" ng-mouseover="mouseOver(e.noEtudiant)" ng-mouseleave="mouseOut(e.noEtudiant)">
+                    <td ng-click="show(e.noEtudiant)" >{{e.noEtudiant}}</td>
                     <td ng-click="show(e.noEtudiant)">{{e.nom}}</td>
                     <td ng-click="show(e.noEtudiant)">{{e.prenom}}</td>
                     <td ng-click="show(e.noEtudiant)">{{e.promotion.promotionPK.codeFormation}}</td>                    
