@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.univbrest.dosi.spi.bean.CgRefCodes;
-import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.dao.DomainesRepository;
 
 /**

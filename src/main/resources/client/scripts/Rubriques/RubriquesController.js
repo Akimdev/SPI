@@ -7,13 +7,13 @@
 
   var app = angular.module('app.rubriques', []);
 
-  Array.prototype.removeValue = function(name, value){
+  /*Array.prototype.removeValue = function(name, value){
 	   var array = $.map(this, function(v,i){
 	      return v[name] === value ? null : v;
 	   });
 	   this.length = 0; //clear original array
 	   this.push.apply(this, array); //push all elements except the one we want to delete
-	}
+	}*/
   
   app.factory('rubriquesFactory', ['$http',function($http){
     
@@ -25,7 +25,7 @@
       delete: function(idRubrique) { 
         // TODO Supprimer 
     	  console.log("TODO : supprimer rubrique", idRubrique);
-    	  return  $http.get('http://localhost:8090/rubrique/delete/'+ idRubrique)
+    	  return  $http.get('http://localhost:8090/deleteRubrique/'+idRubrique)
       }
 
     };
@@ -36,6 +36,7 @@
   app.controller('RubriquesController', 
     ['$scope', '$filter','$location', 'rubriquesFactory',
     function($scope, $filter, $location, rubriquesFactory){
+    	
     	var init;
     	var promise = rubriquesFactory.listerRubriques();
     	promise.success(function(data) {
@@ -85,6 +86,7 @@
 		      return init();
 		  }
 		)
+    
 		.error(function(data) {
 			 $scope.error = 'unable to get the poneys';
 		  }
@@ -107,13 +109,14 @@
     	  var promise= rubriquesFactory.delete(idRubrique);
     	  promise.success(function(data,statut){
         	  //$scope.enseignant.promotions = data ;
-        	  $scope.currentPageEnseignant.removeValue("idRubrique",idRubrique);
-          })
-          error(function(data,statut){
-        	  console.log("impossible de supprimer la rubrique choisie");
+        	  $scope.currentPageRubrique.removeValue("idRubrique",idRubrique);
           });
+          /*error(function(data){
+        	  console.log("impossible de supprimer la rubrique choisie");
+          });*/
     	  
       }
+      
     }]
   );
 }).call(this);

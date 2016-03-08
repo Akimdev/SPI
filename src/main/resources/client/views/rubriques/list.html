@@ -10,7 +10,6 @@
 				Rubriques</strong> <span class="add fa fa-user-plus pull-right"
 				ng-click="ajoutRubrique()"></span>
 
-
           <div class="table-filters">
             <div class="row">
                 <div class="col-sm-4 col-xs-6">
@@ -61,8 +60,7 @@
 				<tr data-ng-repeat="e in currentPageRubrique" class="rubrique">
 					<td ng-click="edit(e.idRubrique)">{{e.ordre}}</td>
 					<td ng-click="edit(e.idRubrique)">{{e.designation}}</td>
-					<td><span class="remove fa fa-remove"
-						ng-click="supprime(e.idRubrique)"></span></td>
+					<td ng-click="supprime(e.idRubrique)" class="icon-list"><span class="remove fa fa-trash" ></span></td>
 
 				</tr>
 			</tbody>

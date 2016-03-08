@@ -61,7 +61,7 @@ public class RubriqueController {
 	 * 
 	 * @param idRubrique
 	 */
-	@RequestMapping(value = "/deleteRubrique/{idRubrique}", headers = "Accept=application/json", method=RequestMethod.DELETE)
+	@RequestMapping(value = "/deleteRubrique/{idRubrique}", headers = "Accept=application/json", method=RequestMethod.GET)
 	public final void removeRubrique(@PathVariable("idRubrique") final Long idRubrique) {
 		rubriqueService.deleteRubrique(idRubrique);
 	}

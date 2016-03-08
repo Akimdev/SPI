@@ -11,8 +11,6 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -39,7 +37,7 @@ public class RubriqueControllerTest {
 	@Test
 	public final void RubriqueTest() throws ClientProtocolException, IOException {
 		
-		Rubrique rub= new Rubrique(9L, "RBS", "desig");
+		Rubrique rub= new Rubrique(8L, "RBS", "desig");
 		
 		final HttpClient client = HttpClientBuilder.create().build();
 		final HttpPost mockPost = new HttpPost("http://localhost:8090/addRubrique");

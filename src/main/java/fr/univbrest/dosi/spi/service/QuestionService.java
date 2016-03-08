@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.bean.Question;
-import fr.univbrest.dosi.spi.dao.QualificatifRepository;
 import fr.univbrest.dosi.spi.dao.QuestionRepository;
+import fr.univbrest.dosi.spi.exception.SPIException;
 
 /**
  * 
