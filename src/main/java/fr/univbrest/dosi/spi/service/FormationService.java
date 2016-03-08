@@ -74,6 +74,7 @@ public class FormationService {
 	
 	public Formation traitement(String codeFormation) {
 		return formationRepository.findOne(codeFormation);
+	}
 	
 	/**
 	 * @author Othman méthode retourne le nombre de formations
