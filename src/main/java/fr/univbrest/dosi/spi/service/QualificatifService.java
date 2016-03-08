@@ -48,8 +48,8 @@ public class QualificatifService {
 		return qualifRepo.getMaxIdQualificatif();
 	}
 
-	public final Qualificatif getQualificatif(Long idQualifi) {
-		return qualifRepo.findOne(idQualifi);
+	public final Qualificatif getQualificatif(Long idQualificatif) {
+		return qualifRepo.findOne(idQualificatif);
 	}
 
 	public List<Qualificatif> listeQualificatif() {

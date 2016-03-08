@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.univbrest.dosi.spi.bean.Qualificatif;
+import fr.univbrest.dosi.spi.exception.SPIException;
 import fr.univbrest.dosi.spi.service.QualificatifService;
 
 /**
@@ -26,7 +27,10 @@ public class QualificatifController {
 
 	@RequestMapping(value = "/ajouterQualificatif", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public void ajoutQualificatif(@RequestBody final Qualificatif qualif) {
-		qualifServ.addQualificatif(qualif);
+		if (qualifServ.getQualificatif(qualif.getIdQualificatif()) == null)
+			qualifServ.addQualificatif(qualif);
+		else
+			throw new SPIException("Impossible de créer le qualificatif, l'IdQualificatif existe déjà!");
 	}
 
 	/**
@@ -48,9 +52,12 @@ public class QualificatifController {
 		return qualifServ.listeQualificatif();
 	}
 
-	@RequestMapping(value = "/modifierQualificatif", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/updateQualificatif", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public void modifyQualificatif(@RequestBody final Qualificatif qualif) {
-		qualifServ.modifyQualificatif(qualif);
+		if (qualifServ.getQualificatif(qualif.getIdQualificatif()) != null)
+			qualifServ.modifyQualificatif(qualif);
+		else
+			throw new SPIException("Impossible de créer le qualificatif, l'IdQualificatif existe déjà!");
 	}
 
 	@RequestMapping(value = "/supprimerQualificatif", method = RequestMethod.DELETE)

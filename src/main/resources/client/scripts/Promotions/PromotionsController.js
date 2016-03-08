@@ -44,33 +44,13 @@
         //La promotion à envoyer au controlleur possède une structure un peu différente (promotion + noEnseignant)
       	var newPromotion= {"promotion": promotion, "enseignant": {"noEnseignant": noEnseignant}};
       	console.log("new promotion: ",newPromotion);
-  	    $http.post('http://localhost:8090/addPromotion',newPromotion);
+  	    return $http.post('http://localhost:8090/addPromotion',newPromotion);
       },
       set: function(promotion, noEnseignant) {// modification d'une promotion existante
     	  // La promotion à envoyé au controlleur possède une structure un peu différente (promotion + noEnseignant)
         var newPromotion= {"promotion": promotion, "enseignant": {"noEnseignant": noEnseignant}};
-        console.log(newPromotion);
-//        var newPromotion = {
-//        		"promotion" : {
-//        			"promotionPK" : {
-//        				"anneeUniversitaire" : promotion.promotionPK.anneeUniversitaire,
-//        				"codeFormation" : promotion.promotionPK.codeFormation
-//        			},
-//        			"siglePromotion" : promotion.siglePromotion,
-//        			"nbMaxEtudiant" : promotion.nbMaxEtudiant,
-//        			"dateReponseLalp" : promotion.dateReponseLalp,
-//        			"dateReponseLp" : promotion.dateReponseLp,
-//        			"dateRentree" : promotion.dateRentree,
-//        			"lieuRentree" : promotion.lieuRentree,
-//        			"processusStage" : promotion.processusStage,
-//        			"commentaire" : promotion.commentaire
-//        		},
-//        		"enseignant" : {
-//        			"noEnseignant" : noEnseignant
-//        		}
-//        };
         console.log("newPromotion: ", newPromotion);
-    	  $http.post('http://localhost:8090/updatePromotion',newPromotion);
+    	  return $http.post('http://localhost:8090/updatePromotion',newPromotion);
         },
       delete: function(promotionPK) {
         // TODO Supprimer une promotion
@@ -155,7 +135,7 @@
       
       // Crée la page permettant d'ajouter une promotion
       $scope.ajoutPromotion = function(){
-          $location.path('/admin/promotion/nouveau/nouveau'); 
+          $location.path('/admin/promotion/nouveau/nouveau');
        }
       
       // affiche les détail d'une promotion
@@ -224,15 +204,14 @@
 	        $scope.edit= true;
 	        
       } else { // sinon on edite une promotion existante
-				
-    	  		//Recuperation de la promotion
+				//Recuperation de la promotion
 	            var promise1= promotionsFactory.get(promoPK);
 	            promise1.success(function(data,statut){
             	data.dateRentree = $filter('date')(data.dateRentree, "dd/MM/yyyy");
 				$scope.promotion= data;
 				console.log("TODO: recuperation de la promotion: ", $scope.promotion);
           	  	//Recuperation des etudiants  
-	          	var promise2= promotionsFactory.getEtudiants(promoPK);
+				var promise2= promotionsFactory.getEtudiants(promoPK);
 	            promise2.success(function(data,statut){
 	            	$scope.promotion.etudiantCollection = data ;
 	            	console.log("TODO: recuperation de la liste des étudiants pour la promotion selectionnée ",data);
@@ -269,20 +248,40 @@
       $scope.edition = function(){
         $scope.edit = true;
       }
-
+      
       // valide le formulaire d'édition d'une promotion
       $scope.submit = function(){
     	  if($routeParams.ann == "nouveau"){
     		  $scope.promotion.promotionPK.codeFormation= $scope.formationSelected;
-    		  var date = $scope.promotion.dateRentree.split('/');
-    	      $scope.promotion.dateRentree = new Date(date[1] + '-' + date[0] + '-' + date[2]);
-    		  promotionsFactory.add($scope.promotion, $scope.enseignantSelected);
+    		  if($scope.promotion.dateRentree) {
+    			  var date = $scope.promotion.dateRentree.split('/');
+    		      $scope.promotion.dateRentree = new Date(date[1] + '-' + date[0] + '-' + date[2]);  
+    		  }
+    		  if(!$scope.enseignantSelected) {
+    			  $scope.enseignantSelected = null;
+    		  }
+    		  var promise = promotionsFactory.add($scope.promotion, $scope.enseignantSelected);
+    		  promise.success(function(data){
+    			  var promiseEnseignant = promotionsFactory.getEnseignantResponsable($scope.promotion.promotionPK);
+    			  promiseEnseignant.success(function(data){
+    				  $scope.responsable = data;
+    				  swal("Félicitation!", "La nouvelle promotion est ajoutée!", "success");
+    			  });
+    		  });
     	  }
     	  else{ // modification
-			  var date = $scope.promotion.dateRentree.split('/');
-		      $scope.promotion.dateRentree = new Date(date[1] + '-' + date[0] + '-' + date[2]);
-		      console.log("resp", $scope.enseignantSelected);
-    		  promotionsFactory.set($scope.promotion, $scope.enseignantSelected);
+    		  if($scope.promotion.dateRentree != undefined) {
+    			  var date = $scope.promotion.dateRentree.split('/');
+    		      $scope.promotion.dateRentree = new Date(date[1] + '-' + date[0] + '-' + date[2]);  
+    		  }
+    		  var promise = promotionsFactory.set($scope.promotion, $scope.enseignantSelected);
+    		  promise.success(function(){
+    			  var promiseEnseignant = promotionsFactory.getEnseignantResponsable($scope.promotion.promotionPK);
+    			  promiseEnseignant.success(function(data){
+    				  $scope.responsable = data;
+        			  swal("Félicitation!", "La promotion est modifiée !", "success");    	        			
+    			  });
+    		  });
     		  $scope.edit = false;        
     	  }
       }
@@ -303,6 +302,9 @@
         	$location.path('/admin/promotion/' + $routeParams.ann + '/' + $routeParams.form);
           $scope.edit = false;
         }
+      }
+      $scope.test= function(){
+    	  console.log("ens: ", $scope.enseignantSelected);
       }
     }]
   );

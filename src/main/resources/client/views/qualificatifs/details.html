@@ -23,11 +23,11 @@
 						<li><label></label> {{}}<br /></li>
 					</ul>
 				</div>
-				<a class="btn btn-primary" href="#/admin/promotions"><span
+				<a class="btn btn-primary" href="#/admin/qualificatifs"><span
 					class="glyphicon glyphicon-arrow-left"></span> Retour</a>
 			</div>
 			<!--------------------------- Edition --------------------------->
-			<div>
+			<div ng-show="edit">
 			<toaster-container toaster-options="{'position-class': 'toast-bottom-right'}"></toaster-container>
 				<form class="form-horizontal elegant-aero" name="qualificatifForm">
 				<div ng-repeat="alert in alerts" ng-show="alert.show">
@@ -68,8 +68,7 @@
 				qualificatifForm.maximal.$dirty && qualificatifForm.maximal.$invalid ||  
 				qualificatifForm.minimal.$dirty && qualificatifForm.minimal.$invalid|| qualificatifForm.$invalid"><span
 					class="glyphicon glyphicon-ok"></span> Valider</a>
-				<button class="btn btn-danger pull-right" ng-click="cancel()">
-					Annuler</button>
+				<button class="btn btn-danger pull-right" ng-click="cancel()">Annuler</button>
 			</div>
 		</div>
 	</div>
