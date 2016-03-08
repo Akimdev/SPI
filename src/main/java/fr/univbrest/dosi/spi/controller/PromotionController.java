@@ -62,6 +62,17 @@ public class PromotionController {
 	}
 
 	/**
+	 * @author Kenza ABOUAKIL
+	 * @param l
+	 *            'identifiant d'une promotion (codeFormation + anneeUniversitaire)
+	 * @return le numéro de l'enseignant responsable d'une promotion
+	 */
+	@RequestMapping(value = "/promotion/getEnseignantResponsable", method = RequestMethod.POST, headers = "Accept=application/json", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public final Enseignant getEnseignantResponsable(@RequestBody PromotionPK promotionPK) {
+		return promotionService.getEnseignantResponsable(promotionPK);
+	}
+
+	/**
 	 * @author soukaina BAQLOUL
 	 *
 	 * @param promotionPK
@@ -72,17 +83,6 @@ public class PromotionController {
 	public final List<Etudiant> getEtudiantPromotion(@RequestBody PromotionPK promotionPK) {
 		return etudiantservice.getEtudiantByPromotion(promotionPK);
 
-	}
-
-	/**
-	 * @author Kenza ABOUAKIL
-	 * @param l
-	 *            'identifiant d'une promotion (codeFormation + anneeUniversitaire)
-	 * @return le numéro de l'enseignant responsable d'une promotion
-	 */
-	@RequestMapping(value = "/promotion/getNoEnseignant", method = RequestMethod.POST, headers = "Accept=application/json", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public final Integer getNoEnseignant(@RequestBody PromotionPK promotionPK) {
-		return promotionService.getNoEnseignant(promotionPK);
 	}
 
 	/**

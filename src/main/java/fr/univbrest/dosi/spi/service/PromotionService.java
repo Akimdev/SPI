@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Promotion;
 import fr.univbrest.dosi.spi.bean.PromotionPK;
 import fr.univbrest.dosi.spi.dao.PromotionRepository;
@@ -38,8 +39,8 @@ public class PromotionService {
 	 * @author Kenza ABOUAKIL
 	 * @return le numero d'enseignant responsable de la promotion
 	 */
-	public Integer getNoEnseignant(final PromotionPK promotionPK) {
-		return promotionRepository.findOne(promotionPK).getNoEnseignant().getNoEnseignant();
+	public Enseignant getEnseignantResponsable(final PromotionPK promotionPK) {
+		return promotionRepository.findOne(promotionPK).getNoEnseignant();
 	}
 
 	public final Promotion getPromotion(final PromotionPK promotionPK) {

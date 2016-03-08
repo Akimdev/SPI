@@ -65,9 +65,9 @@
     	  console.log("TODO : recuperation de la liste des enseignants");
 		    return $http.get("http://localhost:8090/ens");
       },
-      getNoEnseignant: function(promotionPK){
+      getEnseignantResponsable: function(promotionPK){
     	  console.log("TODO : recuperation del'enseignant responsable");
-		  return $http.post("http://localhost:8090/promotion/getNoEnseignant",promotionPK);
+		  return $http.post("http://localhost:8090/promotion/getEnseignantResponsable",promotionPK);
       },
       getFormations: function(){
     	  console.log("TODO : recuperation de la liste des formations");
@@ -205,11 +205,14 @@
 	        $scope.edit= true;
 	        
       } else { // sinon on edite une promotion existante
-			//Recuperation de la promotion
-            var promise1= promotionsFactory.get(promoPK);
-            promise1.success(function(data,statut){
-          	  $scope.promotion= data ;
-          	  console.log("TODO: recuperation de la promotion: ", $scope.promotion);
+				
+    	  		//Recuperation de la promotion
+	            var promise1= promotionsFactory.get(promoPK);
+	            promise1.success(function(data,statut){
+          	  	$scope.promotion= data ;
+//				var date = $scope.promotion.dateRentree.split('/');
+//				$scope.promotion.dateRentree = new Date(date[1] + '-' + date[0] + '-' + date[2]);
+          	  	console.log("TODO: recuperation de la promotion: ", $scope.promotion);
           	  	//Recuperation des etudiants  
 	          	var promise2= promotionsFactory.getEtudiants(promoPK);
 	            promise2.success(function(data,statut){
@@ -220,7 +223,7 @@
 	          	  console.log("impossible de recuperer les étudiants de la promotion choisie");
 	            });
 	            //Recuperation de l'enseignant responsable
-	            var promise3= promotionsFactory.getNoEnseignant(promoPK);
+	            var promise3= promotionsFactory.getEnseignantResponsable(promoPK);
 		        promise3.success(function(data,statut){
 		        	$scope.responsable= data;
 		        	console.log("\tEnseignant responsable récupéré: ", data);
