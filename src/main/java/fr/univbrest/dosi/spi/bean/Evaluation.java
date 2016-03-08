@@ -36,6 +36,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
  *
  * @author DOSI
  */
+
 @Entity
 @Table(name = "EVALUATION")
 @XmlRootElement
