@@ -2,117 +2,98 @@
   'use strict';
 
   var app = angular.module('app.formations', []);
-  
-  Array.prototype.removeValue = function(name, value){
-	   var array = $.map(this, function(v,i){
-	      return v[name] === value ? null : v;
-	   });
-	   this.length = 0; //clear original array
-	   this.push.apply(this, array); //push all elements except the one we want to delete
-	}
- 
-  Array.prototype.retourValue = function(name, value){
-	   var array = $.map(this, function(v,i){
-	      return v[name] === value ? v : null;
-	   });
-	   return array[0];
-	}
 
-  app.factory('formationsFactory',['$http', function($http){
-		    
-    var list = function() {
-       return  $http.get('http://localhost:8090/frm')
-      };
-    	;
+  app.factory('formationsFactory', function($http, $window){
             
     return {
       // renvoi la liste de tous les enseignants
-      all: function() { // TODO retourner la liste 
-    	  return  $http.get('http://localhost:8090/formations') //list,//;
-    	  //console.log("TODO : retourner la liste des formations", formation);
-    	  },
+      all: function() { 
+    	  return $http.get('http://localhost:8090/formations');
+      },
       // renvoi l'enseignant avec le code demandé
-      get: function(codeFormation) { 
-        // TODO Retourner un enregistrement
-    	  console.log("TODO : get formation",codeFormation);
-    	  //return list.retourValue("no_enseignant",idx);
-    	  return  $http.get('http://localhost:8090/formation/'+codeFormation);
-    	  //return list.retourValue("code",code);
-    	  //console.log("TODO : retourner formation", formation);
+      get: function(code) { 
+    	  return $http.get('http://localhost:8090/formationByCode/' + code);    
       },
-      set: function(formation) {
-        console.log("TODO : enregistrer formation", formation);
-        //var idf = formation.codeFormation;
-        // si modification d'une formation existante
-        //if(idf){
-          // TODO alimenter l'objet formation trouvé
-        	//console.log("TODO : update formation",idf);
-        	//list.removeValue("code",formation.code);
-        	//return list.push(formation);
-        //} else { // si ajout d'un nouvel formation
-          // TODO ajouter un formation à la liste
-        	$http.post('http://localhost:8090/formation/ajouterformation',formation);
-        	//return list.push(formation);
-        //}
+      
+      set: function(formation) {	
+    	  return $http.post('http://localhost:8090/formation/createFormation', formation);
       },
-      delete: function(formation) { 
-        console.log("TODO : supprimer formation", formation.codeFormation);
-        $http.get('http://localhost:8090/formation/delete/'+formation.codeFormation);
-  	    //$http.get('http://localhost:8090/formation/delete/'+codeformation)
-        //list.removeValue("code",formation.code);
-  	  	//return list;
+      
+      delete: function(codeFormation) { 
+    	  return $http.get('http://localhost:8090/formation/delete?codeFormation=' + codeFormation);
       }
     };
-  }]);
-
+  });
 
   app.controller('FormationsController', 
-    ['$scope', '$location', 'formationsFactory', '$http',
-    function($scope, $location, formationsFactory, $http){
-    	
-    	var promise = formationsFactory.all();
-    	promise.success(function(data) {
-    		    $scope.formations = data;
-    		  }
-    		)
-    		.error(function(data) {
-    			 $scope.error = 'unable to get the poneys';
-    		  }
-    		);
-    
+    ['$scope', '$location','$http','$filter', 'formationsFactory',
+    function($scope, $location,$http,$filter, formationsFactory){
       // la liste globale des formations
-      //$scope.formations = formationsFactory.all();      
-
-    	
-    	
- /* $scope.formations = [];
-      
-  listfrm.fetchPopular(function(data) {
-    	  console.log("TODO 1: entrer fetchpopular");
-			$scope.formations = data;
-			console.log("TODO 2: donnee " + data);
-			console.log("TODO 3: fin fetchpopular");
-		});*/
+    	$scope.refresh = function (){
+    		 var promiseFormation = formationsFactory.all();          
+    	      promiseFormation.success(function(data) {
+    	          $scope.formations = data;
+    	         // $scope.formation.debutAccreditation = $filter('date')(data.debutAccreditation, "dd-MM-yyyy");
+    			 // $scope.formation.finAccreditation = $filter('date')(data.finAccreditation, "dd-MM-yyyy");	
+    	      });
+    	}
+     
       // Crée la page permettant d'ajouter une formation
       $scope.ajoutFormation = function(){
-        $location.path("/admin/formation/nouveau"); 
+        $location.path('/admin/formation/nouveau'); 
       }
 
       // affiche les détails d'une formation
       $scope.edit = function(formation){
-        $location.path("/admin/formation/"+ formation.codeFormation);
+        $location.path('/admin/formation/' + formation.codeFormation);
       }
 
       // supprime une formation
-      $scope.supprime = function(formation){        
-        formationsFactory.delete(formation);
+      $scope.supprime = function(formation){
+    	  swal({   
+			  title: "Voulez-vous vraiment supprimer cette formation ?",      
+			  type: "warning",   
+			  showCancelButton: true,   
+			  confirmButtonColor: "#DD6B55",   
+			  confirmButtonText: "Oui, je veux le supprimer!",  
+			  cancelButtonText: "Non, ignorer!",   
+			  closeOnConfirm: false,   closeOnCancel: false },
+			  function(isConfirm){
+				  if (isConfirm) {  
+					  var promisessuppression  = formationsFactory.delete(formation.codeFormation);
+			    	  promisessuppression.success(function(data, status, headers, config) {
+						$scope.refresh();
+						swal("Supprimé!", "la formation est supprimée", "success");
+					});
+			    	  promisessuppression.error(function(data, status, headers, config) {
+			    		  swal("Erreur!", "vous pouvez pas supprimer cette formation", "error");
+			  		});	
+					  } else {     
+						  swal("Ignorer", "", "error");
+						  }
+				  });  
       }
+      $scope.refresh();
     }]
   );
 
   app.controller('FormationDetailsController', 
-    ['$scope', '$routeParams', '$location','$filter', 'formationsFactory',
-    function($scope, $routeParams, $location,$filter, formationsFactory){      
+    ['$scope', '$routeParams','$http', '$location','$filter', 'formationsFactory',
+    function($scope, $routeParams, $http, $location,$filter, formationsFactory){  
+
+    		  $http.get('http://localhost:8090/domaines/search/findByRvDomain?rvDomain=DIPLOME').
+    		    success(function(data, status, headers, config) {
+    		      $scope.domaines = data._embedded.domaines;
+    		      $scope.domaines = {
+    					    availableOptions: data._embedded.domaines,
+    					    selectedOption:  data._embedded.domaines[0]
+    				    };
+    		    }).
+    		    error(function(data, status, headers, config) {
+    		      // log error
+    		    });
+    		
+    	
       $scope.edit= false;    
 
       // si creation d'une nouvelle formation
@@ -120,55 +101,59 @@
         $scope.formation= { };
         $scope.edit= true;    
       } else { // sinon on edite une formation existante
-        //var f = formationsFactory.get($routeParams.id);
-        // clone de l'objet pour conserver l'objet initial
-        //$scope.formation = JSON.parse(JSON.stringify(f));
-        var promise = formationsFactory.get($routeParams.id);
-        promise
-		.success(function(data,status) {
-			$scope.formation = data ;
-        	console.log("Dans FormationDetailsController : success : "+$scope.formation.nomFormation);
-			//$scope.formation = JSON.parse(JSON.stringify(data));
-     		$scope.formation.debutAccreditation = $filter('date')(data.debutAccreditation, "dd/MM/yyyy");
-			$scope.formation.finAccreditation = $filter('date')(data.finAccreditation, "dd/MM/yyyy");
-		  }
-		)
-		 .error(function(data,status){
-	        	console.log("erreur de recupere la formation choisi");
-	      });
+        var f = formationsFactory.get($routeParams.id);
+        var promisesFactory = formationsFactory.get($routeParams.id);
+     	promisesFactory.success(function(data) {
+     		$scope.formation = data;   
+				$scope.formation.debutAccreditation = $filter('date')(data.debutAccreditation, "dd/MM/yyyy");
+				$scope.formation.finAccreditation = $filter('date')(data.finAccreditation, "dd/MM/yyyy");		
+     	});
       }      
+      
+      $scope.edition = function(){
+    	  var promisessuppression = formationsFactory.set($scope.formation);    	  
+    	  formationsFactory.get($scope.formation);
+          $scope.edit = true;
+        }
+
+        $scope.submit = function(){
+        	if($scope.formation.debutAccreditation && $scope.formation.finAccreditation){
+            	var date = $scope.formation.debutAccreditation.split('/');
+            	$scope.formation.debutAccreditation = new Date(date[1] + '-' + date[0] + '-' + date[2]);
+            	var date2 = $scope.formation.finAccreditation.split('/');
+            	$scope.formation.finAccreditation = new Date(date2[1] + '-' + date2[0] + '-' + date2[2]);
+        	}
+        	var promisesajout = formationsFactory.set($scope.formation);
+        	promisesajout.success(function(data, status, headers, config) {
+        		$location.path('/admin/formations');
+				
+			});
+        	promisesajout.error(function(data, status, headers, config) {
+				alert( "failure message: " + JSON.stringify({data: data}));
+			});		
+        	
+			// Making the fields empty
+			//				
+			$scope.formation = {};
+          $scope.edit = false;  
+        }
 
       $scope.edition = function(){
         $scope.edit = true;
       }
 
-      // valide le formulaire d'édition d'une formation
-      $scope.submit = function(){
-    	  var date = $scope.formation.debutAccreditation.split('/');
-      	$scope.formation.debutAccreditation = new Date(date[1] + '-' + date[0] + '-' + date[2]);
-      	var date2 = $scope.formation.finAccreditation.split('/');
-      	$scope.formation.finAccreditation = new Date(date2[1] + '-' + date2[0] + '-' + date2[2]);
-    	  formationsFactory.set($scope.formation);        
-          $scope.edit = false;  
-          $location.path('/admin/formations'); 
+
+   // annule l'édition
+      $scope.cancel = function(){
+        if(!$scope.formation.codeFormation){
+          $location.path('/admin/formations');
+        } else {
+        	$location.path('/admin/formations');
+         // var e = formationFactory.get($routeParams.id);
+          //$scope.formation = JSON.parse(JSON.stringify(e));
+          $scope.edit = false;
         }
-      
-      // TODO coder une fonction submit permettant de modifier une formation et rediriger vers /admin/formations 
-
-
-      // annule l'édition
-      $scope.cancel = function(){ 
-    	  $scope.formations = {};
-          $location.path('/admin/formations');
-    	  /*if(!$scope.formation.codeFormation){
-          $location.path('/admin/formations');
-      } else {
-        var e = formationsFactory.get($routeParams.id);
-        $scope.formation = JSON.parse(JSON.stringify(e));
-        $scope.edit = false;
-      }*/
-    } 
-      // TODO coder une fonction cancel permettant de modifier une formation et rediriger vers /admin/formations 
+      } 
 
     }]
   );

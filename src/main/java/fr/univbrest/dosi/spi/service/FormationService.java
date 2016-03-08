@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.univbrest.dosi.spi.bean.Formation;
 import fr.univbrest.dosi.spi.dao.FormationRepository;
@@ -44,15 +48,32 @@ public class FormationService {
 	}
 
 	public String getNomFormation(String codeFormation) {
-		return formationRepository.findByCodeFormation(codeFormation).getNomFormation();
+		return formationRepository.findByCodeFormation(codeFormation)
+				.getNomFormation();
 	}
 
 	public List<String> getNomFormations(List<String> codeFormations) {
 		List<String> nomFormations = new ArrayList<String>();
 		for (String code : codeFormations) {
-			nomFormations.add(formationRepository.findOne(code).getNomFormation());
+			nomFormations.add(formationRepository.findOne(code)
+					.getNomFormation());
 		}
 		return nomFormations;
+	}
+
+	/**
+	 * @author LAKRAA
+	 *  méthode pour la suppression d'une formation
+	 * @return
+	 */
+	@RequestMapping(value = "/formation/delete", headers = "Accept=application/json")
+	public void removeFormation(
+			@RequestParam("codeFormation") String codeFormation) {
+		formationRepository.delete(codeFormation);
+	}
+	
+	public Formation traitement(String codeFormation) {
+		return formationRepository.findOne(codeFormation);
 	}
 	
 	/**

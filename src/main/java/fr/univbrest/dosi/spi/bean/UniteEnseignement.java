@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  *
@@ -70,7 +71,8 @@ public class UniteEnseignement implements Serializable {
     private Short nbhTd;
     @Column(name = "NBH_TP")
     private Short nbhTp;
-    @JsonIgnore
+    //@JsonIgnore
+    @JsonManagedReference(value = "enseignant-uniteEnseignement")
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne(optional = false)
     private Enseignant noEnseignant;

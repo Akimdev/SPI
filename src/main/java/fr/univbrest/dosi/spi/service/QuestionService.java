@@ -44,14 +44,24 @@ public class QuestionService {
 	 * @param question
 	 */
 	public void deleteQuestion(Question question){
+		if(question.getIdQualificatif()==null){
 		questRepo.delete(question);
+		}
+		else{
+			throw new SPIException("La question ne peut pas être supprimée. Déselectionnez la avant d'une évaluation ou son qualificatif");
+		}
 	}
 	/**
 	 * La méthode de suppression d'une question par idQuestion
 	 * @param idQuestion
 	 */
 	public void deleteQuestionById(Long idQuestion){
-		questRepo.delete(idQuestion);
+		if(questRepo.findOne(idQuestion).getIdQualificatif()==null){
+			questRepo.delete(idQuestion);
+			}
+			else{
+				throw new SPIException("La question ne peut pas être supprimée. Déselectionnez la avant d'une évaluation ou son qualificatif");
+			}
 	}
 	/**
 	 * La méthode pour afficher la liste des questions
