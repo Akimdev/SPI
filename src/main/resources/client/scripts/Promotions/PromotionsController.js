@@ -65,6 +65,10 @@
     	  console.log("TODO : recuperation de la liste des enseignants");
 		    return $http.get("http://localhost:8090/ens");
       },
+      getNoEnseignant: function(promotionPK){
+    	  console.log("TODO : recuperation del'enseignant responsable");
+		  return $http.post("http://localhost:8090/promotion/getNoEnseignant",promotionPK);
+      },
       getFormations: function(){
     	  console.log("TODO : recuperation de la liste des formations");
 		    return $http.get("http://localhost:8090/formations");
@@ -75,8 +79,8 @@
   
 
   app.controller('PromotionsController', 
-    ['$scope', '$filter','$location', 'promotionsFactory',
-    function($scope, $filter, $location, promotionsFactory){
+    ['$scope', '$filter','$location', 'promotionsFactory', 'toaster',
+    function($scope, $filter, $location, promotionsFactory, toaster){
     	var init;
     	promotionsFactory.all()
 		.success(function(data) {
@@ -144,15 +148,29 @@
 
       // supprime une promotion
       $scope.supprime = function(promotionPK){
-    	  
-    	  var promise= promotionsFactory.delete(promotionPK);
-          promise.success(function(data,statut){
-        	  $scope.currentPagePromotion.removeValue("promotionPK",promotionPK);
-          })
-          .error(function(data,statut){
-        	  console.log("impossible de supprimer la promotion choisie");
-          });
-    	  
+    	  swal({   
+			  title: "Etes-vous sûr de vouloir supprimer cette promotion ?",      
+			  type: "warning",   
+			  showCancelButton: true,   
+			  confirmButtonColor: "#DD6B55",   
+			  confirmButtonText: "Oui, je veux la supprimer!",  
+			  cancelButtonText: "Non, ignorer!",   
+			  closeOnConfirm: false,   closeOnCancel: false },
+			  function(isConfirm){
+				  if (isConfirm) {
+					  var promise= promotionsFactory.delete(promotionPK);
+			          promise.success(function(data,statut, headers, config){
+			        	  $scope.currentPagePromotion.removeValue("promotionPK",promotionPK);
+			        	  $scope.refresh();
+			        	  swal("Supprimé!", "la promotion est supprimée", "success");
+			          })
+			          .error(function(data,statut, headers, config){
+			        	  swal("Erreur!", "Impossible de supprimer la promotion choisie", "error");
+			          });
+				  } else {     
+						  swal("Ignorer", "", "error");
+				  }
+	  	 });
       }
     }]
   );
@@ -187,11 +205,12 @@
 	        $scope.edit= true;
 	        
       } else { // sinon on edite une promotion existante
-			
+			//Recuperation de la promotion
             var promise1= promotionsFactory.get(promoPK);
             promise1.success(function(data,statut){
           	  $scope.promotion= data ;
           	  console.log("TODO: recuperation de la promotion: ", $scope.promotion);
+          	  	//Recuperation des etudiants  
 	          	var promise2= promotionsFactory.getEtudiants(promoPK);
 	            promise2.success(function(data,statut){
 	            	$scope.promotion.etudiantCollection = data ;
@@ -200,6 +219,16 @@
 	            .error(function(data,statut){
 	          	  console.log("impossible de recuperer les étudiants de la promotion choisie");
 	            });
+	            //Recuperation de l'enseignant responsable
+	            var promise3= promotionsFactory.getNoEnseignant(promoPK);
+		        promise3.success(function(data,statut){
+		        	$scope.responsable= data;
+		        	console.log("\tEnseignant responsable récupéré: ", data);
+		        })
+		        .error(function(data,statut){
+		      	  console.log("impossible de recuperer la liste des enseignants");
+		        });
+          	  	//Recuperation des enseignants
 	            var promise3= promotionsFactory.getEnseignants();
 		        promise3.success(function(data,statut){
 		        	$scope.enseignants= data;

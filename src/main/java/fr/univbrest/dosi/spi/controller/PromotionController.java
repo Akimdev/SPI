@@ -75,6 +75,17 @@ public class PromotionController {
 	}
 
 	/**
+	 * @author Kenza ABOUAKIL
+	 * @param l
+	 *            'identifiant d'une promotion (codeFormation + anneeUniversitaire)
+	 * @return le numéro de l'enseignant responsable d'une promotion
+	 */
+	@RequestMapping(value = "/promotion/getNoEnseignant", method = RequestMethod.POST, headers = "Accept=application/json", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public final Integer getNoEnseignant(@RequestBody PromotionPK promotionPK) {
+		return promotionService.getNoEnseignant(promotionPK);
+	}
+
+	/**
 	 * @author Soukaina BAQLOUL
 	 *
 	 * @param noEnseignant

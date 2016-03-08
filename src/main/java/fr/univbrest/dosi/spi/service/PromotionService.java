@@ -17,18 +17,14 @@ public class PromotionService {
 	private PromotionRepository promotionRepository;
 
 	public final void addPromotion(final Promotion promotion) {
-		if(promotionRepository.exists(promotion.getPromotionPK())){
+		if (promotionRepository.exists(promotion.getPromotionPK())) {
 			throw new SPIException("cette Promotion que vous souhaitez ajouter exsite déja :D");
-		} 
-		promotionRepository.save(promotion);
-	}
-	
-	public final void update(final Promotion promotion){
+		}
 		promotionRepository.save(promotion);
 	}
 
 	public final void deletePromotion(final PromotionPK promotionPK) {
-		if (promotionRepository.exists(promotionPK) )
+		if (promotionRepository.exists(promotionPK))
 			promotionRepository.delete(promotionPK);
 		else
 			throw new SPIException("promotion non trouvée");
@@ -38,21 +34,33 @@ public class PromotionService {
 		return promotionRepository.exists(promotionPK);
 	}
 
+	/**
+	 * @author Kenza ABOUAKIL
+	 * @return le numero d'enseignant responsable de la promotion
+	 */
+	public Integer getNoEnseignant(final PromotionPK promotionPK) {
+		return promotionRepository.findOne(promotionPK).getNoEnseignant().getNoEnseignant();
+	}
+
 	public final Promotion getPromotion(final PromotionPK promotionPK) {
 		return promotionRepository.findOne(promotionPK);
 	}
 
-	public final List<Promotion> getPromotionByEnseignant(final Integer noEnseignant) {
-		return promotionRepository.findByNoEnseignant(noEnseignant);
-	}
-
 	/**
-	 * 
+	 *
 	 * @return all promotion
 	 * @author ASSABBAR
 	 */
 
 	public final Iterable<Promotion> getPromotionALL() {
 		return promotionRepository.findAll();
+	}
+
+	public final List<Promotion> getPromotionByEnseignant(final Integer noEnseignant) {
+		return promotionRepository.findByNoEnseignant(noEnseignant);
+	}
+
+	public final void update(final Promotion promotion) {
+		promotionRepository.save(promotion);
 	}
 }
