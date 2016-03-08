@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import fr.univbrest.dosi.spi.bean.Evaluation;
 import fr.univbrest.dosi.spi.dao.EvaluationRepository;
+import fr.univbrest.dosi.spi.exception.SPIException;
 /**
  * 
  * @author Othman
@@ -22,17 +23,16 @@ public class EvaluationService {
 		return (List<Evaluation>) evaRepo.findAll();
 	}
 	
-	/*public Evaluation getEvaluation(Long idEvaluation){
-		List<Evaluation> listeEva = (List<Evaluation>) evaRepo.findAll();
-		for(Evaluation e:listeEva){
-			if(e.getIdEvaluation().equals(idEvaluation)){
-				return e;
-			}
-		}
-		return null;
-	}
-	*/
 	public Evaluation getEvaluation(Long idEvaluation){
 		return evaRepo.findByIdEvaluation(idEvaluation);
+	}
+	
+	public void addEvaluation(Evaluation e){
+		evaRepo.save(e);
+	}
+	
+	public void deleteEvaluation(Long idEvaluation){
+		Evaluation evaluation = evaRepo.findByIdEvaluation(idEvaluation);
+		evaRepo.delete(evaluation);
 	}
 }
