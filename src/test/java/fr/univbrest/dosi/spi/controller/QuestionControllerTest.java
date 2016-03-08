@@ -41,7 +41,7 @@ public class QuestionControllerTest {
 		mockRequestPost.setEntity(new StringEntity(jsonInString));
 		try {
 			final HttpResponse mockResponse = client.execute(mockRequestPost);
-			//Assert.assertEquals(200, mockResponse.getStatusLine().getStatusCode());
+			Assert.assertEquals(200, mockResponse.getStatusLine().getStatusCode());
 		}
 		catch (ClientProtocolException e){
 			throw new SPIException("Error Protocol", e);
