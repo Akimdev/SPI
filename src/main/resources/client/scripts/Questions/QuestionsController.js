@@ -103,8 +103,8 @@
    }
   
  
-  $scope.edit = function (idRubrique){
-	  $location.path("/admin/rubrique/"+ idRubrique);
+  $scope.edit = function (question){
+	  $location.path("/admin/question/"+ question.idQuestion);
 	 
   }
 
