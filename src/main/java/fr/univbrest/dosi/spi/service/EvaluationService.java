@@ -14,6 +14,7 @@ import fr.univbrest.dosi.spi.dao.EvaluationRepository;
  */
 @Service
 public class EvaluationService {
+	
 	@Autowired
 	EvaluationRepository evaRepo;
 	
