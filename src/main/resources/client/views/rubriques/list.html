@@ -10,23 +10,26 @@
 				Rubriques</strong> <span class="add fa fa-user-plus pull-right"
 				ng-click="ajoutRubrique()"></span>
 
+          <div class="table-filters">
+            <div class="row">
+                <div class="col-sm-4 col-xs-6">
+                    <form>
+                        <input type="text"
+                               placeholder="search"
+                               class="form-control"
+                               data-ng-model="searchKeywords"
+                               data-ng-keyup="search()">
+                      </form>
+                </div>
+                <div class="col-sm-3 col-xs-6 filter-result-info">
+                    <span>
+                        Affiche {{filteredRubrique.length}}/{{rubriques.length}} 
+                    </span>              
+                </div>
+            </div>
+        </div>
+
 		</div>
-
-		<div class="table-filters">
-			<div class="row">
-				<div class="col-sm-4 col-xs-6">
-					<form>
-						<input type="text" placeholder="search" class="form-control"
-							data-ng-model="searchKeywords" data-ng-keyup="search()">
-
-					</form>
-				</div>
-				<div class="col-sm-3 col-xs-6 filter-result-info">
-					<span> Affiche </span>
-				</div>
-			</div>
-		</div>
-
 
 		<table class="table table-bordered table-striped table-responsive">
 			<thead>
@@ -57,8 +60,7 @@
 				<tr data-ng-repeat="e in currentPageRubrique" class="rubrique">
 					<td ng-click="edit(e.idRubrique)">{{e.ordre}}</td>
 					<td ng-click="edit(e.idRubrique)">{{e.designation}}</td>
-					<td><span class="remove fa fa-trash"
-						ng-click="supprime(e.idRubrique)"></span></td>
+					<td ng-click="supprime(e.idRubrique)" class="icon-list"><span class="remove fa fa-trash" ></span></td>
 
 				</tr>
 			</tbody>
