@@ -28,14 +28,8 @@ public class EvaluationController {
 		return evaServ.getAllEvaluations();
 	}
 	
-	/**
-	 * @author LAKRAA
-	 * Méthode qui permet de recuperer les avaluations par ID
-	 */
-	
-	@RequestMapping(value = "/evaluation/{idEvaluation}", produces = { MediaType.APPLICATION_JSON_VALUE }, headers="Accept: application/hal+json")
-	public  List<Evaluation> getEvalById(
-			@PathVariable(value = "idEvaluation") Long idEvaluation) {
-		return evaServ.getEvaById(idEvaluation);
+	@RequestMapping(value="/findEvaluationById-{idEvaluation}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public Evaluation getEvaluation(@PathVariable(value="idEvaluation")Long idEvaluation){
+		return evaServ.getEvaluation(idEvaluation);
 	}
 }
