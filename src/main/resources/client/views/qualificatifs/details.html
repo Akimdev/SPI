@@ -1,3 +1,7 @@
+<!-- 
+ -- @Author Mohamed LAKRAA
+ -- Details des qualificatifs
+ -->
 <div class="page" ng-controller="QualificatifDetailsController">
 
 	<div class="panel panel-default ens-edit">
@@ -6,8 +10,23 @@
 				Qualificatif</strong>
 		</div>
 		<div class="panel-body">
-		
-			<!-- Edition -->
+			<!--------------------------- Consultation --------------------------->
+			<div class="media animate" ng-hide="edit">
+				<button class="btn btn-warning pull-right" ng-click="edition()">
+					<span class="glyphicon glyphicon-pencil"></span> Editer
+				</button>
+				<div class="media-body">
+					<ul class="list-unstyled list-info">
+						<li><label>ID Qualificatif</label> {{qualificatif.idQualificatif}}<br /></li>
+						<li><label>Maximal</label> {{qualificatif.maximal}}<br /></li>
+						<li><label>Minimal</label> {{qualificatif.minimal}}<br /></li>
+						<li><label></label> {{}}<br /></li>
+					</ul>
+				</div>
+				<a class="btn btn-primary" href="#/admin/promotions"><span
+					class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+			</div>
+			<!--------------------------- Edition --------------------------->
 			<div>
 			<toaster-container toaster-options="{'position-class': 'toast-bottom-right'}"></toaster-container>
 				<form class="form-horizontal elegant-aero" name="qualificatifForm">
@@ -18,9 +37,9 @@
 						<label for="" class="col-sm-2">idQualificatif<span id="required-field">*</span></label>
 						<div class="col-sm-10">
 							<input type="number" class="form-control" name="idQualificatif" min="1"
-								ng-model="qualificatif.idQualificatif" ng-disabled="isVisible" required>
+								ng-model="qualificatif.idQualificatif" ng-disabled="isVisible" required ng-readonly="true">
 								<span style="color:red" ng-show="qualificatifForm.idQualificatif.$dirty && qualificatifForm.idQualificatif.$invalid">
-								<span ng-show="qualificatifForm.idQualificatif.$error.required">IdQualificatif obligatoire ou type invalide.</span>
+								<span ng-show="qualificatifForm.idQualificatif.$error.required">Champ obligatoire / Type invalide</span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -29,7 +48,7 @@
 							<input type="text" class="form-control" name="maximal"
 								ng-model="qualificatif.maximal" required>
 								<span style="color:red" ng-show="qualificatifForm.maximal.$dirty && qualificatifForm.maximal.$invalid">
-								<span ng-show="qualificatifForm.maximal.$error.required">Maximal obligatoire ou type invalide.</span>
+								<span ng-show="qualificatifForm.maximal.$error.required">Champ obligatoire / Type invalide</span>
 								
 						</div>
 					</div>
@@ -39,7 +58,7 @@
 							<input type="text" class="form-control" name="minimal"
 								ng-model="qualificatif.minimal" required>
 								<span style="color:red" ng-show="qualificatifForm.minimal.$dirty && qualificatifForm.minimal.$invalid">
-								<span ng-show="qualificatifForm.minimal.$error.required">Minimal obligatoire ou type invalide.</span>
+								<span ng-show="qualificatifForm.minimal.$error.required">Champ obligatoire / Type invalide</span>
 						</div>
 					</div>
 				</form>

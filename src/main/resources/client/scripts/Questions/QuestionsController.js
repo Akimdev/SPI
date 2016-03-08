@@ -11,24 +11,28 @@
     return {
       // renvoi la liste de tous les questions
       all: function() { 
-    	  return $http.get('http://localhost:8090/listerQuestions');
+    	  return $http.get('http://localhost:8090/questions');
       },
       // renvoi la question avec le code demandé
       get: function(code) { 
-    	  return $http.get('http://localhost:8090/question/' + code);    
+    	  return $http.get('http://localhost:8090/getQuestionById/' + code);    
       },
       set: function(question) {	
-    	  return $http.post('http://localhost:8090/modifierQuestion', question);
+    	  return $http.post('http://localhost:8090/updateQuestion', question);
       },
       add: function(question) {
-    	  return $http.post('http://localhost:8090/ajouterQuestion', question)
+    	  return $http.post('http://localhost:8090/addQuestion', question)
       },
       delete: function(idQuestion) { 
-    	  return $http.get('http://localhost:8090/supprimerQuestionBis?idQuestion=' + idQuestion);
+    	  return $http.get('http://localhost:8090/deleteQuestionById-' + idQuestion);
+      },
+      getQualificatif: function(idQuestion){
+    	  return $http.get('http://localhost:8090/getQualificatif/' + idQuestion);
       }
     };
   });
-
+  
+  
   app.controller('QuestionsController', 
     ['$scope', '$location','$http','$filter', 'questionsFactory',
     function($scope, $location,$http,$filter, questionsFactory){
@@ -53,61 +57,101 @@
 
       // supprime une question
       $scope.supprime = function(question){
-    	  var promisessuppression  = questionsFactory.delete(question.idQuestion);
-    	  promisessuppression.success(function(data, status, headers, config) {
-			$scope.refresh();
-    	  });
-    	  promisessuppression.error(function(data, status, headers, config) {
-			alert( "failure message: " + JSON.stringify({data: data}));
-    	  });	
+
+    	  swal({   
+			  title: "Voulez-vous vraiment supprimer cette question ?",      
+			  type: "warning",   
+			  showCancelButton: true,   
+			  confirmButtonColor: "#DD6B55",   
+			  confirmButtonText: "Oui, je veux le supprimer!",  
+			  cancelButtonText: "Non, ignorer!",   
+			  closeOnConfirm: false,   closeOnCancel: false },
+			  function(isConfirm){
+				  if (isConfirm) {  
+			    	  var promisessuppression  = questionsFactory.delete(question.idQuestion);
+			    	  promisessuppression.success(function(data, status, headers, config) {
+			  			$scope.refresh();
+						swal("Supprimé!", "la question est supprimée", "success");
+			      	  });
+			    	  promisessuppression.error(function(data, status, headers, config) {
+			    		  swal("Erreur!", "vous pouvez pas supprimer cette question", "error");
+			  		});	
+				  } else {     
+						  swal("Ignorer", "", "error");
+				  }
+	  	 });
       }
       
-      // ajouter une question
-      $scope.ajouter = function(question){
-    	  var promiseAjout = questionsFactory.add(question);
-    	  promiseAjout.success(function(data, status, headers, config) {
-    		  $scope.refresh();
-    	  });
-    	  promiseAjout.error(function(data, status, headers, config) {
-			alert( "failure message: " + JSON.stringify({data: data}));
-    	  });	
-      }
       $scope.refresh();
     }]
   );
 
   app.controller('QuestionDetailsController', 
-    ['$scope', '$routeParams','$http', '$location','$filter', 'questionsFactory',
-    function($scope, $routeParams, $http, $location,$filter, questionsFactory){      
+    ['$scope', '$routeParams','$http', '$location','$filter', 'questionsFactory', 'qualificatifsFactory', 'toaster',
+    function($scope, $routeParams, $http, $location,$filter, questionsFactory, qualificatifsFactory, toaster){      
       $scope.edit= false;    
-
+      
       // si creation d'une nouvelle question
       if($routeParams.id == "nouveau"){
         $scope.question= { };
-        $scope.edit= true;    
-      } else { // sinon on edite une question existante
-        var f = questionsFactory.get($routeParams.id);
+        $scope.edit= true;
+ 		var promiseQualificatifs = qualificatifsFactory.all();
+ 		promiseQualificatifs.success(function(data) {   
+ 			$scope.qualificatifs = data;
+ 			$scope.selectedOption = data[0];
+ 		});
+	 } else { // sinon on edite une question existante
         var promisesFactory = questionsFactory.get($routeParams.id);
      	promisesFactory.success(function(data) {
-     		$scope.question = data;   
+     		$scope.isVisible = true;
+     		$scope.question = data;   console.log("question: ", $scope.question);
+     		var promiseQualificatifs = qualificatifsFactory.all();
+     		promiseQualificatifs.success(function(data) {   
+     			var promiseQualif = questionsFactory.getQualificatif($routeParams.id);
+         		promiseQualif.success(function(result){
+         			$scope.qualif = result;
+	     			$scope.qualificatifs = data;
+	     			$scope.selectedOption = result;
+         		});
+     		});
+     		
      	});
-      }      
+     	
+      }
       
       $scope.edition = function(){
     	  var promisessuppression = questionsFactory.set($scope.question);    	  
     	  questionsFactory.get($scope.question);
+    	  
           $scope.edit = true;
         }
 
         $scope.submit = function(){
-        	var promisesajout = questionsFactory.set($scope.question);
+        	var quesQual = {
+        			qualificatif : {
+        				idQualificatif : $scope.qualificatif
+        			},
+        			question : $scope.question
+        	}
+        	console.log(quesQual);
+        	var promisesajout = questionsFactory.add(quesQual);
         	promisesajout.success(function(data, status, headers, config) {
+        		if($routeParams.id === "nouveau") 
+        			swal("Félicitation!", "La nouvelle question est ajoutée!", "success");
+        		else
+        			swal("Félicitation!", "La question est modifiée !", "success");
+        			
         		$location.path('/admin/questions');
 				
 			});
         	promisesajout.error(function(data, status, headers, config) {
-				alert( "failure message: " + JSON.stringify({data: data}));
-			});		
+        		toaster.pop({
+                    type: 'error',
+                    title: 'Insertion ou modification impossible. ID Question existe déja !',
+                    positionClass: 'toast-bottom-right',
+                    showCloseButton: true
+                });
+        	});		
         	
 			// Making the fields empty
 			//				
@@ -127,12 +171,11 @@
 
    // annule l'édition
       $scope.cancel = function(){
-        if(!$scope.questions.idQuestion){
-          $location.path('/admin/question');
+        if($routeParams.id == "nouveau"){
+          $location.path('/admin/questions');
         } else {
-        	$location.path('/admin/questions');
-          var e = questionFactory.get($routeParams.id);
-          $scope.questions = JSON.parse(JSON.stringify(e));
+        	$location.path('/admin/question/' + $routeParams.id);
+          //var e = questionFactory.get($routeParams.id);
           $scope.edit = false;
         }
       } 
