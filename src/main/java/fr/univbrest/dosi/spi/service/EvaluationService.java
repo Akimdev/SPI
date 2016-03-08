@@ -21,4 +21,9 @@ public class EvaluationService {
 	public List<Evaluation> getAllEvaluations(){
 		return (List<Evaluation>) evaRepo.findAll();
 	}
+	
+	public Evaluation getEvaluation(Long idEvaluation){
+		return evaRepo.findByIdEvaluation(idEvaluation);
+	}
 }
+
