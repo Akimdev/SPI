@@ -187,12 +187,10 @@
 
    // annule l'édition
       $scope.cancel = function(){
-        if(!$scope.qualificatifs.idQualificatif){
+        if(!$scope.qualificatif.idQualificatif){
           $location.path('/admin/qualificatifs');
         } else {
         	$location.path('/admin/qualificatifs');
-          var e = qualificatifFactory.get($routeParams.id);
-          $scope.qualificatifs = JSON.parse(JSON.stringify(e));
           $scope.edit = false;
         }
       } 

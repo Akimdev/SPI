@@ -20,8 +20,6 @@ import fr.univbrest.dosi.spi.dao.QuestionRepository;
 public class QuestionService {
 	@Autowired 
 	QuestionRepository questRepo;
-	@Autowired
-	QualificatifRepository qualifRepo;
 	/**
 	 * La méthode pour ajouter une question
 	 * @param question
@@ -41,14 +39,22 @@ public class QuestionService {
 	 * @param question
 	 */
 	public void deleteQuestion(Question question){
-		questRepo.delete(question);
+		try{
+			questRepo.delete(question);
+		}catch(Exception e){
+			throw new SPIException("La question ne peut pas être supprimée !");
+		}
 	}
 	/**
 	 * La méthode de suppression d'une question par idQuestion
 	 * @param idQuestion
 	 */
 	public void deleteQuestionById(Long idQuestion){
-		questRepo.delete(idQuestion);
+		try{
+			questRepo.delete(questRepo.findOne(idQuestion));
+		}catch(Exception e){
+			throw new SPIException("La question ne peut pas être supprimée !");
+		}
 	}
 	/**
 	 * La méthode pour afficher la liste des questions
@@ -82,4 +88,12 @@ public class QuestionService {
 		List<Question> listeQuestions = (List<Question>) questRepo.findAll();
 		return listeQuestions.size();
 	}	
+	/**
+	 * @author Youssef
+	 * Rechercher le qualificatif d'une question
+	 * @param idQuestion
+	 */
+	public Qualificatif getQualificatif(Long idQuestion){
+		return questRepo.findQualificatif(idQuestion);
+	}
 }
