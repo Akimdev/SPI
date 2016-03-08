@@ -41,7 +41,7 @@ public class FormationController {
 
 	@RequestMapping(value = "/formation/formationParCodeFormation", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public Formation findByCodeFormation(String codeFormation) {
-		return formationService.findByCodeFormation(codeFormation);
+		return formationService.getFormation(codeFormation);
 	}
 
 	@RequestMapping(value = "/formation/formationParNomFormation", produces = { MediaType.APPLICATION_JSON_VALUE })

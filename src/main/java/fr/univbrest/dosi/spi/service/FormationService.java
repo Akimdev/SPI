@@ -39,7 +39,7 @@ public class FormationService {
 		return (List<Formation>) formationRepository.findAll();
 	}
 
-	public Formation findByCodeFormation(String codeFormation) {
+	public Formation getFormation(String codeFormation) {
 		return formationRepository.findByCodeFormation(codeFormation);
 	}
 
@@ -62,16 +62,6 @@ public class FormationService {
 	}
 
 	/**
-	 * @author Othman méthode retourne le nombre de formations
-	 * @return
-	 */
-	public int nombreFormations() {
-		List<Formation> listeFormations = (List<Formation>) formationRepository
-				.findAll();
-		return listeFormations.size();
-	}
-
-	/**
 	 * @author LAKRAA
 	 *  méthode pour la suppression d'une formation
 	 * @return
@@ -84,5 +74,13 @@ public class FormationService {
 	
 	public Formation traitement(String codeFormation) {
 		return formationRepository.findOne(codeFormation);
+	
+	/**
+	 * @author Othman méthode retourne le nombre de formations
+	 * @return
+	 */
+	public int nombreFormations() {
+		List<Formation> listeFormations = (List<Formation>) formationRepository.findAll();
+		return listeFormations.size();
 	}
 }
