@@ -1,12 +1,12 @@
 <!-- 
  -- @Author Mohamed LAKRAA
- -- Liste des promotions
+ -- Liste des qualificatifs
  -->
 <div class="page page-table" data-ng-controller="QualificatifsController">
 
     <section class="panel panel-default table-dynamic">
         <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Qualificatifs</strong>
-        <span class="add fa fa-user-plus pull-right" ng-click="ajoutQualificatif()"></span>
+        <button class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 pull-right" ng-click="ajoutQualificatif()" >Nouveau Qualificatif<i class="fa fa-user-plus pull-right"></i></button>
         </div>
         
         <div class="table-filters">
@@ -57,7 +57,7 @@
                         <span class="glyphicon glyphicon-chevron-down"
                               data-ng-click=" order('-minimal') "
                               data-ng-class="{active: row == '-minimal'}"></span>
-                    </div></th>
+                    </div></th><th></th>
                     <th></th>
                 </tr>
             </thead>
@@ -66,7 +66,8 @@
                     <td ng-click="edit(q)">{{q.idQualificatif}}</td>
                     <td ng-click="edit(q)">{{q.maximal}}</td>
                     <td ng-click="edit(q)">{{q.minimal}}</td>
-                    <td><span class="remove fa fa-remove" ng-click="supprime(q)"></span></td>
+                    <td ng-click="edit(q)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td>
+                    <td ng-click="supprime(q)" class="icon-list"><span class="remove fa fa-trash" ></span></td>
                 </tr>
             </tbody>
         </table>

@@ -7,5 +7,5 @@ import fr.univbrest.dosi.spi.bean.Qualificatif;;
 
 @RepositoryRestResource(collectionResourceRel = "qualificatif", path = "qualificatif")
 public interface QualificatifRepository extends PagingAndSortingRepository<Qualificatif, Long>{
-
+ 
 }

@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.univbrest.dosi.spi.bean.Formation;
@@ -65,4 +67,19 @@ public class FormationController {
 	public int nombreFormations(){
 		return formationService.nombreFormations();
 	}
-}
+	
+	/**
+	 * @author LAKRAA
+	 * Méthode qui permet de supprimer une formation par codeFormation
+	 */
+	   @RequestMapping(value="/formation/delete", headers="Accept=application/json")
+	    public void removeFormation(@RequestParam("codeFormation") String codeFormation){
+	    	formationService.removeFormation(codeFormation);
+	    }
+	   
+	   @RequestMapping(value = "/formationByCode/{codeFormation}", produces = { MediaType.APPLICATION_JSON_VALUE })
+		public Formation formation(
+				@PathVariable(value = "codeFormation") String codeFormation) {
+			return formationService.traitement(codeFormation);
+		}
+}	   

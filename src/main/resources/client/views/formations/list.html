@@ -1,28 +1,13 @@
+<!-- 
+ -- @Author Mohamed LAKRAA
+ -- Liste des formations
+ -->
 <div class="page page-table" data-ng-controller="FormationsController">
 
     <section class="panel panel-default table-dynamic">
         <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Formations</strong>
-        <span class="add fa fa-user-plus pull-right" ng-click="ajoutFormation()"></span>
+        <button class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 pull-right" ng-click="ajoutFormation()" >Nouvelle Formation<i class="fa fa-user-plus pull-right"></i></button>
         </div>
-
-        <!-- <div class="table-filters">
-            <div class="row">
-                <div class="col-sm-4 col-xs-6">
-                    <form>
-                        <input type="text"
-                               placeholder="search"
-                               class="form-control"
-                               data-ng-model="searchKeywords"
-                               data-ng-keyup="search()">
-                    </form>
-                </div>
-                <div class="col-sm-3 col-xs-6 filter-result-info">
-                    <span>
-                        Affiche {{filtered.length}}/{{enseignants.length}}
-                    </span>              
-                </div>
-            </div>
-        </div> -->
 
         <table class="table table-bordered table-striped table-responsive">
             <thead>
@@ -72,7 +57,7 @@
                               data-ng-click=" order('-email') "
                               data-ng-class="{active: row == '-email'}"></span>
                     </div></th>
-                    <th></th>
+                    <th></th><th></th>
                 </tr>
             </thead>
             <tbody>
@@ -82,6 +67,7 @@
                     <td ng-click="edit(f)">{{f.nomFormation}}</td>
                     <td ng-click="edit(f)">{{f.doubleDiplome}}</td>
                     <td ng-click="edit(f)">{{f.debutAccreditation | date: "dd/MM/yyyy"}} => {{f.finAccreditation | date: "dd/MM/yyyy"}}</td>
+                    <td ng-click="edit(f)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td>
                     <td><span class="remove fa fa-remove" ng-click="supprime(f)"></span></td>
                 </tr>
             </tbody>
