@@ -25,7 +25,7 @@ public class DomainesSevices {
 	 *         domaine : DIPLOME
 	 */
 	
-	public final List<String> getDomainDipolme(final String rvDomain) {
+	public final List<String> getDomainDiplome(final String rvDomain) {
 		return domainesRepository.findByRvDomain(rvDomain);
 	}
 	

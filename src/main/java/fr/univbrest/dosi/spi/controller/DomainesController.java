@@ -30,7 +30,7 @@ public class DomainesController {
 	@RequestMapping(value = "/domaines/{rvDomain}", produces = { MediaType.APPLICATION_JSON_VALUE }, headers="Accept: application/hal+json")
 	public @ResponseBody List<String> getDomainByRvDomain(
 			@PathVariable(value = "rvDomain") String rvDomain) {
-		return domainesService.getDomainDipolme(rvDomain);
+		return domainesService.getDomainDiplome(rvDomain);
 	}
 	
 	@RequestMapping(value = "/domaines/{idCgrc}", produces = { MediaType.APPLICATION_JSON_VALUE }, headers="Accept=application/json")

@@ -132,20 +132,32 @@
 
   app.controller('QualificatifDetailsController', 
     ['$scope', '$routeParams','$http', '$location','$filter', 'qualificatifsFactory', 'toaster',
-    function($scope, $routeParams, $http, $location,$filter, qualificatifsFactory , toaster){ 
-      $scope.edit= false;    
+    function($scope, $routeParams , $http, $location,$filter, qualificatifsFactory , toaster){ 
+      
       if($routeParams.id == "nouveau"){
-        $scope.qualificatif= { };
-        $scope.edit= true;       
-      } else { 
-    	  console.log("id: ", $routeParams.id);
-        var promisesFactory = qualificatifsFactory.get($routeParams.id);
-     	promisesFactory.success(function(data) {
+          $scope.qualificatif= { };
+          $scope.edit= true;
+   		var promiseQualificatifs = qualificatifsFactory.all();
+   		promiseQualificatifs.success(function(data) {   
+   			$scope.qualificatifs = data;
+   			//$scope.selectedOption = data[0];
+   		});
+  	 } else { // sinon on edite une question existante
+          var promisesQualif = null;
+          promisesQualif = qualificatifsFactory.get($routeParams.id);
+          promisesQualif.success(function(data) {
        		$scope.isVisible = true;
-     		$scope.qualificatif = data;
-     		console.log("\tQualificatifi récupéré: ", data);
-     	});
-      }      
+       		$scope.qualificatif = data;
+       		var promiseQualificatifs = qualificatifsFactory.all();
+       		promiseQualificatifs.success(function(data) {   
+       			var promiseQualif = qualificatifsFactory.get($routeParams.id);
+           		promiseQualif.success(function(result){
+       			$scope.qualificatifs = data;
+       			$scope.selectedOption = result;
+           		});
+       		});
+       	});
+      }
       
       $scope.edition = function(){
     	  var promisesedit = qualificatifsFactory.set($scope.qualificatif);
@@ -193,4 +205,4 @@
 
     }]
   );
-})();
+}).call(this);
