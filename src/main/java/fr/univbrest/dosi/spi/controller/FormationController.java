@@ -56,13 +56,12 @@ public class FormationController {
 	public List<String> getNomFormations(@RequestBody List<String> codeFormations) {
 		return formationService.getNomFormations(codeFormations);
 	}
-	
+
 	/**
-	 * @author Othman
-	 * controlleur pour retourner le nombre de formations
+	 * @author Othman controlleur pour retourner le nombre de formations
 	 */
-	@RequestMapping(value="/nombreFormations", headers = "Accept=application/json")
-	public int nombreFormations(){
+	@RequestMapping(value = "/nombreFormations", headers = "Accept=application/json")
+	public long nombreFormations() {
 		return formationService.nombreFormations();
 	}
 }

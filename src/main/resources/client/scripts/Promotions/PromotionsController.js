@@ -209,10 +209,9 @@
     	  		//Recuperation de la promotion
 	            var promise1= promotionsFactory.get(promoPK);
 	            promise1.success(function(data,statut){
-          	  	$scope.promotion= data ;
-//				var date = $scope.promotion.dateRentree.split('/');
-//				$scope.promotion.dateRentree = new Date(date[1] + '-' + date[0] + '-' + date[2]);
-          	  	console.log("TODO: recuperation de la promotion: ", $scope.promotion);
+            	data.dateRentree = $filter('date')(data.dateRentree, "dd/MM/yyyy");
+				$scope.promotion= data ;
+				console.log("TODO: recuperation de la promotion: ", $scope.promotion);
           	  	//Recuperation des etudiants  
 	          	var promise2= promotionsFactory.getEtudiants(promoPK);
 	            promise2.success(function(data,statut){
@@ -255,11 +254,15 @@
       $scope.submit = function(){
     	  if($routeParams.ann == "nouveau"){
     		  $scope.promotion.promotionPK.codeFormation= $scope.formationSelected;
+    		  var date = $scope.promotion.dateRentree.split('/');
+    	      $scope.promotion.dateRentree = new Date(date[1] + '-' + date[0] + '-' + date[2]);
     		  promotionsFactory.add($scope.promotion, $scope.enseignantSelected);
     	  }
     	  else// modification
-    		  promotionsFactory.set($scope.promotion, $scope.enseignantSelected);
-         $scope.edit = false;        
+//			  var date = $scope.promotion.dateRentree.split('/');
+//		      $scope.promotion.dateRentree = new Date(date[1] + '-' + date[0] + '-' + date[2]);
+			  promotionsFactory.set($scope.promotion, $scope.enseignantSelected);
+			  $scope.edit = false;        
       }
 
       // annule l'édition

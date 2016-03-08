@@ -35,12 +35,12 @@ public class FormationService {
 		return (List<Formation>) formationRepository.findAll();
 	}
 
-	public Formation getFormation(String codeFormation) {
-		return formationRepository.findByCodeFormation(codeFormation);
-	}
-
 	public List<Formation> findByNomFormation(String nomFormation) {
 		return formationRepository.findByNomFormation(nomFormation);
+	}
+
+	public Formation getFormation(String codeFormation) {
+		return formationRepository.findByCodeFormation(codeFormation);
 	}
 
 	public String getNomFormation(String codeFormation) {
@@ -54,13 +54,14 @@ public class FormationService {
 		}
 		return nomFormations;
 	}
-	
+
 	/**
 	 * @author Othman méthode retourne le nombre de formations
 	 * @return
 	 */
-	public int nombreFormations() {
-		List<Formation> listeFormations = (List<Formation>) formationRepository.findAll();
-		return listeFormations.size();
+	public long nombreFormations() {
+		return formationRepository.count();
+		// List<Formation> listeFormations = (List<Formation>) formationRepository.findAll();
+		// return listeFormations.size();
 	}
 }
