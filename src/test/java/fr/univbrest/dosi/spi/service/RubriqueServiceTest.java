@@ -88,6 +88,6 @@ public class RubriqueServiceTest {
 		final long idRubrique = 11l;
 		final Rubrique rubrique = rubriqueService.getRubrique(idRubrique);
 		Assert.assertNotNull(rubrique);
-
 	}
+
 }
