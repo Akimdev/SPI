@@ -21,4 +21,12 @@ public class EvaluationService {
 	public List<Evaluation> getAllEvaluations(){
 		return (List<Evaluation>) evaRepo.findAll();
 	}
+	
+	/**
+	 * @author LAKRAA cette méthode permet de recuperer la liste des evaluation par idEvaluation
+	 */
+	
+	public final List<Evaluation> getEvaById(final Long idEvaluation) {
+		return evaRepo.findByIdEvaluation(idEvaluation);
+	}
 }

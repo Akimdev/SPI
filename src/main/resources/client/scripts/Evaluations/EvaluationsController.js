@@ -134,7 +134,7 @@
 		  }
 		);*/
 
-      $scope.ajoutEnseignant = function(){
+      $scope.ajoutEvaluation = function(){
           $location.path('/admin/evaluation/nouveau'); 
        }
       

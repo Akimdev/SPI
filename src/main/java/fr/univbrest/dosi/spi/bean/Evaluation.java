@@ -36,6 +36,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
  *
  * @author DOSI
  */
+
 @Entity
 @Table(name = "EVALUATION")
 @XmlRootElement
@@ -87,22 +88,22 @@ public class Evaluation implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvaluation")
     private Collection<ReponseEvaluation> reponseEvaluationCollection;
     @JoinColumns({
-        @JoinColumn(name = "CODE_FORMATION_1", referencedColumnName = "CODE_FORMATION"),
-        @JoinColumn(name = "CODE_UE_1", referencedColumnName = "CODE_UE"),
-        @JoinColumn(name = "CODE_EC_1", referencedColumnName = "CODE_EC")})
+        @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION" , insertable = false, updatable = false),
+        @JoinColumn(name = "CODE_UE", referencedColumnName = "CODE_UE" , insertable = false, updatable = false),
+        @JoinColumn(name = "CODE_EC", referencedColumnName = "CODE_EC" , insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private ElementConstitutif elementConstitutif;
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne(optional = false)
     private Enseignant noEnseignant;
     @JoinColumns({
-        @JoinColumn(name = "ANNEE_UNIVERSITAIRE", referencedColumnName = "ANNEE_UNIVERSITAIRE"),
-        @JoinColumn(name = "CODE_FORMATION_2", referencedColumnName = "CODE_FORMATION")})
+        @JoinColumn(name = "ANNEE_UNIVERSITAIRE", referencedColumnName = "ANNEE_UNIVERSITAIRE" , insertable = false, updatable = false),
+        @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION" , insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private Promotion promotion;
     @JoinColumns({
-        @JoinColumn(name = "CODE_FORMATION_3", referencedColumnName = "CODE_FORMATION"),
-        @JoinColumn(name = "CODE_UE_2", referencedColumnName = "CODE_UE")})
+        @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION" , insertable = false, updatable = false),
+        @JoinColumn(name = "CODE_UE", referencedColumnName = "CODE_UE", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private UniteEnseignement uniteEnseignement;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvaluation")

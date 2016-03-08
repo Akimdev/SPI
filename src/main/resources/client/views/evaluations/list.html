@@ -1,8 +1,11 @@
+<!-- 
+ -- @Author Mohamed LAKRAA
+ -- lister Evaluation
+ -->
 <div class="page page-table" data-ng-controller="EvaluationsController">
-
     <section class="panel panel-default table-dynamic">
         <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Listes des évaluations</strong>
-        <span class="add fa fa-user-plus pull-right" ng-click="ajoutEnseignant()"></span>
+         <button class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 pull-right" ng-click="ajoutEvaluation()" >Nouvelle &egrave;valuation<i class="fa fa-user-plus pull-right"></i></button>
         </div>
 		
           <div class="table-filters">
@@ -28,33 +31,51 @@
             <thead>
                 <tr>
                     <th><div class="th">
-                        Nom
+                        Code Formation
                         <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('nom') "
-                              data-ng-class="{active: row == 'nom'}"></span>
+                              data-ng-click=" order('codeFormation') "
+                              data-ng-class="{active: row == 'codeFormation'}"></span>
                         <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-nom') "
-                              data-ng-class="{active: row == '-nom'}"></span>
+                              data-ng-click=" order('-codeFormation') "
+                              data-ng-class="{active: row == '-codeFormation'}"></span>
                     </div></th>
                     <th><div class="th">
-                        Prénom
+                        Ann&egrave;e Universitaire
                         <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('prenom') "
-                              data-ng-class="{active: row == 'prenom'}"></span>
+                              data-ng-click=" order('anneeUniversitaire') "
+                              data-ng-class="{active: row == 'anneeUniversitaire'}"></span>
                         <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-prenom') "
-                              data-ng-class="{active: row == '-prenom'}"></span>
+                              data-ng-click=" order('-anneeUniversitaire') "
+                              data-ng-class="{active: row == '-anneeUniversitaire'}"></span>
                     </div></th>
                     <th><div class="th">
-                        E-mail
+                        Cdoe UE
                         <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('email') "
-                              data-ng-class="{active: row == 'email'}"></span>
+                              data-ng-click=" order('codeUE') "
+                              data-ng-class="{active: row == 'codeUE'}"></span>
                         <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-email') "
-                              data-ng-class="{active: row == '-email'}"></span>
-                    </div></th>                    
-                    <th></th>
+                              data-ng-click=" order('-codeUE') "
+                              data-ng-class="{active: row == '-codeUE'}"></span>
+                    </div></th> 
+                    <th><div class="th">
+                        Etat
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('etat') "
+                              data-ng-class="{active: row == 'etat'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-etat') "
+                              data-ng-class="{active: row == '-etat'}"></span>
+                    </div></th>
+                    <th><div class="th">
+                        P&egrave;riode
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('periode') "
+                              data-ng-class="{active: row == 'periode'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-periode') "
+                              data-ng-class="{active: row == '-periode'}"></span>
+                    </div></th>   <th></th>
+                    <th></th>                
                 </tr>
             </thead>
             <tbody><!-- currentPageEnseignant / enseignants -->
@@ -62,7 +83,10 @@
                     <td ng-click="edit(e.noEnseignant)">{{e.nom}}</td>
                     <td ng-click="edit(e.noEnseignant)">{{e.prenom}}</td>
                     <td ng-click="edit(e.noEnseignant)">{{e.emailUbo}}</td>
-                    <td><span class="remove fa fa-remove" ng-click="supprime(e.noEnseignant)"></span></td>
+                    <td ng-click="edit(e.noEnseignant)">{{e.prenom}}</td>
+                    <td ng-click="edit(e.noEnseignant)">{{e.emailUbo}}</td>
+                    <td ng-click="edit(q)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td>
+                    <td ng-click="supprime(q)" class="icon-list"><span class="remove fa fa-trash" ></span></td>
                 </tr>
             </tbody>
         </table>
