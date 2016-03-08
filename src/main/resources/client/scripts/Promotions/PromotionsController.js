@@ -155,7 +155,7 @@
       
       // Crée la page permettant d'ajouter une promotion
       $scope.ajoutPromotion = function(){
-          $location.path('/admin/promotion/nouveau/nouveau'); 
+          $location.path('/admin/promotion/nouveau/nouveau');
        }
       
       // affiche les détail d'une promotion
