@@ -1,13 +1,13 @@
 package fr.univbrest.dosi.spi.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.univbrest.dosi.spi.bean.CgRefCodes;
-import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.dao.DomainesRepository;
 
 /**
@@ -24,8 +24,8 @@ public class DomainesSevices {
 	 * @author LAKRAA cette méthode permet de recuperer la liste des valeur du
 	 *         domaine : DIPLOME
 	 */
-	
-	public final List<String> getDomainDiplome(final String rvDomain) {
+
+	public final List<String> getDomainDipolme(final String rvDomain) {
 		return domainesRepository.findByRvDomain(rvDomain);
 	}
 	

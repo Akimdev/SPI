@@ -9,11 +9,12 @@ import org.springframework.stereotype.Service;
 import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.dao.QualificatifRepository;
 import fr.univbrest.dosi.spi.exception.SPIException;
+
 /**
- * 
+ *
  * @author Othman
  *
- *Cette classe représente la partie service de la gestion de CRUD des qualificatifs
+ *         Cette classe représente la partie service de la gestion de CRUD des qualificatifs
  */
 
 @Service
@@ -23,35 +24,41 @@ public class QualificatifService {
 	QualificatifRepository qualifRepo;
 
 	public void addQualificatif(Qualificatif qualif) {
-		if(!(qualifRepo.exists(qualif.getIdQualificatif()))){
-		qualifRepo.save(qualif);
-		}
-		else{
+		if (!(qualifRepo.exists(qualif.getIdQualificatif()))) {
+			qualifRepo.save(qualif);
+		} else {
 			throw new SPIException("Echec de l'ajout d'un nouveau qualificatif, Qualificatif existant!");
 		}
-	}
-
-	public void modifyQualificatif(Qualificatif qualif) {
-		qualifRepo.save(qualif);
 	}
 
 	public void deleteQualificatif(Qualificatif qualif) {
 		qualifRepo.delete(qualif);
 	}
 
-	
-	public void deleteQualificatifById(Long idQualificatif){
+	public void deleteQualificatifById(Long idQualificatif) {
 		qualifRepo.delete(idQualificatif);
 
 	}
-	
-	public final Qualificatif getQualificatif(Long idQualifi) {
-		return qualifRepo.findOne(idQualifi);
+
+	/**
+	 * @author Kenza ABOUAKIL
+	 * @return le max des IdQualificatifs
+	 */
+	public Integer getMaxIdQualificatif() {
+		return qualifRepo.getMaxIdQualificatif();
 	}
 
-	public List<Qualificatif> listeQualificatif(){
+	public final Qualificatif getQualificatif(Long idQualificatif) {
+		return qualifRepo.findOne(idQualificatif);
+	}
+
+	public List<Qualificatif> listeQualificatif() {
 		List<Qualificatif> qualifList = new ArrayList<Qualificatif>();
 		qualifList = (List<Qualificatif>) qualifRepo.findAll();
 		return qualifList;
+	}
+
+	public void modifyQualificatif(Qualificatif qualif) {
+		qualifRepo.save(qualif);
 	}
 }
