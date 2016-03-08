@@ -32,13 +32,6 @@
     };
   });
   
-  app.factory('qualificatifsFactory', function($http, $window){
-	  return {
-		  all: function() {
-			  return $http.get('http://localhost:8090/listerQualificatif');
-		  }
-	  }
-  })
   
   app.controller('QuestionsController', 
     ['$scope', '$location','$http','$filter', 'questionsFactory',
@@ -97,11 +90,11 @@
     ['$scope', '$routeParams','$http', '$location','$filter', 'questionsFactory', 'qualificatifsFactory', 'toaster',
     function($scope, $routeParams, $http, $location,$filter, questionsFactory, qualificatifsFactory, toaster){      
       $scope.edit= false;    
-
+      
       // si creation d'une nouvelle question
       if($routeParams.id == "nouveau"){
         $scope.question= { };
-        $scope.edit= true;     
+        $scope.edit= true;
  		var promiseQualificatifs = qualificatifsFactory.all();
  		promiseQualificatifs.success(function(data) {   
  			$scope.qualificatifs = data;
@@ -111,22 +104,25 @@
         var promisesFactory = questionsFactory.get($routeParams.id);
      	promisesFactory.success(function(data) {
      		$scope.isVisible = true;
-     		$scope.question = data;   
+     		$scope.question = data;   console.log("question: ", $scope.question);
      		var promiseQualificatifs = qualificatifsFactory.all();
      		promiseQualificatifs.success(function(data) {   
      			var promiseQualif = questionsFactory.getQualificatif($routeParams.id);
          		promiseQualif.success(function(result){
-     			$scope.qualificatifs = data;
-     			$scope.selectedOption = result;
+         			$scope.qualif = result;
+	     			$scope.qualificatifs = data;
+	     			$scope.selectedOption = result;
          		});
      		});
      		
      	});
-      }      
+     	
+      }
       
       $scope.edition = function(){
     	  var promisessuppression = questionsFactory.set($scope.question);    	  
     	  questionsFactory.get($scope.question);
+    	  
           $scope.edit = true;
         }
 
@@ -175,12 +171,13 @@
 
    // annule l'édition
       $scope.cancel = function(){
-    	  $location.path('/admin/questions');
-//        if($routeParams.id == "nouveau"){
-//          $location.path('/admin/questions');
-//        } else {
-//          $location.path('/admin/questions');
-//        }
+        if($routeParams.id == "nouveau"){
+          $location.path('/admin/questions');
+        } else {
+        	$location.path('/admin/question/' + $routeParams.id);
+          //var e = questionFactory.get($routeParams.id);
+          $scope.edit = false;
+        }
       } 
 
     }]

@@ -12,10 +12,7 @@
       get: function(idQualificatif) { 
     	  return $http.get('http://localhost:8090/qualificatif/' + idQualificatif); 
       },
-      
-      set: function(qualificatif) {	
-    	  // return $http.post('http://localhost:8090/ajouterQualificatif',
-			// qualificatif);
+      set: function(qualificatif) {
     	  return $http({
     		  method: 'POST',
     		  url: 'http://localhost:8090/ajouterQualificatif',
@@ -23,9 +20,11 @@
     		  headers:{ 'Content-Type' : 'application/json'}
     	  });
       },
-      
       delete: function(idQualificatif) { 
     	  return $http.get('http://localhost:8090/supprimerQualificatif?idQualificatif=' + idQualificatif);
+      },
+      getMaxIdQualificatif: function(){
+    	  return $http.get('http://localhost:8090/getMaxIdQualificatif');
       }
     };
   });
@@ -130,7 +129,6 @@
 	}
       
     $scope.refresh();
-    
     }]
   );
 
@@ -140,18 +138,21 @@
       $scope.edit= false;    
       if($routeParams.id == "nouveau"){
         $scope.qualificatif= { };
+        var promisesFactory = qualificatifsFactory.getMaxIdQualificatif();
+     	promisesFactory.success(function(data) {
+     		$scope.qualificatif.idQualificatif = data;
+     	});
         $scope.edit= true;       
       } else { 
-        var f = qualificatifsFactory.get($routeParams.id);
-        var promisesFactory = qualificatifsFactory.get($routeParams.id);
-     	promisesFactory.success(function(data) {
-       		$scope.isVisible = true;
-     		$scope.qualificatif = data;
-     	});
+	        var promisesFactory = qualificatifsFactory.get($routeParams.id);
+	     	promisesFactory.success(function(data) {
+	       		$scope.isVisible = true;
+	     		$scope.qualificatif = data;
+	     		console.log("\tQualificatif récupéré: ", data);
+	     	});
       }      
       
       $scope.edition = function(){
-    	  
     	  var promisesedit = qualificatifsFactory.set($scope.qualificatif);
     	  promisesedit.success(function(data) {
        		$scope.qualificatif = data;  

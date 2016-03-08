@@ -6,7 +6,8 @@
 
     <section class="panel panel-default table-dynamic">
         <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Qualificatifs</strong>
-        <button class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 pull-right" ng-click="ajoutQualificatif()" >Nouveau Qualificatif<i class="fa fa-user-plus pull-right"></i></button>
+        <!-- <span class="add fa fa-user-plus pull-right" ng-click="ajoutQualificatif()"></span> -->
+        <button class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 pull-right" ng-click="ajoutQualificatif()" >Nouveau qualificatif<i class="fa fa-user-plus pull-right"></i></button>
         </div>
         
         <div class="table-filters">
@@ -14,7 +15,7 @@
                 <div class="col-sm-4 col-xs-6">
                     <form>
                         <input type="text"
-                               placeholder="search"
+                               placeholder="Rechercher"
                                class="form-control"
                                data-ng-model="searchKeywords"
                                data-ng-keyup="search()">
@@ -58,6 +59,7 @@
                               data-ng-click=" order('-minimal') "
                               data-ng-class="{active: row == '-minimal'}"></span>
                     </div></th><th></th>
+                    <th></th>
                     <th></th>
                 </tr>
             </thead>
