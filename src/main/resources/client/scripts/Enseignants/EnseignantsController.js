@@ -318,7 +318,6 @@
 
       // annule l'édition
       $scope.cancel = function(){
-        // si ajout d'un nouvel enseignant => retour à la liste des enseignants
         if(!$scope.enseignant.noEnseignant){
           $location.path('/admin/enseignants');
         } else {

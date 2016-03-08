@@ -1,3 +1,7 @@
+<!-- 
+ -- @Author Mohamed LAKRAA
+ -- Details des qualificatifs
+ -->
 <div class="page" ng-controller="QualificatifDetailsController">
 
 	<div class="panel panel-default ens-edit">
@@ -6,8 +10,23 @@
 				Qualificatif</strong>
 		</div>
 		<div class="panel-body">
-		
-			<!-- Edition -->
+			<!--------------------------- Consultation --------------------------->
+			<div class="media animate" ng-hide="edit">
+				<button class="btn btn-warning pull-right" ng-click="edition()">
+					<span class="glyphicon glyphicon-pencil"></span> Editer
+				</button>
+				<div class="media-body">
+					<ul class="list-unstyled list-info">
+						<li><label>ID Qualificatif</label> {{qualificatif.idQualificatif}}<br /></li>
+						<li><label>Maximal</label> {{qualificatif.maximal}}<br /></li>
+						<li><label>Minimal</label> {{qualificatif.minimal}}<br /></li>
+						<li><label></label> {{}}<br /></li>
+					</ul>
+				</div>
+				<a class="btn btn-primary" href="#/admin/promotions"><span
+					class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+			</div>
+			<!--------------------------- Edition --------------------------->
 			<div>
 			<toaster-container toaster-options="{'position-class': 'toast-bottom-right'}"></toaster-container>
 				<form class="form-horizontal elegant-aero" name="qualificatifForm">
