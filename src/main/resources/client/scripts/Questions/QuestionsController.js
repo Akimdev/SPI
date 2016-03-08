@@ -98,8 +98,8 @@
 		  }
 		);
      
-  $scope.ajoutRubrique = function(){
-      $location.path('/admin/rubrique/nouveau'); 
+  $scope.ajoutQuestion = function(){
+      $location.path('/admin/question/nouveau'); 
    }
   
  
