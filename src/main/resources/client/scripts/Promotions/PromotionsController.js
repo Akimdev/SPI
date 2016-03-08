@@ -202,6 +202,7 @@
       } else { // sinon on edite une promotion existante
 			
             var promise1= promotionsFactory.get(promoPK);
+            
             promise1.success(function(data,statut){
           	  $scope.promotion= data ;
           	  console.log("TODO: recuperation de la promotion: ", $scope.promotion);

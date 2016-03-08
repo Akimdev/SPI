@@ -11,21 +11,31 @@
 	   var array = $.map(this, function(v,i){
 	      return v[name] === value ? null : v;
 	   });
-	   this.length = 0; //clear original array
-	   this.push.apply(this, array); //push all elements except the one we want to delete
+	   this.length = 0; // clear original array
+	   this.push.apply(this, array); // push all elements except the one we
+										// want to delete
 	}
   
   app.factory('rubriquesFactory', ['$http',function($http){
     
     return {
-    	// TODO Lister 
+    	// TODO Lister
       listerRubriques:function(){
     	  return $http.get("http://localhost:8090/rubriques");
       },    
       delete: function(idRubrique) { 
-        // TODO Supprimer 
+        // TODO Supprimer
     	  console.log("TODO : supprimer rubrique", idRubrique);
-    	  return  $http.get('http://localhost:8090/deleteRubrique/'+ idRubrique)
+    	  return  $http.get('http://localhost:8090/rubrique/delete/'+ idRubrique)
+      },
+      getRubrique : function(idRubrique){
+      	return $http.get('http://localhost:8090/rubrique/'+idRubrique)
+      },
+      add : function(rubrique){
+      	return $http.post('http://localhost:8090/rubrique/ajouterRubrique', rubrique);
+      },
+      set : function(rubrique){
+      	return $http.post('http://localhost:8090/rubrique/modifierRubrique', rubrique);
       }
 
     };
@@ -36,8 +46,10 @@
   app.controller('RubriquesController', 
     ['$scope', '$filter','$location', 'rubriquesFactory',
     function($scope, $filter, $location, rubriquesFactory){
-    	var init;
-    	var promise = rubriquesFactory.listerRubriques();
+    	
+    	$scope.refresh=function(){
+    	var init = null;
+		var promise = rubriquesFactory.listerRubriques();
     	promise.success(function(data) {
 		    $scope.rubriques = data;
 		      $scope.searchKeywords = '';
@@ -89,6 +101,7 @@
 			 $scope.error = 'unable to get the poneys';
 		  }
 		);
+	}
      
   $scope.ajoutRubrique = function(){
       $location.path('/admin/rubrique/nouveau'); 
@@ -99,23 +112,89 @@
 	  $location.path("/admin/rubrique/"+ idRubrique);
 	 
   }
-
-      // supprime une Rubrique
-      $scope.supprime = function(idRubrique){ 
-    	// TODO Suppression d'une Rubrique de la liste
+	$scope.supprime = function(idRubrique){ 
     	  
-    	  var promise= rubriquesFactory.delete(idRubrique);
-    	  promise.success(function(data,statut){
-        	  //$scope.enseignant.promotions = data ;
-        	  $scope.currentPageEnseignant.removeValue("idRubrique",idRubrique);
-          })
-          error(function(data,statut){
-        	  console.log("impossible de supprimer la rubrique choisie");
-          });
-    	  
+          swal({   
+			  title: "Voulez-vous vraiment supprimer ce qualificatif ?",      
+			  type: "warning",   
+			  showCancelButton: true,   
+			  confirmButtonColor: "#DD6B55",   
+			  confirmButtonText: "Oui, je veux le supprimer!",  
+			  cancelButtonText: "Non, ignorer!",   
+			  closeOnConfirm: false,   closeOnCancel: false },
+			  function(isConfirm){
+				  if (isConfirm) {  
+					  var promise= rubriquesFactory.delete(idRubrique);
+    	  			  promise.success(function(data,statut){
+        	          swal("Supprimé!", "le qualificatif est supprimé", "success");
+        	           $scope.refresh();
+                  });
+						promise.error(function(data,statut){
+        	        	swal("Erreur!", "vous pouvez pas supprimer ce qualificatif", "error");
+			  		});	
+					  }else {     
+						  swal("Ignorer", "", "error");
+						  }
+				  });  
       }
-    }]
+       $scope.refresh();
+	}]
   );
+  
+  app.controller('RubriqueDetailsController', 
+		    ['$scope', '$routeParams', '$location', '$filter', 'rubriquesFactory',
+		    function($scope, $routeParams, $location,$filter, rubriquesFactory){  
+   $scope.edit=false;
+   var idRubrique = $routeParams.id;
+
+   /* -Ajout- */
+   if ($routeParams.id=="nouveau") {
+	   $scope.rubrique={};
+	   $scope.ajout=true;
+	   $scope.edit=true;
+   /* -Edit- */	
+   }else{
+	   var promise = rubriquesFactory.getRubrique(idRubrique);
+	   promise.success(function(data,status){
+	   	 $scope.rubrique=data;
+	   }).error(function(data,status){
+	   	console.log('erreur de récupérer '+idRubrique);
+	   })
+   }
+   
+   	$scope.edition = function(){
+       $scope.edit = true;
+     }
+   	/* valide le formulaire d'édition d'une promotion */
+    $scope.submit = function(){
+   	  if($routeParams.id == "nouveau"){
+   		  rubriquesFactory.add($scope.rubrique);
+   		  swal("Félicitation!", "La nouvelle rubrique est ajouté!", "success");
+   	  }
+   	  else// modification
+   		 rubriquesFactory.set($scope.rubrique);
+   		swal("Félicitation!", "La nouvelle rubrique a été modifié", "success");
+         $scope.edit = false;        
+     }
+    /* annule l'édition */
+    $scope.cancel = function(){
+       /* si ajout d'une nouvelle promotion => retour à la liste des promotions */
+       if($routeParams.id == "nouveau"){
+         	$location.path('/admin/rubriques');
+       	}else {
+       		$location.path('/admin/rubriques');
+       	   var promise = rubriquesFactory.getRubrique(idRubrique);
+         	promise.success(function(data,statut){
+         	 	$scope.promotion= data ;
+            })
+            .error(function(data,statut){
+         	    console.log("impossible de recuperer les details de la rubrique");
+            });
+    	$scope.edit = false;
+       }
+     };
+	  
+  }]);
 }).call(this);
   
 
