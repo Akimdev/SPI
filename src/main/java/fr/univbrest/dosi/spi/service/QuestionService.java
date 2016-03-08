@@ -23,8 +23,6 @@ import fr.univbrest.dosi.spi.exception.SPIException;
 public class QuestionService {
 	@Autowired 
 	QuestionRepository questRepo;
-	@Autowired
-	QualificatifRepository qualifRepo;
 	/**
 	 * La méthode pour ajouter une question
 	 * @param question
@@ -44,11 +42,10 @@ public class QuestionService {
 	 * @param question
 	 */
 	public void deleteQuestion(Question question){
-		if(question.getIdQualificatif()==null){
-		questRepo.delete(question);
-		}
-		else{
-			throw new SPIException("La question ne peut pas être supprimée. Déselectionnez la avant d'une évaluation ou son qualificatif");
+		try{
+			questRepo.delete(question);
+		}catch(Exception e){
+			throw new SPIException("La question ne peut pas être supprimée !");
 		}
 	}
 	/**
@@ -56,12 +53,11 @@ public class QuestionService {
 	 * @param idQuestion
 	 */
 	public void deleteQuestionById(Long idQuestion){
-		if(questRepo.findOne(idQuestion).getIdQualificatif()==null){
-			questRepo.delete(idQuestion);
-			}
-			else{
-				throw new SPIException("La question ne peut pas être supprimée. Déselectionnez la avant d'une évaluation ou son qualificatif");
-			}
+		try{
+			questRepo.delete(questRepo.findOne(idQuestion));
+		}catch(Exception e){
+			throw new SPIException("La question ne peut pas être supprimée !");
+		}
 	}
 	/**
 	 * La méthode pour afficher la liste des questions
@@ -95,4 +91,12 @@ public class QuestionService {
 		List<Question> listeQuestions = (List<Question>) questRepo.findAll();
 		return listeQuestions.size();
 	}	
+	/**
+	 * @author Youssef
+	 * Rechercher le qualificatif d'une question
+	 * @param idQuestion
+	 */
+	public Qualificatif getQualificatif(Long idQuestion){
+		return questRepo.findQualificatif(idQuestion);
+	}
 }

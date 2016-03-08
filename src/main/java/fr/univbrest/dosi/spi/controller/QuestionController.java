@@ -97,8 +97,17 @@ public class QuestionController {
 		return questServ.getQuestionById(idQuestion);
 	}
 	
-	@RequestMapping(value="/lenghtQuestion")
+	@RequestMapping(value="/lengthQuestion")
 	public int nombreQuestions(){
 		return questServ.nombreQuestions();
 	}
+	/**
+	 * @author Youssef
+	 * Retourne le qualificatif correspondant
+	 */
+	@RequestMapping(value="/getQualificatif/{idQuestion}", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public Qualificatif getQualificatif(@PathVariable(value="idQuestion") Long idQuestion){
+		return questServ.getQualificatif(idQuestion);
+	}
+	
 }
