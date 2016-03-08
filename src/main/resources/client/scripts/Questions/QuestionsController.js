@@ -24,7 +24,10 @@
     	  return $http.post('http://localhost:8090/addQuestion', question)
       },
       delete: function(idQuestion) { 
-    	  return $http.get('http://localhost:8090/supprimerQuestionBis?idQuestion=' + idQuestion);
+    	  return $http.get('http://localhost:8090/deleteQuestionById-' + idQuestion);
+      },
+      getQualificatif: function(idQuestion){
+    	  return $http.get('http://localhost:8090/getQualificatif/' + idQuestion);
       }
     };
   });
@@ -86,16 +89,6 @@
 	  	 });
       }
       
-      // ajouter une question
-      $scope.ajouter = function(question){
-    	  var promiseAjout = questionsFactory.add(question);
-    	  promiseAjout.success(function(data, status, headers, config) {
-    		  $scope.refresh();
-    	  });
-    	  promiseAjout.error(function(data, status, headers, config) {
-			alert( "failure message: " + JSON.stringify({data: data}));
-    	  });	
-      }
       $scope.refresh();
     }]
   );
@@ -110,25 +103,24 @@
         $scope.question= { };
         $scope.edit= true;
  		var promiseQualificatifs = qualificatifsFactory.all();
- 		promiseQualificatifs.success(function(data) {   			
- 			$scope.qualificatifs = {
-			    availableOptions: data,
-			    selectedOption:  data[0]
-		    };
+ 		promiseQualificatifs.success(function(data) {   
+ 			$scope.qualificatifs = data;
+ 			$scope.selectedOption = data[0];
  		});
-      } else { // sinon on edite une question existante
-        var f = questionsFactory.get($routeParams.id);
+	 } else { // sinon on edite une question existante
         var promisesFactory = questionsFactory.get($routeParams.id);
      	promisesFactory.success(function(data) {
      		$scope.isVisible = true;
      		$scope.question = data;   console.log("question: ", $scope.question);
      		var promiseQualificatifs = qualificatifsFactory.all();
-     		promiseQualificatifs.success(function(data) {   			
-     			$scope.qualificatifs = {
-				    availableOptions: data,
-				    selectedOption:  $scope.question.idQualificatif
-			    };
+     		promiseQualificatifs.success(function(data) {   
+     			var promiseQualif = questionsFactory.getQualificatif($routeParams.id);
+         		promiseQualif.success(function(result){
+     			$scope.qualificatifs = data;
+     			$scope.selectedOption = result;
+         		});
      		});
+     		
      	});
      	
       }
@@ -143,14 +135,18 @@
         $scope.submit = function(){
         	var quesQual = {
         			qualificatif : {
-        				idQualificatif : $scope.qualificatifs.selectedOption.idQualificatif
+        				idQualificatif : $scope.qualificatif
         			},
         			question : $scope.question
         	}
         	console.log(quesQual);
-        	var promisesajout = questionsFactory.set(quesQual);
+        	var promisesajout = questionsFactory.add(quesQual);
         	promisesajout.success(function(data, status, headers, config) {
-        		swal("Félicitation!", "La nouvelle question est ajoutée!", "success");
+        		if($routeParams.id === "nouveau") 
+        			swal("Félicitation!", "La nouvelle question est ajoutée!", "success");
+        		else
+        			swal("Félicitation!", "La question est modifiée !", "success");
+        			
         		$location.path('/admin/questions');
 				
 			});

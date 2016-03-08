@@ -1,6 +1,6 @@
 <!-- 
  -- @Author Mohamed LAKRAA
- -- Liste des promotions
+ -- Liste des qualificatifs
  -->
 <div class="page page-table" data-ng-controller="QualificatifsController">
 
@@ -58,7 +58,7 @@
                         <span class="glyphicon glyphicon-chevron-down"
                               data-ng-click=" order('-minimal') "
                               data-ng-class="{active: row == '-minimal'}"></span>
-                    </div></th>
+                    </div></th><th></th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -69,7 +69,11 @@
                     <td ng-click="edit(q)">{{q.maximal}}</td>
                     <td ng-click="edit(q)">{{q.minimal}}</td>
                     <td ng-click="edit(q)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td>
+<<<<<<< HEAD
                     <td><span class="remove fa fa-remove" ng-click="supprime(q)"></span></td>
+=======
+                    <td ng-click="supprime(q)" class="icon-list"><span class="remove fa fa-trash" ></span></td>
+>>>>>>> 5d05f808110008605f13ccc75769c72e6fee2cb6
                 </tr>
             </tbody>
         </table>

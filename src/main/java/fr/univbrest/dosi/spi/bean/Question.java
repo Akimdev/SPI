@@ -35,6 +35,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "QUESTION")
 @XmlRootElement
 @NamedQueries({
+	@NamedQuery(name = "Question.findQualificatif", query = "SELECT q.idQualificatif FROM Question q WHERE q.idQuestion = :idQuestion"),
     @NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q"),
     @NamedQuery(name = "Question.findByIdQuestion", query = "SELECT q FROM Question q WHERE q.idQuestion = :idQuestion"),
     @NamedQuery(name = "Question.findByType", query = "SELECT q FROM Question q WHERE q.type = :type"),

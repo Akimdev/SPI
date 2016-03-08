@@ -86,12 +86,12 @@
             </thead>
             <tbody>
                 <tr data-ng-repeat="u in ue" class="ue">
-                    <td ng-click="edit(u)">{{u.code_formation}}</td>
-                    <td ng-click="edit(u)">{{u.code}}</td>
-                    <td ng-click="edit(u)">{{u.enseignant.prenom}} {{u.enseignant.nom}}</td>
+                    <td ng-click="edit(u)">{{u.uniteEnseignementPK.codeFormation}}</td>
+                    <td ng-click="edit(u)">{{u.uniteEnseignementPK.codeUe}}</td>
+                    <td ng-click="edit(u)">{{u.noEnseignant.prenom}} {{u.noEnseignant.nom}}</td>
                     <td ng-click="edit(u)">{{u.designation}}</td>
                     <td ng-click="edit(u)">{{u.semestre}}</td>
-                    <td ng-click="edit(u)">{{u.NBH_CM}}/{{u.NBH_TD}}/{{u.NBH_TP}}</td>
+                    <td ng-click="edit(u)">{{u.nbhCm}}/{{u.nbhTd}}/{{u.nbhTp}}</td>
                     <td><span class="remove fa fa-remove" ng-click="supprime(f)"></span></td>
                 </tr>
             </tbody>
