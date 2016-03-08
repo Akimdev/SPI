@@ -40,13 +40,6 @@
     };
   });
   
-  app.factory('qualificatifsFactory', function($http, $window){
-	  return {
-		  all: function() {
-			  return $http.get('http://localhost:8090/listerQualificatif');
-		  }
-	  }
-  })
   
   app.controller('QuestionsController', 
     ['$scope', '$filter','$location', 'questionsFactory',
@@ -169,8 +162,9 @@
      		promiseQualificatifs.success(function(data) {   
      			var promiseQualif = questionsFactory.getQualificatif($routeParams.id);
          		promiseQualif.success(function(result){
-     			$scope.qualificatifs = data;
-     			$scope.selectedOption = result;
+         			$scope.qualif = result;
+	     			$scope.qualificatifs = data;
+	     			$scope.selectedOption = result;
          		});
      		});
      		
@@ -230,12 +224,11 @@
 
    // annule l'édition
       $scope.cancel = function(){
-        if(!$scope.questions.idQuestion){
+        if($routeParams.id == "nouveau"){
           $location.path('/admin/questions');
         } else {
-        	$location.path('/admin/questions');
-          var e = questionFactory.get($routeParams.id);
-          $scope.questions = JSON.parse(JSON.stringify(e));
+        	$location.path('/admin/question/' + $routeParams.id);
+          //var e = questionFactory.get($routeParams.id);
           $scope.edit = false;
         }
       } 

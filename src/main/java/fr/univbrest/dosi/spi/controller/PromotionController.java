@@ -106,7 +106,7 @@ public class PromotionController {
 		return promotionService.getPromotionALL();
 	}
 
-	@RequestMapping(value = "/updatePromotion", method = RequestMethod.PUT, headers = "Accept=application/json")
+	@RequestMapping(value = "/updatePromotion", method = RequestMethod.POST, headers = "Accept=application/json")
 	public @ResponseBody String updatePromotion(@RequestBody ProEns proEns) {
 		/** récupération de la promotion à créer ! */
 		Promotion promotion = proEns.getPromotion();

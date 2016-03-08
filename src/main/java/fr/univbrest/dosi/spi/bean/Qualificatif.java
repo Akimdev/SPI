@@ -32,114 +32,114 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "QUALIFICATIF")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Qualificatif.findAll", query = "SELECT q FROM Qualificatif q"),
-    @NamedQuery(name = "Qualificatif.findByIdQualificatif", query = "SELECT q FROM Qualificatif q WHERE q.idQualificatif = :idQualificatif"),
-    @NamedQuery(name = "Qualificatif.findByMaximal", query = "SELECT q FROM Qualificatif q WHERE q.maximal = :maximal"),
-    @NamedQuery(name = "Qualificatif.findByMinimal", query = "SELECT q FROM Qualificatif q WHERE q.minimal = :minimal")})
+@NamedQueries({ @NamedQuery(name = "Qualificatif.findAll", query = "SELECT q FROM Qualificatif q"),
+	@NamedQuery(name = "Qualificatif.findByIdQualificatif", query = "SELECT q FROM Qualificatif q WHERE q.idQualificatif = :idQualificatif"),
+	@NamedQuery(name = "Qualificatif.findByMaximal", query = "SELECT q FROM Qualificatif q WHERE q.maximal = :maximal"),
+	@NamedQuery(name = "Qualificatif.findByMinimal", query = "SELECT q FROM Qualificatif q WHERE q.minimal = :minimal"),
+	@NamedQuery(name = "Qualificatif.getMaxIdQualificatif", query = "SELECT MAX(idQualificatif) FROM Qualificatif") })
 public class Qualificatif implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID_QUALIFICATIF")
-    private Long idQualificatif;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 16)
-    @Column(name = "MAXIMAL")
-    private String maximal;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 16)
-    @Column(name = "MINIMAL")
-    private String minimal;
-    //@JsonIgnore
-    @JsonBackReference(value="question-Qualificatif")
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idQualificatif")
-    private Collection<Question> questionCollection;
-    @JsonIgnore
-    @OneToMany(mappedBy = "idQualificatif")
-    private Collection<QuestionEvaluation> questionEvaluationCollection;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "ID_QUALIFICATIF")
+	private Long idQualificatif;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 16)
+	@Column(name = "MAXIMAL")
+	private String maximal;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 16)
+	@Column(name = "MINIMAL")
+	private String minimal;
+	// @JsonIgnore
+	@JsonBackReference(value = "question-Qualificatif")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idQualificatif")
+	private Collection<Question> questionCollection;
+	@JsonIgnore
+	@OneToMany(mappedBy = "idQualificatif")
+	private Collection<QuestionEvaluation> questionEvaluationCollection;
 
-    public Qualificatif() {
-    }
+	public Qualificatif() {
+	}
 
-    public Qualificatif(Long idQualificatif) {
-        this.idQualificatif = idQualificatif;
-    }
+	public Qualificatif(Long idQualificatif) {
+		this.idQualificatif = idQualificatif;
+	}
 
-    public Qualificatif(Long idQualificatif, String maximal, String minimal) {
-        this.idQualificatif = idQualificatif;
-        this.maximal = maximal;
-        this.minimal = minimal;
-    }
+	public Qualificatif(Long idQualificatif, String maximal, String minimal) {
+		this.idQualificatif = idQualificatif;
+		this.maximal = maximal;
+		this.minimal = minimal;
+	}
 
-    public Long getIdQualificatif() {
-        return idQualificatif;
-    }
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof Qualificatif)) {
+			return false;
+		}
+		Qualificatif other = (Qualificatif) object;
+		if ((this.idQualificatif == null && other.idQualificatif != null) || (this.idQualificatif != null && !this.idQualificatif.equals(other.idQualificatif))) {
+			return false;
+		}
+		return true;
+	}
 
-    public void setIdQualificatif(Long idQualificatif) {
-        this.idQualificatif = idQualificatif;
-    }
+	public Long getIdQualificatif() {
+		return idQualificatif;
+	}
 
-    public String getMaximal() {
-        return maximal;
-    }
+	public String getMaximal() {
+		return maximal;
+	}
 
-    public void setMaximal(String maximal) {
-        this.maximal = maximal;
-    }
+	public String getMinimal() {
+		return minimal;
+	}
 
-    public String getMinimal() {
-        return minimal;
-    }
+	@XmlTransient
+	public Collection<Question> getQuestionCollection() {
+		return questionCollection;
+	}
 
-    public void setMinimal(String minimal) {
-        this.minimal = minimal;
-    }
+	@XmlTransient
+	public Collection<QuestionEvaluation> getQuestionEvaluationCollection() {
+		return questionEvaluationCollection;
+	}
 
-    @XmlTransient
-    public Collection<Question> getQuestionCollection() {
-        return questionCollection;
-    }
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (idQualificatif != null ? idQualificatif.hashCode() : 0);
+		return hash;
+	}
 
-    public void setQuestionCollection(Collection<Question> questionCollection) {
-        this.questionCollection = questionCollection;
-    }
+	public void setIdQualificatif(Long idQualificatif) {
+		this.idQualificatif = idQualificatif;
+	}
 
-    @XmlTransient
-    public Collection<QuestionEvaluation> getQuestionEvaluationCollection() {
-        return questionEvaluationCollection;
-    }
+	public void setMaximal(String maximal) {
+		this.maximal = maximal;
+	}
 
-    public void setQuestionEvaluationCollection(Collection<QuestionEvaluation> questionEvaluationCollection) {
-        this.questionEvaluationCollection = questionEvaluationCollection;
-    }
+	public void setMinimal(String minimal) {
+		this.minimal = minimal;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idQualificatif != null ? idQualificatif.hashCode() : 0);
-        return hash;
-    }
+	public void setQuestionCollection(Collection<Question> questionCollection) {
+		this.questionCollection = questionCollection;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Qualificatif)) {
-            return false;
-        }
-        Qualificatif other = (Qualificatif) object;
-        if ((this.idQualificatif == null && other.idQualificatif != null) || (this.idQualificatif != null && !this.idQualificatif.equals(other.idQualificatif))) {
-            return false;
-        }
-        return true;
-    }
+	public void setQuestionEvaluationCollection(Collection<QuestionEvaluation> questionEvaluationCollection) {
+		this.questionEvaluationCollection = questionEvaluationCollection;
+	}
 
-    @Override
-    public String toString() {
-        return "com.example.beans.Qualificatif[ idQualificatif=" + idQualificatif + " ]";
-    }
-    
+	@Override
+	public String toString() {
+		return "com.example.beans.Qualificatif[ idQualificatif=" + idQualificatif + " ]";
+	}
+
 }
