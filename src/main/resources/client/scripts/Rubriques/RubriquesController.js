@@ -7,14 +7,14 @@
 
   var app = angular.module('app.rubriques', []);
 
-  Array.prototype.removeValue = function(name, value){
+  /*Array.prototype.removeValue = function(name, value){
 	   var array = $.map(this, function(v,i){
 	      return v[name] === value ? null : v;
 	   });
-	   this.length = 0; // clear original array
-	   this.push.apply(this, array); // push all elements except the one we
-										// want to delete
-	}
+      this.length = 0; //clear original array
+	   this.push.apply(this, array); //push all elements except the one we want to delete
+	}*/
+
   
   app.factory('rubriquesFactory', ['$http',function($http){
     
@@ -26,7 +26,7 @@
       delete: function(idRubrique) { 
         // TODO Supprimer
     	  console.log("TODO : supprimer rubrique", idRubrique);
-    	  return  $http.get('http://localhost:8090/rubrique/delete/'+ idRubrique)
+        return  $http.get('http://localhost:8090/rubrique/delete/'+ idRubrique)
       },
       getRubrique : function(idRubrique){
       	return $http.get('http://localhost:8090/rubrique/'+idRubrique)
@@ -36,6 +36,7 @@
       },
       set : function(rubrique){
       	return $http.post('http://localhost:8090/rubrique/modifierRubrique', rubrique);
+
       }
 
     };
@@ -47,10 +48,11 @@
     ['$scope', '$filter','$location', 'rubriquesFactory',
     function($scope, $filter, $location, rubriquesFactory){
     	
+
     	$scope.refresh=function(){
     	var init = null;
-		var promise = rubriquesFactory.listerRubriques();
-    	promise.success(function(data) {
+		  var promise = rubriquesFactory.listerRubriques();
+      promise.success(function(data) {
 		    $scope.rubriques = data;
 		      $scope.searchKeywords = '';
 		      $scope.filteredRubrique = [];
@@ -97,6 +99,7 @@
 		      return init();
 		  }
 		)
+    
 		.error(function(data) {
 			 $scope.error = 'unable to get the poneys';
 		  }
@@ -112,7 +115,12 @@
 	  $location.path("/admin/rubrique/"+ idRubrique);
 	 
   }
-	$scope.supprime = function(idRubrique){ 
+
+
+      // supprime une Rubrique
+      $scope.supprime = function(idRubrique){ 
+    	
+
     	  
           swal({   
 			  title: "Voulez-vous vraiment supprimer ce qualificatif ?",      
@@ -137,8 +145,10 @@
 						  }
 				  });  
       }
+
        $scope.refresh();
 	}]
+
   );
   
   app.controller('RubriqueDetailsController', 
