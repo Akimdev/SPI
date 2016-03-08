@@ -84,7 +84,7 @@
 					<div class="form-group">
 						<label for="" class="col-sm-2">Responsable</label>
 						<div class="col-sm-10">
-							<select ng-show="edit" name="listeEnseignants" ng-model="enseignantSelected">
+							<select ng-show="edit" name="listeEnseignants" ng-model="enseignantSelected" ng-change="test()">
 								<option data-ng-repeat="e in enseignants" value="{{e.noEnseignant}}" ng-selected="{{e.noEnseignant == responsable.noEnseignant}}">{{e.noEnseignant}}. {{e.nom}} {{e.prenom}}</option>
 							</select>
 							<input ng-hide="edit" type="text" class="form-control"
