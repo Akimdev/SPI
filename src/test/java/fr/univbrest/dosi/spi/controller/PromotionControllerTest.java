@@ -29,12 +29,12 @@ public class PromotionControllerTest {
 		
 		Enseignant ens = new Enseignant(1);
 		Formation form = new Formation("M2DOSI");
-		Promotion pro = new Promotion(form.getCodeFormation(), "4849");
+		Promotion pro = new Promotion(form.getCodeFormation(), "888");
 		ProEns proens = new ProEns(ens, null, pro, form);
 		
 				// Création du client et  d'une requete POST
 				final HttpClient client = HttpClientBuilder.create().build();
-				final HttpPost mockRequestPost = new HttpPost("http://localhost:8090/ajoutPromotion");
+				final HttpPost mockRequestPost = new HttpPost("http://localhost:8090/addPromotion");
 				// création de l'objet mapper afin de convertir l'objet en jsonInSTring
 				ObjectMapper mapper = new ObjectMapper();
 				com.fasterxml.jackson.databind.ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();

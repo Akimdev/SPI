@@ -224,15 +224,14 @@
 	        $scope.edit= true;
 	        
       } else { // sinon on edite une promotion existante
-				
-    	  		//Recuperation de la promotion
+				//Recuperation de la promotion
 	            var promise1= promotionsFactory.get(promoPK);
 	            promise1.success(function(data,statut){
             	data.dateRentree = $filter('date')(data.dateRentree, "dd/MM/yyyy");
 				$scope.promotion= data;
 				console.log("TODO: recuperation de la promotion: ", $scope.promotion);
           	  	//Recuperation des etudiants  
-	          	var promise2= promotionsFactory.getEtudiants(promoPK);
+				var promise2= promotionsFactory.getEtudiants(promoPK);
 	            promise2.success(function(data,statut){
 	            	$scope.promotion.etudiantCollection = data ;
 	            	console.log("TODO: recuperation de la liste des étudiants pour la promotion selectionnée ",data);

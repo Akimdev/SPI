@@ -40,8 +40,8 @@
   app.controller('QualificatifsController', 
     ['$scope', '$location','$http','$filter', 'qualificatifsFactory',
     function($scope, $location,$http,$filter, qualificatifsFactory){
+
     	$scope.refresh = function (){
-    	      
     	      var promiseFormation = qualificatifsFactory.all();          
     	      promiseFormation.success(function(data) {
     	          $scope.listQualificatifs = data;

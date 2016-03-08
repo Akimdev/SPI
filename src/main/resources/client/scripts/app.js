@@ -49,8 +49,8 @@
 					templateUrl : 'views/evaluations/details.html'
 				}).when('/admin/rubriques', {
 					templateUrl : 'views/rubriques/list.html'
-				}).when('/admin/rubriques/:id', {
-					templateUrl : 'views/rubriques/details.html'
+				}).when('/admin/rubrique/:id', {
+					templateUrl : 'views/rubriques/detail.html'
 				}).when('/dashboard', {
 					templateUrl : 'views/dashboard.html'
 				}).when('/ui/typography', {
