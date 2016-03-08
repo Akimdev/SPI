@@ -1,29 +1,29 @@
 package fr.univbrest.dosi.spi.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import junit.framework.Assert;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
-import fr.univbrest.dosi.spi.Application;
+import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.bean.Question;
+import fr.univbrest.dosi.spi.bean.Rubrique;
 import fr.univbrest.dosi.spi.bean.utils.QuesQual;
-import fr.univbrest.dosi.spi.exception.SPIException;
-import fr.univbrest.dosi.spi.service.QualificatifService;
 
 /**
  * 
@@ -36,15 +36,13 @@ public class QuestionControllerTest {
 	public void addQuestionTest() throws ClientProtocolException, IOException {
 
 		Long idq = 2L;
-
 		Question ques = new Question(800L, "QUS", "hh");
 		Qualificatif qua = new Qualificatif(1L, "Pauvre", "Riche");
-
 		QuesQual quesQual = new QuesQual(qua, ques);
 
 		// Création du client et d'une requete POST
 		final HttpClient client = HttpClientBuilder.create().build();
-		final HttpPost mockRequestPost = new HttpPost("http://localhost:8090/ajouterQuestion");
+		final HttpPost mockRequestPost = new HttpPost("http://localhost:8090/addQuestion");
 		// création de l'objet mapper afin de convertir l'objet en jsonInSTring
 		ObjectMapper mapper = new ObjectMapper();
 		com.fasterxml.jackson.databind.ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -64,6 +62,25 @@ public class QuestionControllerTest {
 		} catch (IOException e) {
 			System.out.println(e);
 		}
+	}
+	@Test
+	public void deleteQuestionTest() throws ClientProtocolException, IOException {
+		
+		// Création du client et éxécution d'une requete GET
+				final HttpClient client = HttpClientBuilder.create().build();
+				final HttpGet mockRequest = new HttpGet("http://localhost:8090/deleteQuestionById"+new Long(9));
 
+				final HttpResponse mockResponse = client.execute(mockRequest);
+
+				// Le code retour HTTP doit être un succès (200)
+				Assert.assertEquals(200, mockResponse.getStatusLine().getStatusCode());
+
+				final BufferedReader rd = new BufferedReader(new InputStreamReader(mockResponse.getEntity().getContent()));
+				final ObjectMapper mapper = new ObjectMapper();
+
+				final Iterable<Question> ques = mapper.readValue(rd, Iterable.class);
+
+				Assert.assertNotNull(ques);
+		
 	}
 }
