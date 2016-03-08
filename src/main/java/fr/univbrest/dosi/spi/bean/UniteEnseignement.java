@@ -26,7 +26,9 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  *
@@ -70,7 +72,8 @@ public class UniteEnseignement implements Serializable {
     private Short nbhTd;
     @Column(name = "NBH_TP")
     private Short nbhTp;
-    @JsonIgnore
+    //@JsonIgnore
+    @JsonManagedReference(value = "enseignant-uniteEnseignement")
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne(optional = false)
     private Enseignant noEnseignant;
@@ -81,7 +84,7 @@ public class UniteEnseignement implements Serializable {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "uniteEnseignement",fetch=FetchType.LAZY)
     private Collection<ElementConstitutif> elementConstitutifCollection;
-    @JsonIgnore
+    @JsonBackReference(value = "ue-evaluation")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "uniteEnseignement")
     private Collection<Evaluation> evaluationCollection;
 

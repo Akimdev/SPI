@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Promotion;
 import fr.univbrest.dosi.spi.bean.PromotionPK;
 import fr.univbrest.dosi.spi.dao.PromotionRepository;
@@ -17,23 +18,14 @@ public class PromotionService {
 	private PromotionRepository promotionRepository;
 
 	public final void addPromotion(final Promotion promotion) {
-		
-		if(promotionRepository.exists(promotion.getPromotionPK())){
-			throw new SPIException("cette Promotion que vous souhaitez ajouter exsite déja :D");
-		} 
-		promotionRepository.save(promotion);
-	}
-	
-	public final Promotion update(final Promotion promotion){
 		if (promotionRepository.exists(promotion.getPromotionPK())) {
-			return promotionRepository.save(promotion);
-		} else {
-			throw new SPIException("la promotion que vous souhaitez modifier n'exsite pas ");
+			throw new SPIException("cette Promotion que vous souhaitez ajouter exsite déja :D");
 		}
+		promotionRepository.save(promotion);
 	}
 
 	public final void deletePromotion(final PromotionPK promotionPK) {
-		if (promotionRepository.exists(promotionPK) )
+		if (promotionRepository.exists(promotionPK))
 			promotionRepository.delete(promotionPK);
 		else
 			throw new SPIException("promotion non trouvée");
@@ -43,21 +35,33 @@ public class PromotionService {
 		return promotionRepository.exists(promotionPK);
 	}
 
+	/**
+	 * @author Kenza ABOUAKIL
+	 * @return le numero d'enseignant responsable de la promotion
+	 */
+	public Enseignant getEnseignantResponsable(final PromotionPK promotionPK) {
+		return promotionRepository.findOne(promotionPK).getNoEnseignant();
+	}
+
 	public final Promotion getPromotion(final PromotionPK promotionPK) {
 		return promotionRepository.findOne(promotionPK);
 	}
 
-	public final List<Promotion> getPromotionByEnseignant(final Integer noEnseignant) {
-		return promotionRepository.findByNoEnseignant(noEnseignant);
-	}
-
 	/**
-	 * 
+	 *
 	 * @return all promotion
 	 * @author ASSABBAR
 	 */
 
 	public final Iterable<Promotion> getPromotionALL() {
 		return promotionRepository.findAll();
+	}
+
+	public final List<Promotion> getPromotionByEnseignant(final Integer noEnseignant) {
+		return promotionRepository.findByNoEnseignant(noEnseignant);
+	}
+
+	public final void update(final Promotion promotion) {
+		promotionRepository.save(promotion);
 	}
 }

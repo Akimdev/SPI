@@ -35,6 +35,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "QUESTION")
 @XmlRootElement
 @NamedQueries({
+	@NamedQuery(name = "Question.findQualificatif", query = "SELECT q.idQualificatif FROM Question q WHERE q.idQuestion = :idQuestion"),
     @NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q"),
     @NamedQuery(name = "Question.findByIdQuestion", query = "SELECT q FROM Question q WHERE q.idQuestion = :idQuestion"),
     @NamedQuery(name = "Question.findByType", query = "SELECT q FROM Question q WHERE q.type = :type"),
@@ -60,8 +61,8 @@ public class Question implements Serializable {
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne
     private Enseignant noEnseignant;
-    //@JsonIgnore
-    @JsonManagedReference(value="question-Qualificatif")
+    @JsonIgnore
+    //@JsonManagedReference(value="question-Qualificatif")
     @JoinColumn(name = "ID_QUALIFICATIF", referencedColumnName = "ID_QUALIFICATIF")
     @ManyToOne(optional = false)
     private Qualificatif idQualificatif;

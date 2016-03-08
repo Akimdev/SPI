@@ -61,4 +61,5 @@ public class RubriqueService {
 	public final Rubrique getRubrique(final Long idRubrique) {
 		return rubriqueRepository.findOne(idRubrique);
 	}
+
 }

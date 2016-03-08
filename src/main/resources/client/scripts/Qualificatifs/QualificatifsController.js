@@ -12,10 +12,7 @@
       get: function(idQualificatif) { 
     	  return $http.get('http://localhost:8090/qualificatif/' + idQualificatif); 
       },
-      
-      set: function(qualificatif) {	
-    	  // return $http.post('http://localhost:8090/ajouterQualificatif',
-			// qualificatif);
+      set: function(qualificatif) {
     	  return $http({
     		  method: 'POST',
     		  url: 'http://localhost:8090/ajouterQualificatif',
@@ -23,7 +20,6 @@
     		  headers:{ 'Content-Type' : 'application/json'}
     	  });
       },
-      
       delete: function(idQualificatif) { 
     	  return $http.get('http://localhost:8090/supprimerQualificatif?idQualificatif=' + idQualificatif);
       }
@@ -123,12 +119,14 @@
 			    	  promisessuppression.error(function(data, status, headers, config) {
 			    		  swal("Erreur!", "vous pouvez pas supprimer ce qualificatif", "error");
 			  		});	
-					  } else {     
+				  } else {     
 						  swal("Ignorer", "", "error");
-						  }
-				  });  
-      }
-      $scope.refresh();
+				  }
+	  	 });  
+	}
+      
+    $scope.refresh();
+    
     }]
   );
 
@@ -140,16 +138,16 @@
         $scope.qualificatif= { };
         $scope.edit= true;       
       } else { 
-        var f = qualificatifsFactory.get($routeParams.id);
+    	  console.log("id: ", $routeParams.id);
         var promisesFactory = qualificatifsFactory.get($routeParams.id);
      	promisesFactory.success(function(data) {
        		$scope.isVisible = true;
      		$scope.qualificatif = data;
+     		console.log("\tQualificatifi récupéré: ", data);
      	});
       }      
       
       $scope.edition = function(){
-    	  
     	  var promisesedit = qualificatifsFactory.set($scope.qualificatif);
     	  promisesedit.success(function(data) {
        		$scope.qualificatif = data;  
@@ -185,12 +183,10 @@
 
    // annule l'édition
       $scope.cancel = function(){
-        if(!$scope.qualificatifs.idQualificatif){
+        if(!$scope.qualificatif.idQualificatif){
           $location.path('/admin/qualificatifs');
         } else {
         	$location.path('/admin/qualificatifs');
-          var e = qualificatifFactory.get($routeParams.id);
-          $scope.qualificatifs = JSON.parse(JSON.stringify(e));
           $scope.edit = false;
         }
       } 

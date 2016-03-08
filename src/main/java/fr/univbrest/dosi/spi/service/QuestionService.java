@@ -15,6 +15,7 @@ import fr.univbrest.dosi.spi.exception.SPIException;
 /**
  * 
  * @author Othman
+ * @author hakim
  *
  *Cette classe représente la partie service de la gestion de CRUD des questions standards
  */
@@ -22,27 +23,18 @@ import fr.univbrest.dosi.spi.exception.SPIException;
 public class QuestionService {
 	@Autowired 
 	QuestionRepository questRepo;
-	@Autowired
-	QualificatifRepository qualifRepo;
 	/**
 	 * La méthode pour ajouter une question
 	 * @param question
 	 */
 	public void addQuestion(Question question){
-			if(qualifRepo.exists(question.getIdQualificatif().getIdQualificatif()) && (!(questRepo.exists(question.getIdQuestion())))){
-				Qualificatif qualif = qualifRepo.findOne(question.getIdQualificatif().getIdQualificatif());
-				question.setIdQualificatif(qualif);
-				questRepo.save(question);
-			}
-			else{
-				throw new SPIException("Echec de l'ajout d'une nouvelle question, Qualificatif inexistant");
-			}
+		questRepo.save(question);
 	}
 	/**
 	 * La méthode pour modifier une question
 	 * @param question
 	 */
-	public void modifyQuestion(Question question){
+	public void updateQuestion(Question question){
 		questRepo.save(question);
 	}
 	/**
@@ -50,21 +42,29 @@ public class QuestionService {
 	 * @param question
 	 */
 	public void deleteQuestion(Question question){
-		questRepo.delete(question);
+		try{
+			questRepo.delete(question);
+		}catch(Exception e){
+			throw new SPIException("La question ne peut pas être supprimée !");
+		}
 	}
 	/**
 	 * La méthode de suppression d'une question par idQuestion
 	 * @param idQuestion
 	 */
 	public void deleteQuestionById(Long idQuestion){
-		questRepo.delete(idQuestion);
+		try{
+			questRepo.delete(questRepo.findOne(idQuestion));
+		}catch(Exception e){
+			throw new SPIException("La question ne peut pas être supprimée !");
+		}
 	}
 	/**
 	 * La méthode pour afficher la liste des questions
 	 * @return
 	 * retourne une liste de questions non ordonnées
 	 */
-	public List<Question> listeQuestion(){
+	public List<Question> getAllQuestions(){
 		List<Question> questionList = new ArrayList<Question>();
 		questionList = (List<Question>) questRepo.findAll();
 		return questionList;
@@ -91,4 +91,12 @@ public class QuestionService {
 		List<Question> listeQuestions = (List<Question>) questRepo.findAll();
 		return listeQuestions.size();
 	}	
+	/**
+	 * @author Youssef
+	 * Rechercher le qualificatif d'une question
+	 * @param idQuestion
+	 */
+	public Qualificatif getQualificatif(Long idQuestion){
+		return questRepo.findQualificatif(idQuestion);
+	}
 }

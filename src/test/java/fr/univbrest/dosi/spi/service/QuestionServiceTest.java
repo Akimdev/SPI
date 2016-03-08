@@ -28,7 +28,7 @@ public class QuestionServiceTest {
 		Question quest = new Question(26l, "QUS","nouvelle question");
 		quest.setIdQualificatif(qualif);
 		questServ.addQuestion(quest);
-		List<Question> listeQuestions = questServ.listeQuestion();
+		List<Question> listeQuestions = questServ.getAllQuestions();
 		Assert.assertNotNull(listeQuestions);
 		Assert.assertEquals(23, listeQuestions.size());
 	}
@@ -37,8 +37,8 @@ public class QuestionServiceTest {
 	public void modificationQuestionTest(){
 		Question quest = questServ.getQuestion(26l);
 		quest.setIntitulé("question modifié");
-		questServ.modifyQuestion(quest);
-		List<Question> listeQuestions = questServ.listeQuestion();
+		questServ.updateQuestion(quest);
+		List<Question> listeQuestions = questServ.getAllQuestions();
 		Assert.assertNotNull(listeQuestions);
 		Assert.assertEquals(listeQuestions.get(22).getIntitulé(), "question modifié");
 	}
@@ -46,7 +46,7 @@ public class QuestionServiceTest {
 	@Test
 	public void supprimerQuestionTest(){
 		questServ.deleteQuestionById(26l);;
-		List<Question> listeQuestions = questServ.listeQuestion();
+		List<Question> listeQuestions = questServ.getAllQuestions();
 		Assert.assertEquals(22, listeQuestions.size());
 	}
 	

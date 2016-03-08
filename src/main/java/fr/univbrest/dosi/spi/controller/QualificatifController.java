@@ -14,13 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.service.QualificatifService;
-
+/**
+ * 
+ * @author othman
+ *cet classe permet de gérer le CRUD d'un qualificatif
+ */
 @RestController
 public class QualificatifController {
 
 	@Autowired
 	QualificatifService qualifServ;
 	
+
 	@RequestMapping(value="/supprimerQualificatifBis", headers="Accept=application/json")
 	public void suppressionQualificatifByIdBiss(@RequestParam("idQualificatif") Long idQualificatif){
 		qualifServ.deleteQualificatifById(idQualificatif);
@@ -40,6 +45,7 @@ public class QualificatifController {
 	public void suppressionQualificatif(Qualificatif qualif){
 		qualifServ.deleteQualificatif(qualif);
 	}
+
 	@RequestMapping(value="/supprimerQualificatif",headers="Accept=application/json")
 	public void suppressionQualificatifById(@RequestParam("idQualificatif") Long idQualificatif){
 		qualifServ.deleteQualificatifById(idQualificatif);
