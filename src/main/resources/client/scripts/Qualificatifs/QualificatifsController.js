@@ -22,6 +22,9 @@
       },
       delete: function(idQualificatif) { 
     	  return $http.get('http://localhost:8090/supprimerQualificatif?idQualificatif=' + idQualificatif);
+      },
+      getMaxIdQualificatif: function(){
+    	  return $http.get('http://localhost:8090/getMaxIdQualificatif');
       }
     };
   });
@@ -126,7 +129,6 @@
 	}
       
     $scope.refresh();
-    
     }]
   );
 
@@ -136,15 +138,18 @@
       $scope.edit= false;    
       if($routeParams.id == "nouveau"){
         $scope.qualificatif= { };
+        var promisesFactory = qualificatifsFactory.getMaxIdQualificatif();
+     	promisesFactory.success(function(data) {
+     		$scope.qualificatif.idQualificatif = data;
+     	});
         $scope.edit= true;       
       } else { 
-    	  console.log("id: ", $routeParams.id);
-        var promisesFactory = qualificatifsFactory.get($routeParams.id);
-     	promisesFactory.success(function(data) {
-       		$scope.isVisible = true;
-     		$scope.qualificatif = data;
-     		console.log("\tQualificatifi récupéré: ", data);
-     	});
+	        var promisesFactory = qualificatifsFactory.get($routeParams.id);
+	     	promisesFactory.success(function(data) {
+	       		$scope.isVisible = true;
+	     		$scope.qualificatif = data;
+	     		console.log("\tQualificatif récupéré: ", data);
+	     	});
       }      
       
       $scope.edition = function(){

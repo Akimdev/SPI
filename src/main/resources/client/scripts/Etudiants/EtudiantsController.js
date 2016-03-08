@@ -106,12 +106,6 @@
         	  console.log("impossible de supprimer l'enseignant choisi");
           });
       }
-      $scope.mouseOver = function(noEtudiant){
-    	  document.getElementById(noEtudiant).style.fontWeight = "700";
-      }
-      $scope.mouseOut = function(noEtudiant){
-    	  document.getElementById(noEtudiant).style.fontWeight = "500";
-      }
     }]
   );
 
