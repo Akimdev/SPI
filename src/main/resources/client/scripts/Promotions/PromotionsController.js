@@ -31,7 +31,6 @@
        };
 
     return {
-    
     	// Méthode de renvoi la liste des promotions
       all:list, 
       // renvoi la promotion avec l'anneeUniversitaire et codeFormation demandés
@@ -148,7 +147,7 @@
       
       // affiche les détail d'une promotion
       $scope.edit = function (promotionPK){
-    	  $scope.ajout= false;
+    	  $scope.ajout= true;
     	  $location.path("/admin/promotion/"+ promotionPK.anneeUniversitaire + "/" + promotionPK.codeFormation);
       }
 
