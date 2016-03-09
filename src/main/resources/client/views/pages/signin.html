@@ -3,8 +3,7 @@
     <div class="signin-header">
         <div class="container text-center">
             <section class="logo">
-                <a href="#/">Suivi et Préparation à
-l’Insertion Professionnelle</a>
+                <a href="#/">Suivi et Préparation àl’Insertion Professionnelle</a>
             </section>
         </div>
     </div>
@@ -13,7 +12,7 @@ l’Insertion Professionnelle</a>
         <div class="container">
             <div class="form-container">
 
-                <form class="form-horizontal">
+                <form class="form-horizontal" name="authotificationForm">
                     <fieldset>
                         <div class="form-group">
                             <div class="input-group input-group-lg">
@@ -22,10 +21,14 @@ l’Insertion Professionnelle</a>
                                 </span>
                                 <!-- Utilisation de ng-model pour enregistrer la valeur du champ automatiquement (databinding). -->
                                 <input type="text"
+									   name= "login"
                                        ng-model="login.username"
                                        class="form-control"
                                        placeholder="Nom d'utilisateur"
-                                       >
+                                       ng-maxlength="240"*
+                                       ng-pattern="/^[A-Z\-_a-z0-9]+$/"
+                                       ng-trim="false"
+                                       required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -35,24 +38,31 @@ l’Insertion Professionnelle</a>
                                 </span>
                                 <!-- Utilisation de ng-model pour enregistrer la valeur du champ automatiquement (databinding). -->
                                 <input type="password"
+                                	   name="password"
                                        ng-model="login.password"
                                        class="form-control"
                                        placeholder="Mot de passe"
-                                       >
+                                       ng-maxlength="32"
+                                       required>
                             </div>
                         </div>
                         <div class="form-group">
                         </div>
                         <div class="form-group">
                         <!-- Utilisation de ng-click pour déclencher l'action de login : appel d'une méthode du controleur défini au début de ce fichier : "AuthenticationController as ac". -->
-                            <button ng-click="ac.submit()" class="btn btn-primary btn-lg btn-block">Connexion</button>
+                            <button ng-click="ac.submit()" class="btn btn-primary btn-lg btn-block"
+                            		ng-disabled="authotificationForm.login.$dirty && authotificationForm.login.$invalid  
+												|| authotificationForm.password.$dirty && authotificationForm.password.$invalid
+												|| authotificationForm.login.$error.required
+												|| authotificationForm.password.$error.required"
+							>Connexion</button>
                         </div>
                     </fieldset>
                 </form>
 
-                <section>
-                    <p class="text-center"><a href="#/pages/forgot">Mot de passe oublié?</a></p>                    
-                </section>
+<!--                 <section> -->
+<!--                     <p class="text-center"><a href="#/pages/forgot">Mot de passe oublié?</a></p>                     -->
+<!--                 </section> -->
                 
             </div>
         </div>

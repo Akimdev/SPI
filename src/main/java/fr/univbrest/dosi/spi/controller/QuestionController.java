@@ -15,27 +15,29 @@ import fr.univbrest.dosi.spi.bean.Question;
 import fr.univbrest.dosi.spi.bean.utils.QuesQual;
 import fr.univbrest.dosi.spi.service.QualificatifService;
 import fr.univbrest.dosi.spi.service.QuestionService;
+
 /**
  * Cette classe représente la partie controlleur de la gestion CRUD des questions standards
+ *
  * @author Othman
  * @author hakim
  *
  */
 @RestController
 public class QuestionController {
-	
+
 	@Autowired
 	QualificatifService qualificatifService;
 	@Autowired
 	QuestionService questServ;
-	
-	
+
 	/**
-	 * Cette méthode réalise l'ajout d'une nouvelle question 
+	 * Cette méthode réalise l'ajout d'une nouvelle question
+	 *
 	 * @param question
 	 */
 	@RequestMapping(value = "/addQuestion", method = RequestMethod.POST, headers = "Accept=application/json")
-	public void addQuestion(@RequestBody  QuesQual quesQual){
+	public void addQuestion(@RequestBody QuesQual quesQual) {
 		/** récupération de la question à créer ! */
 		Question ques = quesQual.getQuestion();
 		/** récupération des objets à partir de leur id envoyer du JSON */
@@ -45,12 +47,74 @@ public class QuestionController {
 		quesQual.setQualificatif(qual);
 		questServ.addQuestion(ques);
 	}
+
 	/**
-	 * Cette méthode modifie une question
+	 * @author Kenza ABOUAKIL permet de retourner la valeur de MaxIdQuestion pour généré un nouveau ID au qualificatif
+	 * @return l'IdQualificatif maximal pour tous les qualificatifs
+	 */
+	@RequestMapping(value = "/getMaxIdQuestion")
+	public Integer getMaxIdQualificatif() {
+		return questServ.getMaxIdQuestion();
+	}
+
+	/**
+	 * @author Youssef Retourne le qualificatif correspondant
+	 */
+	@RequestMapping(value = "/getQualificatif/{idQuestion}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public Qualificatif getQualificatif(@PathVariable(value = "idQuestion") Long idQuestion) {
+		return questServ.getQualificatif(idQuestion);
+	}
+
+	/**
+	 * Retourne une question par ID
+	 */
+	@RequestMapping(value = "/getQuestionById/{idQuestion}")
+	public Question getQuestionById(@PathVariable(value = "idQuestion") Long idQuestion) {
+		return questServ.getQuestionById(idQuestion);
+	}
+
+	/**
+	 * Cette méthode retourne une liste de questions non ordonnées
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/questions")
+	public List<Question> listerQuestion() {
+		return questServ.getAllQuestions();
+	}
+
+	@RequestMapping(value = "/lengthQuestion")
+	public int nombreQuestions() {
+		return questServ.nombreQuestions();
+	}
+
+	/**
+	 * Cette méthode supprime une question suivant un objet question
+	 *
 	 * @param question
 	 */
-	@RequestMapping(value="/updateQuestion", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-	public void updateQuestion(@RequestBody final QuesQual quesQual){
+	@RequestMapping(value = "/deleteQuestion")
+	public void suppressionQuestion(Question question) {
+		questServ.deleteQuestion(question);
+	}
+
+	/**
+	 * Cette méthode supprime une question suivant un Id
+	 *
+	 * @param idQuestion
+	 */
+	@RequestMapping(value = "/deleteQuestionById-{idQuestion}")
+	public void suppressionQuestionById(@PathVariable(value = "idQuestion") Long idQuestion) {
+		questServ.deleteQuestionById(idQuestion);
+	}
+
+	/**
+	 * Cette méthode modifie une question
+	 *
+	 * @param question
+	 */
+	@RequestMapping(value = "/updateQuestion", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public void updateQuestion(@RequestBody final QuesQual quesQual) {
 		/** récupération de la question à créer ! */
 		Question ques = quesQual.getQuestion();
 		/** récupération des objets à partir de leur id envoyer du JSON */
@@ -60,49 +124,4 @@ public class QuestionController {
 		quesQual.setQualificatif(qual);
 		questServ.updateQuestion(ques);
 	}
-	/**
-	 * Cette méthode supprime une question suivant un objet question
-	 * @param question
-	 */
-	@RequestMapping(value="/deleteQuestion")
-	public void suppressionQuestion(Question question){
-		questServ.deleteQuestion(question);
-	}
-	/**
-	 * Cette méthode supprime une question suivant un Id
-	 * @param idQuestion
-	 */
-	@RequestMapping(value="/deleteQuestionById-{idQuestion}")
-	public void suppressionQuestionById(@PathVariable(value = "idQuestion")Long idQuestion){
-		questServ.deleteQuestionById(idQuestion);
-	}
-	/**
-	 * Cette méthode retourne une liste de questions non ordonnées
-	 * @return
-	 */
-	@RequestMapping(value="/questions")
-	public List<Question> listerQuestion(){
-		return questServ.getAllQuestions();
-	}
-	/**
-	 * Retourne une question par ID
-	 */
-	@RequestMapping(value="/getQuestionById/{idQuestion}")
-	public Question getQuestionById(@PathVariable(value="idQuestion") Long idQuestion){
-		return questServ.getQuestionById(idQuestion);
-	}
-	
-	@RequestMapping(value="/lengthQuestion")
-	public int nombreQuestions(){
-		return questServ.nombreQuestions();
-	}
-	/**
-	 * @author Youssef
-	 * Retourne le qualificatif correspondant
-	 */
-	@RequestMapping(value="/getQualificatif/{idQuestion}", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public Qualificatif getQualificatif(@PathVariable(value="idQuestion") Long idQuestion){
-		return questServ.getQualificatif(idQuestion);
-	}
-	
 }

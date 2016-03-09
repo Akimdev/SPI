@@ -25,23 +25,9 @@ import fr.univbrest.dosi.spi.service.UniteEnseignementService;
 
 @RestController
 public class EnseignantController {
-	/**
-	 *
-	 */
+
 	@Autowired
 	private EnseignantService enseignantService;
-
-	/**
-	 *
-	 */
-	@Autowired
-	private PromotionService promotionService;
-
-	/**
-	 *
-	 */
-	@Autowired
-	private UniteEnseignementService uniteEnseignementService;
 
 	/*
 	 * private enum TypeDroit { CREATE, DELETE, MODIFY, SELECT, }
@@ -51,11 +37,14 @@ public class EnseignantController {
 	@Autowired
 	EnseignantService ensService;
 
+	@Autowired
+	private PromotionService promotionService;
+
+	@Autowired
+	private UniteEnseignementService uniteEnseignementService;
+
 	// private final Map<TypeDroit, List<Role>> mapDroits = new HashMap<EnseignantController.TypeDroit, List<Role>>();
 
-	/**
-	 * User
-	 */
 	@Autowired
 	User user;
 
@@ -179,6 +168,11 @@ public class EnseignantController {
 		return uniteEnseignementService;
 	}
 
+	@RequestMapping(value = "/nombreEnseignants")
+	public int nombreEnseignants() {
+		return enseignantService.nombreEnseignants();
+	}
+
 	public void setEnseignantService(final EnseignantService enseignantService) {
 		this.enseignantService = enseignantService;
 	}
@@ -203,10 +197,5 @@ public class EnseignantController {
 		// this.checkDroits(TypeDroit.MODIFY);
 		enseignantService.updateEnseignant(enseignant);
 		return "l'enseignant " + enseignant.getNom() + " " + enseignant.getPrenom() + " est modifier";
-	}
-	
-	@RequestMapping(value="/nombreEnseignants")
-	public int nombreEnseignants(){
-		return enseignantService.nombreEnseignants();
 	}
 }

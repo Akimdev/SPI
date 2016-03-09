@@ -31,7 +31,8 @@
     "ng-tags-input": "~2.1.1",
     "jquery-spinner": "jquery.spinner#~0.2.0",
     "angularjs-toaster": "~1.2.0",
-    "sweetalert": "latest"
+    "sweetalert": "latest",
+    "angular-ui-router": "1.0.0alpha0"
   },
   "resolutions": {
     "angular": "~1.3.x"

@@ -117,6 +117,9 @@
         promise.success(function(data){
         	$scope.etudiant = data;
         });
+        $scope.retour= function(){
+        	history.back();
+        }
       
     }]
   );

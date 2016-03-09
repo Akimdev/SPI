@@ -31,7 +31,6 @@
        };
 
     return {
-    
     	// Méthode de renvoi la liste des promotions
       all:list, 
       // renvoi la promotion avec l'anneeUniversitaire et codeFormation demandés
@@ -251,6 +250,9 @@
           	  console.log("impossible de recuperer les details de la promotion choisie");
             });
             
+            $scope.etudiantDetails= function(){
+            	
+            }
       }
 
       $scope.edition = function(){
@@ -275,11 +277,14 @@
     				  $scope.responsable = data;
     				  swal("Félicitation!", "La nouvelle promotion est ajoutée!", "success");
     			  });
+    			  promiseEnseignant.error(function(){
+      				  swal("Erreur !", "La nouvelle promotion ne peut pas être ajoutée !", "error");
+    			  })
     		  });
     		  $location.path("/admin/promotions");
     	  }
     	  else{ // modification
-    		  if($scope.promotion.dateRentree != undefined) {
+    		  if($scope.promotion.dateRentree) {
     			  var date = $scope.promotion.dateRentree.split('/');
     		      $scope.promotion.dateRentree = new Date(date[1] + '-' + date[0] + '-' + date[2]);  
     		  }
@@ -288,10 +293,13 @@
     			  var promiseEnseignant = promotionsFactory.getEnseignantResponsable($scope.promotion.promotionPK);
     			  promiseEnseignant.success(function(data){
     				  $scope.responsable = data;
-        			  swal("Félicitation!", "La promotion est modifiée !", "success");    	        			
+    				  swal("Félicitation!", "La promotion est modifiée !", "success");    	        			
+    			  });
+    			  promiseEnseignant.error(function(data){
+    				  swal("Erreur !", "La promotion ne peut pas être modifiée !", "error");    	        			  
     			  });
     		  });
-    		  $scope.edit = false;        
+    		  $scope.edit = false;
     	  }
       }
 
@@ -315,6 +323,11 @@
       $scope.test= function(){
     	  console.log("ens: ", $scope.enseignantSelected);
       }
+      
+      $scope.etudiantDetails = function(id){
+    	  $location.path("/admin/etudiant/"+id);
+      }
+      
     }]
   );
 }).call(this);
