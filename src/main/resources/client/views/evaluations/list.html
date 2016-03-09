@@ -5,7 +5,7 @@
 <div class="page page-table" data-ng-controller="EvaluationsController">
     <section class="panel panel-default table-dynamic">
         <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Listes des évaluations</strong>
-         <button class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 pull-right" ng-click="ajoutEvaluation()" >Nouvelle &egrave;valuation<i class="fa fa-plus-circle pull-right"></i></button>
+         <button class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 pull-right" ng-click="ajoutEvaluation()" >Nouvelle evaluation<i class="fa fa-plus-circle pull-right"></i></button>
         </div>
 		
           <div class="table-filters">
@@ -31,6 +31,16 @@
             <thead>
                 <tr>
                     <th><div class="th">
+                        Désignation
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('periode') "
+                              data-ng-class="{active: row == 'periode'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-periode') "
+                              data-ng-class="{active: row == '-periode'}"></span>
+                    </div></th>
+                    <th><div class="th">
+                    
                         Code Formation
                         <span class="glyphicon glyphicon-chevron-up"
                               data-ng-click=" order('codeFormation') "
@@ -40,7 +50,7 @@
                               data-ng-class="{active: row == '-codeFormation'}"></span>
                     </div></th>
                     <th><div class="th">
-                        Ann&egrave;e Universitaire
+                        Année Universitaire
                         <span class="glyphicon glyphicon-chevron-up"
                               data-ng-click=" order('anneeUniversitaire') "
                               data-ng-class="{active: row == 'anneeUniversitaire'}"></span>
@@ -67,7 +77,25 @@
                               data-ng-class="{active: row == '-etat'}"></span>
                     </div></th>
                     <th><div class="th">
-                        P&egrave;riode
+                        Enseignant
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('periode') "
+                              data-ng-class="{active: row == 'periode'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-periode') "
+                              data-ng-class="{active: row == '-periode'}"></span>
+                    </div></th>
+                    <th><div class="th">
+                        Début réponse
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('periode') "
+                              data-ng-class="{active: row == 'periode'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-periode') "
+                              data-ng-class="{active: row == '-periode'}"></span>
+                    </div></th>
+                    <th><div class="th">
+                        Fin réponse
                         <span class="glyphicon glyphicon-chevron-up"
                               data-ng-click=" order('periode') "
                               data-ng-class="{active: row == 'periode'}"></span>
@@ -80,11 +108,14 @@
             </thead>
             <tbody>
                 <tr data-ng-repeat="e in evaluations" class="evaluation">
-                    <td ng-click="edit(e.codeFormation)">{{e.promotion.promotionPK.codeFormation}}</td>
-                    <td ng-click="edit(e.idEvaluation)">{{e.promotion.promotionPK.anneeUniversitaire}}</td>
-                    <td ng-click="edit(e.idEvaluation)">{{e.uniteEnseignement.uniteEnseignementPK.codeUe}}</td>
+                <td ng-click="edit(e.idEvaluation)">{{e.designation}}</td>
+                    <td ng-click="edit(e.codeFormation)">{{e.code_formation}}</td>
+                    <td ng-click="edit(e.idEvaluation)">{{e.annee}}</td>
+                    <td ng-click="edit(e.idEvaluation)">{{e.code_ue}}</td>
                     <td ng-click="edit(e.idEvaluation)">{{e.etat}}</td>
-                    <td ng-click="edit(e.idEvaluation)">{{e.periode}}</td>
+                    <td ng-click="edit(e.idEvaluation)">{{e.noEnseignant.nom}} {{e.noEnseignant.prenom}}</td>
+                    <td ng-click="edit(e.idEvaluation)">{{e.debutReponse}}</td>
+                    <td ng-click="edit(e.idEvaluation)">{{e.finReponse}}</td>
                     <td ng-click="edit(e)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td>
                     <td ng-click="supprime(e)" class="icon-list"><span class="remove fa fa-trash" ></span></td>
                 </tr>
