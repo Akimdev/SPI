@@ -152,7 +152,7 @@
  		var promiseQualificatifs = qualificatifsFactory.all();
  		promiseQualificatifs.success(function(data) {   
  			$scope.qualificatifs = data;
- 			$scope.selectedOption = data[0];
+ 			//$scope.selectedOption = data[0];
  		});
 	 } else { // sinon on edite une question existante
         var promisesFactory = questionsFactory.get($routeParams.id);
