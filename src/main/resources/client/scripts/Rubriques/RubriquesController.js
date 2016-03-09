@@ -26,16 +26,16 @@
       delete: function(idRubrique) { 
         // TODO Supprimer
     	  console.log("TODO : supprimer rubrique", idRubrique);
-        return  $http.get('http://localhost:8090/rubrique/delete/'+ idRubrique)
+        return  $http.get('http://localhost:8090/deleteRubrique/'+ idRubrique)
       },
       getRubrique : function(idRubrique){
       	return $http.get('http://localhost:8090/rubrique/'+idRubrique)
       },
       add : function(rubrique){
-      	return $http.post('http://localhost:8090/rubrique/ajouterRubrique', rubrique);
+      	return $http.post('http://localhost:8090/addRubrique', rubrique);
       },
       set : function(rubrique){
-      	return $http.post('http://localhost:8090/rubrique/modifierRubrique', rubrique);
+      	return $http.post('http://localhost:8090/updateRubrique', rubrique);
 
       }
 

@@ -21,6 +21,7 @@
     	  return $http.post('http://localhost:8090/updateQuestion', question);
       },
       add: function(question) {
+    	  console.log(question);
     	  return $http.post('http://localhost:8090/addQuestion', question)
       },
       delete: function(idQuestion) { 
@@ -127,6 +128,7 @@
         }
 
         $scope.submit = function(){
+        	
         	var quesQual = {
         			qualificatif : {
         				idQualificatif : $scope.qualificatif
