@@ -34,136 +34,136 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "RUBRIQUE")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Rubrique.findAll", query = "SELECT r FROM Rubrique r"),
-    @NamedQuery(name = "Rubrique.findByIdRubrique", query = "SELECT r FROM Rubrique r WHERE r.idRubrique = :idRubrique"),
-    @NamedQuery(name = "Rubrique.findByType", query = "SELECT r FROM Rubrique r WHERE r.type = :type"),
-    @NamedQuery(name = "Rubrique.findByDesignation", query = "SELECT r FROM Rubrique r WHERE r.designation = :designation"),
-    @NamedQuery(name = "Rubrique.findByOrdre", query = "SELECT r FROM Rubrique r WHERE r.ordre = :ordre")})
+@NamedQueries({ @NamedQuery(name = "Rubrique.findAll", query = "SELECT r FROM Rubrique r"),
+		@NamedQuery(name = "Rubrique.findByIdRubrique", query = "SELECT r FROM Rubrique r WHERE r.idRubrique = :idRubrique"),
+		@NamedQuery(name = "Rubrique.findByType", query = "SELECT r FROM Rubrique r WHERE r.type = :type"),
+		@NamedQuery(name = "Rubrique.findByDesignation", query = "SELECT r FROM Rubrique r WHERE r.designation = :designation"),
+		@NamedQuery(name = "Rubrique.findByOrdre", query = "SELECT r FROM Rubrique r WHERE r.ordre = :ordre"),
+		@NamedQuery(name = "Rubrique.getMaxIdRubrique", query = "SELECT MAX(idRubrique) FROM Rubrique") })
 public class Rubrique implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID_RUBRIQUE")
-    private Long idRubrique;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "TYPE")
-    private String type;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 32)
-    @Column(name = "DESIGNATION")
-    private String designation;
-    @Column(name = "ORDRE")
-    private BigInteger ordre;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rubrique")
-    private Collection<RubriqueQuestion> rubriqueQuestionCollection;
-    @JsonIgnore
-    @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
-    @ManyToOne
-    private Enseignant noEnseignant;
-    @JsonIgnore
-    @OneToMany(mappedBy = "idRubrique")
-    private Collection<RubriqueEvaluation> rubriqueEvaluationCollection;
+	private static final long serialVersionUID = 1L;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 32)
+	@Column(name = "DESIGNATION")
+	private String designation;
+	@Id
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "ID_RUBRIQUE")
+	private Long idRubrique;
+	@JsonIgnore
+	@JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
+	@ManyToOne
+	private Enseignant noEnseignant;
+	@Column(name = "ORDRE")
+	private BigInteger ordre;
+	@JsonIgnore
+	@OneToMany(mappedBy = "idRubrique")
+	private Collection<RubriqueEvaluation> rubriqueEvaluationCollection;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rubrique")
+	private Collection<RubriqueQuestion> rubriqueQuestionCollection;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 10)
+	@Column(name = "TYPE")
+	private String type;
 
-    public Rubrique() {
-    }
+	public Rubrique() {
+	}
 
-    public Rubrique(Long idRubrique) {
-        this.idRubrique = idRubrique;
-    }
+	public Rubrique(Long idRubrique) {
+		this.idRubrique = idRubrique;
+	}
 
-    public Rubrique(Long idRubrique, String type, String designation) {
-        this.idRubrique = idRubrique;
-        this.type = type;
-        this.designation = designation;
-    }
+	public Rubrique(Long idRubrique, String type, String designation) {
+		this.idRubrique = idRubrique;
+		this.type = type;
+		this.designation = designation;
+	}
 
-    public Long getIdRubrique() {
-        return idRubrique;
-    }
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof Rubrique)) {
+			return false;
+		}
+		Rubrique other = (Rubrique) object;
+		if ((this.idRubrique == null && other.idRubrique != null) || (this.idRubrique != null && !this.idRubrique.equals(other.idRubrique))) {
+			return false;
+		}
+		return true;
+	}
 
-    public void setIdRubrique(Long idRubrique) {
-        this.idRubrique = idRubrique;
-    }
+	public String getDesignation() {
+		return designation;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public Long getIdRubrique() {
+		return idRubrique;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public Enseignant getNoEnseignant() {
+		return noEnseignant;
+	}
 
-    public String getDesignation() {
-        return designation;
-    }
+	public BigInteger getOrdre() {
+		return ordre;
+	}
 
-    public void setDesignation(String designation) {
-        this.designation = designation;
-    }
+	@XmlTransient
+	public Collection<RubriqueEvaluation> getRubriqueEvaluationCollection() {
+		return rubriqueEvaluationCollection;
+	}
 
-    public BigInteger getOrdre() {
-        return ordre;
-    }
+	@XmlTransient
+	public Collection<RubriqueQuestion> getRubriqueQuestionCollection() {
+		return rubriqueQuestionCollection;
+	}
 
-    public void setOrdre(BigInteger ordre) {
-        this.ordre = ordre;
-    }
+	public String getType() {
+		return type;
+	}
 
-    @XmlTransient
-    public Collection<RubriqueQuestion> getRubriqueQuestionCollection() {
-        return rubriqueQuestionCollection;
-    }
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (idRubrique != null ? idRubrique.hashCode() : 0);
+		return hash;
+	}
 
-    public void setRubriqueQuestionCollection(Collection<RubriqueQuestion> rubriqueQuestionCollection) {
-        this.rubriqueQuestionCollection = rubriqueQuestionCollection;
-    }
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
 
-    public Enseignant getNoEnseignant() {
-        return noEnseignant;
-    }
+	public void setIdRubrique(Long idRubrique) {
+		this.idRubrique = idRubrique;
+	}
 
-    public void setNoEnseignant(Enseignant noEnseignant) {
-        this.noEnseignant = noEnseignant;
-    }
+	public void setNoEnseignant(Enseignant noEnseignant) {
+		this.noEnseignant = noEnseignant;
+	}
 
-    @XmlTransient
-    public Collection<RubriqueEvaluation> getRubriqueEvaluationCollection() {
-        return rubriqueEvaluationCollection;
-    }
+	public void setOrdre(BigInteger ordre) {
+		this.ordre = ordre;
+	}
 
-    public void setRubriqueEvaluationCollection(Collection<RubriqueEvaluation> rubriqueEvaluationCollection) {
-        this.rubriqueEvaluationCollection = rubriqueEvaluationCollection;
-    }
+	public void setRubriqueEvaluationCollection(Collection<RubriqueEvaluation> rubriqueEvaluationCollection) {
+		this.rubriqueEvaluationCollection = rubriqueEvaluationCollection;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idRubrique != null ? idRubrique.hashCode() : 0);
-        return hash;
-    }
+	public void setRubriqueQuestionCollection(Collection<RubriqueQuestion> rubriqueQuestionCollection) {
+		this.rubriqueQuestionCollection = rubriqueQuestionCollection;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Rubrique)) {
-            return false;
-        }
-        Rubrique other = (Rubrique) object;
-        if ((this.idRubrique == null && other.idRubrique != null) || (this.idRubrique != null && !this.idRubrique.equals(other.idRubrique))) {
-            return false;
-        }
-        return true;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    @Override
-    public String toString() {
-        return "com.example.beans.Rubrique[ idRubrique=" + idRubrique + " ]";
-    }
-    
+	@Override
+	public String toString() {
+		return "com.example.beans.Rubrique[ idRubrique=" + idRubrique + " ]";
+	}
+
 }
