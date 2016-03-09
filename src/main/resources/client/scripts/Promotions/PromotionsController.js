@@ -250,6 +250,9 @@
           	  console.log("impossible de recuperer les details de la promotion choisie");
             });
             
+            $scope.etudiantDetails= function(){
+            	
+            }
       }
 
       $scope.edition = function(){
@@ -321,8 +324,8 @@
     	  console.log("ens: ", $scope.enseignantSelected);
       }
       
-      $scope.changeAnneeUniv = function(){
-    	  
+      $scope.etudiantDetails = function(id){
+    	  $location.path("/admin/etudiant/"+id);
       }
       
     }]
