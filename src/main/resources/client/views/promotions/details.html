@@ -65,7 +65,7 @@
 						<div class="col-sm-10">
 							<input  type="text" class="form-control" id="anneeUniversitaire" name="anneeUniversitaire"
 								ng-model="promotion.promotionPK.anneeUniversitaire" ng-readonly="!ajout" ng-pattern="/[1,2]0[0-9][0-9]-[1,2]0[0-9][0-9]/" 
-								placeholder="yyyy-yyyy">
+								placeholder="yyyy-yyyy" ng-keyup="changeAnneeUniv()">
 							<span style="color:red" ng-show="promotionForm.anneeUniversitaire.$dirty && promotionForm.anneeUniversitaire.$invalid">
 							<span ng-show="promotionForm.anneeUniversitaire.$error.required">Champ obligatoire / Type invalide</span>
 						</div>

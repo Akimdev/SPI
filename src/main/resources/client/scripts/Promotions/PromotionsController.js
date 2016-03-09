@@ -274,6 +274,9 @@
     				  $scope.responsable = data;
     				  swal("Félicitation!", "La nouvelle promotion est ajoutée!", "success");
     			  });
+    			  promiseEnseignant.error(function(){
+      				  swal("Erreur !", "La nouvelle promotion ne peut pas être ajoutée !", "error");
+    			  })
     		  });
     		  $location.path("/admin/promotions");
     	  }
@@ -287,7 +290,10 @@
     			  var promiseEnseignant = promotionsFactory.getEnseignantResponsable($scope.promotion.promotionPK);
     			  promiseEnseignant.success(function(data){
     				  $scope.responsable = data;
-        			  swal("Félicitation!", "La promotion est modifiée !", "success");    	        			
+    				  swal("Félicitation!", "La promotion est modifiée !", "success");    	        			
+    			  });
+    			  promiseEnseignant.error(function(data){
+    				  swal("Erreur !", "La promotion ne peut pas être modifiée !", "error");    	        			  
     			  });
     		  });
     		  $scope.edit = false;
@@ -314,6 +320,11 @@
       $scope.test= function(){
     	  console.log("ens: ", $scope.enseignantSelected);
       }
+      
+      $scope.changeAnneeUniv = function(){
+    	  
+      }
+      
     }]
   );
 }).call(this);
