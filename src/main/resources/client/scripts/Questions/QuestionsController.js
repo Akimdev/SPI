@@ -37,6 +37,9 @@
       },
       getQualificatif: function(idQuestion){
     	  return $http.get('http://localhost:8090/getQualificatif/' + idQuestion);
+      },
+      getMaxIdQuestion: function(){
+    	  return $http.get('http://localhost:8090/getMaxQuestion');
       }
     };
   });

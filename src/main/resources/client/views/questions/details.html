@@ -38,7 +38,7 @@
 						<label for="" class="col-sm-2">idQuestion<span id="required-field">*</span></label>
 						<div class="col-sm-10">
 							<input type="number" class="form-control" name="idQuestion" min="1"
-								ng-model="question.idQuestion" ng-disabled="isVisible" required>
+								ng-model="question.idQuestion" ng-disabled="true"  ng-init="question.idQuestion=initIdQuestion()" required>
 								<span style="color:red" ng-show="questionForm.idQuestion.$dirty && questionForm.idQuestion.$invalid">
 								<span ng-show="questionForm.idQuestion.$error.required">IdQuestion obligatoire ou type invalide.</span>
 						</div>
@@ -54,7 +54,7 @@
 					<div class="form-group">
 						<label for="" class="col-sm-2">Type<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="type" ng-model="question.type" required>
+							<input type="text" class="form-control" name="type" ng-model="question.type" ng-init="question.type='QUS'" ng-disabled="true" required>
 							<span style="color:red" ng-show="questionForm.type.$dirty && questionForm.type.$invalid">
 							<span ng-show="questionForm.type.$error.required">Champs obligatoire ou type invalide.</span>
 						</div>
