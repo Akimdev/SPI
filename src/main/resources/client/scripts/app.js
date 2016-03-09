@@ -1,5 +1,11 @@
 (function() {
 	'use strict';
+	
+	var pageDefaut = {
+			"ENS" : '/evalution',
+			// TODO continuer
+	}
+
 	var app = angular.module(
 			'app',
 			[ 'ngRoute', 'ngAnimate', 'ui.bootstrap', 'easypiechart',
@@ -16,41 +22,71 @@
 				return $routeProvider.when('/', {
 					redirectTo : '/dashboard'
 				}).when('/admin/enseignants', {
-					templateUrl : 'views/enseignants/list.html'
+					templateUrl : 'views/enseignants/list.html',
+					 requiresAuthentication: true,
+				     permissions: ["ADM"]
 				}).when('/admin/enseignant/:id', {
-					templateUrl : 'views/enseignants/details.html'
+					templateUrl : 'views/enseignants/details.html',
+					requiresAuthentication: true,
+				     permissions: ["ADM"]
 				}).when('/admin/formations', {
-					templateUrl : 'views/formations/list.html'
+					templateUrl : 'views/formations/list.html',
+					rolesAutorises : ["ADM"]
 				}).when('/admin/formation/:id', {
-					templateUrl : 'views/formations/details.html'
+					templateUrl : 'views/formations/details.html',
+					rolesAutorises : ["ADM"]
 				}).when('/admin/ue', {
 					templateUrl : 'views/ue/list.html'
 				}).when('/admin/ue/:id', {
 					templateUrl : 'views/ue/details.html'
 				}).when('/admin/promotions', {
-					templateUrl : 'views/promotions/list.html'
+					templateUrl : 'views/promotions/list.html',
+					requiresAuthentication: true,
+				    permissions: ["ADM"]
 				}).when('/admin/promotion/:ann/:form', {
-					templateUrl : 'views/promotions/details.html'
+					templateUrl : 'views/promotions/details.html',
+					requiresAuthentication: true,
+					permissions: ["ADM"]
 				}).when('/admin/etudiants', {
-					templateUrl : 'views/etudiants/list.html'
+					templateUrl : 'views/etudiants/list.html',
+					requiresAuthentication: true,
+				     permissions: ["ADM"]
 				}).when('/admin/etudiant/:id', {
-					templateUrl : 'views/etudiants/details.html'
+					templateUrl : 'views/etudiants/details.html',
+					requiresAuthentication: true,
+				     permissions: ["ADM"]
 				}).when('/admin/qualificatifs', {
-					templateUrl : 'views/qualificatifs/list.html'
+					templateUrl : 'views/qualificatifs/list.html',
+					requiresAuthentication: true,
+				     permissions: ["ENS"]
 				}).when('/admin/qualificatif/:id', {
-					templateUrl : 'views/qualificatifs/details.html'
+					templateUrl : 'views/qualificatifs/details.html',
+					requiresAuthentication: true,
+				     permissions: ["ENS"]
 				}).when('/admin/questions', {
-					templateUrl : 'views/questions/list.html'
+					templateUrl : 'views/questions/list.html',
+					requiresAuthentication: true,
+				     permissions: ["ENS"]
 				}).when('/admin/question/:id', {
-					templateUrl : 'views/questions/details.html'
+					templateUrl : 'views/questions/details.html',
+					requiresAuthentication: true,
+				     permissions: ["ENS"]
 				}).when('/admin/evaluations', {
-					templateUrl : 'views/evaluations/list.html'
+					templateUrl : 'views/evaluations/list.html',
+					requiresAuthentication: true,
+				     permissions: ["ENS"]
 				}).when('/admin/evaluation/:id', {
-					templateUrl : 'views/evaluations/details.html'
+					templateUrl : 'views/evaluations/details.html',
+					requiresAuthentication: true,
+				     permissions: ["ENS"]
 				}).when('/admin/rubriques', {
-					templateUrl : 'views/rubriques/list.html'
+					templateUrl : 'views/rubriques/list.html',
+					requiresAuthentication: true,
+				     permissions: ["ENS"]
 				}).when('/admin/rubrique/:id', {
-					templateUrl : 'views/rubriques/detail.html'
+					templateUrl : 'views/rubriques/detail.html',
+					requiresAuthentication: true,
+				     permissions: ["ENS"]
 				}).when('/dashboard', {
 					templateUrl : 'views/dashboard.html'
 				}).when('/ui/typography', {
@@ -132,7 +168,9 @@
 					templateUrl : 'views/pages/contact.html'
 				}).when('/tasks', {
 					templateUrl : 'views/tasks/tasks.html'
-				});/*
+				});
+				
+				/*
 					 * .otherwise({ redirectTo: '/404' });
 					 */
 				$urlRouterProvider.otherwise(function($injector, $location) {
@@ -151,20 +189,20 @@
 
 				});
 			} ]).run(function($rootScope, $route, $location, AuthService) {
+				
+				
 		$rootScope.$on("$routeChangeStart", function(e, to) {
 			if (to.notLoggedNeeded) {
 				return;
 			}
 			AuthService.getUser().success(function(data) {
-				if (data) {
-					e.preventDefault();
-				} else {
+				if (!data) {
 					$location.path("/pages/signin");
 				}
+				$rootScope.user = data.roles[0];
 			}).error(function(data) {
 				$location.path("/pages/signin");
 			});
 		});
 	});
-
 }).call(this);

@@ -63,7 +63,7 @@ angular.module('app.auth', [])
 								//Pour enseignant
 								if(role[0] === "ENS"){
 									console.log("Enseignant connecté !");
-									//$location.path('/');
+										$location.path('/');
 								}
 								//Pour administrateur
 								else if(role[0] === "ADM"){
