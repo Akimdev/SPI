@@ -142,8 +142,8 @@
 
   app.controller('QualificatifDetailsController', 
     ['$scope', '$routeParams','$http', '$location','$filter', 'qualificatifsFactory', 'toaster',
-    function($scope, $routeParams, $http, $location,$filter, qualificatifsFactory , toaster){ 
-      $scope.edit= false;    
+    function($scope, $routeParams , $http, $location,$filter, qualificatifsFactory , toaster){ 
+      
       if($routeParams.id == "nouveau"){
 			$scope.qualificatif= { };
 			var promisesFactory = qualificatifsFactory.getMaxIdQualificatif();
@@ -213,4 +213,4 @@
 
     }]
   );
-})();
+}).call(this);

@@ -80,8 +80,16 @@
     ['$scope', '$filter','$location', 'promotionsFactory', 'toaster',
     function($scope, $filter, $location, promotionsFactory, toaster){
     	var init;
-    	promotionsFactory.all()
-		.success(function(data) {
+    	/**$scope.refresh = function (){
+   		 var promiseQuestion = questionsFactory.all();          
+   	      promiseQuestion.success(function(data) {
+   	    	  console.log(data);
+   	          $scope.questions = data;
+   	      });
+   	}*/
+    	$scope.refresh = function(){
+    	var promisePromo = promotionsFactory.all();
+		promisePromo.success(function(data) {
 		    $scope.promotions = data;
 		      $scope.searchKeywords = '';
 		      $scope.filteredPromotions = [];
@@ -132,7 +140,7 @@
 			 $scope.error = 'unable to get the poneys';
 		  }
 		);
-      
+    	}
       // Crée la page permettant d'ajouter une promotion
       $scope.ajoutPromotion = function(){
           $location.path('/admin/promotion/nouveau/nouveau');
@@ -170,7 +178,7 @@
 				  }
 	  	 });
       }
-      
+      $scope.refresh();
     }]
   );
 
@@ -268,6 +276,7 @@
     				  swal("Félicitation!", "La nouvelle promotion est ajoutée!", "success");
     			  });
     		  });
+    		  $location.path("/admin/promotions");
     	  }
     	  else{ // modification
     		  if($scope.promotion.dateRentree) {

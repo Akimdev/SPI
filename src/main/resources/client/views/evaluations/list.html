@@ -5,7 +5,7 @@
 <div class="page page-table" data-ng-controller="EvaluationsController">
     <section class="panel panel-default table-dynamic">
         <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Listes des évaluations</strong>
-         <button class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 pull-right" ng-click="ajoutEvaluation()" >Nouvelle &egrave;valuation<i class="fa fa-user-plus pull-right"></i></button>
+         <button class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 pull-right" ng-click="ajoutEvaluation()" >Nouvelle &egrave;valuation<i class="fa fa-plus-circle pull-right"></i></button>
         </div>
 		
           <div class="table-filters">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-sm-3 col-xs-6 filter-result-info">
                     <span>
-                        Affiche {{filteredEnseignant.length}}/{{enseignants.length}}
+                        Affiche {{filteredEvaluation.length}}/{{evaluations.length}}
                     </span>              
                 </div>
             </div>
@@ -49,7 +49,7 @@
                               data-ng-class="{active: row == '-anneeUniversitaire'}"></span>
                     </div></th>
                     <th><div class="th">
-                        Cdoe UE
+                        Code UE
                         <span class="glyphicon glyphicon-chevron-up"
                               data-ng-click=" order('codeUE') "
                               data-ng-class="{active: row == 'codeUE'}"></span>
@@ -78,15 +78,15 @@
                     <th></th>                
                 </tr>
             </thead>
-            <tbody><!-- currentPageEnseignant / enseignants -->
-                <tr data-ng-repeat="e in currentPageEnseignant" class="enseignant">
-                    <td ng-click="edit(e.noEnseignant)">{{e.nom}}</td>
-                    <td ng-click="edit(e.noEnseignant)">{{e.prenom}}</td>
-                    <td ng-click="edit(e.noEnseignant)">{{e.emailUbo}}</td>
-                    <td ng-click="edit(e.noEnseignant)">{{e.prenom}}</td>
-                    <td ng-click="edit(e.noEnseignant)">{{e.emailUbo}}</td>
-                    <td ng-click="edit(q)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td>
-                    <td ng-click="supprime(q)" class="icon-list"><span class="remove fa fa-trash" ></span></td>
+            <tbody>
+                <tr data-ng-repeat="e in evaluations" class="evaluation">
+                    <td ng-click="edit(e.codeFormation)">{{e.promotion.promotionPK.codeFormation}}</td>
+                    <td ng-click="edit(e.idEvaluation)">{{e.promotion.promotionPK.anneeUniversitaire}}</td>
+                    <td ng-click="edit(e.idEvaluation)">{{e.uniteEnseignement.uniteEnseignementPK.codeUe}}</td>
+                    <td ng-click="edit(e.idEvaluation)">{{e.etat}}</td>
+                    <td ng-click="edit(e.idEvaluation)">{{e.periode}}</td>
+                    <td ng-click="edit(e)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td>
+                    <td ng-click="supprime(e)" class="icon-list"><span class="remove fa fa-trash" ></span></td>
                 </tr>
             </tbody>
         </table>
@@ -106,7 +106,7 @@
                 <div class="col-md-6 text-right pagination-container">
                     <pagination class="pagination-sm"
                                 ng-model="currentPage"
-                                total-items="filteredEnseignant.length"
+                                total-items="filteredEvaluation.length"
                                 max-size="4"
                                 ng-change="select(currentPage)"
                                 items-per-page="numPerPage"
