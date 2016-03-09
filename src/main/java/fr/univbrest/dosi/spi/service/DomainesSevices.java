@@ -24,7 +24,8 @@ public class DomainesSevices {
 	 * @author LAKRAA cette méthode permet de recuperer la liste des valeur du
 	 *         domaine : DIPLOME
 	 */
-	public final List<String> getDomainDipolme(final String rvDomain) {
+
+	public final List<String> getDomainDiplome(final String rvDomain) {
 		return domainesRepository.findByRvDomain(rvDomain);
 	}
 	

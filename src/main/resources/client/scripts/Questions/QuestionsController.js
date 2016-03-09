@@ -6,6 +6,14 @@
 
   var app = angular.module('app.questions', []);
 
+  Array.prototype.removeValue = function(name, value){
+	   var array = $.map(this, function(v,i){
+	      return v[name] === value ? null : v;
+	   });
+	   this.length = 0; //clear original array
+	   this.push.apply(this, array); //push all elements except the one we want to delete
+	}
+  
   app.factory('questionsFactory', function($http, $window){
             
     return {
@@ -35,26 +43,71 @@
   
   
   app.controller('QuestionsController', 
-    ['$scope', '$location','$http','$filter', 'questionsFactory',
-    function($scope, $location,$http,$filter, questionsFactory){
-      // la liste globale des questions
-    	$scope.refresh = function (){
-    		 var promiseQuestion = questionsFactory.all();          
-    	      promiseQuestion.success(function(data) {
-    	    	  console.log(data);
-    	          $scope.questions = data;
-    	      });
-    	}
+    ['$scope', '$filter','$location', 'questionsFactory',
+    function($scope, $filter,$location, questionsFactory){
+    	var init;
+    	var promise = questionsFactory.all();
+    	promise.success(function(data) {
+		    $scope.questions = data;
+		      $scope.searchKeywords = '';
+		      $scope.filteredQuestion = [];
+		      $scope.row = '';
+		      $scope.select = function(page) {
+		        var end, start;
+		        start = (page - 1) * $scope.numPerPage;
+		        end = start + $scope.numPerPage;
+		        return $scope.currentPageQuestion = $scope.filteredQuestion.slice(start, end);
+		      };
+		      $scope.onFilterChange = function() {
+		        $scope.select(1);
+		        $scope.currentPage = 1;
+		        return $scope.row = '';
+		      };
+		      $scope.onNumPerPageChange = function() {
+		        $scope.select(1);
+		        return $scope.currentPage = 1;
+		      };
+		      $scope.onOrderChange = function() {
+		        $scope.select(1);
+		        return $scope.currentPage = 1;
+		      };
+		      $scope.search = function() {
+		        $scope.filteredQuestion = $filter('filter')($scope.questions, $scope.searchKeywords);
+		        return $scope.onFilterChange();
+		      };
+		      $scope.order = function(rowName) {
+		        if ($scope.row === rowName) {
+		          return;
+		        }
+		        $scope.row = rowName;
+		        $scope.filteredQuestion = $filter('orderBy')($scope.questions, rowName);
+		        return $scope.onOrderChange();
+		      };
+		      $scope.numPerPageOpt = [3, 5, 10, 20];
+		      $scope.numPerPage = $scope.numPerPageOpt[2];
+		      $scope.currentPage = 1;
+		      $scope.currentPageQuestion = [];
+		      init = function() {
+		        $scope.search();
+		        return $scope.select($scope.currentPage);
+		      };
+		      return init();
+		  }
+		)
+		.error(function(data) {
+			 $scope.error = 'unable to get the poneys';
+		  }
+		);
      
-      // Crée la page permettant d'ajouter une question
-      $scope.ajoutQuestion = function(){
-        $location.path('/admin/question/nouveau'); 
-      }
-
-      // affiche les détails d'une question
-      $scope.edit = function(question){
-        $location.path('/admin/question/' + question.idQuestion);
-      }
+  $scope.ajoutQuestion = function(){
+      $location.path('/admin/question/nouveau'); 
+   }
+  
+ 
+  $scope.edit = function (question){
+	  $location.path("/admin/question/"+ question.idQuestion);
+	 
+  }
 
       // supprime une question
       $scope.supprime = function(question){
@@ -83,7 +136,7 @@
 	  	 });
       }
       
-      $scope.refresh();
+      
     }]
   );
 
