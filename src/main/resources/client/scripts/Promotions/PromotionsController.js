@@ -31,7 +31,6 @@
        };
 
     return {
-    
     	// Méthode de renvoi la liste des promotions
       all:list, 
       // renvoi la promotion avec l'anneeUniversitaire et codeFormation demandés

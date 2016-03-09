@@ -42,7 +42,7 @@
     function($scope, $location,$http,$filter, qualificatifsFactory){
 
     	$scope.refresh = function (){
-    	      var promiseFormation = qualificatifsFactory.all();          
+    	      var promiseFormation = qualificatifsFactory.all();
     	      promiseFormation.success(function(data) {
     	          $scope.listQualificatifs = data;
     			      
@@ -92,8 +92,10 @@
     			      var init = null;
     			      init = function() {
     			        $scope.search();
+    			        $scope.order('idQualificatif');
     			        return $scope.select($scope.currentPage);
     			      };
+    			      
     			      return init();
     			  }
     			)
