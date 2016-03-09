@@ -130,13 +130,14 @@ public class PromotionController {
 		Promotion promotion = proEns.getPromotion();
 		/** récupération des objets à partir de leur id envoyer du JSON */
 		Formation formationExistante = formationservice.getFormation(proEns.getPromotion().getPromotionPK().getCodeFormation());
-		Enseignant enseignantExistante = null;
-		if(proEns.getEnseignant() != null)
+		Enseignant enseignantExistante = proEns.getEnseignant();
+		if(enseignantExistante == null) {
 			enseignantExistante = enseignantService.getEnseignant(proEns.getEnseignant().getNoEnseignant());
+			promotion.setNoEnseignant(enseignantExistante);
+		}
 		/**
 		 * construction de l'objet promotion avec formation et enseignant reçu de JSON
 		 */
-		promotion.setNoEnseignant(enseignantExistante);
 		promotion.setFormation(formationExistante);
 		/** ajout de la promotion */
 		promotionService.update(promotion);
