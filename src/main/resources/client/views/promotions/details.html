@@ -76,9 +76,8 @@
 							<select ng-show="ajout" ng-model="formationSelected" name="codeFormation">
 								<option data-ng-repeat="f in formations" value="{{f.codeFormation}}">{{f.codeFormation}}</option>
 							</select>
-							<span style="color:red" ng-show="promotionForm.codeFormation.$dirty && promotionForm.codeFormation.$invalid">
-							<span ng-show="promotionForm.codeFormation.$error.required">Champ obligatoire / Type invalide</span>
-							
+ 							<span style="color:red" ng-show="promotionForm.codeFormation.$dirty && promotionForm.codeFormation.$invalid">
+ 							<span ng-show="promotionForm.codeFormation.$error.required">Champ obligatoire / Type invalide</span></span>
 							<input ng-hide="ajout" type="text" class="form-control" ng-model="promotion.promotionPK.codeFormation" ng-readonly="true">
 						</div>
 					</div>
