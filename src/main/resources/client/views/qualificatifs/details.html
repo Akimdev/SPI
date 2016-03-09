@@ -46,7 +46,7 @@
 						<label for="" class="col-sm-2">Maximal<span id="required-field">*</span></label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" name="maximal"
-								ng-model="qualificatif.maximal" ng-pattern="/^[A-Za-z]+$/"  ng-maxlength="16" required>
+								ng-model="qualificatif.maximal" ng-pattern="/^[A-Za-z' \-]+$/"  ng-maxlength="16" required>
 								<span style="color:red" ng-show="qualificatifForm.maximal.$dirty && qualificatifForm.maximal.$invalid">
 								<span ng-show="qualificatifForm.maximal.$error.required">Champ obligatoire / Type invalide</span></span>
 								
@@ -55,7 +55,7 @@
 					<div class="form-group">
 						<label for="" class="col-sm-2">Minimal<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="minimal" ng-model="qualificatif.minimal" ng-pattern="/^[A-Za-z]+$/" ng-maxlength="16" required>
+							<input type="text" class="form-control" name="minimal" ng-model="qualificatif.minimal" ng-pattern="/^[A-Za-z' \-]+$/" ng-maxlength="16" required>
 								<span style="color:red" ng-show="qualificatifForm.minimal.$dirty && qualificatifForm.minimal.$invalid">
 								<span ng-show="qualificatifForm.minimal.$error.required">Champ obligatoire / Type invalide</span></span>
 						</div>
