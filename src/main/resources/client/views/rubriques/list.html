@@ -5,17 +5,21 @@
 <div class="page page-table" data-ng-controller="RubriquesController">
 
 	<section class="panel panel-default table-dynamic">
-		<div class="panel-heading">
+		<!-- <div class="panel-heading">
 			<strong><span class="glyphicon glyphicon-th"></span>
 				Rubriques</strong> <span class="add fa fa-user-plus pull-right"
-				ng-click="ajoutRubrique()"></span>
+				ng-click="ajoutRubrique()"></span> -->
+
+		<div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Rubriques</strong>
+        	<button class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 pull-right" ng-click="ajoutRubrique()" >Nouvelle rubrique<i class="fa fa-user-plus pull-right"></i></button>
+        </div>
 
           <div class="table-filters">
             <div class="row">
                 <div class="col-sm-4 col-xs-6">
                     <form>
                         <input type="text"
-                               placeholder="search"
+                               placeholder="Rechercher"
                                class="form-control"
                                data-ng-model="searchKeywords"
                                data-ng-keyup="search()">
@@ -28,8 +32,6 @@
                 </div>
             </div>
         </div>
-
-		</div>
 
 		<table class="table table-bordered table-striped table-responsive">
 			<thead>
@@ -51,7 +53,7 @@
 								data-ng-click=" order('-designation') "
 								data-ng-class="{active: row == '-designation'}"></span>
 						</div></th>
-
+					<th></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -60,13 +62,11 @@
 				<tr data-ng-repeat="e in currentPageRubrique" class="rubrique">
 					<td ng-click="edit(e.idRubrique)">{{e.ordre}}</td>
 					<td ng-click="edit(e.idRubrique)">{{e.designation}}</td>
-					<td ng-click="supprime(e.idRubrique)" class="icon-list"><span class="remove fa fa-trash" ></span></td>
-
+					<td ng-click="edit(e.idRubrique)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td>
+                    <td ng-click="supprime(e.idRubrique)" class="icon-list"><span class="remove fa fa-trash"></span></td>
 				</tr>
 			</tbody>
 		</table>
-
-
 		<footer class="table-footer">
 
 			<div class="row">
@@ -86,5 +86,4 @@
 			</div>
 		</footer>
 	</section>
-
 </div>
