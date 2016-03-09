@@ -38,20 +38,24 @@
                                 </span>
                                 <!-- Utilisation de ng-model pour enregistrer la valeur du champ automatiquement (databinding). -->
                                 <input type="password"
+                                	   name="password"
                                        ng-model="login.password"
                                        class="form-control"
                                        placeholder="Mot de passe"
                                        ng-maxlength="32"
                                        required>
-                                <span style="color:red" ng-show="authotificationForm.idQualificatif.$dirty && authotificationForm.idQualificatif.$invalid">
-								<span ng-show="authotificationForm.idQualificatif.$error.required">Champ obligatoire / Contenu trop long</span>
                             </div>
                         </div>
                         <div class="form-group">
                         </div>
                         <div class="form-group">
                         <!-- Utilisation de ng-click pour déclencher l'action de login : appel d'une méthode du controleur défini au début de ce fichier : "AuthenticationController as ac". -->
-                            <button ng-click="ac.submit()" class="btn btn-primary btn-lg btn-block">Connexion</button>
+                            <button ng-click="ac.submit()" class="btn btn-primary btn-lg btn-block"
+                            		ng-disabled="authotificationForm.login.$dirty && authotificationForm.login.$invalid  
+												|| authotificationForm.password.$dirty && authotificationForm.password.$invalid
+												|| authotificationForm.login.$error.required
+												|| authotificationForm.password.$error.required"
+							>Connexion</button>
                         </div>
                     </fieldset>
                 </form>
