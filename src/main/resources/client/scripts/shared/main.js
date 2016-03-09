@@ -47,7 +47,7 @@
 			  return $http.get("http://localhost:8090/nombreUEs");
 		  },
 		  getQuestions:function(){
-			  return $http.get("http://localhost:8090/nombreQuestions");
+			  return $http.get("http://localhost:8090/lengthQuestion");
 		  },
 		  getEnseignants:function(){
 			  return $http.get("http://localhost:8090/nombreEnseignants");
