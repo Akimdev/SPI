@@ -59,28 +59,34 @@
 
 			<!--------------------------- Edition --------------------------->
 			<div ng-show="edit">
-				<form class="form-horizontal">
+				<form class="form-horizontal" name="promotionForm">
 					<div class="form-group">
 						<label for="" class="col-sm-2">Ann&eacute;e universitaire<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input  type="text" class="form-control"
-								ng-model="promotion.promotionPK.anneeUniversitaire" ng-readonly="!ajout">
+							<input  type="text" class="form-control" id="anneeUniversitaire" name="anneeUniversitaire"
+								ng-model="promotion.promotionPK.anneeUniversitaire" ng-readonly="!ajout" ng-pattern="/[1,2]0[0-9][0-9]-[1,2]0[0-9][0-9]/" 
+								placeholder="yyyy-yyyy">
+							<span style="color:red" ng-show="promotionForm.anneeUniversitaire.$dirty && promotionForm.anneeUniversitaire.$invalid">
+							<span ng-show="promotionForm.anneeUniversitaire.$error.required">Champ obligatoire / Type invalide</span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">Code formation<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<select ng-show="ajout" ng-model="formationSelected">
+							<select ng-show="ajout" ng-model="formationSelected" name="codeFormation">
 								<option data-ng-repeat="f in formations" value="{{f.codeFormation}}">{{f.codeFormation}}</option>
 							</select>
-							<input ng-hide="ajout" type="text" class="form-control"
-								ng-model="promotion.promotionPK.codeFormation" ng-readonly="true">
+							<span style="color:red" ng-show="promotionForm.codeFormation.$dirty && promotionForm.codeFormation.$invalid">
+							<span ng-show="promotionForm.codeFormation.$error.required">Champ obligatoire / Type invalide</span></span>
+							<input ng-hide="ajout" type="text" class="form-control" ng-model="promotion.promotionPK.codeFormation" ng-readonly="true">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">Sigle<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" ng-model="promotion.siglePromotion" required>
+							<input type="text" class="form-control" ng-model="promotion.siglePromotion" name="siglePromotion" required>
+							<span style="color:red" ng-show="promotionForm.siglePromotion.$dirty && promotionForm.siglePromotion.$invalid">
+							<span ng-show="promotionForm.siglePromotion.$error.required">Champ obligatoire / Type invalide</span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -101,14 +107,14 @@
 						<label for="" class="col-sm-2">Date de rentr&eacute;e</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control"
-								ng-model="promotion.dateRentree">
+								ng-model="promotion.dateRentree" placeholder="dd/mm/yyyy" >
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">Lieu de rentr&eacute;e</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control"
-								ng-model="promotion.lieuRentree">
+								ng-model="promotion.lieuRentree" maxlength="12">
 						</div>
 					</div>
 					<div class="form-group">
@@ -128,11 +134,15 @@
 					<div class="form-group">
 						<label for="" class="col-sm-2">Nombre max d'&eacute;tudiants<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="number" class="form-control" ng-model="promotion.nbMaxEtudiant" required>
+							<input type="number" class="form-control" ng-model="promotion.nbMaxEtudiant" name="nbMaxEtudiant" required>
+							<span style="color:red" ng-show="promotionForm.nbMaxEtudiant.$dirty && promotionForm.nbMaxEtudiant.$invalid">
+							<span ng-show="promotionForm.nbMaxEtudiant.$error.required">Champ obligatoire / Type invalide</span>
 						</div>
 					</div>
 				</form>
-				<a class="btn btn-success" ng-click="submit()"><span
+				<a class="btn btn-success" ng-click="submit()"
+					ng-disabled="promotionForm.anneeUniversitaire.$dirty && promotionForm.anneeUniversitaire.$invalid || promotionForm.nbMaxEtudiant.$dirty && promotionForm.nbMaxEtudiant.$invalid || 
+								promotionForm.siglePromotion.$dirty && promotionForm.siglePromotion.$invalid || promotionForm.codeFormation.$dirty && promotionForm.codeFormation.$invalid || promotionForm.$invalid"><span
 					class="glyphicon glyphicon-ok"></span> Valider</a>
 				<button class="btn btn-danger pull-right" ng-click="cancel()">Annuler</button>
 			</div>

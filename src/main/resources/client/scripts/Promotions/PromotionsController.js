@@ -31,7 +31,6 @@
        };
 
     return {
-    
     	// Méthode de renvoi la liste des promotions
       all:list, 
       // renvoi la promotion avec l'anneeUniversitaire et codeFormation demandés
@@ -279,7 +278,7 @@
     		  $location.path("/admin/promotions");
     	  }
     	  else{ // modification
-    		  if($scope.promotion.dateRentree != undefined) {
+    		  if($scope.promotion.dateRentree) {
     			  var date = $scope.promotion.dateRentree.split('/');
     		      $scope.promotion.dateRentree = new Date(date[1] + '-' + date[0] + '-' + date[2]);  
     		  }
@@ -291,7 +290,7 @@
         			  swal("Félicitation!", "La promotion est modifiée !", "success");    	        			
     			  });
     		  });
-    		  $scope.edit = false;        
+    		  $scope.edit = false;
     	  }
       }
 
