@@ -81,7 +81,7 @@
     		      $scope.numPerPage = $scope.numPerPageOpt[2];
     		      $scope.currentPage = 1;
     		      $scope.currentPageEvaluation = [];
-    		      init = function() {
+    		      var init = function() {
     		        $scope.search();
     		        return $scope.select($scope.currentPage);
     		      };

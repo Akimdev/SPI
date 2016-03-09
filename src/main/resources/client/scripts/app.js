@@ -200,6 +200,8 @@
 					$location.path("/pages/signin");
 				}
 				$rootScope.user = data.roles[0];
+				$rootScope.userNum = data;
+				console.log("num:",$rootScope.userNum);
 			}).error(function(data) {
 				$location.path("/pages/signin");
 			});
