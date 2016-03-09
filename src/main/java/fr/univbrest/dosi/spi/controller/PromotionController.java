@@ -52,7 +52,7 @@ public class PromotionController {
 		/** récupération des objets à partir de leur id envoyer du JSON */
 		Formation formationExistante = formationservice.getFormation(proEns.getPromotion().getPromotionPK().getCodeFormation());
 		Enseignant enseignantExistante = proEns.getEnseignant();
-		if(enseignantExistante == null) {
+		if(enseignantExistante.getNoEnseignant() != null) {
 			enseignantExistante = enseignantService.getEnseignant(proEns.getEnseignant().getNoEnseignant());
 			promotion.setNoEnseignant(enseignantExistante);
 		}
@@ -131,7 +131,7 @@ public class PromotionController {
 		/** récupération des objets à partir de leur id envoyer du JSON */
 		Formation formationExistante = formationservice.getFormation(proEns.getPromotion().getPromotionPK().getCodeFormation());
 		Enseignant enseignantExistante = proEns.getEnseignant();
-		if(enseignantExistante == null) {
+		if(enseignantExistante.getNoEnseignant() != null) {
 			enseignantExistante = enseignantService.getEnseignant(proEns.getEnseignant().getNoEnseignant());
 			promotion.setNoEnseignant(enseignantExistante);
 		}

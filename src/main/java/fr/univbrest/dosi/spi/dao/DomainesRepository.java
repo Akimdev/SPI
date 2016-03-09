@@ -12,7 +12,7 @@ import fr.univbrest.dosi.spi.bean.CgRefCodes;
 @RepositoryRestResource(collectionResourceRel = "domaines", path = "domaines")
 /**
  * @author LAKRAA
- * 			interface permettant de recuperer la liste des domaines par rvDomain²
+ * 			interface permettant de recuperer la liste des domaines par rvDomain
  */
 public interface DomainesRepository extends PagingAndSortingRepository<CgRefCodes, BigDecimal> {
 
