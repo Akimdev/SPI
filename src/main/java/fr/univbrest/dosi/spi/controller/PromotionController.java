@@ -106,6 +106,21 @@ public class PromotionController {
 		return promotionService.getPromotionALL();
 	}
 
+	/**
+	 * ASSABBAR
+	 * 
+	 * @param promotionPK
+	 *            la methode permet de supprimer une promotion par anneUniversitaire et codeFormation
+	 */
+	@RequestMapping(value = "/deletePromotion", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public void deletePromotionPK(@RequestBody final PromotionPK promotionPK) {
+		promotionService.deletePromotion(promotionPK);
+	}
+
+	/**
+	 * 
+	 * @param proEns
+	 */
 	@RequestMapping(value = "/updatePromotion", method = RequestMethod.POST, headers = "Accept=application/json")
 	public void updatePromotion(@RequestBody ProEns proEns) {
 		/** récupération de la promotion à créer ! */
