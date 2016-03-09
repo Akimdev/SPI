@@ -42,9 +42,57 @@
     	$scope.refresh = function (){
     		 var promiseEvaluation = evaluationsFactory.all();          
     		 promiseEvaluation.success(function(data) {
-    	    	  console.log(data);
-    	          $scope.evaluations = data;
-    	      });
+    			  $scope.evaluations = data;
+    		      $scope.searchKeywords = '';
+    		      $scope.filteredEvaluation = [];
+    		      $scope.row = '';
+    		      $scope.select = function(page) {
+    		        var end, start;
+    		        start = (page - 1) * $scope.numPerPage;
+    		        end = start + $scope.numPerPage;
+    		        return $scope.currentPageEvaluation = $scope.filteredEvaluation.slice(start, end);
+    		      };
+    		      $scope.onFilterChange = function() {
+    		        $scope.select(1);
+    		        $scope.currentPage = 1;
+    		        return $scope.row = '';
+    		      };
+    		      $scope.onNumPerPageChange = function() {
+    		        $scope.select(1);
+    		        return $scope.currentPage = 1;
+    		      };
+    		      $scope.onOrderChange = function() {
+    		        $scope.select(1);
+    		        return $scope.currentPage = 1;
+    		      };
+    		      $scope.search = function() {
+    		        $scope.filteredEvaluation = $filter('filter')($scope.evaluations, $scope.searchKeywords);
+    		        return $scope.onFilterChange();
+    		      };
+    		      $scope.order = function(rowName) {
+    		        if ($scope.row === rowName) {
+    		          return;
+    		        }
+    		        $scope.row = rowName;
+    		        $scope.filteredEvaluation = $filter('orderBy')($scope.evaluations, rowName);
+    		        return $scope.onOrderChange();
+    		      };
+    		      $scope.numPerPageOpt = [3, 5, 10, 20];
+    		      $scope.numPerPage = $scope.numPerPageOpt[2];
+    		      $scope.currentPage = 1;
+    		      $scope.currentPageEvaluation = [];
+    		      init = function() {
+    		        $scope.search();
+    		        return $scope.select($scope.currentPage);
+    		      };
+    		      return init();
+    		  }
+    		)
+        
+    		.error(function(data) {
+    			 $scope.error = 'unable to get the poneys';
+    		  }
+    		);
     	}
      
       // Crée la page permettant d'ajouter une question
