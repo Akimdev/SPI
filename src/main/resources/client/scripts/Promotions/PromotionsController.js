@@ -270,7 +270,7 @@
     		  });
     	  }
     	  else{ // modification
-    		  if($scope.promotion.dateRentree != undefined) {
+    		  if($scope.promotion.dateRentree) {
     			  var date = $scope.promotion.dateRentree.split('/');
     		      $scope.promotion.dateRentree = new Date(date[1] + '-' + date[0] + '-' + date[2]);  
     		  }
