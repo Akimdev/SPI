@@ -51,11 +51,14 @@ public class PromotionController {
 		Promotion promotion = proEns.getPromotion();
 		/** récupération des objets à partir de leur id envoyer du JSON */
 		Formation formationExistante = formationservice.getFormation(proEns.getPromotion().getPromotionPK().getCodeFormation());
-		Enseignant enseignantExistante = enseignantService.getEnseignant(proEns.getEnseignant().getNoEnseignant());
+		Enseignant enseignantExistante = proEns.getEnseignant();
+		if(enseignantExistante == null) {
+			enseignantExistante = enseignantService.getEnseignant(proEns.getEnseignant().getNoEnseignant());
+			promotion.setNoEnseignant(enseignantExistante);
+		}
 		/**
 		 * construction de l'objet promotion avec formation et enseignant reçu de JSON
 		 */
-		promotion.setNoEnseignant(enseignantExistante);
 		promotion.setFormation(formationExistante);
 		/** ajout de la promotion */
 		promotionService.addPromotion(promotion);
@@ -127,7 +130,9 @@ public class PromotionController {
 		Promotion promotion = proEns.getPromotion();
 		/** récupération des objets à partir de leur id envoyer du JSON */
 		Formation formationExistante = formationservice.getFormation(proEns.getPromotion().getPromotionPK().getCodeFormation());
-		Enseignant enseignantExistante = enseignantService.getEnseignant(proEns.getEnseignant().getNoEnseignant());
+		Enseignant enseignantExistante = null;
+		if(proEns.getEnseignant() != null)
+			enseignantExistante = enseignantService.getEnseignant(proEns.getEnseignant().getNoEnseignant());
 		/**
 		 * construction de l'objet promotion avec formation et enseignant reçu de JSON
 		 */
@@ -135,10 +140,5 @@ public class PromotionController {
 		promotion.setFormation(formationExistante);
 		/** ajout de la promotion */
 		promotionService.update(promotion);
-	}
-	
-	@RequestMapping(value="/deletePromotion", method = RequestMethod.POST, headers = "Accept=application/json")
-	public @ResponseBody void deletePromotion(@RequestBody PromotionPK promotionPK){
-		 promotionService.deletePromotion(promotionPK);
 	}
 }

@@ -148,7 +148,7 @@
       
       // affiche les détail d'une promotion
       $scope.edit = function (promotionPK){
-    	  $scope.ajout= true;
+    	  $scope.ajout= false;
     	  $location.path("/admin/promotion/"+ promotionPK.anneeUniversitaire + "/" + promotionPK.codeFormation);
       }
 
@@ -291,7 +291,7 @@
         			  swal("Félicitation!", "La promotion est modifiée !", "success");    	        			
     			  });
     		  });
-    		  $scope.edit = false;        
+    		  $scope.edit = false;
     	  }
       }
 
