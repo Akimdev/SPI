@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,18 +31,23 @@ public class EvaluationController {
 	}
 	
 	@RequestMapping(value="/findEvaluationById-{idEvaluation}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public Evaluation getEvaluation(@PathVariable(value="idEvaluation")Long idEvaluation){
+	public Evaluation getEvaluation(@PathVariable(value="idEvaluation")Integer idEvaluation){
 		return evaServ.getEvaluation(idEvaluation);
 	}
 
-	@RequestMapping(value="/addEvaluation",consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-	public void addEvaluation(@RequestBody final Evaluation e){
+	@RequestMapping(value="/addEvaluation", method = RequestMethod.POST,consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody void addEvaluation(@RequestBody final Evaluation e){
 		evaServ.addEvaluation(e);
 	}
 	
 	@RequestMapping(value="/deleteEvaluation-{idEvaluation}", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public void deleteEvaluation(@PathVariable(value="idEvaluation")Long idEvaluation){
+	public void deleteEvaluation(@PathVariable(value="idEvaluation")Integer idEvaluation){
 		evaServ.deleteEvaluation(idEvaluation);
+	}
+	
+	@RequestMapping(value="/updateEvaluation", method = RequestMethod.POST,consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody void updateEvaluation(@RequestBody Evaluation evaluation){
+		evaServ.updateEvaluation(evaluation);
 	}
 
 }
