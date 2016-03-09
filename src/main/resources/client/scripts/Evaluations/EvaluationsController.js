@@ -40,6 +40,7 @@
     function($scope, $location,$http,$filter, evaluationsFactory){
       // la liste globale des questions
     	$scope.refresh = function (){
+    		var init= null;
     		 var promiseEvaluation = evaluationsFactory.all();          
     		 promiseEvaluation.success(function(data) {
     			  $scope.evaluations = data;
