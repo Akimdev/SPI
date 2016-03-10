@@ -143,7 +143,7 @@
 				  }
 	  	 });    	  
       }
-      
+      $scope.refresh();
       
     }]
   );
@@ -258,7 +258,6 @@
                     showCloseButton: true
                 });
         	});		
-		    
           $scope.edit = false;
         }
 
