@@ -15,6 +15,14 @@ import fr.univbrest.dosi.spi.bean.UniteEnseignementPK;
  */
 @RepositoryRestResource(collectionResourceRel = "uniteEnseignement", path = "uniteEnseignement")
 public interface UniteEnseignementRepository extends PagingAndSortingRepository<UniteEnseignement, UniteEnseignementPK> {
+
+	/**
+	 * @author Kenza ABOUAKIL
+	 * @param codeFormation
+	 * @return
+	 */
+	List<UniteEnseignement> findByCodeFormation(@Param("codeFormation") String codeFormation);
+
 	/**
 	 *
 	 * @param noEnseignant
@@ -22,4 +30,5 @@ public interface UniteEnseignementRepository extends PagingAndSortingRepository<
 	 * @return liste des unite enseignement
 	 */
 	List<UniteEnseignement> findByNoEnseignant(@Param("noEnseignant") Integer noEnseignant);
+
 }

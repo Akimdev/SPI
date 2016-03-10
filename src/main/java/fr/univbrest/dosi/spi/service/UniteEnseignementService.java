@@ -31,30 +31,41 @@ public class UniteEnseignementService {
 		return uniteEnseignementRepository.exists(uniteEnseignementPK);
 	}
 
+	/**
+	 * @author Kenza ABOUAKIL
+	 * @param codeFormation
+	 * @return
+	 */
+	public List<UniteEnseignement> findByCodeFormation(String codeFormation) {
+		return uniteEnseignementRepository.findByCodeFormation(codeFormation);
+	}
+
+	/**
+	 * @author Othman cette méthode renvoie la liste de tous les UEs
+	 * @return une liste des UEs non ordonnées
+	 */
+	public List<UniteEnseignement> getAllUEs() {
+		return (List<UniteEnseignement>) uniteEnseignementRepository.findAll();
+	}
+
 	public final List<UniteEnseignement> getUEByEnseignant(final Integer noEnseignant) {
 
 		return uniteEnseignementRepository.findByNoEnseignant(noEnseignant);
 
 	}
 
+	/**
+	 * cette méthode retourne le nombre d'unité d'enseignements présentes dans la BDD
+	 *
+	 * @return nombre d'UEs
+	 */
+	public int nombreUEs() {
+		List<UniteEnseignement> listeUEs = (List<UniteEnseignement>) uniteEnseignementRepository.findAll();
+		return listeUEs.size();
+	}
+
 	public final UniteEnseignement uniteEnseignement(final UniteEnseignementPK uniteEnseignementPK) {
 		return uniteEnseignementRepository.findOne(uniteEnseignementPK);
 	}
-	/**
-	 * cette méthode retourne le nombre d'unité d'enseignements présentes dans la BDD
-	 * @return nombre d'UEs
-	 */
-	public int nombreUEs(){
-		List<UniteEnseignement> listeUEs= (List<UniteEnseignement>) uniteEnseignementRepository.findAll();
-		return listeUEs.size();
-	}
-	/**
-	 * @author Othman
-	 * cette méthode renvoie la liste de tous les UEs
-	 * @return une liste des UEs non ordonnées 
-	 */
-	public List<UniteEnseignement> getAllUEs(){
-		return (List<UniteEnseignement>) uniteEnseignementRepository.findAll();
-	}
-	
+
 }
