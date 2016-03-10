@@ -23,7 +23,7 @@
 					</form>
 				</div>
 				<div class="col-sm-3 col-xs-6 filter-result-info">
-					<span> Affiche {{filteredPromotions.length}}/{{promotions.length}} </span>
+					<span> Affiche {{currentPagePromotion.length}}/{{promotions.length}} </span>
 				</div>
 			</div>
 		</div>
@@ -66,7 +66,7 @@
 					<td ng-click="edit(p.promotionPK)">{{p.promotionPK.codeFormation}}</td>
 					<td ng-click="edit(p.promotionPK)">{{p.siglePromotion}}</td>
 					<td ng-click="edit(p.promotionPK)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td>
-					<td><span class="remove fa fa-remove" ng-click="supprime(p.promotionPK)"></span></td>
+					<td><span class="remove fa fa-trash" ng-click="supprime(p.promotionPK)"></span></td>
 				</tr>
 			</tbody>
 		</table>

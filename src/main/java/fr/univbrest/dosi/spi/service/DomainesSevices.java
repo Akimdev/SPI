@@ -10,8 +10,7 @@ import fr.univbrest.dosi.spi.bean.CgRefCodes;
 import fr.univbrest.dosi.spi.dao.DomainesRepository;
 
 /**
- * @author LAKRAA Classe permettant de récuperer les valeurs des domaines
- *         dynamiques à partir de la table CG-REF-CODES
+ * @author LAKRAA Classe permettant de récuperer les valeurs des domaines dynamiques à partir de la table CG-REF-CODES
  */
 
 @Service
@@ -19,17 +18,16 @@ public class DomainesSevices {
 	@Autowired
 	DomainesRepository domainesRepository;
 
-	/**
-	 * @author LAKRAA cette méthode permet de recuperer la liste des valeur du
-	 *         domaine : DIPLOME
-	 */
-	
-	public final List<String> getDomainDipolme(final String rvDomain) {
-		return domainesRepository.findByRvDomain(rvDomain);
-	}
-	
 	public final CgRefCodes getDomainById(final BigDecimal idCgrc) {
 		return domainesRepository.findByIdCgrc(idCgrc);
+	}
+
+	/**
+	 * @author LAKRAA cette méthode permet de recuperer la liste des valeur du domaine : DIPLOME
+	 */
+
+	public final List<CgRefCodes> getDomainByRvDomain(final String rvDomain) {
+		return domainesRepository.findByRvDomain(rvDomain);
 	}
 
 }

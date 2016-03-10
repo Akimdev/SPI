@@ -43,4 +43,6 @@ public class ElementConstitutifService {
 	public final ElementConstitutif getElementConstitutif(final ElementConstitutifPK elementConstitutifPK) {
 		return elementConstitutifRepository.findOne(elementConstitutifPK);
 	}
+
 }
+

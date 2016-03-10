@@ -8,7 +8,7 @@ import fr.univbrest.dosi.spi.dao.RubriqueRepository;
 import fr.univbrest.dosi.spi.exception.SPIException;
 
 /**
- * 
+ *
  * @author ASSABBAR
  *
  */
@@ -18,7 +18,7 @@ public class RubriqueService {
 	private RubriqueRepository rubriqueRepository;
 
 	/**
-	 * 
+	 *
 	 * @param rubrique
 	 * @return la rubrique ajoutée
 	 */
@@ -30,15 +30,7 @@ public class RubriqueService {
 	}
 
 	/**
-	 * 
-	 * @return la liste des rubrique
-	 */
-	public final Iterable<Rubrique> listRubrique() {
-		return rubriqueRepository.findAll();
-	}
-
-	/**
-	 * 
+	 *
 	 * @param idRubrique
 	 */
 	public final void deleteRubrique(final long idRubrique) {
@@ -49,6 +41,26 @@ public class RubriqueService {
 		}
 	}
 
+	/**
+	 * @author Kenza ABOUAKIL
+	 * @return le max des IdRubriques
+	 */
+	public Integer getMaxIdRubrique() {
+		return rubriqueRepository.getMaxIdRubrique();
+	}
+
+	public final Rubrique getRubrique(final Long idRubrique) {
+		return rubriqueRepository.findOne(idRubrique);
+	}
+
+	/**
+	 *
+	 * @return la liste des rubrique
+	 */
+	public final Iterable<Rubrique> listRubrique() {
+		return rubriqueRepository.findAll();
+	}
+
 	public final Rubrique updateRubrique(final Rubrique rubrique) {
 		if (rubriqueRepository.exists(rubrique.getIdRubrique())) {
 			return rubriqueRepository.save(rubrique);
@@ -57,9 +69,4 @@ public class RubriqueService {
 		}
 
 	}
-
-	public final Rubrique getRubrique(final Long idRubrique) {
-		return rubriqueRepository.findOne(idRubrique);
-	}
-
 }

@@ -51,11 +51,14 @@ public class PromotionController {
 		Promotion promotion = proEns.getPromotion();
 		/** récupération des objets à partir de leur id envoyer du JSON */
 		Formation formationExistante = formationservice.getFormation(proEns.getPromotion().getPromotionPK().getCodeFormation());
-		Enseignant enseignantExistante = enseignantService.getEnseignant(proEns.getEnseignant().getNoEnseignant());
+		Enseignant enseignantExistante = proEns.getEnseignant();
+		if(enseignantExistante.getNoEnseignant() != null) {
+			enseignantExistante = enseignantService.getEnseignant(proEns.getEnseignant().getNoEnseignant());
+			promotion.setNoEnseignant(enseignantExistante);
+		}
 		/**
 		 * construction de l'objet promotion avec formation et enseignant reçu de JSON
 		 */
-		promotion.setNoEnseignant(enseignantExistante);
 		promotion.setFormation(formationExistante);
 		/** ajout de la promotion */
 		promotionService.addPromotion(promotion);
@@ -106,20 +109,37 @@ public class PromotionController {
 		return promotionService.getPromotionALL();
 	}
 
+	/**
+	 * ASSABBAR
+	 * 
+	 * @param promotionPK
+	 *            la methode permet de supprimer une promotion par anneUniversitaire et codeFormation
+	 */
+	@RequestMapping(value = "/deletePromotion", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public void deletePromotionPK(@RequestBody final PromotionPK promotionPK) {
+		promotionService.deletePromotion(promotionPK);
+	}
+
+	/**
+	 * 
+	 * @param proEns
+	 */
 	@RequestMapping(value = "/updatePromotion", method = RequestMethod.POST, headers = "Accept=application/json")
-	public @ResponseBody String updatePromotion(@RequestBody ProEns proEns) {
+	public void updatePromotion(@RequestBody ProEns proEns) {
 		/** récupération de la promotion à créer ! */
 		Promotion promotion = proEns.getPromotion();
 		/** récupération des objets à partir de leur id envoyer du JSON */
 		Formation formationExistante = formationservice.getFormation(proEns.getPromotion().getPromotionPK().getCodeFormation());
-		Enseignant enseignantExistante = enseignantService.getEnseignant(proEns.getEnseignant().getNoEnseignant());
+		Enseignant enseignantExistante = proEns.getEnseignant();
+		if(enseignantExistante.getNoEnseignant() != null) {
+			enseignantExistante = enseignantService.getEnseignant(proEns.getEnseignant().getNoEnseignant());
+			promotion.setNoEnseignant(enseignantExistante);
+		}
 		/**
 		 * construction de l'objet promotion avec formation et enseignant reçu de JSON
 		 */
-		promotion.setNoEnseignant(enseignantExistante);
 		promotion.setFormation(formationExistante);
 		/** ajout de la promotion */
 		promotionService.update(promotion);
-		return "succés";
 	}
 }

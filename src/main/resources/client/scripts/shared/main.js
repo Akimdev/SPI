@@ -25,7 +25,21 @@
       };
     }
   ]).controller('NavCtrl', [
-    '$scope', 'taskStorage', 'filterFilter', function($scope, taskStorage, filterFilter) {
+    '$scope','$http', 'taskStorage', 'filterFilter', function($scope, $http, taskStorage, filterFilter) {
+    	
+    	/*getUserInfo();
+    	 
+    	   function getUserInfo() {
+    	     $http.get('/user')
+    	       .then(function (response) {
+    	         $scope.user = response.data.roles[0];
+    	         console.log($scope.user);
+    	       })
+    	       .catch(function (response) {
+    	         console.log("getUserInfo error", response);
+    	       })
+    	  }*/
+    	   
       var tasks;
       tasks = $scope.tasks = taskStorage.get();
       $scope.taskRemainingCount = filterFilter(tasks, {
@@ -47,7 +61,7 @@
 			  return $http.get("http://localhost:8090/nombreUEs");
 		  },
 		  getQuestions:function(){
-			  return $http.get("http://localhost:8090/nombreQuestions");
+			  return $http.get("http://localhost:8090/lengthQuestion");
 		  },
 		  getEnseignants:function(){
 			  return $http.get("http://localhost:8090/nombreEnseignants");

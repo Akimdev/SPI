@@ -12,10 +12,10 @@ import fr.univbrest.dosi.spi.bean.Rubrique;
 import fr.univbrest.dosi.spi.service.RubriqueService;
 
 /**
-
  * 
+ *
  * @author ASSABBAR
-
+ * 
  *
  */
 @RestController
@@ -25,18 +25,8 @@ public class RubriqueController {
 	RubriqueService rubriqueService;
 
 	/**
-	 * la recuperation de la liste des rubriques
-	 * 
-	 * @return la liste des rubriques
-	 */
-	@RequestMapping(produces = "application/json", value = "/rubriques")
-	public Iterable<Rubrique> listerRubrique() {
-		return rubriqueService.listRubrique();
-	}
-
-	/**
 	 * l'ajout d'une rubrique
-	 * 
+	 *
 	 * @param rubrique
 	 * @return la rubrique ajoutée
 	 */
@@ -47,7 +37,7 @@ public class RubriqueController {
 
 	/**
 	 * La modification d'une rubrique
-	 * 
+	 *
 	 * @param rubrique
 	 * @return une rubrique
 	 */
@@ -57,18 +47,37 @@ public class RubriqueController {
 	}
 
 	/**
+	 * @author Kenza ABOUAKIL permet de retourner la valeur de MaxIdRubrique pour généré un nouveau ID à la Rubrique
+	 * @return l'IdRubrique maximal pour tous les Rubriques
+	 */
+	@RequestMapping(value = "/getMaxIdRubrique")
+	public Integer getMaxIdRubrique() {
+		return rubriqueService.getMaxIdRubrique();
+	}
+
+	/**
+	 * la recuperation de la liste des rubriques
+	 *
+	 * @return la liste des rubriques
+	 */
+	@RequestMapping(produces = "application/json", value = "/rubriques")
+	public Iterable<Rubrique> listerRubrique() {
+		return rubriqueService.listRubrique();
+	}
+
+	/**
 	 * La suppression d'une rubrique par son ID
-	 * 
+	 *
 	 * @param idRubrique
 	 */
-	@RequestMapping(value = "/deleteRubrique/{idRubrique}", headers = "Accept=application/json", method=RequestMethod.GET)
+	@RequestMapping(value = "/deleteRubrique/{idRubrique}", headers = "Accept=application/json", method = RequestMethod.GET)
 	public final void removeRubrique(@PathVariable("idRubrique") final Long idRubrique) {
 		rubriqueService.deleteRubrique(idRubrique);
 	}
 
 	/**
 	 * La recuperation d'une rubrique par son ID
-	 * 
+	 *
 	 * @param idRubrique
 	 * @return
 	 */
@@ -76,5 +85,4 @@ public class RubriqueController {
 	public final Rubrique rubrique(@PathVariable(value = "idRubrique") final Long idRubrique) {
 		return rubriqueService.getRubrique(idRubrique);
 	}
-
 }

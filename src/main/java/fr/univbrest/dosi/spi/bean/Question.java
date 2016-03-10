@@ -23,9 +23,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -34,147 +33,147 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name = "QUESTION")
 @XmlRootElement
-@NamedQueries({
-	@NamedQuery(name = "Question.findQualificatif", query = "SELECT q.idQualificatif FROM Question q WHERE q.idQuestion = :idQuestion"),
-    @NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q"),
-    @NamedQuery(name = "Question.findByIdQuestion", query = "SELECT q FROM Question q WHERE q.idQuestion = :idQuestion"),
-    @NamedQuery(name = "Question.findByType", query = "SELECT q FROM Question q WHERE q.type = :type"),
-    @NamedQuery(name = "Question.findByIntitul\u00e9", query = "SELECT q FROM Question q WHERE q.intitul\u00e9 = :intitul\u00e9")})
+@NamedQueries({ @NamedQuery(name = "Question.findQualificatif", query = "SELECT q.idQualificatif FROM Question q WHERE q.idQuestion = :idQuestion"),
+	@NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q"),
+	@NamedQuery(name = "Question.findByIdQuestion", query = "SELECT q FROM Question q WHERE q.idQuestion = :idQuestion"),
+	@NamedQuery(name = "Question.findByType", query = "SELECT q FROM Question q WHERE q.type = :type"),
+	@NamedQuery(name = "Question.findByIntitul\u00e9", query = "SELECT q FROM Question q WHERE q.intitul\u00e9 = :intitul\u00e9"),
+	@NamedQuery(name = "Question.getMaxIdQuestion", query = "SELECT MAX(idQuestion) FROM Question") })
 public class Question implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID_QUESTION")
-    private Long idQuestion;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "TYPE")
-    private String type;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 64)
-    @Column(name = "INTITUL\u00c9")
-    private String intitulé;
-    @JsonIgnore
-    @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
-    @ManyToOne
-    private Enseignant noEnseignant;
-    @JsonIgnore
-    //@JsonManagedReference(value="question-Qualificatif")
-    @JoinColumn(name = "ID_QUALIFICATIF", referencedColumnName = "ID_QUALIFICATIF")
-    @ManyToOne(optional = false)
-    private Qualificatif idQualificatif;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
-    private Collection<RubriqueQuestion> rubriqueQuestionCollection;
-    @JsonIgnore
-    @OneToMany(mappedBy = "idQuestion")
-    private Collection<QuestionEvaluation> questionEvaluationCollection;
+	private static final long serialVersionUID = 1L;
+	@JsonIgnore
+	// @JsonManagedReference(value="question-Qualificatif")
+	@JoinColumn(name = "ID_QUALIFICATIF", referencedColumnName = "ID_QUALIFICATIF")
+	@ManyToOne(optional = false)
+	private Qualificatif idQualificatif;
+	@Id
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "ID_QUESTION")
+	private Long idQuestion;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 64)
+	@Column(name = "INTITUL\u00c9")
+	private String intitulé;
+	@JsonIgnore
+	@JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
+	@ManyToOne
+	private Enseignant noEnseignant;
+	@JsonIgnore
+	@OneToMany(mappedBy = "idQuestion")
+	private Collection<QuestionEvaluation> questionEvaluationCollection;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
+	private Collection<RubriqueQuestion> rubriqueQuestionCollection;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 10)
+	@Column(name = "TYPE")
+	private String type;
 
-    public Question() {
-    }
+	public Question() {
+	}
 
-    public Question(Long idQuestion) {
-        this.idQuestion = idQuestion;
-    }
+	public Question(Long idQuestion) {
+		this.idQuestion = idQuestion;
+	}
 
-    public Question(Long idQuestion, String type, String intitulé) {
-        this.idQuestion = idQuestion;
-        this.type = type;
-        this.intitulé = intitulé;
-    }
+	public Question(Long idQuestion, String type, String intitulé) {
+		this.idQuestion = idQuestion;
+		this.type = type;
+		this.intitulé = intitulé;
+	}
 
-    public Long getIdQuestion() {
-        return idQuestion;
-    }
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof Question)) {
+			return false;
+		}
+		Question other = (Question) object;
+		if ((this.idQuestion == null && other.idQuestion != null) || (this.idQuestion != null && !this.idQuestion.equals(other.idQuestion))) {
+			return false;
+		}
+		return true;
+	}
 
-    public void setIdQuestion(Long idQuestion) {
-        this.idQuestion = idQuestion;
-    }
+	public Qualificatif getIdQualificatif() {
+		return idQualificatif;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public Long getIdQuestion() {
+		return idQuestion;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public String getIntitule() {
+		return intitulé;
+	}
 
-    public String getIntitulé() {
-        return intitulé;
-    }
-    
-    public String getIntitule() {
-        return intitulé;
-    }
+	public String getIntitulé() {
+		return intitulé;
+	}
 
-    public void setIntitulé(String intitulé) {
-        this.intitulé = intitulé;
-    }
-    
-    public void setIntitule(String intitule) {
-        this.intitulé = intitule;
-    }
+	public Enseignant getNoEnseignant() {
+		return noEnseignant;
+	}
 
-    public Enseignant getNoEnseignant() {
-        return noEnseignant;
-    }
+	@XmlTransient
+	public Collection<QuestionEvaluation> getQuestionEvaluationCollection() {
+		return questionEvaluationCollection;
+	}
 
-    public void setNoEnseignant(Enseignant noEnseignant) {
-        this.noEnseignant = noEnseignant;
-    }
+	@XmlTransient
+	public Collection<RubriqueQuestion> getRubriqueQuestionCollection() {
+		return rubriqueQuestionCollection;
+	}
 
-    public Qualificatif getIdQualificatif() {
-        return idQualificatif;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setIdQualificatif(Qualificatif idQualificatif) {
-        this.idQualificatif = idQualificatif;
-    }
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (idQuestion != null ? idQuestion.hashCode() : 0);
+		return hash;
+	}
 
-    @XmlTransient
-    public Collection<RubriqueQuestion> getRubriqueQuestionCollection() {
-        return rubriqueQuestionCollection;
-    }
+	public void setIdQualificatif(Qualificatif idQualificatif) {
+		this.idQualificatif = idQualificatif;
+	}
 
-    public void setRubriqueQuestionCollection(Collection<RubriqueQuestion> rubriqueQuestionCollection) {
-        this.rubriqueQuestionCollection = rubriqueQuestionCollection;
-    }
+	public void setIdQuestion(Long idQuestion) {
+		this.idQuestion = idQuestion;
+	}
 
-    @XmlTransient
-    public Collection<QuestionEvaluation> getQuestionEvaluationCollection() {
-        return questionEvaluationCollection;
-    }
+	public void setIntitule(String intitule) {
+		this.intitulé = intitule;
+	}
 
-    public void setQuestionEvaluationCollection(Collection<QuestionEvaluation> questionEvaluationCollection) {
-        this.questionEvaluationCollection = questionEvaluationCollection;
-    }
+	public void setIntitulé(String intitulé) {
+		this.intitulé = intitulé;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idQuestion != null ? idQuestion.hashCode() : 0);
-        return hash;
-    }
+	public void setNoEnseignant(Enseignant noEnseignant) {
+		this.noEnseignant = noEnseignant;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Question)) {
-            return false;
-        }
-        Question other = (Question) object;
-        if ((this.idQuestion == null && other.idQuestion != null) || (this.idQuestion != null && !this.idQuestion.equals(other.idQuestion))) {
-            return false;
-        }
-        return true;
-    }
+	public void setQuestionEvaluationCollection(Collection<QuestionEvaluation> questionEvaluationCollection) {
+		this.questionEvaluationCollection = questionEvaluationCollection;
+	}
 
-    @Override
-    public String toString() {
-        return "com.example.beans.Question[ idQuestion=" + idQuestion + " ]";
-    }
-    
+	public void setRubriqueQuestionCollection(Collection<RubriqueQuestion> rubriqueQuestionCollection) {
+		this.rubriqueQuestionCollection = rubriqueQuestionCollection;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	@Override
+	public String toString() {
+		return "com.example.beans.Question[ idQuestion=" + idQuestion + " ]";
+	}
+
 }

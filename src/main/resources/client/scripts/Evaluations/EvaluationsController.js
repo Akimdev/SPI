@@ -1,246 +1,270 @@
+/*
+ * @author LAKRAA
+ */
 (function() {
   'use strict';
 
   var app = angular.module('app.evaluations', []);
 
- 
-  app.factory('evaluationsFactory', ['$http',function($http){
+  app.factory('evaluationsFactory', function($http, $window){
+            
     return {
-      set: function(enseignant) {
-        var idx = enseignant.noEnseignant;
-        // si modification d'un enseignant existant
-        if(idx){
-          // TODO alimenter l'objet enseignant trouvé
-        	console.log("TODO : update enseignant",idx);
-        	//list.removeValue("no_enseignant",enseignant.no_enseignant);
-        	//return list.push(enseignant);
-        	
-        	var newEnseignant = {
-          		      "noEnseignant" : idx,
-         			  "nom" : enseignant.nom,
-         			  "prenom" : enseignant.prenom,
-         			  "type" : enseignant.type,
-         			  "sexe" : enseignant.sexe,
-         			  "adresse" : enseignant.adresse,
-         			  "codePostal" : enseignant.codePostal,
-         			  "ville" : enseignant.ville,
-         			  "pays" : enseignant.pays,
-         			  "mobile" : enseignant.mobile,
-         			  "telephone" : enseignant.telephone,
-         			  "emailPerso" : enseignant.emailPerso,
-         			  "emailUbo" : enseignant.emailUbo,
-         		  };      	  
-  	        	$http.post('http://localhost:8090/updateEnseignant',newEnseignant);
-        } else { // si ajout d'un nouvel enseignant
-          // TODO ajouter un enseignant à la liste
-        	
-        	  var newEnseignant = {
-        		  "noEnseignant" : "8",
-       			  "nom" : enseignant.nom,
-       			  "prenom" : enseignant.prenom,
-       			  "type" : enseignant.type,
-       			  "sexe" : enseignant.sexe,
-       			  "adresse" : enseignant.adresse,
-       			  "codePostal" : enseignant.codePostal,
-       			  "ville" : enseignant.ville,
-       			  "pays" : enseignant.pays,
-       			  "mobile" : enseignant.mobile,
-       			  "telephone" : enseignant.telephone,
-       			  "emailPerso" : enseignant.emailPerso,
-       			  "emailUbo" : enseignant.emailUbo,
-       		  };      	  
-	        	$http.post('http://localhost:8090/ajouterEnseignant',newEnseignant);
-        	
-        	//return list.push(enseignant);
-        }
+      // renvoi la liste de tous les evaluations
+      all: function() { 
+    	  return $http.get('http://localhost:8090/evaluations');
       },
-      delete: function(noEnseignant) { 
-        // TODO Supprimer 
-    	  console.log("TODO : supprimer enseignant",noEnseignant);
-    	  return  $http.get('http://localhost:8090/deleteEnseignant/'+noEnseignant)
-    	  //list.removeValue("no_enseignant",enseignant.no_enseignant);
-    	  //return list;
+      // renvoi la evaluation avec le code demandé
+      get: function(code) { 
+    	  return $http.get('http://localhost:8090//findEvaluationById-' + code);    
       },
-
-      getPromotion : function(noEnseignant){
-    	  var url = "http://localhost:8090/getpromotionenseignant/"+noEnseignant;
-    	  return $http.get(url);
+      set: function(evaluation) {	
+    	  return $http.post('http://localhost:8090/updateEvaluation', evaluation);
       },
-      
-      getUE : function(noEnseignant){
-	      var url = "http://localhost:8090/getuebyenseignant/"+noEnseignant;
-		  return $http.get(url);
+      add: function(evaluation) {
+    	  return $http.post('http://localhost:8090/addEvaluation', evaluation)
+      },
+      delete: function(idEvaluation) { 
+    	  return $http.get('http://localhost:8090/deleteEvaluation-' + idEvaluation);
+      },
+      getQualificatif: function(idevaluation){
+    	  //return $http.get('http://localhost:8090/getQualificatif/' + idevaluation);
+      },
+      getDomain : function(){
+    	  return $http.get("http://localhost:8090/getDomaine/ETAT-EVALUATION");
+      },
+      findByCodeFormation: function(codeFormation){
+    	  console.log("code: ", codeFormation);
+    	  return $http.get("http://localhost:8090/elementConstitutif/findByCodeFormation/"+codeFormation);
       }
     };
-  }]);
-
-  
-
+  });
+    
   app.controller('EvaluationsController', 
-    ['$scope', '$filter','$location', 'enseignantsFactory',
-    function($scope, $filter, $location, enseignantsFactory){
-    	
-    	/*var init;
-    	enseignantsFactory.all()
-		.success(function(data) {
-		    $scope.enseignants = data;
-		      $scope.searchKeywords = '';
-		      $scope.filteredEnseignant = [];
-		      $scope.row = '';
-		      $scope.select = function(page) {
-		        var end, start;
-		        start = (page - 1) * $scope.numPerPage;
-		        end = start + $scope.numPerPage;
-		        return $scope.currentPageEnseignant = $scope.filteredEnseignant.slice(start, end);
-		      };
-		      $scope.onFilterChange = function() {
-		        $scope.select(1);
-		        $scope.currentPage = 1;
-		        return $scope.row = '';
-		      };
-		      $scope.onNumPerPageChange = function() {
-		        $scope.select(1);
-		        return $scope.currentPage = 1;
-		      };
-		      $scope.onOrderChange = function() {
-		        $scope.select(1);
-		        return $scope.currentPage = 1;
-		      };
-		      $scope.search = function() {
-		        $scope.filteredEnseignant = $filter('filter')($scope.enseignants, $scope.searchKeywords);
-		        return $scope.onFilterChange();
-		      };
-		      $scope.order = function(rowName) {
-		        if ($scope.row === rowName) {
-		          return;
-		        }
-		        $scope.row = rowName;
-		        $scope.filteredEnseignant = $filter('orderBy')($scope.enseignants, rowName);
-		        return $scope.onOrderChange();
-		      };
-		      $scope.numPerPageOpt = [3, 5, 10, 20];
-		      $scope.numPerPage = $scope.numPerPageOpt[2];
-		      $scope.currentPage = 1;
-		      $scope.currentPageEnseignant = [];
-		      init = function() {
-		        $scope.search();
-		        return $scope.select($scope.currentPage);
-		      };
-		      return init();
-		  }
-		)
-		.error(function(data) {
-			 $scope.error = 'unable to get the poneys';
-		  }
-		);*/
-
+    ['$scope', '$location','$http','$filter', 'evaluationsFactory',
+    function($scope, $location,$http,$filter, evaluationsFactory){
+      // la liste globale des evaluations
+    	$scope.refresh = function (){
+    		 var promiseEvaluation = evaluationsFactory.all();          
+    		 promiseEvaluation.success(function(data) {
+    			  $scope.evaluations = data;
+    		      $scope.searchKeywords = '';
+    		      $scope.filteredEvaluation = [];
+    		      $scope.row = '';
+    		      $scope.select = function(page) {
+    		        var end, start;
+    		        start = (page - 1) * $scope.numPerPage;
+    		        end = start + $scope.numPerPage;
+    		        return $scope.currentPageEvaluation = $scope.filteredEvaluation.slice(start, end);
+    		      };
+    		      $scope.onFilterChange = function() {
+    		        $scope.select(1);
+    		        $scope.currentPage = 1;
+    		        return $scope.row = '';
+    		      };
+    		      $scope.onNumPerPageChange = function() {
+    		        $scope.select(1);
+    		        return $scope.currentPage = 1;
+    		      };
+    		      $scope.onOrderChange = function() {
+    		        $scope.select(1);
+    		        return $scope.currentPage = 1;
+    		      };
+    		      $scope.search = function() {
+    		        $scope.filteredEvaluation = $filter('filter')($scope.evaluations, $scope.searchKeywords);
+    		        return $scope.onFilterChange();
+    		      };
+    		      $scope.order = function(rowName) {
+    		        if ($scope.row === rowName) {
+    		          return;
+    		        }
+    		        $scope.row = rowName;
+    		        $scope.filteredEvaluation = $filter('orderBy')($scope.evaluations, rowName);
+    		        return $scope.onOrderChange();
+    		      };
+    		      $scope.numPerPageOpt = [3, 5, 10, 20];
+    		      $scope.numPerPage = $scope.numPerPageOpt[2];
+    		      $scope.currentPage = 1;
+    		      $scope.currentPageEvaluation = [];
+    		      var init = function() {
+    		        $scope.search();
+    		        return $scope.select($scope.currentPage);
+    		      };
+    		      return init();
+    		  }
+    		)
+        
+    		.error(function(data) {
+    			 $scope.error = 'unable to get the poneys';
+    		  }
+    		);
+    	}
+     
+      // Crée la page permettant d'ajouter une evaluation
       $scope.ajoutEvaluation = function(){
-          $location.path('/admin/evaluation/nouveau'); 
-       }
-      
-      // affiche les détail d'un enseignant
-      // TODO Lien vers la page permettant d'éditer un enseignant /admin/enseignant/ + no_enseignant
-      $scope.edit = function (noEnseignant){
-    	  $location.path("/admin/enseignant/"+ noEnseignant);
-    	  //alert(enseignant.no_enseignant);
+        $location.path('/admin/evaluation/nouveau'); 
       }
 
-      // supprime un enseignant
-      $scope.supprime = function(noEnseignant){ 
-    	// TODO Suppression d'un enseignant de la liste
-    	  
-    	  
-    	  var promise= enseignantsFactory.delete(noEnseignant);
-          promise.success(function(data,statut){
-        	  //$scope.enseignant.promotions = data ;
-        	  $scope.currentPageEnseignant.removeValue("noEnseignant",noEnseignant);
-          })
-          .error(function(data,statut){
-        	  console.log("impossible de supprimer l'enseignant choisi");
-          });
-    	  
+      // affiche les détails d'une evaluation
+      $scope.edit = function(evaluation){
+        //$location.path('/admin/evaluation/' + evaluation.idevaluation);
       }
+
+      // supprime une evaluation
+      $scope.supprime = function(evaluation){
+
+    	  swal({   
+			  title: "Voulez-vous vraiment supprimer cette evaluation ?",      
+			  type: "warning",   
+			  showCancelButton: true,   
+			  confirmButtonColor: "#DD6B55",   
+			  confirmButtonText: "Oui, je veux le supprimer!",  
+			  cancelButtonText: "Non, ignorer!",   
+			  closeOnConfirm: false,   closeOnCancel: false },
+			  function(isConfirm){
+				  if (isConfirm) {  
+			    	  var promisessuppression  = evaluationsFactory.delete(evaluation.idEvaluation);
+			    	  promisessuppression.success(function(data, status, headers, config) {
+			  			$scope.refresh();
+						swal("Supprimé!", "la evaluation est supprimée", "success");
+			      	  });
+			    	  promisessuppression.error(function(data, status, headers, config) {
+			    		  swal("Erreur!", "vous pouvez pas supprimer cette evaluation", "error");
+			  		});	
+				  } else {     
+						  swal("Ignorer", "", "error");
+				  }
+	  	 });
+      }
+      
+      $scope.refresh();
     }]
   );
 
   app.controller('EvasDetailsController', 
-    ['$scope', '$routeParams', '$location', 'evaluationsFactory',
-    function($scope, $routeParams, $location, evaluationsFactory){      
+    ['$scope', '$routeParams','$http', '$location','$filter', 'evaluationsFactory', 'qualificatifsFactory', 'promotionsFactory', 'toaster',
+    function($scope, $routeParams, $http, $location,$filter, evaluationsFactory, qualificatifsFactory, promotionsFactory, toaster){      
       $scope.edit= false;    
       
-      // si creation d'un nouvel enseignant
+      // si creation d'une nouvelle evaluation
       if($routeParams.id == "nouveau"){
-        $scope.enseignant= { };
-        $scope.edit= true;    
-      } else { // sinon on edite un enseignant existant
-    	  
-        var promise = enseignantsFactory.get($routeParams.id);
-        promise.success(function(data){
-      	  $scope.enseignant = data ;
-            var promise= enseignantsFactory.getPromotion($routeParams.id);
-            promise.success(function(data,statut){
-          	  $scope.enseignant.promotions = data ;
-            })
-            .error(function(data,statut){
-          	  console.log("impossible de recuperer les details de l'enseignant choisi");
-            });
-            
-            var promise= enseignantsFactory.getUE($routeParams.id);
-            promise.success(function(data,statut){
-          	  $scope.enseignant.ue = data ;
-            })
-            .error(function(data,statut){
-          	  console.log("impossible de recuperer les details de l'enseignant choisi");
-            });
+        $scope.evaluation= { };
+        $scope.edit= true;
+        var promiseDomain = evaluationsFactory.getDomain();
+ 		promiseDomain.success(function(data) { 
+ 			console.log(data);
+ 			$scope.domains = data;
+ 			//$scope.selectedOption = data[0];
+ 		});
+ 		var promiseQualificatifs = qualificatifsFactory.all();
+ 		promiseQualificatifs.success(function(data) {   
+ 			$scope.qualificatifs = data;
+ 			$scope.selectedOption = data[0];
+ 		});
+ 		// Récuperation des formations
+        var promise2= promotionsFactory.getFormations();
+        promise2.success(function(data,statut){
+        	$scope.formations= data;
+        	console.log("\tFormations récupérées: ", data);
         })
-        .error(function(data){
-      	  console.log("impossible de recuperer les details de l'enseignant choisi");
-        });/*
-        var e = enseignantsFactory.get($routeParams.id);
-        //alert(e.nom);
-        // clone de l'objet pour conserver l'objet initial
-        //$scope.enseignant= JSON.parse(JSON.stringify(e));
+        .error(function(data,statut){
+      	  console.log("impossible de recuperer la liste des formations");
+        });
+ 		// Récuperation du domaine
+        var promise2= evaluationsFactory.getDomain();
+        promise2.success(function(data,statut){
+        	$scope.etats= data;
+        	console.log("\tEtats récupérés: ", data);
+        })
+        .error(function(data,statut){
+      	  console.log("impossible de recuperer la liste des etats");
+        });
         
-    	e
-		.success(function(data) {
-		    $scope.enseignants = data;
-		    var promisepromotion = enseignantsFactory.getPromotion(data.noEnseignant);
-		    promisepromotion.success(function(data){
-		    	$scope.enseignant.promotions = data.promotion;
-		    })
-		    .error(function(data){
-		    	$scope.error = 'unable to get the poneys';
-		    })
-		    //$scope.enseignant= JSON.parse(JSON.stringify(data));
-		  }
-		)
-		.error(function(data) {
-			 $scope.error = 'unable to get the poneys';
-		  }
-		);*/
+        
+	 } else { // sinon on edite une evaluation existante
+        var promisesFactory = evaluationsFactory.get($routeParams.id);
+     	promisesFactory.success(function(data) {
+     		$scope.isVisible = true;
+     		$scope.evaluation = data;   console.log("evaluation: ", $scope.evaluation);
+     		var promiseQualificatifs = qualificatifsFactory.all();
+     		promiseQualificatifs.success(function(data) {   
+     			var promiseQualif = evaluationsFactory.getQualificatif($routeParams.id);
+         		promiseQualif.success(function(result){
+     			$scope.qualificatifs = data;
+     			$scope.selectedOption = result;
+         		});
+     		});
+     		
+     	});
+     	
       }
+      $scope.edition = function(){
+    	  var promisessuppression = evaluationsFactory.set($scope.evaluation);    	  
+    	  evaluationsFactory.get($scope.evaluation);
+    	  
+          $scope.edit = true;
+        }
+
+        $scope.submit = function(){console.log("true :",$scope.evaluation);
+        $scope.evaluation.code_formation= $scope.formationSelected;
+        	var promiseajout = evaluationsFactory.add($scope.evaluation);
+        	promiseajout.success(function(data, status, headers, config) {
+        		console.log("true :",$scope.evaluation);
+        		if($routeParams.id === "nouveau") 
+        			swal("Félicitation!", "La nouvelle evaluation est ajoutée!", "success");
+        		else
+        			swal("Félicitation!", "La evaluation est modifiée !", "success");
+        			
+        		$location.path('/admin/evaluations');
+				
+			});
+        	promiseajout.error(function(data, status, headers, config) {
+        		toaster.pop({
+                    type: 'error',
+                    title: 'Insertion ou modification impossible. ID evaluation existe déja !',
+                    positionClass: 'toast-bottom-right',
+                    showCloseButton: true
+                });
+        	});		
+        	
+			// Making the fields empty
+			//				
+			$scope.qualificatifs = {};
+          $scope.edit = false;  
+        }
 
       $scope.edition = function(){
         $scope.edit = true;
       }
-
-      // valide le formulaire d'édition d'un enseignant
-      $scope.submit = function(){    	 
-        enseignantsFactory.set($scope.enseignant);        
-        $scope.edit = false;        
+      $scope.changeFormation= function(code){
+    	//Récuperation des EC
+//          var promise2= evaluationsFactory.findByCodeFormation(code);
+//          promise2.success(function(data,statut){
+//          	$scope.etats= data;
+//          	console.log("\tEtats récupérés: ", data);
+//          })
+//          .error(function(data,statut){
+//        	  console.log("impossible de recuperer la liste des etats");
+//          });
       }
+      // valide le formulaire d'édition d'une evaluation
+      
+      // TODO coder une fonction submit permettant de modifier une evaluation
+		// et rediriger vers /admin/evaluations
 
-      // annule l'édition
+
+   // annule l'édition
       $scope.cancel = function(){
-        // si ajout d'un nouvel enseignant => retour à la liste des enseignants
-        if(!$scope.enseignant.noEnseignant){
-          $location.path('/admin/enseignants');
+        if(!$scope.evaluations.idevaluation){
+          $location.path('/admin/evaluations');
         } else {
-          var e = enseignantsFactory.get($routeParams.id);
-          $scope.enseignant = JSON.parse(JSON.stringify(e));
+        	$location.path('/admin/evaluations');
+          var e = evaluationFactory.get($routeParams.id);
+          $scope.evaluations = JSON.parse(JSON.stringify(e));
           $scope.edit = false;
         }
-      }      
+      } 
+
     }]
   );
 }).call(this);
+

@@ -3,32 +3,30 @@ package fr.univbrest.dosi.spi.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import junit.framework.Assert;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.ObjectWriter;
 import org.junit.Test;
-
-import fr.univbrest.dosi.spi.bean.Authentification;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import fr.univbrest.dosi.spi.bean.User;
 import fr.univbrest.dosi.spi.exception.SPIException;
+import junit.framework.Assert;
+
 
 
 /**
  *
- * @author BAQLOUL Soukaina Test d'integration spécifique au contrôlleur de l'authentification
+ * @author Hakim Ait Errami Test d'integration spécifique au contrôlleur de l'authentification
  */
 public class AuthControllerTest {
 	
 	 @Test
 	 public void Authentifier() throws ClientProtocolException, IOException {
+
 	 List<String> roles = new ArrayList<String>();
 	 roles.add("ADM");
 	 User user = new User("adm","dosi",roles);
@@ -53,5 +51,5 @@ public class AuthControllerTest {
 	 } catch (IOException e) {
 	 throw new SPIException("Error Protocol", e);
 	 }
-	 }
+  }
 }
