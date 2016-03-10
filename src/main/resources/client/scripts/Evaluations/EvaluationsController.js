@@ -30,7 +30,11 @@
     	  //return $http.get('http://localhost:8090/getQualificatif/' + idevaluation);
       },
       getDomain : function(){
-    	  return $http.get("http://localhost:8090/domaines/search/findByRvDomain?rvDomain=ETAT-EVALUATION");
+    	  return $http.get("http://localhost:8090/getDomaine/ETAT-EVALUATION");
+      },
+      findByCodeFormation: function(codeFormation){
+    	  console.log("code: ", codeFormation);
+    	  return $http.get("http://localhost:8090/elementConstitutif/findByCodeFormation/"+codeFormation);
       }
     };
   });
@@ -82,7 +86,7 @@
     		      $scope.numPerPage = $scope.numPerPageOpt[2];
     		      $scope.currentPage = 1;
     		      $scope.currentPageEvaluation = [];
-    		      init = function() {
+    		      var init = function() {
     		        $scope.search();
     		        return $scope.select($scope.currentPage);
     		      };
@@ -138,8 +142,8 @@
   );
 
   app.controller('EvasDetailsController', 
-    ['$scope', '$routeParams','$http', '$location','$filter', 'evaluationsFactory', 'qualificatifsFactory', 'toaster',
-    function($scope, $routeParams, $http, $location,$filter, evaluationsFactory, qualificatifsFactory, toaster){      
+    ['$scope', '$routeParams','$http', '$location','$filter', 'evaluationsFactory', 'qualificatifsFactory', 'promotionsFactory', 'toaster',
+    function($scope, $routeParams, $http, $location,$filter, evaluationsFactory, qualificatifsFactory, promotionsFactory, toaster){      
       $scope.edit= false;    
       
       // si creation d'une nouvelle evaluation
@@ -157,6 +161,26 @@
  			$scope.qualificatifs = data;
  			$scope.selectedOption = data[0];
  		});
+ 		// Récuperation des formations
+        var promise2= promotionsFactory.getFormations();
+        promise2.success(function(data,statut){
+        	$scope.formations= data;
+        	console.log("\tFormations récupérées: ", data);
+        })
+        .error(function(data,statut){
+      	  console.log("impossible de recuperer la liste des formations");
+        });
+ 		// Récuperation du domaine
+        var promise2= evaluationsFactory.getDomain();
+        promise2.success(function(data,statut){
+        	$scope.etats= data;
+        	console.log("\tEtats récupérés: ", data);
+        })
+        .error(function(data,statut){
+      	  console.log("impossible de recuperer la liste des etats");
+        });
+        
+        
 	 } else { // sinon on edite une evaluation existante
         var promisesFactory = evaluationsFactory.get($routeParams.id);
      	promisesFactory.success(function(data) {
@@ -174,7 +198,6 @@
      	});
      	
       }
-      
       $scope.edition = function(){
     	  var promisessuppression = evaluationsFactory.set($scope.evaluation);    	  
     	  evaluationsFactory.get($scope.evaluation);
@@ -182,9 +205,11 @@
           $scope.edit = true;
         }
 
-        $scope.submit = function(){
+        $scope.submit = function(){console.log("true :",$scope.evaluation);
+        $scope.evaluation.code_formation= $scope.formationSelected;
         	var promiseajout = evaluationsFactory.add($scope.evaluation);
         	promiseajout.success(function(data, status, headers, config) {
+        		console.log("true :",$scope.evaluation);
         		if($routeParams.id === "nouveau") 
         			swal("Félicitation!", "La nouvelle evaluation est ajoutée!", "success");
         		else
@@ -211,7 +236,17 @@
       $scope.edition = function(){
         $scope.edit = true;
       }
-
+      $scope.changeFormation= function(code){
+    	//Récuperation des EC
+//          var promise2= evaluationsFactory.findByCodeFormation(code);
+//          promise2.success(function(data,statut){
+//          	$scope.etats= data;
+//          	console.log("\tEtats récupérés: ", data);
+//          })
+//          .error(function(data,statut){
+//        	  console.log("impossible de recuperer la liste des etats");
+//          });
+      }
       // valide le formulaire d'édition d'une evaluation
       
       // TODO coder une fonction submit permettant de modifier une evaluation

@@ -81,7 +81,7 @@
     ['$scope', '$routeParams','$http', '$location','$filter', 'formationsFactory',
     function($scope, $routeParams, $http, $location,$filter, formationsFactory){  
 
-    		  $http.get('http://localhost:8090/domaines/search/findByRvDomain?rvDomain=DIPLOME').
+    		  $http.get('http://localhost:8090/getDomaine/DIPLOME').
     		    success(function(data, status, headers, config) {
     		      $scope.domaines = data._embedded.domaines;
     		      $scope.domaines = {

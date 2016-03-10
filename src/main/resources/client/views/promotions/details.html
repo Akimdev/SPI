@@ -63,7 +63,7 @@
 					<div class="form-group">
 						<label for="" class="col-sm-2">Ann&eacute;e universitaire<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input  type="text" class="form-control" id="anneeUniversitaire" name="anneeUniversitaire"
+							<input  type="text" class="form-control" id="anneeUniversitaire" name="anneeUniversitaire" maxlength="9"
 								ng-model="promotion.promotionPK.anneeUniversitaire" ng-readonly="!ajout" ng-pattern="/[1,2]0[0-9][0-9]-[1,2]0[0-9][0-9]/" 
 								placeholder="yyyy-yyyy" ng-keyup="changeAnneeUniv()">
 							<span style="color:red" ng-show="promotionForm.anneeUniversitaire.$dirty && promotionForm.anneeUniversitaire.$invalid">
@@ -84,7 +84,7 @@
 					<div class="form-group">
 						<label for="" class="col-sm-2">Sigle<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" ng-model="promotion.siglePromotion" name="siglePromotion" required>
+							<input type="text" class="form-control" ng-model="promotion.siglePromotion" name="siglePromotion" maxlength="16" required>
 							<span style="color:red" ng-show="promotionForm.siglePromotion.$dirty && promotionForm.siglePromotion.$invalid">
 							<span ng-show="promotionForm.siglePromotion.$error.required">Champ obligatoire / Type invalide</span>
 						</div>
@@ -120,21 +120,21 @@
 					<div class="form-group">
 						<label for="" class="col-sm-2">Processus de stage</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control"
+							<input type="text" class="form-control" maxlength="5"
 								ng-model="promotion.processusStage">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">Commentaire</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control"
+							<input type="text" class="form-control" maxlength="255"
 								ng-model="promotion.commentaire">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">Nombre max d'&eacute;tudiants<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="number" class="form-control" ng-model="promotion.nbMaxEtudiant" name="nbMaxEtudiant" required>
+							<input type="number" class="form-control" ng-model="promotion.nbMaxEtudiant" name="nbMaxEtudiant" maxlength="3" required>
 							<span style="color:red" ng-show="promotionForm.nbMaxEtudiant.$dirty && promotionForm.nbMaxEtudiant.$invalid">
 							<span ng-show="promotionForm.nbMaxEtudiant.$error.required">Champ obligatoire / Type invalide</span>
 						</div>
