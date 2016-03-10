@@ -32,10 +32,19 @@
       getDomain : function(){
     	  return $http.get("http://localhost:8090/getDomaine/ETAT-EVALUATION");
       },
-      findByCodeFormation: function(codeFormation){
-    	  console.log("code: ", codeFormation);
+      ECfindByCodeFormation: function(codeFormation){
+    	  console.log("elementConstitutif -> code: ", codeFormation);
     	  return $http.get("http://localhost:8090/elementConstitutif/findByCodeFormation/"+codeFormation);
+      },
+      UEfindByCodeFormation: function(codeFormation){
+    	  console.log("UE -> code: ", codeFormation);
+    	  return $http.get("http://localhost:8090/UE/findByCodeFormation/"+codeFormation);
+      },
+      promotionfindByCodeFormation: function(codeFormation){
+    	  console.log("Promotion -> code: ", codeFormation);
+    	  return $http.get("http://localhost:8090/promotion/findByCodeFormation/"+codeFormation);
       }
+      
     };
   });
     
@@ -148,11 +157,12 @@
       
       // si creation d'une nouvelle evaluation
       if($routeParams.id == "nouveau"){
-        $scope.evaluation= { };
+        $scope.evaluation= {};
         $scope.edit= true;
         var promiseDomain = evaluationsFactory.getDomain();
  		promiseDomain.success(function(data) { 
- 			console.log(data);
+ 			console.log("etats: ",data);
+ 			$scope.etats = data;
  			$scope.domains = data;
  			//$scope.selectedOption = data[0];
  		});
@@ -205,8 +215,13 @@
           $scope.edit = true;
         }
 
-        $scope.submit = function(){console.log("true :",$scope.evaluation);
-        $scope.evaluation.code_formation= $scope.formationSelected;
+        $scope.submit = function(){
+	        $scope.evaluation.code_formation= $scope.formationSelected;
+	        $scope.evaluation.code_ec= $scope.ecSelected;
+	        $scope.evaluation.code_ue= $scope.ueSelected;
+	        $scope.evaluation.etat= $scope.etatSelected;
+	        $scope.evaluation.annee= $scope.promotionSelected;
+	        console.log("submit :",$scope.evaluation);
         	var promiseajout = evaluationsFactory.add($scope.evaluation);
         	promiseajout.success(function(data, status, headers, config) {
         		console.log("true :",$scope.evaluation);
@@ -225,27 +240,42 @@
                     positionClass: 'toast-bottom-right',
                     showCloseButton: true
                 });
-        	});		
-        	
-			// Making the fields empty
-			//				
-			$scope.qualificatifs = {};
-          $scope.edit = false;  
+        	});
+			$scope.edit = false;  
         }
 
       $scope.edition = function(){
         $scope.edit = true;
       }
       $scope.changeFormation= function(code){
-    	//Récuperation des EC
-//          var promise2= evaluationsFactory.findByCodeFormation(code);
-//          promise2.success(function(data,statut){
-//          	$scope.etats= data;
-//          	console.log("\tEtats récupérés: ", data);
-//          })
-//          .error(function(data,statut){
-//        	  console.log("impossible de recuperer la liste des etats");
-//          });
+    	  //Récuperation des EC
+          var promise2= evaluationsFactory.ECfindByCodeFormation(code);
+          promise2.success(function(data,statut){
+          	$scope.ECs= data;
+          	console.log("\tECs récupérés: ", data);
+          })
+          .error(function(data,statut){
+        	  console.log("impossible de recuperer la liste des ECs");
+          });
+          //Récuperation des UE
+          var promise1= evaluationsFactory.UEfindByCodeFormation(code);
+          promise1.success(function(data,statut){
+          	$scope.UEs= data;
+          	console.log("\tUEs récupérés: ", data);
+          })
+          .error(function(data,statut){
+        	  console.log("impossible de recuperer la liste des UE");
+          });
+        //Récuperation des Promotions
+          var promise3= evaluationsFactory.promotionfindByCodeFormation(code);
+          promise3.success(function(data,statut){
+          	$scope.promotions= data;
+          	console.log("\tUEs récupérés: ", data);
+          })
+          .error(function(data,statut){
+        	  console.log("impossible de recuperer la liste des UE");
+          });
+          
       }
       // valide le formulaire d'édition d'une evaluation
       

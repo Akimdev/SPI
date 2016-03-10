@@ -19,29 +19,40 @@ public class UniteEnseignementController {
 
 	@Autowired
 	UniteEnseignementService ueServ;
-	
-	@RequestMapping(value="/nombreUEs", headers = "Accept=application/json")
-	public int nombreUEs(){
-		return ueServ.nombreUEs();
-	}
-	
-	@RequestMapping(value="/ajoutUE",  method = RequestMethod.POST,consumes = {MediaType.APPLICATION_JSON_VALUE}, produces =  { MediaType.APPLICATION_JSON_VALUE})
-	public void ajoutUniteEnseignement(@RequestBody final UniteEnseignement uniteEnseignement){
+
+	@RequestMapping(value = "/ajoutUE", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public void ajoutUniteEnseignement(@RequestBody final UniteEnseignement uniteEnseignement) {
 		ueServ.addUnitEnseignement(uniteEnseignement);
 	}
-	
-	@RequestMapping(value="/supprimerUE", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces =  { MediaType.APPLICATION_JSON_VALUE})
-	public void deleteUniteEnseignement(@RequestBody final UniteEnseignementPK uniteEnseignementPK){
+
+	@RequestMapping(value = "/supprimerUE", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public void deleteUniteEnseignement(@RequestBody final UniteEnseignementPK uniteEnseignementPK) {
 		ueServ.deletUnitEnseignement(uniteEnseignementPK);
 	}
-	
-	@RequestMapping(value="/getUEByEnseignant-{noEnseignant}", method = RequestMethod.GET)
-	public final List<UniteEnseignement> getUEByEnseignant(@PathVariable(value="noEnseignant")final Integer noEnseignant) {
-		return ueServ.getUEByEnseignant(noEnseignant);
+
+	/**
+	 * @author Kenza ABOUAKIL
+	 * @param codeFormation
+	 * @return
+	 */
+	@RequestMapping(value = "/UE/findByCodeFormation/{codeFormation}", method = RequestMethod.GET)
+	public final List<UniteEnseignement> findByCodeFormation(@PathVariable(value = "codeFormation") final String codeFormation) {
+		return ueServ.findByCodeFormation(codeFormation);
 	}
-	
-	@RequestMapping(value="/UEs")
-	public List<UniteEnseignement> getAllUEs(){
+
+	@RequestMapping(value = "/UEs")
+	public List<UniteEnseignement> getAllUEs() {
 		return ueServ.getAllUEs();
 	}
+
+	@RequestMapping(value = "/getUEByEnseignant-{noEnseignant}", method = RequestMethod.GET)
+	public final List<UniteEnseignement> getUEByEnseignant(@PathVariable(value = "noEnseignant") final Integer noEnseignant) {
+		return ueServ.getUEByEnseignant(noEnseignant);
+	}
+
+	@RequestMapping(value = "/nombreUEs", headers = "Accept=application/json")
+	public int nombreUEs() {
+		return ueServ.nombreUEs();
+	}
+
 }
