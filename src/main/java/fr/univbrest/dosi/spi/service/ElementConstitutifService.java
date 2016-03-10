@@ -1,5 +1,7 @@
 package fr.univbrest.dosi.spi.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +31,16 @@ public class ElementConstitutifService {
 		return elementConstitutifRepository.exists(elementConstitutifPK);
 	}
 
+	/**
+	 * @author Kenza ABOUAKIL
+	 * @param codeFormation
+	 * @return
+	 */
+	public List<ElementConstitutif> findByCodeFormation(final String codeFormation) {
+		return elementConstitutifRepository.findByCodeFormation(codeFormation);
+	}
+
 	public final ElementConstitutif getElementConstitutif(final ElementConstitutifPK elementConstitutifPK) {
 		return elementConstitutifRepository.findOne(elementConstitutifPK);
 	}
-
 }

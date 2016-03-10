@@ -1,6 +1,8 @@
 package fr.univbrest.dosi.spi.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import junit.framework.Assert;
 
@@ -15,6 +17,7 @@ import org.codehaus.jackson.map.ObjectWriter;
 import org.junit.Test;
 
 import fr.univbrest.dosi.spi.bean.Authentification;
+import fr.univbrest.dosi.spi.bean.User;
 import fr.univbrest.dosi.spi.exception.SPIException;
 
 
@@ -26,15 +29,18 @@ public class AuthControllerTest {
 	
 	 @Test
 	 public void Authentifier() throws ClientProtocolException, IOException {
-	
-	 Authentification authentification = new Authentification();
+	 List<String> roles = new ArrayList<String>();
+	 roles.add("ADM");
+	 User user = new User("adm","dosi",roles);
 	 
 	 // Créaton du client et éxécution d'une requete POST
 	 final HttpClient client = HttpClientBuilder.create().build();
 	 final HttpPost mockRequestPost = new HttpPost("http://localhost:8090/auth");
+	 
 	 final ObjectMapper mapper = new ObjectMapper();
 	 final ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-	 final String jsonInString = ow.writeValueAsString(authentification);
+	 final String jsonInString = ow.writeValueAsString(user);
+	 
 	 mockRequestPost.addHeader("content-type", "application/json");
 	 mockRequestPost.addHeader("Accept", "application/json");
 	 mockRequestPost.setEntity(new StringEntity(jsonInString));

@@ -14,7 +14,7 @@ import fr.univbrest.dosi.spi.bean.Evaluation;
  */
 
 @RepositoryRestResource(collectionResourceRel = "evaluation", path = "evaluation")
-public interface EvaluationRepository extends PagingAndSortingRepository<Evaluation, Long>{
+public interface EvaluationRepository extends PagingAndSortingRepository<Evaluation, Integer>{
 
-   Evaluation findByIdEvaluation(@Param("idEvaluation") Long idEvaluation);
+   Evaluation findByIdEvaluation(@Param("idEvaluation") Integer idEvaluation);
 }

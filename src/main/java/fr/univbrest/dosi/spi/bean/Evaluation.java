@@ -13,6 +13,9 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
@@ -20,14 +23,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
@@ -38,7 +44,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
  */
 
 @Entity
-@Table(name = "EVALUATION")
+@Table(name = "EVALUATION", catalog = "", schema = "DOSI", uniqueConstraints = { @UniqueConstraint(columnNames = { "ANNEE_UNIVERSITAIRE", "NO_ENSEIGNANT", "NO_EVALUATION", "CODE_FORMATION", "CODE_UE" }) })
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Evaluation.findAll", query = "SELECT e FROM Evaluation e"),
@@ -50,219 +56,212 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
     @NamedQuery(name = "Evaluation.findByDebutReponse", query = "SELECT e FROM Evaluation e WHERE e.debutReponse = :debutReponse"),
     @NamedQuery(name = "Evaluation.findByFinReponse", query = "SELECT e FROM Evaluation e WHERE e.finReponse = :finReponse")})
 public class Evaluation implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID_EVALUATION")
-    private Long idEvaluation;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "NO_EVALUATION")
-    private short noEvaluation;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 16)
-    @Column(name = "DESIGNATION")
-    private String designation;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "ETAT")
-    private String etat;
-    @Size(max = 64)
-    @Column(name = "PERIODE")
-    private String periode;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "DEBUT_REPONSE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date debutReponse;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "FIN_REPONSE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date finReponse;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "evaluation")
-    private Collection<Droit> droitCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvaluation")
-    private Collection<ReponseEvaluation> reponseEvaluationCollection;
-    @JoinColumns({
-        @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION", insertable = false, updatable = false),
-        @JoinColumn(name = "CODE_UE", referencedColumnName = "CODE_UE", insertable = false, updatable = false),
-        @JoinColumn(name = "CODE_EC", referencedColumnName = "CODE_EC", insertable = false, updatable = false)})
-    @ManyToOne(optional = false)
-    private ElementConstitutif elementConstitutif;
-    @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
-    @ManyToOne(optional = false)
-    private Enseignant noEnseignant;
-    @JoinColumns({
-        @JoinColumn(name = "ANNEE_UNIVERSITAIRE", referencedColumnName = "ANNEE_UNIVERSITAIRE", insertable = false, updatable = false),
-        @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION", insertable = false, updatable = false)})
-    @ManyToOne(optional = false)
-    private Promotion promotion;
-    @JoinColumns({
-        @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION", insertable = false, updatable = false),
-        @JoinColumn(name = "CODE_UE", referencedColumnName = "CODE_UE", insertable = false, updatable = false)})
-    @ManyToOne(optional = false)
-    private UniteEnseignement uniteEnseignement;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvaluation")
-    private Collection<RubriqueEvaluation> rubriqueEvaluationCollection;
+	private static final long serialVersionUID = 1L;
+	@Column(name = "ANNEE_UNIVERSITAIRE", nullable = false)
+	private String annee;
+	@Column(name = "CODE_EC")
+	private String code_ec;
+	@Column(name = "CODE_FORMATION", nullable = false)
+	private String code_formation;
+	@Column(name = "CODE_UE", nullable = false)
+	private String code_ue;
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "DEBUT_REPONSE", nullable = false)
+	@Temporal(TemporalType.DATE)
+	private Date debutReponse;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 16)
+	@Column(name = "DESIGNATION", nullable = false, length = 16)
+	private String designation;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 3)
+	@Column(name = "ETAT", nullable = false, length = 3)
+	private String etat;
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "FIN_REPONSE", nullable = false)
+	@Temporal(TemporalType.DATE)
+	private Date finReponse;
+	@Id
+	@GeneratedValue(generator = "EVE_SEQ", strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "EVE_SEQ", sequenceName = "EVE_SEQ", allocationSize = 1)
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "ID_EVALUATION", nullable = false)
+	private Integer idEvaluation;
+	@JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT", nullable = false )
+	@ManyToOne
+	private Enseignant noEnseignant;
 
-    public Evaluation() {
-    }
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "NO_EVALUATION", nullable = false)
+	private short noEvaluation;
+	@Size(max = 64)
+	@Column(name = "PERIODE", length = 64)
+	private String periode;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvaluation", fetch = FetchType.LAZY)
+	private Collection<ReponseEvaluation> reponseEvaluationCollection;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvaluation")
+	private Collection<RubriqueEvaluation> rubriqueEvaluationCollection;
 
-    public Evaluation(Long idEvaluation) {
-        this.idEvaluation = idEvaluation;
-    }
+	public Evaluation() {
+	}
 
-    public Evaluation(Long idEvaluation, short noEvaluation, String designation, String etat, Date debutReponse, Date finReponse) {
-        this.idEvaluation = idEvaluation;
-        this.noEvaluation = noEvaluation;
-        this.designation = designation;
-        this.etat = etat;
-        this.debutReponse = debutReponse;
-        this.finReponse = finReponse;
-    }
+	public Evaluation(final Integer idEvaluation) {
+		this.idEvaluation = idEvaluation;
+	}
 
-    public Long getIdEvaluation() {
-        return idEvaluation;
-    }
+	public Evaluation(final Integer idEvaluation, final short noEvaluation, final String designation, final String etat, final Date debutReponse, final Date finReponse) {
+		this.idEvaluation = idEvaluation;
+		this.noEvaluation = noEvaluation;
+		this.designation = designation;
+		this.etat = etat;
+		this.debutReponse = debutReponse;
+		this.finReponse = finReponse;
+	}
 
-    public void setIdEvaluation(Long idEvaluation) {
-        this.idEvaluation = idEvaluation;
-    }
+	@Override
+	public boolean equals(final Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof Evaluation)) {
+			return false;
+		}
+		final Evaluation other = (Evaluation) object;
+		if (this.idEvaluation == null && other.idEvaluation != null || this.idEvaluation != null && !this.idEvaluation.equals(other.idEvaluation)) {
+			return false;
+		}
+		return true;
+	}
 
-    public short getNoEvaluation() {
-        return noEvaluation;
-    }
+	public String getAnnee() {
+		return this.annee;
+	}
 
-    public void setNoEvaluation(short noEvaluation) {
-        this.noEvaluation = noEvaluation;
-    }
+	public String getCode_ec() {
+		return this.code_ec;
+	}
 
-    public String getDesignation() {
-        return designation;
-    }
+	public String getCode_formation() {
+		return this.code_formation;
+	}
 
-    public void setDesignation(String designation) {
-        this.designation = designation;
-    }
+	public String getCode_ue() {
+		return this.code_ue;
+	}
 
-    public String getEtat() {
-        return etat;
-    }
+	public Date getDebutReponse() {
+		return this.debutReponse;
+	}
 
-    public void setEtat(String etat) {
-        this.etat = etat;
-    }
+	public String getDesignation() {
+		return this.designation;
+	}
 
-    public String getPeriode() {
-        return periode;
-    }
+	public String getEtat() {
+		return this.etat;
+	}
 
-    public void setPeriode(String periode) {
-        this.periode = periode;
-    }
+	public Date getFinReponse() {
+		return this.finReponse;
+	}
 
-    public Date getDebutReponse() {
-        return debutReponse;
-    }
+	public Integer getIdEvaluation() {
+		return this.idEvaluation;
+	}
 
-    public void setDebutReponse(Date debutReponse) {
-        this.debutReponse = debutReponse;
-    }
+	public Enseignant getNoEnseignant() {
+		return this.noEnseignant;
+	}
 
-    public Date getFinReponse() {
-        return finReponse;
-    }
+	public short getNoEvaluation() {
+		return this.noEvaluation;
+	}
 
-    public void setFinReponse(Date finReponse) {
-        this.finReponse = finReponse;
-    }
+	public String getPeriode() {
+		return this.periode;
+	}
 
-    @XmlTransient
-    public Collection<Droit> getDroitCollection() {
-        return droitCollection;
-    }
+	public Collection<ReponseEvaluation> getReponseEvaluationCollection() {
+		return this.reponseEvaluationCollection;
+	}
 
-    public void setDroitCollection(Collection<Droit> droitCollection) {
-        this.droitCollection = droitCollection;
-    }
+	@XmlTransient
+	public Collection<RubriqueEvaluation> getRubriqueEvaluationCollection() {
+		return this.rubriqueEvaluationCollection;
+	}
 
-    @XmlTransient
-    public Collection<ReponseEvaluation> getReponseEvaluationCollection() {
-        return reponseEvaluationCollection;
-    }
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += this.idEvaluation != null ? this.idEvaluation.hashCode() : 0;
+		return hash;
+	}
 
-    public void setReponseEvaluationCollection(Collection<ReponseEvaluation> reponseEvaluationCollection) {
-        this.reponseEvaluationCollection = reponseEvaluationCollection;
-    }
+	public void setAnnee(final String annee) {
+		this.annee = annee;
+	}
 
-    public ElementConstitutif getElementConstitutif() {
-        return elementConstitutif;
-    }
+	public void setCode_ec(final String code_ec) {
+		this.code_ec = code_ec;
+	}
 
-    public void setElementConstitutif(ElementConstitutif elementConstitutif) {
-        this.elementConstitutif = elementConstitutif;
-    }
+	public void setCode_formation(final String code_formation) {
+		this.code_formation = code_formation;
+	}
 
-    public Enseignant getNoEnseignant() {
-        return noEnseignant;
-    }
+	public void setCode_ue(final String code_ue) {
+		this.code_ue = code_ue;
+	}
 
-    public void setNoEnseignant(Enseignant noEnseignant) {
-        this.noEnseignant = noEnseignant;
-    }
+	public void setDebutReponse(final Date debutReponse) {
+		this.debutReponse = debutReponse;
+	}
 
-    public Promotion getPromotion() {
-        return promotion;
-    }
+	public void setDesignation(final String designation) {
+		this.designation = designation;
+	}
 
-    public void setPromotion(Promotion promotion) {
-        this.promotion = promotion;
-    }
+	public void setEtat(final String etat) {
+		this.etat = etat;
+	}
 
-    public UniteEnseignement getUniteEnseignement() {
-        return uniteEnseignement;
-    }
+	public void setFinReponse(final Date finReponse) {
+		this.finReponse = finReponse;
+	}
 
-    public void setUniteEnseignement(UniteEnseignement uniteEnseignement) {
-        this.uniteEnseignement = uniteEnseignement;
-    }
+	public void setIdEvaluation(final Integer idEvaluation) {
+		this.idEvaluation = idEvaluation;
+	}
 
-    @XmlTransient
-    public Collection<RubriqueEvaluation> getRubriqueEvaluationCollection() {
-        return rubriqueEvaluationCollection;
-    }
+	public void setNoEnseignant(final Enseignant noEnseignant) {
+		this.noEnseignant = noEnseignant;
+	}
 
-    public void setRubriqueEvaluationCollection(Collection<RubriqueEvaluation> rubriqueEvaluationCollection) {
-        this.rubriqueEvaluationCollection = rubriqueEvaluationCollection;
-    }
+	public void setNoEvaluation(final short noEvaluation) {
+		this.noEvaluation = noEvaluation;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idEvaluation != null ? idEvaluation.hashCode() : 0);
-        return hash;
-    }
+	public void setPeriode(final String periode) {
+		this.periode = periode;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Evaluation)) {
-            return false;
-        }
-        Evaluation other = (Evaluation) object;
-        if ((this.idEvaluation == null && other.idEvaluation != null) || (this.idEvaluation != null && !this.idEvaluation.equals(other.idEvaluation))) {
-            return false;
-        }
-        return true;
-    }
+	public void setReponseEvaluationCollection(final Collection<ReponseEvaluation> reponseEvaluationCollection) {
+		this.reponseEvaluationCollection = reponseEvaluationCollection;
+	}
 
-    @Override
-    public String toString() {
-        return "com.example.beans.Evaluation[ idEvaluation=" + idEvaluation + " ]";
-    }
-    
+	public void setRubriqueEvaluationCollection(final Collection<RubriqueEvaluation> rubriqueEvaluationCollection) {
+		this.rubriqueEvaluationCollection = rubriqueEvaluationCollection;
+	}
+
+	@Override
+	public String toString() {
+		return "rest.Evaluation[ idEvaluation=" + this.idEvaluation + " ]";
+	}
+
 }
