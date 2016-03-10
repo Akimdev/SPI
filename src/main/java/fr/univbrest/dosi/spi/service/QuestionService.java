@@ -29,7 +29,10 @@ public class QuestionService {
 	 * @param question
 	 */
 	public void addQuestion(Question question) {
-		questRepo.save(question);
+		if(!questRepo.exists(question.getIdQuestion()))
+			questRepo.save(question);
+	else
+		throw new SPIException("Impossible d'ajouter la question, l'ID utlisé exste déjà dans la BD!");
 	}
 
 	/**
@@ -118,6 +121,9 @@ public class QuestionService {
 	 * @param question
 	 */
 	public void updateQuestion(Question question) {
-		questRepo.save(question);
+		if(questRepo.exists(question.getIdQuestion()))
+				questRepo.save(question);
+		else
+			throw new SPIException("Impossible de modifier la qustion, La question n'existe pas dans la BD!");
 	}
 }
