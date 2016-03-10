@@ -19,6 +19,7 @@ public class PromotionService {
 
 	/**
 	 * author BAQLOUL Soukaina
+	 *
 	 * @param promotion
 	 */
 	public final void addPromotion(final Promotion promotion) {
@@ -37,6 +38,15 @@ public class PromotionService {
 
 	public final Boolean existPromotion(final PromotionPK promotionPK) {
 		return promotionRepository.exists(promotionPK);
+	}
+
+	/**
+	 * @author Kenza ABOUAKIL
+	 * @param codeFormation
+	 * @return
+	 */
+	public List<Promotion> findByCodeFormation(String codeFormation) {
+		return promotionRepository.findByCodeFormation(codeFormation);
 	}
 
 	/**
