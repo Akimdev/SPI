@@ -8293,13 +8293,14 @@ lesshat-selector {
   box-shadow: none;
 }
 .dropdown-menu.dropdown-dark {
-  background-color: #242633;
+  background-color: #31c0be;
 }
 .dropdown-menu.dropdown-dark.with-arrow:after {
   border-bottom: 7px solid #242633;
 }
 .dropdown-menu.dropdown-dark > li > a {
-  color: #777777;
+  color: #000;
+  font-weight: bold;
 }
 .dropdown-menu.with-arrow {
   margin-top: 0;
@@ -10462,8 +10463,7 @@ lesshat-selector {
 .page-signin .logo,
 .page-signup .logo,
 .page-forgot .logo {
-  font-size: 46px;
-  font-weight: bold;
+  font-size: 21px;
 }
 .page-signin .logo a:hover,
 .page-signup .logo a:hover,
@@ -10480,7 +10480,7 @@ lesshat-selector {
 .page-signup .form-container,
 .page-forgot .form-container {
   max-width: 420px;
-  margin: 10px auto;
+  margin: 70px auto;
 }
 .page-signin .info,
 .page-signup .info,
@@ -11428,4 +11428,10 @@ lesshat-selector {
 
 tr:hover{
 	background-color : #eee !important;
+}
+
+.connecter{
+	    font-weight: bold;
+	    color: #7FB0DA;
+	    font-size: 14px;
 }
