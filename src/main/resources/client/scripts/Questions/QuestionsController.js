@@ -132,8 +132,8 @@
 				  if (isConfirm) {  
 			    	  var promisessuppression  = questionsFactory.delete(question.idQuestion);
 			    	  promisessuppression.success(function(data, status, headers, config) {
-			    		$scope.refresh();
 						swal("Supprimé!", "La question est supprimée", "success");
+			    		$scope.refresh();
 			      	  });
 			    	  promisessuppression.error(function(data, status, headers, config) {
 			    		  swal("Erreur!", "Vous ne pouvez pas supprimer cette question", "error");
@@ -172,7 +172,6 @@
      	promisesFactory.success(function(data) {
      		$scope.isVisible = true;
      		$scope.question = data;   
-     		console.log("question: ", $scope.question);
      		var promiseQualificatifs = qualificatifsFactory.all();
      		promiseQualificatifs.success(function(data) {   
      			var promiseQualif = questionsFactory.getQualificatif($routeParams.id);
@@ -210,48 +209,57 @@
 
 	    $scope.submit = function(){
 	    	var idQualificatif;
-	    	if(!$scope.qualificatif)
-	    		idQualificatif = $scope.qualif;
+	    	if(typeof $scope.qualificatif === 'undefined')
+	    		idQualificatif = $scope.qualif.idQualificatif;
 	    	else
 	    		idQualificatif = $scope.qualificatif;
-	    	console.log($scope);
-	    	var quesQual = {
-	    			"qualificatif" : {
-	    				"idQualificatif" : idQualificatif
-	    			},
-	    			"question" : $scope.question
-	    	}
 	    	
-	    	console.log($scope.quesQual);
-
-        	var promisesajout = questionsFactory.add(quesQual);
+	    	var quesQual = {
+		    			"qualificatif" : {
+		    				"idQualificatif" :idQualificatif
+		    			},
+		    			"question" : {
+		    				"idQuestion" : $scope.question.idQuestion,
+			    			"intitulé" : $scope.question.intitule,
+			    			"type" : $scope.question.type
+			    		}
+    			}
+	    	
+	    	console.log(quesQual);
+	    	
+	    	var promisesajout;
+	    	if($routeParams.id == "nouveau")
+		    	promisesajout = questionsFactory.add(quesQual);
+	    	else
+	    		promisesajout = questionsFactory.set(quesQual);
+	    	   	
         	promisesajout.success(function(data, status, headers, config) {
-        		if($routeParams.id === "nouveau") {
-        			swal("Félicitation!", "La nouvelle question est ajoutée!", "success");
-        		}
-        		else
-        			swal("Félicitation!", "La question est modifiée !", "success");
-        		var promise = questionsFactory.getQualificatifById(idQualificatif);
-        		promise.success(function(data){
-        			console.log(data);
-        			$scope.qualif = data;
-        		})
-        		.error(function(data){
-        			swal("Erreur !", "Impossible de récupérer la question !", "error");
-            		$location.path('/admin/questions');
-        		});
-        		$location.path('/admin/question/' + $scope.question.idQuestion);
-				
-			});
-        	promisesajout.error(function(data, status, headers, config) {
+	    		if($routeParams.id == "nouveau")
+	    			swal("Félicitation!", "La question est ajoutée!", "success");
+	    		else
+	    			swal("Félicitation!", "La question est modifiée!", "success");
+        		
+	    		var promise = questionsFactory.getQualificatifById(idQualificatif);
+	    		
+	    		promise.success(function(data){
+	    			$scope.qualif = data;
+	    		})
+	    		.error(function(data){
+	    			swal("Erreur !", "Impossible de récupérer la question !", "error");
+	        		$location.path('/admin/questions');
+	    		});
+	    		$location.path('/admin/question/' + $scope.question.idQuestion);	
+			})
+			.error(function(data, status, headers, config) {
         		toaster.pop({
                     type: 'error',
-                    title: 'Insertion ou modification impossible. ID Question existe déja !',
+                    title: 'Insertion ou modification impossible !',
                     positionClass: 'toast-bottom-right',
                     showCloseButton: true
                 });
         	});		
-          $scope.edit = false;  
+		    
+          $scope.edit = false;
         }
 
       $scope.edition = function(){

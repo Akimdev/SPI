@@ -276,12 +276,12 @@
     			  promiseEnseignant.success(function(data){
     				  $scope.responsable = data;
     				  swal("Félicitation!", "La nouvelle promotion est ajoutée!", "success");
+    	    		  $location.path("/admin/promotion/" + $scope.promotion.promotionPK.anneeUniversitaire + '/' + $scope.promotion.promotionPK.codeFormation);
     			  });
     			  promiseEnseignant.error(function(){
       				  swal("Erreur !", "La nouvelle promotion ne peut pas être ajoutée !", "error");
     			  })
     		  });
-    		  $location.path("/admin/promotions");
     	  }
     	  else{ // modification
     		  if($scope.promotion.dateRentree) {
@@ -293,7 +293,8 @@
     			  var promiseEnseignant = promotionsFactory.getEnseignantResponsable($scope.promotion.promotionPK);
     			  promiseEnseignant.success(function(data){
     				  $scope.responsable = data;
-    				  swal("Félicitation!", "La promotion est modifiée !", "success");    	        			
+    				  swal("Félicitation!", "La promotion est modifiée !", "success");   
+    	    		  $location.path("/admin/promotion/" + $scope.promotion.promotionPK.anneeUniversitaire + '/' + $scope.promotion.promotionPK.codeFormation);
     			  });
     			  promiseEnseignant.error(function(data){
     				  swal("Erreur !", "La promotion ne peut pas être modifiée !", "error");    	        			  

@@ -44,7 +44,6 @@ public class QuestionController {
 		Qualificatif qual = qualificatifService.getQualificatif(quesQual.getQualificatif().getIdQualificatif());
 		/** ajout de la question */
 		ques.setIdQualificatif(qual);
-		quesQual.setQualificatif(qual);
 		questServ.addQuestion(ques);
 	}
 
@@ -115,13 +114,12 @@ public class QuestionController {
 	 */
 	@RequestMapping(value = "/updateQuestion", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public void updateQuestion(@RequestBody final QuesQual quesQual) {
-		/** récupération de la question à créer ! */
+		/** récupération de la question à modifier ! */
 		Question ques = quesQual.getQuestion();
 		/** récupération des objets à partir de leur id envoyer du JSON */
 		Qualificatif qual = qualificatifService.getQualificatif(quesQual.getQualificatif().getIdQualificatif());
-		/** ajout de la question */
+		/** modification de la question */
 		ques.setIdQualificatif(qual);
-		quesQual.setQualificatif(qual);
 		questServ.updateQuestion(ques);
 	}
 }
