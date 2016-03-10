@@ -195,8 +195,10 @@
 	                    showCloseButton: true
 	                });
 				});
+	        	
 	        	$scope.edit = false;
 	        }
+        	$scope.refresh();
       }
       $scope.edition = function(){
         $scope.edit = true;
