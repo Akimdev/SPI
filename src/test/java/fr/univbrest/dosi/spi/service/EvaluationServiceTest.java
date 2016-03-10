@@ -31,22 +31,32 @@ public class EvaluationServiceTest {
 	@Test
 	public void addEvaluationTest(){
 		Evaluation evaluation = new Evaluation();
-		evaluation.setIdEvaluation(5l);
+		evaluation.setIdEvaluation(5);
 		Enseignant ens = ensServ.getEnseignant(1);
 		System.out.println(ens);
 		evaluation.setNoEnseignant(ens);
 		evaluation.setNoEvaluation((short)2);
 		evaluation.setEtat("ELA");
 		evaluation.setDesignation("evaluation deux");
-		PromotionPK promotionPK = new PromotionPK("M2DOSI","2014-2015");
-		Promotion promo = promoServ.getPromotion(promotionPK);
-		System.out.println(promo);
-		evaluation.setPromotion(promo);
+		evaluation.setAnnee("2013-2014");
+		//evaluation.setCode_ec("ERP");
+		evaluation.setCode_formation("M2DOSI");
+		evaluation.setCode_ue("IDL");
 		evaluation.setDebutReponse(new Date("12/03/2015"));
 		evaluation.setFinReponse(new Date("18/03/2015"));
 		evaServ.addEvaluation(evaluation);
 		List<Evaluation> listeEva = evaServ.getAllEvaluations();
-		Assert.assertEquals(3, listeEva.size());
+		Assert.assertEquals(4, listeEva.size());
+	}
+	
+	@Test
+	public void updateEvaluationTest(){
+		Evaluation evaluation = evaServ.getEvaluation(22);
+		evaluation.setPeriode("between this and this");
+		evaServ.updateEvaluation(evaluation);
+		List<Evaluation> listeEva = evaServ.getAllEvaluations();
+		Assert.assertNotNull(evaluation);
+		Assert.assertEquals("between this and this", listeEva.get(2).getPeriode());
 	}
 	
 	@Test 
@@ -58,8 +68,8 @@ public class EvaluationServiceTest {
 	
 	@Test
 	public void deleteEvaluationTest(){
-		evaServ.deleteEvaluation(3l);
+		evaServ.deleteEvaluation(36);
 		List<Evaluation> listeEvaluation = evaServ.getAllEvaluations();
-		Assert.assertEquals(2, listeEvaluation.size());
+		Assert.assertEquals(3, listeEvaluation.size());
 	}
 }

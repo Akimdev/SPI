@@ -17,6 +17,10 @@ public class PromotionService {
 	@Autowired
 	private PromotionRepository promotionRepository;
 
+	/**
+	 * author BAQLOUL Soukaina
+	 * @param promotion
+	 */
 	public final void addPromotion(final Promotion promotion) {
 		if (promotionRepository.exists(promotion.getPromotionPK())) {
 			throw new SPIException("cette Promotion que vous souhaitez ajouter exsite déja :D");
