@@ -17,6 +17,7 @@ import fr.univbrest.dosi.spi.bean.ElementConstitutifPK;
 public interface ElementConstitutifRepository extends PagingAndSortingRepository<ElementConstitutif, ElementConstitutifPK> {
 
 	public List<ElementConstitutif> findByCodeFormation(@Param("codeFormation") String codeFormation);
+	public List<ElementConstitutif>  findByCodeUe(@Param("codeUe") String codeUe);
 
 }
 

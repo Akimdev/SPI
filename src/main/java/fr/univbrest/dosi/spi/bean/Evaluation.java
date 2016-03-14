@@ -26,6 +26,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -85,7 +86,9 @@ public class Evaluation implements Serializable {
 	@JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT", nullable = false )
 	@ManyToOne
 	private Enseignant noEnseignant;
-
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "evaluation")
+	private Collection<Droit> droitCollection;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "NO_EVALUATION", nullable = false)
@@ -255,4 +258,3 @@ public class Evaluation implements Serializable {
 	}
 
 }
-

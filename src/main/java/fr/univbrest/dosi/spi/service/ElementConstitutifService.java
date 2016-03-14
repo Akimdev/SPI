@@ -18,7 +18,11 @@ public class ElementConstitutifService {
 
 	@Autowired
 	private ElementConstitutifRepository elementConstitutifRepository;
-
+	
+	public List<ElementConstitutif> getByUe(String codeUe){
+		return elementConstitutifRepository.findByCodeUe(codeUe);
+	}
+	
 	public final void addElementConstitutif(final ElementConstitutif elementConstitutif) {
 		elementConstitutifRepository.save(elementConstitutif);
 	}
@@ -42,6 +46,10 @@ public class ElementConstitutifService {
 
 	public final ElementConstitutif getElementConstitutif(final ElementConstitutifPK elementConstitutifPK) {
 		return elementConstitutifRepository.findOne(elementConstitutifPK);
+	}
+	
+	public List<ElementConstitutif> findAll(){
+		return (List<ElementConstitutif>) elementConstitutifRepository.findAll();
 	}
 
 }

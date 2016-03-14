@@ -10,11 +10,14 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,14 +30,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author DOSI
  */
 @Entity
-@Table(name = "AUTHENTIFICATION")
+@Table(name = "AUTHENTIFICATION", catalog = "", schema = "DOSI")
 @XmlRootElement
 @NamedQueries({
 	@NamedQuery(name = "Authentification.findByPseudoAndPwd", query = "SELECT a FROM Authentification a WHERE a.pseudoConnection = :pseudoConnection AND a.motPasse = :motPasse"),
     @NamedQuery(name = "Authentification.findAll", query = "SELECT a FROM Authentification a"),
     @NamedQuery(name = "Authentification.findByIdConnection", query = "SELECT a FROM Authentification a WHERE a.idConnection = :idConnection"),
     @NamedQuery(name = "Authentification.findByRole", query = "SELECT a FROM Authentification a WHERE a.role = :role"),
-    @NamedQuery(name = "Authentification.findByMailConnection", query = "SELECT a FROM Authentification a WHERE a.mailConnection = :mailConnection"),
+    @NamedQuery(name = "Authentification.findByLoginConnection", query = "SELECT a FROM Authentification a WHERE a.loginConnection = :loginConnection"),
     @NamedQuery(name = "Authentification.findByPseudoConnection", query = "SELECT a FROM Authentification a WHERE a.pseudoConnection = :pseudoConnection"),
     @NamedQuery(name = "Authentification.findByMotPasse", query = "SELECT a FROM Authentification a WHERE a.motPasse = :motPasse")})
 public class Authentification implements Serializable {
@@ -42,7 +45,9 @@ public class Authentification implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "ID_CONNECTION")
+    @GeneratedValue(generator="AUT_SEQ",strategy=GenerationType.AUTO)
+	@SequenceGenerator(name="AUT_SEQ",sequenceName="AUT_SEQ", allocationSize=1)
+    @Column(name = "ID_CONNECTION", nullable = false)
     private Long idConnection;
     @Basic(optional = false)
     @NotNull
@@ -52,8 +57,8 @@ public class Authentification implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 64)
-    @Column(name = "MAIL_CONNECTION")
-    private String mailConnection;
+    @Column(name = "LOGIN_CONNECTION")
+    private String loginConnection;
     @Size(max = 240)
     @Column(name = "PSEUDO_CONNECTION")
     private String pseudoConnection;
@@ -76,10 +81,10 @@ public class Authentification implements Serializable {
         this.idConnection = idConnection;
     }
 
-    public Authentification(Long idConnection, String role, String mailConnection) {
+    public Authentification(Long idConnection, String role, String loginConnection) {
         this.idConnection = idConnection;
         this.role = role;
-        this.mailConnection = mailConnection;
+        this.loginConnection = loginConnection;
     }
 
     public Long getIdConnection() {
@@ -98,12 +103,12 @@ public class Authentification implements Serializable {
         this.role = role;
     }
 
-    public String getMailConnection() {
-        return mailConnection;
+    public String getLoginConnection() {
+        return loginConnection;
     }
 
-    public void setMailConnection(String mailConnection) {
-        this.mailConnection = mailConnection;
+    public void setLoginConnection(String loginConnection) {
+        this.loginConnection = loginConnection;
     }
 
     public String getPseudoConnection() {
