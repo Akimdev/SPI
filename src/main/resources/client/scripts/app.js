@@ -201,7 +201,8 @@
 				}
 				$rootScope.user = data.roles[0];
 				$rootScope.userNum = data;
-				console.log("num:",$rootScope.userNum);
+				$rootScope.userNum.pwd= null;
+				console.log("User:",$rootScope.userNum);
 			}).error(function(data) {
 				$location.path("/pages/signin");
 			});
