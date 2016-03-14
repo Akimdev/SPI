@@ -25,13 +25,12 @@ public class AuthentificationService {
 		return authentificationRepository.findOne(idConnection);
 	}
 	
-	public User logIn(String pseudoConnection, String motPasse){
-		Authentification auth = authentificationRepository.findByPseudoAndPwd(pseudoConnection, motPasse);
-		User user = null;
-		if(auth != null){
-			user = new User(auth.getPseudoConnection(), auth.getMotPasse(), Arrays.asList(auth.getRole()));
-		}
-		return user;
+	public Authentification logIn(String login, String motPasse){
+		Authentification auth = authentificationRepository.findByLoginAndPwd(login, motPasse);
+		if(auth != null)
+			return auth;
+		else
+			return null;
 	}
 	
 }
