@@ -12,24 +12,22 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 /**
@@ -37,7 +35,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  * @author DOSI
  */
 @Entity
-@Table(name = "QUESTION_EVALUATION")
+@Table(name = "QUESTION_EVALUATION", catalog = "", schema = "DOSI")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "QuestionEvaluation.findAll", query = "SELECT q FROM QuestionEvaluation q"),
@@ -47,6 +45,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class QuestionEvaluation implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(generator="QEV_SEQ",strategy=GenerationType.AUTO)
+	@SequenceGenerator(name="QEV_SEQ",sequenceName="QEV_SEQ", allocationSize=1)
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_QUESTION_EVALUATION")
@@ -67,7 +67,7 @@ public class QuestionEvaluation implements Serializable {
     @ManyToOne
     private Question idQuestion;
     @JsonIgnore
-    @JoinColumn(name = "ID_RUBRIQUE_EVALUATION", referencedColumnName = "ID_RUBRIQUE_EVALUATION")
+    @JoinColumn(name = "ID_RUBRIQUE_EVALUATION", referencedColumnName = "ID_RUBRIQUE_EVALUATION", nullable = false)
     @ManyToOne(optional = false)
     private RubriqueEvaluation idRubriqueEvaluation;
     @JsonIgnore

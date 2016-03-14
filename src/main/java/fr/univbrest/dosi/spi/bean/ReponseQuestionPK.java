@@ -17,7 +17,12 @@ import javax.validation.constraints.NotNull;
  */
 @Embeddable
 public class ReponseQuestionPK implements Serializable {
-    @Basic(optional = false)
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8011859230601666672L;
+	@Basic(optional = false)
     @NotNull
     @Column(name = "ID_REPONSE_EVALUATION")
     private long idReponseEvaluation;
