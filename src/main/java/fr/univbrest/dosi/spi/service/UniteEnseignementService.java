@@ -10,7 +10,7 @@ import fr.univbrest.dosi.spi.bean.UniteEnseignementPK;
 import fr.univbrest.dosi.spi.dao.UniteEnseignementRepository;
 
 /**
- * @author DOSI
+ * @author Othman
  *
  */
 @Service
@@ -19,11 +19,15 @@ public class UniteEnseignementService {
 	@Autowired
 	UniteEnseignementRepository uniteEnseignementRepository;
 
-	public void addUnitEnseignement(final UniteEnseignement uniteEnseignement) {
+	public void addUE(final UniteEnseignement uniteEnseignement) {
+		uniteEnseignementRepository.save(uniteEnseignement);
+	}
+	
+	public void updateUE(final UniteEnseignement uniteEnseignement) {
 		uniteEnseignementRepository.save(uniteEnseignement);
 	}
 
-	public final void deletUnitEnseignement(final UniteEnseignementPK uniteEnseignementPK) {
+	public final void deleteUE(final UniteEnseignementPK uniteEnseignementPK) {
 		uniteEnseignementRepository.delete(uniteEnseignementPK);
 	}
 
@@ -31,6 +35,9 @@ public class UniteEnseignementService {
 		return uniteEnseignementRepository.exists(uniteEnseignementPK);
 	}
 
+	public UniteEnseignement getUE(final UniteEnseignementPK uniteEnseignementPK){
+		return uniteEnseignementRepository.findOne(uniteEnseignementPK);
+	}
 	/**
 	 * @author Kenza ABOUAKIL
 	 * @param codeFormation
