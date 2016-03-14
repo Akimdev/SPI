@@ -31,16 +31,14 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/auth", method = RequestMethod.POST, headers = "Accept=application/json")
 	public void authentifier(final HttpServletRequest request, @RequestBody final Authentification authentification) {
-		String login;
-		if(authentification.getLoginConnection() != null)
-			login = authentification.getLoginConnection();
-		else
-			login = authentification.getPseudoConnection();
+		String login = authentification.getLoginConnection();
 			
 		final Authentification auth = authentificationService.logIn(login, authentification.getMotPasse());
-		auth.setMotPasse(null);
 		if (auth != null) {
+			auth.setMotPasse(null);
+			System.out.println(auth.getRole());
 			request.getSession().setAttribute("user", auth);
+			System.out.println(auth);
 		} else {
 			request.getSession().removeAttribute("user");
 			throw new SPIException("impossible de s'authentifier");
@@ -54,9 +52,9 @@ public class UserController {
 	 * Retourne l'utilisateur connecté
 	 */
 	@RequestMapping(value = "/user")
-	public User users(final HttpServletRequest request, final HttpServletResponse response) {
-		final User user = (User) request.getSession().getAttribute("user");
-		return user;
+	public Authentification users(final HttpServletRequest request, final HttpServletResponse response) {
+		final Authentification auth = (Authentification) request.getSession().getAttribute("user");
+		return auth;
 
 	}
 	
