@@ -65,11 +65,11 @@ public class Authentification implements Serializable {
     @Size(max = 32)
     @Column(name = "MOT_PASSE")
     private String motPasse;
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne
     private Enseignant noEnseignant;
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name = "NO_ETUDIANT", referencedColumnName = "NO_ETUDIANT")
     @ManyToOne
     private Etudiant noEtudiant;
