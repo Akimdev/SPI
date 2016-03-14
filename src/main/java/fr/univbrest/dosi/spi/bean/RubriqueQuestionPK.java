@@ -17,7 +17,12 @@ import javax.validation.constraints.NotNull;
  */
 @Embeddable
 public class RubriqueQuestionPK implements Serializable {
-    @Basic(optional = false)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2192321867252921815L;
+	
+	@Basic(optional = false)
     @NotNull
     @Column(name = "ID_RUBRIQUE")
     private long idRubrique;

@@ -36,11 +36,11 @@ public class QuestionServiceTest {
 	@Test
 	public void modificationQuestionTest(){
 		Question quest = questServ.getQuestion(26l);
-		quest.setIntitulé("question modifié");
+		quest.setIntitule("question modifié");
 		questServ.updateQuestion(quest);
 		List<Question> listeQuestions = questServ.getAllQuestions();
 		Assert.assertNotNull(listeQuestions);
-		Assert.assertEquals(listeQuestions.get(22).getIntitulé(), "question modifié");
+		Assert.assertEquals(listeQuestions.get(22).getIntitule(), "question modifié");
 	}
 	
 	@Test

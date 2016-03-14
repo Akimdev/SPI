@@ -5,7 +5,7 @@
 <div class="page" ng-controller="QuestionDetailsController">
 	<div class="panel panel-default ens-edit">
 		<div class="panel-heading">
-			<strong><span class="glyphicon glyphicon-th"></span>Question</strong>
+			<strong><span class="glyphicon glyphicon-th"></span>Question standard</strong>
 		</div>
 		<div class="panel-body">
 			<!--------------------------- Consultation --------------------------->
@@ -67,21 +67,25 @@
 						      ng-options="q.qualif as (q.idQualificatif + '/ ' + q.maximal + ' - ' + q.minimal) for q in qualificatifs.availableOptions track by q.idQualificatif"
 						      ng-model="qualificatifs.selectedOption"></select> -->
 						      
-						    <select name="qualificatif" ng-model="qualificatif">
+						    <select name="qualificatif" ng-model="qualificatif" required>
 								<option data-ng-repeat="q in qualificatifs" value="{{q.idQualificatif}}" ng-selected="{{q.idQualificatif == selectedOption.idQualificatif}}">{{q.idQualificatif}} / {{q.maximal}} - {{q.minimal}}</option>
-							</select>
-						      
+							</select>						      
 							<span style="color:red" ng-show="questionForm.qualificatif.$dirty && questionForm.qualificatif.$invalid">
 							<span ng-show="questionForm.qualificatif.$error.required">Champs obligatoire ou type invalide.</span>
 						</div>
 					</div>
 					
 				</form>
-				<a class="btn btn-success" ng-click="submit()"
-				ng-disabled="questionForm.idQuestion.$dirty && questionForm.idQuestion.$invalid ||  
-				questionForm.intitule.$dirty && questionForm.intitule.$invalid ||  
-				questionForm.type.$dirty && questionForm.type.$invalid|| questionForm.$invalid"><span
-					class="glyphicon glyphicon-ok"></span> Valider</a>
+				<button ng-click="submit()" class="btn btn-success"
+					ng-disabled="questionForm.idQuestion.$dirty && questionForm.idQuestion.$invalid
+								|| questionForm.intitule.$dirty && questionForm.intitule.$invalid
+								|| questionForm.type.$dirty && questionForm.type.$invalid
+								|| questionForm.qualificatif.$dirty && questionForm.qualificatif.$invalid
+								|| questionForm.idQuestion.$error.required
+								|| questionForm.intitule.$error.required
+								|| questionForm.type.$error.required
+								|| questionForm.qualificatif.$error.required
+								">Valider</button>
 				<button class="btn btn-danger pull-right" ng-click="cancel()">Annuler</button>
 			</div>
 		</div>

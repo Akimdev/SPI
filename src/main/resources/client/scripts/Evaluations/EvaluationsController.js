@@ -30,8 +30,21 @@
     	  //return $http.get('http://localhost:8090/getQualificatif/' + idevaluation);
       },
       getDomain : function(){
-    	  return $http.get("http://localhost:8090/domaines/search/findByRvDomain?rvDomain=ETAT-EVALUATION");
+    	  return $http.get("http://localhost:8090/getDomaine/ETAT-EVALUATION");
+      },
+      ECfindByCodeFormation: function(codeFormation){
+    	  console.log("elementConstitutif -> code: ", codeFormation);
+    	  return $http.get("http://localhost:8090/elementConstitutif/findByCodeFormation/"+codeFormation);
+      },
+      UEfindByCodeFormation: function(codeFormation){
+    	  console.log("UE -> code: ", codeFormation);
+    	  return $http.get("http://localhost:8090/UE/findByCodeFormation/"+codeFormation);
+      },
+      promotionfindByCodeFormation: function(codeFormation){
+    	  console.log("Promotion -> code: ", codeFormation);
+    	  return $http.get("http://localhost:8090/promotion/findByCodeFormation/"+codeFormation);
       }
+      
     };
   });
     
@@ -81,7 +94,7 @@
     		      $scope.numPerPage = $scope.numPerPageOpt[2];
     		      $scope.currentPage = 1;
     		      $scope.currentPageEvaluation = [];
-    		      init = function() {
+    		      var init = function() {
     		        $scope.search();
     		        return $scope.select($scope.currentPage);
     		      };
@@ -137,17 +150,18 @@
   );
 
   app.controller('EvasDetailsController', 
-    ['$scope', '$routeParams','$http', '$location','$filter', 'evaluationsFactory', 'qualificatifsFactory', 'toaster',
-    function($scope, $routeParams, $http, $location,$filter, evaluationsFactory, qualificatifsFactory, toaster){      
+    ['$scope', '$routeParams','$http', '$location','$filter', 'evaluationsFactory', 'qualificatifsFactory', 'promotionsFactory', 'toaster',
+    function($scope, $routeParams, $http, $location,$filter, evaluationsFactory, qualificatifsFactory, promotionsFactory, toaster){      
       $scope.edit= false;    
       
       // si creation d'une nouvelle evaluation
       if($routeParams.id == "nouveau"){
-        $scope.evaluation= { };
+        $scope.evaluation= {};
         $scope.edit= true;
         var promiseDomain = evaluationsFactory.getDomain();
  		promiseDomain.success(function(data) { 
- 			console.log(data);
+ 			console.log("etats: ",data);
+ 			$scope.etats = data;
  			$scope.domains = data;
  			//$scope.selectedOption = data[0];
  		});
@@ -156,6 +170,26 @@
  			$scope.qualificatifs = data;
  			$scope.selectedOption = data[0];
  		});
+ 		// Récuperation des formations
+        var promise2= promotionsFactory.getFormations();
+        promise2.success(function(data,statut){
+        	$scope.formations= data;
+        	console.log("\tFormations récupérées: ", data);
+        })
+        .error(function(data,statut){
+      	  console.log("impossible de recuperer la liste des formations");
+        });
+ 		// Récuperation du domaine
+        var promise2= evaluationsFactory.getDomain();
+        promise2.success(function(data,statut){
+        	$scope.etats= data;
+        	console.log("\tEtats récupérés: ", data);
+        })
+        .error(function(data,statut){
+      	  console.log("impossible de recuperer la liste des etats");
+        });
+        
+        
 	 } else { // sinon on edite une evaluation existante
         var promisesFactory = evaluationsFactory.get($routeParams.id);
      	promisesFactory.success(function(data) {
@@ -173,7 +207,6 @@
      	});
      	
       }
-      
       $scope.edition = function(){
     	  var promisessuppression = evaluationsFactory.set($scope.evaluation);    	  
     	  evaluationsFactory.get($scope.evaluation);
@@ -182,8 +215,15 @@
         }
 
         $scope.submit = function(){
+	        $scope.evaluation.code_formation= $scope.formationSelected;
+	        $scope.evaluation.code_ec= $scope.ecSelected;
+	        $scope.evaluation.code_ue= $scope.ueSelected;
+	        $scope.evaluation.etat= $scope.etatSelected;
+	        $scope.evaluation.annee= $scope.promotionSelected;
+	        console.log("submit :",$scope.evaluation);
         	var promiseajout = evaluationsFactory.add($scope.evaluation);
         	promiseajout.success(function(data, status, headers, config) {
+        		console.log("true :",$scope.evaluation);
         		if($routeParams.id === "nouveau") 
         			swal("Félicitation!", "La nouvelle evaluation est ajoutée!", "success");
         		else
@@ -199,18 +239,43 @@
                     positionClass: 'toast-bottom-right',
                     showCloseButton: true
                 });
-        	});		
-        	
-			// Making the fields empty
-			//				
-			$scope.qualificatifs = {};
-          $scope.edit = false;  
+        	});
+			$scope.edit = false;  
         }
 
       $scope.edition = function(){
         $scope.edit = true;
       }
-
+      $scope.changeFormation= function(code){
+    	  //Récuperation des EC
+          var promise2= evaluationsFactory.ECfindByCodeFormation(code);
+          promise2.success(function(data,statut){
+          	$scope.ECs= data;
+          	console.log("\tECs récupérés: ", data);
+          })
+          .error(function(data,statut){
+        	  console.log("impossible de recuperer la liste des ECs");
+          });
+          //Récuperation des UE
+          var promise1= evaluationsFactory.UEfindByCodeFormation(code);
+          promise1.success(function(data,statut){
+          	$scope.UEs= data;
+          	console.log("\tUEs récupérés: ", data);
+          })
+          .error(function(data,statut){
+        	  console.log("impossible de recuperer la liste des UE");
+          });
+        //Récuperation des Promotions
+          var promise3= evaluationsFactory.promotionfindByCodeFormation(code);
+          promise3.success(function(data,statut){
+          	$scope.promotions= data;
+          	console.log("\tUEs récupérés: ", data);
+          })
+          .error(function(data,statut){
+        	  console.log("impossible de recuperer la liste des UE");
+          });
+          
+      }
       // valide le formulaire d'édition d'une evaluation
       
       // TODO coder une fonction submit permettant de modifier une evaluation

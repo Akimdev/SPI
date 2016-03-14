@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,7 +53,7 @@ public class PromotionController {
 		/** récupération des objets à partir de leur id envoyer du JSON */
 		Formation formationExistante = formationservice.getFormation(proEns.getPromotion().getPromotionPK().getCodeFormation());
 		Enseignant enseignantExistante = proEns.getEnseignant();
-		if(enseignantExistante.getNoEnseignant() != null) {
+		if (enseignantExistante.getNoEnseignant() != null) {
 			enseignantExistante = enseignantService.getEnseignant(proEns.getEnseignant().getNoEnseignant());
 			promotion.setNoEnseignant(enseignantExistante);
 		}
@@ -62,6 +63,25 @@ public class PromotionController {
 		promotion.setFormation(formationExistante);
 		/** ajout de la promotion */
 		promotionService.addPromotion(promotion);
+	}
+
+	/**
+	 * ASSABBAR
+	 *
+	 * @param promotionPK
+	 *            la methode permet de supprimer une promotion par anneUniversitaire et codeFormation
+	 */
+	@RequestMapping(value = "/deletePromotion", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public void deletePromotionPK(@RequestBody final PromotionPK promotionPK) {
+		promotionService.deletePromotion(promotionPK);
+	}
+
+	/**
+	 * @author Kenza ABOUAKIL
+	 */
+	@RequestMapping(value = "/promotion/findByCodeFormation/{codeFormation}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public List<Promotion> findByCodeFormation(@PathVariable("codeFormation") String codeFormation) {
+		return promotionService.findByCodeFormation(codeFormation);
 	}
 
 	/**
@@ -110,18 +130,7 @@ public class PromotionController {
 	}
 
 	/**
-	 * ASSABBAR
-	 * 
-	 * @param promotionPK
-	 *            la methode permet de supprimer une promotion par anneUniversitaire et codeFormation
-	 */
-	@RequestMapping(value = "/deletePromotion", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public void deletePromotionPK(@RequestBody final PromotionPK promotionPK) {
-		promotionService.deletePromotion(promotionPK);
-	}
-
-	/**
-	 * 
+	 *
 	 * @param proEns
 	 */
 	@RequestMapping(value = "/updatePromotion", method = RequestMethod.POST, headers = "Accept=application/json")
@@ -131,7 +140,7 @@ public class PromotionController {
 		/** récupération des objets à partir de leur id envoyer du JSON */
 		Formation formationExistante = formationservice.getFormation(proEns.getPromotion().getPromotionPK().getCodeFormation());
 		Enseignant enseignantExistante = proEns.getEnseignant();
-		if(enseignantExistante.getNoEnseignant() != null) {
+		if (enseignantExistante.getNoEnseignant() != null) {
 			enseignantExistante = enseignantService.getEnseignant(proEns.getEnseignant().getNoEnseignant());
 			promotion.setNoEnseignant(enseignantExistante);
 		}
@@ -142,4 +151,5 @@ public class PromotionController {
 		/** ajout de la promotion */
 		promotionService.update(promotion);
 	}
+
 }

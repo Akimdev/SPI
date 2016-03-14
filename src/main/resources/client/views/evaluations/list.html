@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-sm-3 col-xs-6 filter-result-info">
                     <span>
-                        Affiche {{filteredEvaluation.length}}/{{evaluations.length}}
+                        Affiche {{currentPageEvaluation.length}}/{{evaluations.length}}
                     </span>              
                 </div>
             </div>
@@ -103,7 +103,7 @@
                               data-ng-click=" order('-periode') "
                               data-ng-class="{active: row == '-periode'}"></span>
                     </div></th>   <th></th>
-                    <th></th>                
+                    <!-- <th></th> -->                
                 </tr>
             </thead>
             <tbody>
@@ -116,7 +116,7 @@
                     <td ng-click="edit(e.idEvaluation)">{{e.noEnseignant.nom}} {{e.noEnseignant.prenom}}</td>
                     <td ng-click="edit(e.idEvaluation)">{{e.debutReponse}}</td>
                     <td ng-click="edit(e.idEvaluation)">{{e.finReponse}}</td>
-                    <td ng-click="edit(e)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td>
+                    <!-- <td ng-click="edit(e)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td> -->
                     <td ng-click="supprime(e)" class="icon-list"><span class="remove fa fa-trash" ></span></td>
                 </tr>
             </tbody>

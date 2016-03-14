@@ -4,7 +4,7 @@
     <div class="logo">
         <a href="#/">
             <!-- <span class="logo-icon glyphicon glyphicon-fire"></span> -->
-            <span>SPI</span>
+           <img src="images/logo-small.png">
         </a>
     </div>
 
@@ -16,17 +16,19 @@
     </div>
 
     <div class="top-nav" ng-controller="AuthenticationController">
-        <ul class="nav-left list-unstyled">
+        <ul class="nav-left list-unstyled" style="width: 100%;">
             <li>
                 <a href="#/" data-toggle-min-nav
                              class="toggle-min"
                              ><i class="fa fa-bars"></i></a>
             </li>
-            <li class="dropdown text-normal nav-profile"  dropdown is-open="status.isopenProfile">
-                <a href="javascript:;" class="dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-                    <img src="{{userimg}}" alt="" class="img-circle img30_30">
-                    <span class="hidden-xs">
-                        <span>{{username}}</span>
+            <li class="dropdown text-normal nav-profile"  dropdown is-open="status.isopenProfile" style="float: right;">
+                <a href="javascript:;" class="dropdown-toggle" dropdown-toggle ng-disabled="disabled" >
+                    <img ng-if="user =='ADM'" src="images/admin.png" alt="" class="img-circle img30_30">
+					<img ng-if="user =='ENS'" src="images/ens.png" alt="" class="img-circle img30_30">
+                    <span class="hidden-xs">              
+    					<span class="connecter" ng-if="user =='ADM'">Administrateur <i class="fa fa-chevron-circle-down"></i></span>
+    					<span class="connecter" ng-if="user =='ENS'">Enseignant <i class="fa fa-chevron-circle-down"></i></span>          
                     </span>
                 </a>
                 <ul class="dropdown-menu dropdown-dark with-arrow">
@@ -184,5 +186,6 @@
             </li>
         </ul> -->
     </div>
+    
 
 </header>

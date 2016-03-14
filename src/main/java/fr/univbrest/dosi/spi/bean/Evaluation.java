@@ -86,7 +86,9 @@ public class Evaluation implements Serializable {
 	@JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT", nullable = false )
 	@ManyToOne
 	private Enseignant noEnseignant;
-
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "evaluation")
+	private Collection<Droit> droitCollection;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "NO_EVALUATION", nullable = false)

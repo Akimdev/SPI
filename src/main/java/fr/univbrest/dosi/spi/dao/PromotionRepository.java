@@ -16,6 +16,12 @@ import fr.univbrest.dosi.spi.bean.PromotionPK;
  */
 @RepositoryRestResource(collectionResourceRel = "promotion", path = "promotion")
 public interface PromotionRepository extends PagingAndSortingRepository<Promotion, PromotionPK> {
+
+	/**
+	 * @author Kenza ABOUAKIL
+	 */
+	public List<Promotion> findByCodeFormation(@Param("codeFormation") String codeFormation);
+
 	/**
 	 *
 	 * @param noEnseignant
@@ -23,8 +29,8 @@ public interface PromotionRepository extends PagingAndSortingRepository<Promotio
 	 * @return liste des promotions
 	 */
 	List<Promotion> findByNoEnseignant(@Param("noEnseignant") Integer noEnseignant);
-	
+
+	@Override
 	Promotion save(@RequestBody Promotion promotion);
-	
 
 }

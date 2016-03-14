@@ -3,7 +3,7 @@
 <div class="page page-table" data-ng-controller="QuestionsController">
 
     <section class="panel panel-default table-dynamic">
-        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Questions</strong>
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Questions standards</strong>
         <!-- <span class="add fa fa-user-plus pull-right" ng-click="ajoutQuestion()"></span> -->
         <button class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 pull-right" ng-click="ajoutQuestion()" >Nouvelle question<i class="fa fa-user-plus pull-right"></i></button>
         </div>
@@ -18,7 +18,7 @@
 					</form>
 				</div>
 				<div class="col-sm-3 col-xs-6 filter-result-info">
-					<span> Affiche {{filteredQuestion.length}}/{{questions.length}}</span>
+					<span> Affiche {{currentPageQuestion.length}}/{{questions.length}}</span>
 				</div>
 			</div>
 		</div>

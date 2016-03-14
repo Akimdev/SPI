@@ -12,12 +12,15 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -31,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author DOSI
  */
 @Entity
-@Table(name = "REPONSE_EVALUATION")
+@Table(name = "REPONSE_EVALUATION", catalog = "", schema = "DOSI")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ReponseEvaluation.findAll", query = "SELECT r FROM ReponseEvaluation r"),
@@ -43,6 +46,8 @@ public class ReponseEvaluation implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(generator="RPE_SEQ",strategy=GenerationType.AUTO)
+	@SequenceGenerator(name="RPE_SEQ",sequenceName="RPE_SEQ", allocationSize=1)
     @NotNull
     @Column(name = "ID_REPONSE_EVALUATION")
     private Long idReponseEvaluation;

@@ -18,7 +18,11 @@ import javax.validation.constraints.Size;
  */
 @Embeddable
 public class ElementConstitutifPK implements Serializable {
-    @Basic(optional = false)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7414008179372297628L;
+	@Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 8)
     @Column(name = "CODE_FORMATION")
