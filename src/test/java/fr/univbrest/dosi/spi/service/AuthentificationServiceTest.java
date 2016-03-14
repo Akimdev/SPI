@@ -8,6 +8,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fr.univbrest.dosi.spi.Application;
+import fr.univbrest.dosi.spi.bean.Authentification;
 import fr.univbrest.dosi.spi.bean.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -18,26 +19,38 @@ public class AuthentificationServiceTest {
 	AuthentificationService authentificationService;
 	
 	@Test
-	public void loginSuccess(){
-		User user = authentificationService.logIn("psaliou", "dosi");
+	public void loginSuccessPseudo(){
+		Authentification user = authentificationService.logIn("psaliou", "dosi");
+		Assert.assertNotNull(user);
+	}
+	
+	@Test
+	public void loginSuccessLoginConnection(){
+		Authentification user = authentificationService.logIn("philippe.saliou@univ-brest.fr", "dosi");
 		Assert.assertNotNull(user);
 	}
 	
 	@Test
 	public void loginWrongPwd(){
-		User user = authentificationService.logIn("psaliou", "fail");
+		Authentification user = authentificationService.logIn("psaliou", "fail");
 		Assert.assertNull(user);
 	}
 	
 	@Test
 	public void loginWrongPseudo(){
-		User user = authentificationService.logIn("pseudo", "dosi");
+		Authentification user = authentificationService.logIn("pseudo", "dosi");
+		Assert.assertNull(user);
+	}
+	
+	@Test
+	public void loginWrongLoginConnection(){
+		Authentification user = authentificationService.logIn("philip.saliou@univ-brest.fr", "dosi");
 		Assert.assertNull(user);
 	}
 	
 	@Test
 	public void loginWrongCredentials(){
-		User user = authentificationService.logIn("pseudo", "pwd");
+		Authentification user = authentificationService.logIn("pseudo", "pwd");
 		Assert.assertNull(user);
 	}
 }

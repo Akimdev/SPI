@@ -21,6 +21,8 @@ public class EvaluationService {
 	EvaluationRepository evaRepo;
 	@Autowired
 	EnseignantService ensServ;
+	@Autowired
+	AuthentificationService authService;
 	
 	public List<Evaluation> getAllEvaluations(){
 		return (List<Evaluation>) evaRepo.findAll();
@@ -31,8 +33,6 @@ public class EvaluationService {
 	}
 	
 	public void addEvaluation(Evaluation e){
-		Enseignant ens = ensServ.getEnseignant(1);
-		e.setNoEnseignant(ens);
 		evaRepo.save(e);
 	}
 	

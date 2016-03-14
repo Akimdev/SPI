@@ -44,7 +44,7 @@ public class UniteEnseignementServiceTest {
 		ue.setNoEnseignant(enseignant);
 		Formation formation = formServ.getFormation(uePK.getCodeFormation());
 		ue.setFormation(formation);
-		ue.setDesignation("Préparation à la vie Prof");
+		ue.setDesignation("Preparation a la vie Prof");
 		ue.setSemestre("10");
 		ueServ.addUE(ue);
 		List<UniteEnseignement> ueList = ueServ.getAllUEs();
