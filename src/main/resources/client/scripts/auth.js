@@ -52,31 +52,31 @@ angular.module('app.auth', [])
 					// Executé lors du click sur le bouton de login
 					this.submit = function() {
 						var authuser = {
-							"username" : $scope.login.username,
-							"pwd" : $scope.login.password,
+							"loginConnection" : $scope.login.username,
+							"motPasse" : $scope.login.password,
 						};
 						AuthService.authLocal(authuser).success(function() {
 							var promiseAuth = AuthService.getUser();
 							promiseAuth.success(function(data){
 								//Gérer les roles des utilisateurs
-								role = data.roles;
+								role = data.role;
 								//Pour enseignant
-								if(role[0] === "ENS"){
+								if(role === "ENS"){
 									console.log("Enseignant connecté !");
 										$location.path('/');
 								}
 								//Pour administrateur
-								else if(role[0] === "ADM"){
+								else if(role === "ADM"){
 									console.log("Administrateur connecté !");
 									$location.path('/');
 								}
 								//Pour étudiant
-								else if(role[0] === "ETU"){
+								else if(role === "ETU"){
 									console.log("Etudiant connecté !");
 									//$location.path('/');
 								}
 								//Pour Secrétariat
-								else if(role[0] === "SEC"){
+								else if(role === "SEC"){
 									console.log("Secrétariat !");
 									$location.path('/');
 								}

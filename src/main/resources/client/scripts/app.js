@@ -23,70 +23,55 @@
 					redirectTo : '/dashboard'
 				}).when('/admin/enseignants', {
 					templateUrl : 'views/enseignants/list.html',
-					 requiresAuthentication: true,
-				     permissions: ["ADM"]
+					 requiresAuthentication: true
 				}).when('/admin/enseignant/:id', {
 					templateUrl : 'views/enseignants/details.html',
-					requiresAuthentication: true,
-				     permissions: ["ADM"]
+					requiresAuthentication: true
 				}).when('/admin/formations', {
-					templateUrl : 'views/formations/list.html',
-					rolesAutorises : ["ADM"]
+					templateUrl : 'views/formations/list.html'
 				}).when('/admin/formation/:id', {
-					templateUrl : 'views/formations/details.html',
-					rolesAutorises : ["ADM"]
+					templateUrl : 'views/formations/details.html'
 				}).when('/admin/ue', {
 					templateUrl : 'views/ue/list.html'
 				}).when('/admin/ue/:id', {
 					templateUrl : 'views/ue/details.html'
 				}).when('/admin/promotions', {
 					templateUrl : 'views/promotions/list.html',
-					requiresAuthentication: true,
-				    permissions: ["ADM"]
+					requiresAuthentication: true
 				}).when('/admin/promotion/:ann/:form', {
 					templateUrl : 'views/promotions/details.html',
-					requiresAuthentication: true,
-					permissions: ["ADM"]
+					requiresAuthentication: true
 				}).when('/admin/etudiants', {
 					templateUrl : 'views/etudiants/list.html',
-					requiresAuthentication: true,
-				     permissions: ["ADM"]
+					requiresAuthentication: true
 				}).when('/admin/etudiant/:id', {
 					templateUrl : 'views/etudiants/details.html',
-					requiresAuthentication: true,
-				     permissions: ["ADM"]
+					requiresAuthentication: true
 				}).when('/admin/qualificatifs', {
 					templateUrl : 'views/qualificatifs/list.html',
 					requiresAuthentication: true,
 				     permissions: ["ENS"]
 				}).when('/admin/qualificatif/:id', {
 					templateUrl : 'views/qualificatifs/details.html',
-					requiresAuthentication: true,
-				     permissions: ["ENS"]
+					requiresAuthentication: true
 				}).when('/admin/questions', {
 					templateUrl : 'views/questions/list.html',
-					requiresAuthentication: true,
-				     permissions: ["ENS"]
+					requiresAuthentication: true
 				}).when('/admin/question/:id', {
 					templateUrl : 'views/questions/details.html',
-					requiresAuthentication: true,
-				     permissions: ["ENS"]
+					requiresAuthentication: true
 				}).when('/admin/evaluations', {
 					templateUrl : 'views/evaluations/list.html',
-					requiresAuthentication: true,
-				     permissions: ["ENS"]
+					requiresAuthentication: true
 				}).when('/admin/evaluation/:id', {
 					templateUrl : 'views/evaluations/details.html',
-					requiresAuthentication: true,
-				     permissions: ["ENS"]
+					requiresAuthentication: true
 				}).when('/admin/rubriques', {
 					templateUrl : 'views/rubriques/list.html',
-					requiresAuthentication: true,
-				     permissions: ["ENS"]
+					requiresAuthentication: true
 				}).when('/admin/rubrique/:id', {
 					templateUrl : 'views/rubriques/detail.html',
-					requiresAuthentication: true,
-				     permissions: ["ENS"]
+					requiresAuthentication: true
 				}).when('/dashboard', {
 					templateUrl : 'views/dashboard.html'
 				}).when('/ui/typography', {
@@ -199,9 +184,9 @@
 				if (!data) {
 					$location.path("/pages/signin");
 				}
-				$rootScope.user = data.roles[0];
+				$rootScope.user = data.role;
+				console.log(data);
 				$rootScope.userNum = data;
-				console.log("num:",$rootScope.userNum);
 			}).error(function(data) {
 				$location.path("/pages/signin");
 			});
