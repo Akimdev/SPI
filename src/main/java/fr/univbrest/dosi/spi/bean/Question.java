@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 	@NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q"),
 	@NamedQuery(name = "Question.findByIdQuestion", query = "SELECT q FROM Question q WHERE q.idQuestion = :idQuestion"),
 	@NamedQuery(name = "Question.findByType", query = "SELECT q FROM Question q WHERE q.type = :type"),
-	@NamedQuery(name = "Question.findByIntitul\u00e9", query = "SELECT q FROM Question q WHERE q.intitul\u00e9 = :intitul\u00e9"),
+	@NamedQuery(name = "Question.findByIntitule", query = "SELECT q FROM Question q WHERE q.intitule = :intitule"),
 	@NamedQuery(name = "Question.getMaxIdQuestion", query = "SELECT MAX(idQuestion) FROM Question") })
 public class Question implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -59,8 +59,8 @@ public class Question implements Serializable {
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 64)
-	@Column(name = "INTITUL\u00c9")
-	private String intitulé;
+	@Column(name = "INTITULE")
+	private String intitule;
 	@JsonIgnore
 	@JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
 	@ManyToOne
@@ -84,10 +84,10 @@ public class Question implements Serializable {
 		this.idQuestion = idQuestion;
 	}
 
-	public Question(Long idQuestion, String type, String intitulé) {
+	public Question(Long idQuestion, String type, String intitule) {
 		this.idQuestion = idQuestion;
 		this.type = type;
-		this.intitulé = intitulé;
+		this.intitule = intitule;
 	}
 
 	@Override
@@ -111,12 +111,9 @@ public class Question implements Serializable {
 		return idQuestion;
 	}
 
-	public String getIntitule() {
-		return intitulé;
-	}
 
-	public String getIntitulé() {
-		return intitulé;
+	public String getIntitule() {
+		return intitule;
 	}
 
 	public Enseignant getNoEnseignant() {
@@ -152,12 +149,9 @@ public class Question implements Serializable {
 		this.idQuestion = idQuestion;
 	}
 
-	public void setIntitule(String intitule) {
-		this.intitulé = intitule;
-	}
 
-	public void setIntitulé(String intitulé) {
-		this.intitulé = intitulé;
+	public void setIntitule(String intitule) {
+		this.intitule = intitule;
 	}
 
 	public void setNoEnseignant(Enseignant noEnseignant) {

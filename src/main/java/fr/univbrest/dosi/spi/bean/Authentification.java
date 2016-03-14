@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
     @NamedQuery(name = "Authentification.findAll", query = "SELECT a FROM Authentification a"),
     @NamedQuery(name = "Authentification.findByIdConnection", query = "SELECT a FROM Authentification a WHERE a.idConnection = :idConnection"),
     @NamedQuery(name = "Authentification.findByRole", query = "SELECT a FROM Authentification a WHERE a.role = :role"),
-    @NamedQuery(name = "Authentification.findByMailConnection", query = "SELECT a FROM Authentification a WHERE a.mailConnection = :mailConnection"),
+    @NamedQuery(name = "Authentification.findByLoginConnection", query = "SELECT a FROM Authentification a WHERE a.loginConnection = :loginConnection"),
     @NamedQuery(name = "Authentification.findByPseudoConnection", query = "SELECT a FROM Authentification a WHERE a.pseudoConnection = :pseudoConnection"),
     @NamedQuery(name = "Authentification.findByMotPasse", query = "SELECT a FROM Authentification a WHERE a.motPasse = :motPasse")})
 public class Authentification implements Serializable {
@@ -57,8 +57,8 @@ public class Authentification implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 64)
-    @Column(name = "MAIL_CONNECTION")
-    private String mailConnection;
+    @Column(name = "LOGIN_CONNECTION")
+    private String loginConnection;
     @Size(max = 240)
     @Column(name = "PSEUDO_CONNECTION")
     private String pseudoConnection;
@@ -81,10 +81,10 @@ public class Authentification implements Serializable {
         this.idConnection = idConnection;
     }
 
-    public Authentification(Long idConnection, String role, String mailConnection) {
+    public Authentification(Long idConnection, String role, String loginConnection) {
         this.idConnection = idConnection;
         this.role = role;
-        this.mailConnection = mailConnection;
+        this.loginConnection = loginConnection;
     }
 
     public Long getIdConnection() {
@@ -103,12 +103,12 @@ public class Authentification implements Serializable {
         this.role = role;
     }
 
-    public String getMailConnection() {
-        return mailConnection;
+    public String getLoginConnection() {
+        return loginConnection;
     }
 
-    public void setMailConnection(String mailConnection) {
-        this.mailConnection = mailConnection;
+    public void setLoginConnection(String loginConnection) {
+        this.loginConnection = loginConnection;
     }
 
     public String getPseudoConnection() {
