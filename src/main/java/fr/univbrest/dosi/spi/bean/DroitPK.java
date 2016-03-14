@@ -17,7 +17,11 @@ import javax.validation.constraints.NotNull;
  */
 @Embeddable
 public class DroitPK implements Serializable {
-    @Basic(optional = false)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2484597371886049955L;
+	@Basic(optional = false)
     @NotNull
     @Column(name = "ID_EVALUATION")
     private long idEvaluation;

@@ -18,7 +18,11 @@ import javax.validation.constraints.Size;
  */
 @Embeddable
 public class UniteEnseignementPK implements Serializable {
-    @Basic(optional = false)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7652876061892657573L;
+	@Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 8)
     @Column(name = "CODE_FORMATION")

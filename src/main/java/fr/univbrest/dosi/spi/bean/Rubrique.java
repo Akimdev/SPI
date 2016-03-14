@@ -13,12 +13,15 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author DOSI
  */
 @Entity
-@Table(name = "RUBRIQUE")
+@Table(name = "RUBRIQUE", catalog = "", schema = "DOSI")
 @XmlRootElement
 @NamedQueries({ @NamedQuery(name = "Rubrique.findAll", query = "SELECT r FROM Rubrique r"),
 		@NamedQuery(name = "Rubrique.findByIdRubrique", query = "SELECT r FROM Rubrique r WHERE r.idRubrique = :idRubrique"),
@@ -48,6 +51,8 @@ public class Rubrique implements Serializable {
 	@Column(name = "DESIGNATION")
 	private String designation;
 	@Id
+	@GeneratedValue(generator="RUB_SEQ",strategy=GenerationType.AUTO)
+	@SequenceGenerator(name="RUB_SEQ",sequenceName="RUB_SEQ", allocationSize=1)
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "ID_RUBRIQUE")
