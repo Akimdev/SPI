@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.univbrest.dosi.spi.bean.Authentification;
 import fr.univbrest.dosi.spi.bean.User;
 import fr.univbrest.dosi.spi.exception.SPIException;
 import fr.univbrest.dosi.spi.service.AuthentificationService;
@@ -29,16 +30,19 @@ public class UserController {
 	 * @param user
 	 */
 	@RequestMapping(value = "/auth", method = RequestMethod.POST, headers = "Accept=application/json")
-	public void authentifier(final HttpServletRequest request, @RequestBody final User user) {
-		final User users = authentificationService.logIn(user.getUsername(), user.getPwd());
-		user.setPwd(null);
-		if (users != null) {
-			request.getSession().setAttribute("user", users);
+	public void authentifier(final HttpServletRequest request, @RequestBody final Authentification authentification) {
+		String login = authentification.getLoginConnection();
+			
+		final Authentification auth = authentificationService.logIn(login, authentification.getMotPasse());
+		if (auth != null) {
+			auth.setMotPasse(null);
+			System.out.println(auth.getRole());
+			request.getSession().setAttribute("user", auth);
+			System.out.println(auth);
 		} else {
 			request.getSession().removeAttribute("user");
 			throw new SPIException("impossible de s'authentifier");
 		}
-
 	}
 
 	/**
@@ -48,9 +52,9 @@ public class UserController {
 	 * Retourne l'utilisateur connecté
 	 */
 	@RequestMapping(value = "/user")
-	public User users(final HttpServletRequest request, final HttpServletResponse response) {
-		final User user = (User) request.getSession().getAttribute("user");
-		return user;
+	public Authentification users(final HttpServletRequest request, final HttpServletResponse response) {
+		final Authentification auth = (Authentification) request.getSession().getAttribute("user");
+		return auth;
 
 	}
 	
