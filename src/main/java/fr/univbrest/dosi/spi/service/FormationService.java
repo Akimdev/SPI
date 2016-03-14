@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.univbrest.dosi.spi.bean.Formation;
 import fr.univbrest.dosi.spi.dao.FormationRepository;
+import fr.univbrest.dosi.spi.exception.SPIException;
 
 /**
  * @author Kenza ABOUAKIL
@@ -24,7 +23,10 @@ public class FormationService {
 	FormationRepository formationRepository;
 
 	public void createFormation(Formation formation) {
-		formationRepository.save(formation);
+		if (formationRepository.exists(formation.getCodeFormation()))
+			formationRepository.save(formation);
+		else
+			throw new SPIException("Le Code Formation existe déjà dans la BD !");
 	}
 
 	public void deleteFormation(String codeformation) {
@@ -36,7 +38,7 @@ public class FormationService {
 	}
 
 	public List<Formation> findAll() {
-		return (List<Formation>) formationRepository.findAll();
+		return formationRepository.findAll();
 	}
 
 	public List<Formation> findByNomFormation(String nomFormation) {
@@ -48,34 +50,17 @@ public class FormationService {
 	}
 
 	public String getNomFormation(String codeFormation) {
-		return formationRepository.findByCodeFormation(codeFormation)
-				.getNomFormation();
+		return formationRepository.findByCodeFormation(codeFormation).getNomFormation();
 	}
 
 	public List<String> getNomFormations(List<String> codeFormations) {
 		List<String> nomFormations = new ArrayList<String>();
 		for (String code : codeFormations) {
-			nomFormations.add(formationRepository.findOne(code)
-					.getNomFormation());
+			nomFormations.add(formationRepository.findOne(code).getNomFormation());
 		}
 		return nomFormations;
 	}
 
-	/**
-	 * @author LAKRAA
-	 *  méthode pour la suppression d'une formation
-	 * @return
-	 */
-	@RequestMapping(value = "/formation/delete", headers = "Accept=application/json")
-	public void removeFormation(
-			@RequestParam("codeFormation") String codeFormation) {
-		formationRepository.delete(codeFormation);
-	}
-	
-	public Formation traitement(String codeFormation) {
-		return formationRepository.findOne(codeFormation);
-	}
-	
 	/**
 	 * @author Othman méthode retourne le nombre de formations
 	 * @return
@@ -84,5 +69,18 @@ public class FormationService {
 		return formationRepository.count();
 		// List<Formation> listeFormations = (List<Formation>) formationRepository.findAll();
 		// return listeFormations.size();
+	}
+
+	/**
+	 * @author LAKRAA méthode pour la suppression d'une formation
+	 * @return
+	 */
+	@RequestMapping(value = "/formation/delete", headers = "Accept=application/json")
+	public void removeFormation(@RequestParam("codeFormation") String codeFormation) {
+		formationRepository.delete(codeFormation);
+	}
+
+	public Formation traitement(String codeFormation) {
+		return formationRepository.findOne(codeFormation);
 	}
 }
