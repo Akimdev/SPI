@@ -5,10 +5,12 @@
 
   app.factory('ueFactory', function($http){      
     return {
-      // TODO
     	all: function() { 
          	  return $http.get("http://localhost:8090/UEs")
-           },
+        },
+        get: function(uniteEnseignementPK) {
+        	return $http.post("http://localhost:8090/getUE", uniteEnseignementPK);
+        },
         set: function(ue){
         	var id = ue.uniteEnseignementPK;
         	if(id){
@@ -45,8 +47,6 @@
   app.controller('UEController', 
     ['$scope', '$location', 'ueFactory',
     function($scope, $location, ueFactory){
-      // la liste globale des ue
-      // TODO
     	var promise= ueFactory.all();
         promise.success(function(data){
       	  $scope.ue = data ;
@@ -57,13 +57,40 @@
         $scope.ajoutUE = function(){
             $location.path('/admin/ue/nouveau'); 
          }
+        
+        $scope.edit = function(codeFormation, codeUe){
+        	$location.path('/admin/ue/' + codeFormation + "/" + codeUe);
+        }
     }]
   );
 
   app.controller('UEDetailsController', 
     ['$scope', '$routeParams', '$location', 'ueFactory',
     function($scope, $routeParams, $location, ueFactory){      
-      // TODO
+    	
+    	if($routeParams.id == "nouveau"){
+            $scope.ue= { };
+            $scope.edit= true;    
+        } else { // sinon on edite une formation existante
+            var f = ueFactory.get($routeParams.id);
+            var uniteEnseignementPK = {
+            		"codeFormation" : $routeParams.codeFormation,
+            		"codeUe" : $routeParams.codeUe
+            }
+            var promisesFactory = ueFactory.get(uniteEnseignementPK);
+         	promisesFactory.success(function(data) {
+         		console.log(data);
+         		$scope.ue = data;   
+          });
+        }      
+          
+        $scope.edition = function(){
+            $scope.edit = true;
+        }
+
+        $scope.submit = function(){
+            $scope.edit = false;  
+        }
     }]
   );
 })();

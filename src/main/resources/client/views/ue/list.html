@@ -5,12 +5,12 @@
         <span class="add fa fa-user-plus pull-right" ng-click="ajoutUE()"></span>
         </div>
 
-        <!-- <div class="table-filters">
+        <div class="table-filters">
             <div class="row">
                 <div class="col-sm-4 col-xs-6">
                     <form>
                         <input type="text"
-                               placeholder="search"
+                               placeholder="Rechercher"
                                class="form-control"
                                data-ng-model="searchKeywords"
                                data-ng-keyup="search()">
@@ -18,33 +18,33 @@
                 </div>
                 <div class="col-sm-3 col-xs-6 filter-result-info">
                     <span>
-                        Affiche {{filtered.length}}/{{enseignants.length}}
+                        Affiche {{filteredUE.length}}/{{ue.length}}
                     </span>              
                 </div>
             </div>
-        </div> -->
+        </div>
 
         <table class="table table-bordered table-striped table-responsive">
             <thead>
                 <tr>
-                    <th><div class="th">
-                        Formation
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('code') "
-                              data-ng-class="{active: row == 'code'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-code') "
-                              data-ng-class="{active: row == '-code'}"></span>
-                    </div></th>
-                    <th><div class="th">
-                        Code
+                	<th><div class="th">
+                        UE
                         <span class="glyphicon glyphicon-chevron-up"
                               data-ng-click=" order('diplome') "
                               data-ng-class="{active: row == 'diplome'}"></span>
                         <span class="glyphicon glyphicon-chevron-down"
                               data-ng-click=" order('-diplome') "
                               data-ng-class="{active: row == '-diplome'}"></span>
-                    </div></th>                    
+                    </div></th>
+                	<th><div class="th">
+                        Designation
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('email') "
+                              data-ng-class="{active: row == 'email'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-email') "
+                              data-ng-class="{active: row == '-email'}"></span>
+                    </div></th> 
                     <th><div class="th">
                         Enseignant responsable
                         <span class="glyphicon glyphicon-chevron-up"
@@ -55,14 +55,14 @@
                               data-ng-class="{active: row == '-email'}"></span>
                     </div></th>
                     <th><div class="th">
-                        Designation
+                        Formation
                         <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('email') "
-                              data-ng-class="{active: row == 'email'}"></span>
+                              data-ng-click=" order('code') "
+                              data-ng-class="{active: row == 'code'}"></span>
                         <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-email') "
-                              data-ng-class="{active: row == '-email'}"></span>
-                    </div></th>
+                              data-ng-click=" order('-code') "
+                              data-ng-class="{active: row == '-code'}"></span>
+                    </div></th>                   
                     <th><div class="th">
                         Semestre
                         <span class="glyphicon glyphicon-chevron-up"
@@ -73,7 +73,7 @@
                               data-ng-class="{active: row == '-email'}"></span>
                     </div></th>
                     <th><div class="th">
-                        Heures
+                        Heures (CM/TD/TP)
                         <span class="glyphicon glyphicon-chevron-up"
                               data-ng-click=" order('email') "
                               data-ng-class="{active: row == 'email'}"></span>
@@ -82,17 +82,21 @@
                               data-ng-class="{active: row == '-email'}"></span>
                     </div></th>
                     <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr data-ng-repeat="u in ue" class="ue">
-                    <td ng-click="edit(u)">{{u.uniteEnseignementPK.codeFormation}}</td>
-                    <td ng-click="edit(u)">{{u.uniteEnseignementPK.codeUe}}</td>
-                    <td ng-click="edit(u)">{{u.noEnseignant.prenom}} {{u.noEnseignant.nom}}</td>
-                    <td ng-click="edit(u)">{{u.designation}}</td>
-                    <td ng-click="edit(u)">{{u.semestre}}</td>
-                    <td ng-click="edit(u)">{{u.nbhCm}}/{{u.nbhTd}}/{{u.nbhTp}}</td>
-                    <td><span class="remove fa fa-remove" ng-click="supprime(f)"></span></td>
+                    <td ng-click="edit(u.uniteEnseignementPK.codeFormation, u.uniteEnseignementPK.codeUe)">{{u.uniteEnseignementPK.codeUe}}</td>
+                    <td ng-click="edit(u.uniteEnseignementPK.codeFormation, u.uniteEnseignementPK.codeUe)">{{u.designation}}</td>
+                    <td ng-click="edit(u.uniteEnseignementPK.codeFormation, u.uniteEnseignementPK.codeUe)">{{u.noEnseignant.prenom}} {{u.noEnseignant.nom}}</td>
+                    <td ng-click="edit(u.uniteEnseignementPK.codeFormation, u.uniteEnseignementPK.codeUe)">{{u.uniteEnseignementPK.codeFormation}}</td>
+                    <td ng-click="edit(u.uniteEnseignementPK.codeFormation, u.uniteEnseignementPK.codeUe)">{{u.semestre}}</td>
+                    <td ng-click="edit(u.uniteEnseignementPK.codeFormation, u.uniteEnseignementPK.codeUe)">{{u.nbhCm}}/{{u.nbhTd}}/{{u.nbhTp}}</td>                    
+                    <td><span class="info fa fa-info" ng-click="edit(u.uniteEnseignementPK.codeFormation, u.uniteEnseignementPK.codeUe)"></td>
+                    <td><span class="edit fa fa-pencil-square-o" ng-click="edit(u.uniteEnseignementPK.codeFormation, u.uniteEnseignementPK.codeUe)"></td>
+                    <td><span class="remove fa fa-trash" ng-click="supprime(u.uniteEnseignementPK)"></span></td>
                 </tr>
             </tbody>
         </table>
@@ -101,18 +105,18 @@
             <div class="row">
                 <div class="col-md-6 page-num-info">
                     <span>
-                        Show 
+                        Afficher 
                         <select data-ng-model="numPerPage"
                                 data-ng-options="num for num in numPerPageOpt"
                                 data-ng-change="onNumPerPageChange()">
                         </select> 
-                        entries per page
+                        lignes par page
                     </span>
                 </div>
                 <div class="col-md-6 text-right pagination-container">
                     <pagination class="pagination-sm"
                                 ng-model="currentPage"
-                                total-items="filteredStores.length"
+                                total-items="filteredUE.length"
                                 max-size="4"
                                 ng-change="select(currentPage)"
                                 items-per-page="numPerPage"

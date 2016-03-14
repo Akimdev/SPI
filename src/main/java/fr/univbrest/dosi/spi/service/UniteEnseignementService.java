@@ -67,5 +67,4 @@ public class UniteEnseignementService {
 	public final UniteEnseignement uniteEnseignement(final UniteEnseignementPK uniteEnseignementPK) {
 		return uniteEnseignementRepository.findOne(uniteEnseignementPK);
 	}
-
 }

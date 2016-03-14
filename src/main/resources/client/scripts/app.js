@@ -33,7 +33,7 @@
 					templateUrl : 'views/formations/details.html'
 				}).when('/admin/ue', {
 					templateUrl : 'views/ue/list.html'
-				}).when('/admin/ue/:id', {
+				}).when('/admin/ue/:codeFormation/:codeUe', {
 					templateUrl : 'views/ue/details.html'
 				}).when('/admin/promotions', {
 					templateUrl : 'views/promotions/list.html',
@@ -49,8 +49,7 @@
 					requiresAuthentication: true
 				}).when('/admin/qualificatifs', {
 					templateUrl : 'views/qualificatifs/list.html',
-					requiresAuthentication: true,
-				     permissions: ["ENS"]
+					requiresAuthentication: true
 				}).when('/admin/qualificatif/:id', {
 					templateUrl : 'views/qualificatifs/details.html',
 					requiresAuthentication: true

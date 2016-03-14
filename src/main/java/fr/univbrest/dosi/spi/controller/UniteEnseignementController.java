@@ -54,5 +54,15 @@ public class UniteEnseignementController {
 	public int nombreUEs() {
 		return ueServ.nombreUEs();
 	}
+	
+	/**
+	 * @author Youssef
+	 * @param uniteEnseignementPK
+	 * @return
+	 */
+	@RequestMapping(value = "/getUE", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public UniteEnseignement getUeById(@RequestBody final UniteEnseignementPK uniteEnseignementPK) {
+		return ueServ.uniteEnseignement(uniteEnseignementPK);
+	}
 
 }
