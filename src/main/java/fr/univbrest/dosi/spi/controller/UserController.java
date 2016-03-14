@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.univbrest.dosi.spi.bean.Authentification;
 import fr.univbrest.dosi.spi.bean.User;
 import fr.univbrest.dosi.spi.exception.SPIException;
 import fr.univbrest.dosi.spi.service.AuthentificationService;
@@ -29,16 +30,21 @@ public class UserController {
 	 * @param user
 	 */
 	@RequestMapping(value = "/auth", method = RequestMethod.POST, headers = "Accept=application/json")
-	public void authentifier(final HttpServletRequest request, @RequestBody final User user) {
-		final User users = authentificationService.logIn(user.getUsername(), user.getPwd());
-		user.setPwd(null);
-		if (users != null) {
-			request.getSession().setAttribute("user", users);
+	public void authentifier(final HttpServletRequest request, @RequestBody final Authentification authentification) {
+		String login;
+		if(authentification.getLoginConnection() != null)
+			login = authentification.getLoginConnection();
+		else
+			login = authentification.getPseudoConnection();
+			
+		final Authentification auth = authentificationService.logIn(login, authentification.getMotPasse());
+		auth.setMotPasse(null);
+		if (auth != null) {
+			request.getSession().setAttribute("user", auth);
 		} else {
 			request.getSession().removeAttribute("user");
 			throw new SPIException("impossible de s'authentifier");
 		}
-
 	}
 
 	/**
