@@ -185,6 +185,7 @@
 					$location.path("/pages/signin");
 				}
 				$rootScope.user = data.role;
+				console.log(data);
 				$rootScope.userNum = data;
 			}).error(function(data) {
 				$location.path("/pages/signin");
