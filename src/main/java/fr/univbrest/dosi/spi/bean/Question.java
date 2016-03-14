@@ -12,12 +12,15 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -31,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author DOSI
  */
 @Entity
-@Table(name = "QUESTION")
+@Table(name = "QUESTION", catalog = "", schema = "DOSI")
 @XmlRootElement
 @NamedQueries({ @NamedQuery(name = "Question.findQualificatif", query = "SELECT q.idQualificatif FROM Question q WHERE q.idQuestion = :idQuestion"),
 	@NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q"),
@@ -43,10 +46,12 @@ public class Question implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@JsonIgnore
 	// @JsonManagedReference(value="question-Qualificatif")
-	@JoinColumn(name = "ID_QUALIFICATIF", referencedColumnName = "ID_QUALIFICATIF")
+	@JoinColumn(name = "ID_QUALIFICATIF", referencedColumnName = "ID_QUALIFICATIF", nullable = false)
 	@ManyToOne(optional = false)
 	private Qualificatif idQualificatif;
 	@Id
+	@GeneratedValue(generator="QUE_SEQ",strategy=GenerationType.AUTO)
+	@SequenceGenerator(name="QUE_SEQ",sequenceName="QUE_SEQ", allocationSize=1)	
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "ID_QUESTION")
