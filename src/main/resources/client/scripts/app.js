@@ -1,32 +1,34 @@
 (function() {
 	'use strict';
-	
+
 	var pageDefaut = {
-			"ENS" : '/evalution',
-			// TODO continuer
+		"ENS" : '/evalution',
+	// TODO continuer
 	}
 
 	var app = angular.module(
 			'app',
 			[ 'ngRoute', 'ngAnimate', 'ui.bootstrap', 'easypiechart',
-					'mgo-angular-wizard', 'textAngular', 'ui.tree', 'toaster', 
-					'ngTagsInput', 'app.authentication', 'app.enseignants','app.evaluations','app.rubriques',
-					'app.formations', 'app.ue', 'app.etudiants', 'app.qualificatifs', 'app.questions', 'app.promotions', 'app.ui.ctrls',
+					'mgo-angular-wizard', 'textAngular', 'ui.tree', 'toaster',
+					'ngTagsInput', 'app.authentication', 'app.enseignants',
+					'app.evaluations', 'app.rubriques', 'app.formations',
+					'app.ue', 'app.etudiants', 'app.qualificatifs',
+					'app.questions', 'app.promotions', 'app.ui.ctrls',
 					'app.ui.directives', 'app.ui.services', 'app.controllers',
 					'app.directives', 'app.form.validation',
 					'app.ui.form.ctrls', 'app.ui.form.directives',
 					'app.tables', 'app.task', 'app.localization',
 					'app.chart.ctrls', 'app.chart.directives',
-					'app.page.ctrls', 'app.auth']).config(
+					'app.page.ctrls', 'app.auth' ]).config(
 			[ '$routeProvider', function($routeProvider, $urlRouterProvider) {
 				return $routeProvider.when('/', {
 					redirectTo : '/dashboard'
 				}).when('/admin/enseignants', {
 					templateUrl : 'views/enseignants/list.html',
-					 requiresAuthentication: true
+					requiresAuthentication : true
 				}).when('/admin/enseignant/:id', {
 					templateUrl : 'views/enseignants/details.html',
-					requiresAuthentication: true
+					requiresAuthentication : true
 				}).when('/admin/formations', {
 					templateUrl : 'views/formations/list.html'
 				}).when('/admin/formation/:id', {
@@ -37,41 +39,41 @@
 					templateUrl : 'views/ue/details.html'
 				}).when('/admin/promotions', {
 					templateUrl : 'views/promotions/list.html',
-					requiresAuthentication: true
+					requiresAuthentication : true
 				}).when('/admin/promotion/:ann/:form', {
 					templateUrl : 'views/promotions/details.html',
-					requiresAuthentication: true
+					requiresAuthentication : true
 				}).when('/admin/etudiants', {
 					templateUrl : 'views/etudiants/list.html',
-					requiresAuthentication: true
+					requiresAuthentication : true
 				}).when('/admin/etudiant/:id', {
 					templateUrl : 'views/etudiants/details.html',
-					requiresAuthentication: true
+					requiresAuthentication : true
 				}).when('/admin/qualificatifs', {
 					templateUrl : 'views/qualificatifs/list.html',
-					requiresAuthentication: true,
-				     permissions: ["ENS"]
+					requiresAuthentication : true,
+					permissions : [ "ENS" ]
 				}).when('/admin/qualificatif/:id', {
 					templateUrl : 'views/qualificatifs/details.html',
-					requiresAuthentication: true
+					requiresAuthentication : true
 				}).when('/admin/questions', {
 					templateUrl : 'views/questions/list.html',
-					requiresAuthentication: true
+					requiresAuthentication : true
 				}).when('/admin/question/:id', {
 					templateUrl : 'views/questions/details.html',
-					requiresAuthentication: true
+					requiresAuthentication : true
 				}).when('/admin/evaluations', {
 					templateUrl : 'views/evaluations/list.html',
-					requiresAuthentication: true
+					requiresAuthentication : true
 				}).when('/admin/evaluation/:id', {
 					templateUrl : 'views/evaluations/details.html',
-					requiresAuthentication: true
+					requiresAuthentication : true
 				}).when('/admin/rubriques', {
 					templateUrl : 'views/rubriques/list.html',
-					requiresAuthentication: true
+					requiresAuthentication : true
 				}).when('/admin/rubrique/:id', {
 					templateUrl : 'views/rubriques/detail.html',
-					requiresAuthentication: true
+					requiresAuthentication : true
 				}).when('/dashboard', {
 					templateUrl : 'views/dashboard.html'
 				}).when('/ui/typography', {
@@ -154,10 +156,10 @@
 				}).when('/tasks', {
 					templateUrl : 'views/tasks/tasks.html'
 				});
-				
+
 				/*
-					 * .otherwise({ redirectTo: '/404' });
-					 */
+				 * .otherwise({ redirectTo: '/404' });
+				 */
 				$urlRouterProvider.otherwise(function($injector, $location) {
 					var AuthService = $injector.get('AuthService');
 
@@ -174,8 +176,7 @@
 
 				});
 			} ]).run(function($rootScope, $route, $location, AuthService) {
-				
-				
+
 		$rootScope.$on("$routeChangeStart", function(e, to) {
 			if (to.notLoggedNeeded) {
 				return;
@@ -187,6 +188,8 @@
 				$rootScope.user = data.role;
 				console.log(data);
 				$rootScope.userNum = data;
+				console.log("User:", $rootScope.user);
+				console.log("Data:", data);
 			}).error(function(data) {
 				$location.path("/pages/signin");
 			});
