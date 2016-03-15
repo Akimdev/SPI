@@ -114,7 +114,7 @@ public class EnseignantController {
 	 *            l'id de l'enseignant
 	 * @return un enseignant
 	 */
-	@RequestMapping(value = "/getens/{noenseignant}")
+	@RequestMapping(value = "/getens/{noenseignant}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public final Enseignant getEnseignant(@PathVariable(value = "noenseignant") final Integer noEnseignant) {
 		// this.checkDroits(TypeDroit.SELECT);
 		return enseignantService.getEnseignant(noEnseignant);

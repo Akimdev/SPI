@@ -36,9 +36,7 @@ public class UserController {
 		final Authentification auth = authentificationService.logIn(login, authentification.getMotPasse());
 		if (auth != null) {
 			auth.setMotPasse(null);
-			System.out.println(auth.getRole());
 			request.getSession().setAttribute("user", auth);
-			System.out.println(auth);
 		} else {
 			request.getSession().removeAttribute("user");
 			throw new SPIException("impossible de s'authentifier");
