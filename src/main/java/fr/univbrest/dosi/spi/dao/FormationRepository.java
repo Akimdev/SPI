@@ -9,7 +9,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import fr.univbrest.dosi.spi.bean.Formation;
 
 /**
- * @author DOSI
+ * @author Kenza ABOUAKIL Repository de
  *
  */
 @RepositoryRestResource(collectionResourceRel = "formation", path = "formation")
@@ -19,7 +19,5 @@ public interface FormationRepository extends PagingAndSortingRepository<Formatio
 	public List<Formation> findAll();
 
 	public Formation findByCodeFormation(@Param("codeFormation") String codeFormation);
-
-	public List<Formation> findByNomFormation(@Param("nomFormation") String nomFormation);
 
 }

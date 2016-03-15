@@ -7,7 +7,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.univbrest.dosi.spi.bean.Formation;
@@ -16,6 +17,7 @@ import fr.univbrest.dosi.spi.service.FormationService;
 /**
  * @author Kenza ABOUAKIL
  *
+ *         Controlleur de Formation
  */
 @RestController
 public class FormationController {
@@ -23,62 +25,59 @@ public class FormationController {
 	@Autowired
 	FormationService formationService;
 
-	// createFormation
-	@RequestMapping(value = "/formation/createFormation", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public void createEnseignant(@RequestBody Formation formation) {
-		formationService.createFormation(formation);
+	/*
+	 * @Inherited
+	 */
+	@RequestMapping(value = "/formation/addFormation", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody void addFormation(@RequestBody Formation formation) {
+		formationService.addFormation(formation);
 	}
 
-	@RequestMapping(value = "/formation/deleteFormation", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public void deleteEnseignant(String codeFormation) {
+	/*
+	 * @Inherited
+	 */
+	@RequestMapping(value = "/formation/deleteFormation/{codeFormation}", headers = "Accept=application/json")
+	public void deleteFormation(@PathVariable("codeFormation") String codeFormation) {
 		formationService.deleteFormation(codeFormation);
 	}
 
+	/*
+	 * @Inherited
+	 */
 	@RequestMapping(value = "/formations", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public List<Formation> findAll() {
-		return formationService.findAll();
+	public List<Formation> getAllFormation() {
+		return formationService.getAllFormation();
 	}
 
-	@RequestMapping(value = "/formation/formationParCodeFormation", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public Formation findByCodeFormation(String codeFormation) {
+	/*
+	 * @Inherited
+	 */
+	@RequestMapping(value = "/formation/getFormation/{codeFormation}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public Formation getformation(@PathVariable(value = "codeFormation") String codeFormation) {
 		return formationService.getFormation(codeFormation);
 	}
 
-	@RequestMapping(value = "/formation/formationParNomFormation", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public List<Formation> findByNomFormation(String nomFormation) {
-		return formationService.findByNomFormation(nomFormation);
-	}
-
-	@RequestMapping(value = "/formation/getNomFormation", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public String getNomFormation(String codeFormation) {
+	/*
+	 * @Inherited
+	 */
+	@RequestMapping(value = "/formation/getNomFormation/{codeFormation}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public String getNomFormation(@PathVariable(value = "codeFormation") String codeFormation) {
 		return formationService.getNomFormation(codeFormation);
 	}
 
+	/*
+	 * @Inherited
+	 */
 	@RequestMapping(value = "/formation/getNomFormations", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public List<String> getNomFormations(@RequestBody List<String> codeFormations) {
 		return formationService.getNomFormations(codeFormations);
 	}
 
-	/**
-	 * @author Othman controlleur pour retourner le nombre de formations
+	/*
+	 * @Inherited
 	 */
 	@RequestMapping(value = "/nombreFormations", headers = "Accept=application/json")
 	public long nombreFormations() {
 		return formationService.nombreFormations();
 	}
-	
-	/**
-	 * @author LAKRAA
-	 * Méthode qui permet de supprimer une formation par codeFormation
-	 */
-	   @RequestMapping(value="/formation/delete", headers="Accept=application/json")
-	    public void removeFormation(@RequestParam("codeFormation") String codeFormation){
-	    	formationService.removeFormation(codeFormation);
-	    }
-	   
-	   @RequestMapping(value = "/formationByCode/{codeFormation}", produces = { MediaType.APPLICATION_JSON_VALUE })
-		public Formation formation(
-				@PathVariable(value = "codeFormation") String codeFormation) {
-			return formationService.traitement(codeFormation);
-		}
-}	   
+}
