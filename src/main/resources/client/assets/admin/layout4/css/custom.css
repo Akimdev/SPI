@@ -1,0 +1,74 @@
+/* here you can put your own css to customize and override the theme */
+
+/***
+Rounded Portlets
+***/
+
+/* .portlet {
+	border-radius: 4px !important;
+}
+
+.portlet .portlet-title {
+	border-radius: 4px 4px 0px 0px !important;
+}
+
+.portlet .portlet-body,
+.portlet .portlet-body .form-actions  {
+	border-radius: 0px 0px 4px 4px !important;
+}
+
+.bg-success {
+  background-color: #eefff6;
+} */
+
+.bg-primary {
+  color: #fff;
+  background-color: #31c0be;
+}
+a.bg-primary:hover {
+  background-color: #279796;
+}
+.bg-success {
+  background-color: #eefff6;
+}
+a.bg-success:hover {
+  background-color: #bbffdb;
+}
+.bg-info {
+  background-color: #eff6ff;
+}
+a.bg-info:hover {
+  background-color: #bcd9ff;
+}
+.bg-warning {
+  background-color: #fffbef;
+}
+a.bg-warning:hover {
+  background-color: #ffeebc;
+}
+.bg-danger {
+  background-color: #fff1ed;
+}
+a.bg-danger:hover {
+  background-color: #ffc9ba;
+}
+
+.box-info p {
+  margin: 0;
+}
+
+.box-icon {
+  display: block;
+  float: left;
+  margin: 0 15px 10px 0;
+  width: 65px;
+  height: 65px;
+  line-height: 65px;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 35px;
+}
+
+.box-icon.rounded {
+  border-radius: 0;
+}

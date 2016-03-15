@@ -1,0 +1,73 @@
+<!-- 
+--	@Author Zouhair
+--	View Details Etudiant
+ -->
+<!-- 
+--	@Author Youssef
+--	View Details Etudiant
+ -->
+<div class="page" ng-controller="EtudiantDetailsController">
+	<div class="portlet light bordered">
+		<div class="portlet-title">
+			<div class="caption">
+				<i class="icon-social-dribble font-red"></i> <span
+					class="cpation-subject font-red bold uppercase">Etudiant</span>
+			</div>
+		</div>
+		
+		<!------------------------------------------  -->
+		<div class="portlet-body form">
+			<form class="form-horizontal form-bordered">
+				<div class="form-group">
+					<div class="col-md-3">
+						<strong>Formation</strong></div>
+					<div class="col-md-3">{{etudiant.promotion.promotionPK.codeFormation}}</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3">
+						<strong>Numéro Etudiant</strong></div>
+					<div class="col-md-3">{{etudiant.noEtudiant}}</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3">
+						<strong>Nom</strong></div>
+					<div class="col-md-3">{{etudiant.nom}} {{etudiant.prenom}}</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3">
+						<strong>Sexe</strong></div>
+					<div class="col-md-3">{{etudiant.sexe == "M" ? 'Homme' : 'Femme'}}</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3">
+						<strong>Date de Naissance</strong></div>
+					<div class="col-md-3">{{etudiant.dateNaissance | date:"dd/MM/yyyy"}}</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3">
+						<strong>Pays d'origine</strong></div>
+					<div class="col-md-3">{{etudiant.paysOrigine}}</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3">
+						<strong>Nationalité</strong></div>
+					<div class="col-md-3">{{etudiant.nationalite}}</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3">
+						<strong>Email</strong></div>
+					<div class="col-md-3">{{etudiant.emailUbo}}</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3">
+						<strong>Université d'origine</strong></div>
+					<div class="col-md-3">{{etudiant.universiteOrigine}}</div>
+				</div>
+			</form>
+		</div>
+		<!------------------------------------------  -->
+		</br>
+		<a class="btn btn-primary" href="#/etudiants"><span
+			class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+	</div>
+</div>
