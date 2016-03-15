@@ -17,4 +17,6 @@ import fr.univbrest.dosi.spi.bean.Evaluation;
 public interface EvaluationRepository extends PagingAndSortingRepository<Evaluation, Integer>{
 
    Evaluation findByIdEvaluation(@Param("idEvaluation") Integer idEvaluation);
+
 }
+

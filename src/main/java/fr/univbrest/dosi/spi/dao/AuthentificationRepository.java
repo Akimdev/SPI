@@ -9,7 +9,7 @@ import fr.univbrest.dosi.spi.bean.Authentification;
 
 /**
  * 
- * @author DOSI
+ * @author Youssef
  * Authentification repository (DAO)
  */
 @RepositoryRestResource(collectionResourceRel = "authentification", path = "authentification")
@@ -18,11 +18,12 @@ public interface AuthentificationRepository extends PagingAndSortingRepository<A
 
 	/**
 	 * Vérifier la connexion avec un couple Pseudo et Mot de passe
+	 * @author Youssef
 	 * @param pseudoConnection
 	 * @param motPasse
 	 * @return
 	 */
-	public Authentification findByPseudoAndPwd(@Param("pseudoConnection") String pseudoConnection, @Param("motPasse") String motPasse);
+	public Authentification findByLoginAndPwd(@Param("pseudoConnection") String pseudoConnection, @Param("motPasse") String motPasse);
 
 
 }

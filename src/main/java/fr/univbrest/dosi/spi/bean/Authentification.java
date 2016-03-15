@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "AUTHENTIFICATION", catalog = "", schema = "DOSI")
 @XmlRootElement
 @NamedQueries({
-	@NamedQuery(name = "Authentification.findByPseudoAndPwd", query = "SELECT a FROM Authentification a WHERE a.pseudoConnection = :pseudoConnection AND a.motPasse = :motPasse"),
+	@NamedQuery(name = "Authentification.findByLoginAndPwd", query = "SELECT a FROM Authentification a WHERE (a.pseudoConnection = :pseudoConnection OR a.loginConnection = :pseudoConnection) AND a.motPasse = :motPasse"),
     @NamedQuery(name = "Authentification.findAll", query = "SELECT a FROM Authentification a"),
     @NamedQuery(name = "Authentification.findByIdConnection", query = "SELECT a FROM Authentification a WHERE a.idConnection = :idConnection"),
     @NamedQuery(name = "Authentification.findByRole", query = "SELECT a FROM Authentification a WHERE a.role = :role"),
@@ -65,11 +65,9 @@ public class Authentification implements Serializable {
     @Size(max = 32)
     @Column(name = "MOT_PASSE")
     private String motPasse;
-    @JsonIgnore
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne
     private Enseignant noEnseignant;
-    @JsonIgnore
     @JoinColumn(name = "NO_ETUDIANT", referencedColumnName = "NO_ETUDIANT")
     @ManyToOne
     private Etudiant noEtudiant;

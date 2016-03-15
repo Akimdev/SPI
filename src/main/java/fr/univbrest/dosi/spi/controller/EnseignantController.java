@@ -2,6 +2,8 @@ package fr.univbrest.dosi.spi.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.univbrest.dosi.spi.bean.Authentification;
 import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Promotion;
 import fr.univbrest.dosi.spi.bean.UniteEnseignement;
@@ -114,7 +117,7 @@ public class EnseignantController {
 	 *            l'id de l'enseignant
 	 * @return un enseignant
 	 */
-	@RequestMapping(value = "/getens/{noenseignant}")
+	@RequestMapping(value = "/getens/{noenseignant}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public final Enseignant getEnseignant(@PathVariable(value = "noenseignant") final Integer noEnseignant) {
 		// this.checkDroits(TypeDroit.SELECT);
 		return enseignantService.getEnseignant(noEnseignant);
@@ -197,5 +200,17 @@ public class EnseignantController {
 		// this.checkDroits(TypeDroit.MODIFY);
 		enseignantService.updateEnseignant(enseignant);
 		return "l'enseignant " + enseignant.getNom() + " " + enseignant.getPrenom() + " est modifier";
+	}
+	/**
+	 * @author Othman
+	 * @param noEnseignant
+	 * @return  Cette méthode retourne une liste triée d'unités d'enseignement
+	 * 
+	 */
+	@RequestMapping(value="/getUEByNoEnseignant", produces = { "application/json;charset=UTF-8" })
+	public List<UniteEnseignement> getUEByNoEnseignant(HttpServletRequest request){
+		Authentification auth = (Authentification) request.getSession().getAttribute("user");
+		Enseignant ens = auth.getNoEnseignant();
+		return enseignantService.getUEByNoEnseignant(ens.getNoEnseignant());
 	}
 }

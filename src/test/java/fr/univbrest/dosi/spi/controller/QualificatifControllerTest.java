@@ -41,7 +41,7 @@ public class QualificatifControllerTest {
 
 		Qualificatif qualif = new Qualificatif();
 		
-		qualif.setIdQualificatif(new Long(25));
+		qualif.setIdQualificatif(new Long(557));
 		qualif.setMaximal("max");
 		qualif.setMinimal("min");
 		
@@ -76,7 +76,7 @@ public class QualificatifControllerTest {
 		List<Qualificatif> qualif;
 		qualif = mapper.readValue(rd, ArrayList.class);
 		
-		Assert.assertEquals(18,qualif.size());
+		Assert.assertEquals(20,qualif.size());
 		
 	}
 	
