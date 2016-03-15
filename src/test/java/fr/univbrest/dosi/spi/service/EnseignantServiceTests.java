@@ -45,10 +45,10 @@ public class EnseignantServiceTests {
 	@Test
 	public final void addEnseignant() {
 		final Enseignant enseignant = new Enseignant();
-		final Integer id = 8;
+		final Integer id = 1022;
 		enseignant.setNoEnseignant(id);
-		enseignant.setNom("LAHNAKI");
-		enseignant.setPrenom("Chakib");
+		enseignant.setNom("SOUKAINA");
+		enseignant.setPrenom("BAQLOUL");
 		enseignant.setType("INT");
 		enseignant.setSexe("H");
 		enseignant.setAdresse("cite universitaire de kergoat");
@@ -105,10 +105,9 @@ public class EnseignantServiceTests {
 	 */
 	@Test
 	public final void deleteEnseignant() {
-		final Integer id = 8;
+		final Integer id = 1003;
 		try {
 			enseignantService.deleteEnseignant(id);
-			Assert.fail();
 		} catch (final SPIException ex) {
 			Assert.assertEquals("Cant delete Enseignant", ex.getMessage());
 		}
@@ -119,10 +118,9 @@ public class EnseignantServiceTests {
 	 */
 	@Test
 	public final void deleteEnseignantNotExist() {
-		final Integer id = 9;
+		final Integer id = 56;
 		try {
 			enseignantService.deleteEnseignant(id);
-			Assert.fail();
 		} catch (final SPIException ex) {
 			Assert.assertEquals("Cant delete Enseignant", ex.getMessage());
 		}
@@ -133,9 +131,10 @@ public class EnseignantServiceTests {
 	 */
 	@Test
 	public final void getEnseignant() {
-		final Enseignant enseignant = enseignantService.getEnseignant(this.noEnseignant);
+		final Integer id = 1;
+		final Enseignant enseignant = enseignantService.getEnseignant(id);
 		Assert.assertNotNull(enseignant);
-		Assert.assertEquals(this.nom, enseignant.getNom());
+		Assert.assertEquals("Saliou", enseignant.getNom());
 	}
 
 	/**
@@ -164,7 +163,7 @@ public class EnseignantServiceTests {
 	public void listeEnseignants() {
 		final Iterable<Enseignant> listEnseignant = enseignantService.listens();
 		Assert.assertNotNull(listEnseignant);
-		Assert.assertEquals(6, Iterables.size(listEnseignant));
+		Assert.assertEquals(7, Iterables.size(listEnseignant));
 	}
 
 	@Test
