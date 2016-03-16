@@ -19,5 +19,12 @@ public interface DomainesRepository extends PagingAndSortingRepository<CgRefCode
 	CgRefCodes findByIdCgrc(@Param("idCgrc") BigDecimal idCgrc);
 
 	List<CgRefCodes> findByRvDomain(@Param("rvDomain") String rvDomain);
+	
+	/**
+	 * @author Youssef
+	 * @param lowValue
+	 * @return récupérer le pays correspondant à une abréviation
+	 */
+	CgRefCodes findPaysDomain(@Param("rvLowValue") String rvLowValue);
 
 }

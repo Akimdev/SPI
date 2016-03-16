@@ -8,10 +8,12 @@
 	<!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
 	<!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
 	<ul class="page-sidebar-menu" 
+		data-ng-controller="NavCtrl"
 		data-keep-expanded="false" 
 		data-auto-scroll="true" 
 		data-slide-speed="200" 
-		ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
+		ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}"
+		data-highlight-active>
 		<li class="heading">
 			<h3>TABLEAU DE BORD</h3>
 		</li>
@@ -21,7 +23,7 @@
 			<span class="title">Accueil</span>
 			</a>
 		</li>
-		<li>
+		<li ng-show="user=='ADM'">
 			<a href="javascript:;">
 			<i class="icon-settings"></i>
 			<span class="title">Administration</span>
@@ -59,13 +61,27 @@
 					</a>
 				</li>
 				<li>
+					<a href="#/rubriques">
+					<i class="icon-tag"></i> Rubriques</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li ng-show="user=='ENS'">
+			<a href="javascript:;">
+			<i class="icon-settings"></i>
+			<span class="title">Gestion Evaluations</span>
+			<span class="arrow "></span>
+			</a>
+			<ul class="sub-menu">
+				<li>
 					<a href="#/evaluations">
 					<i class="icon-note"></i> Evaluations</span>
 					</a>
 				</li>
 				<li>
-					<a href="#/rubriques">
-					<i class="icon-tag"></i> Rubriques</span>
+					<a href="#/creationEvaluation">
+					<i class="icon-note"></i>Cr&egrave;er Evaluation</span>
 					</a>
 				</li>
 			</ul>
