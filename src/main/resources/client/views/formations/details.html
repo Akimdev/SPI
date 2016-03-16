@@ -21,7 +21,7 @@
 						<label for="" class="col-sm-2">Code<span
 							id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="number" class="form-control" name="codeFormation"
+							<input type="text" class="form-control" name="codeFormation"
 								min="1" ng-model="formation.codeFormation"
 								ng-disabled="isVisible" required> <span
 								style="color: red"
@@ -80,6 +80,8 @@
 								ng-model="formation.finAccreditation">
 						</div>
 					</div>
+				
+				
 				</form>
 				<a class="btn btn-success" ng-click="submit()"><span
 					class="glyphicon glyphicon-ok"></span> Valider</a>

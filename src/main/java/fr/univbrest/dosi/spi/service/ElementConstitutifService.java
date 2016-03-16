@@ -20,20 +20,47 @@ public class ElementConstitutifService {
 	@Autowired
 	private ElementConstitutifRepository elementConstitutifRepository;
 	
+	/**
+	 * @author Abdelhakim Ait Errami
+	 * @param codeUe
+	 * @return
+	 */
 	public List<ElementConstitutif> getByUe(String codeUe){
 		return elementConstitutifRepository.findByCodeUe(codeUe);
 	}
-	
+	/**
+	 * @author Abdelhakim Ait Errami
+	 * @param elementConstitutif
+	 * @return
+	 */
 	public final void addElementConstitutif(final ElementConstitutif elementConstitutif) {
 		elementConstitutifRepository.save(elementConstitutif);
 	}
-
+	/**
+	 * @author Abdelhakim Ait Errami
+	 * @param elementConstitutifPK
+	 * @return
+	 */
 	public final void deleteElementConstitutif(final ElementConstitutifPK elementConstitutifPK) {
 		elementConstitutifRepository.delete(elementConstitutifPK);
 	}
-
+	/**
+	 * @author Abdelhakim Ait Errami
+	 * @param elementConstitutifPK
+	 * @return
+	 */
 	public final Boolean existElementCostitutif(final ElementConstitutifPK elementConstitutifPK) {
 		return elementConstitutifRepository.exists(elementConstitutifPK);
+	}
+	/**
+	 * @author Abdelhakim Ait Errami
+	 * @param codeUe
+	 * @return
+	 */
+	public final Integer nombreEc(){
+		List<ElementConstitutif> ECs = (List<ElementConstitutif>) elementConstitutifRepository.findAll();
+		return ECs.size();
+		
 	}
 
 	/**

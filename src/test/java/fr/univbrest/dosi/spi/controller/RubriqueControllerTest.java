@@ -2,10 +2,7 @@ package fr.univbrest.dosi.spi.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +21,6 @@ import org.junit.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
-import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.bean.Rubrique;
 
 

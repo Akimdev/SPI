@@ -33,9 +33,10 @@ public class EnseignantControllerTest {
 	public void addserviceTest() throws ClientProtocolException, IOException {
 
 		final Enseignant enseignant = new Enseignant();
-		enseignant.setNoEnseignant(1011);
-		enseignant.setNom("LAHNAKI");
-		enseignant.setPrenom("Chakib");
+
+		enseignant.setNoEnseignant(1000);
+		enseignant.setNom("BAQLOUL");
+		enseignant.setPrenom("SOUKAINA");
 		enseignant.setType("INT");
 		enseignant.setSexe("H");
 		enseignant.setAdresse("cite universitaire de kergoat");
@@ -90,21 +91,12 @@ public class EnseignantControllerTest {
 	@Test
 	public final void deleteEnseignanrTest() throws ClientProtocolException, IOException {
 
-		// Création du client et éxécution d'une requete GET
+		
 		final HttpClient client = HttpClientBuilder.create().build();
-		final HttpGet mockRequest = new HttpGet("http://localhost:8090/deleteEnseignant/7");
-
+		final HttpGet mockRequest = new HttpGet("http://localhost:8090/deleteEnseignant/1005");
 		final HttpResponse mockResponse = client.execute(mockRequest);
-
-		// Le code retour HTTP doit être un succès (200)
 		Assert.assertEquals(200, mockResponse.getStatusLine().getStatusCode());
-
-		final BufferedReader rd = new BufferedReader(new InputStreamReader(mockResponse.getEntity().getContent()));
-		final ObjectMapper mapper = new ObjectMapper();
-
-		final Iterable<Enseignant> ens = mapper.readValue(rd, Iterable.class);
-
-		Assert.assertNotNull(ens);
+		
 	}
 
 	@Test

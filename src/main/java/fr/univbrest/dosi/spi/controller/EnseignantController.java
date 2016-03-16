@@ -34,7 +34,7 @@ public class EnseignantController {
 
 	/*
 	 * private enum TypeDroit { CREATE, DELETE, MODIFY, SELECT, }
-	 *
+	 * 
 	 * /** Service de gestion des enseignants
 	 */
 	@Autowired
@@ -69,10 +69,10 @@ public class EnseignantController {
 	 */
 	// @RequestMapping(value="/ajouterEnseignant" , headers="Accept=application/json", method=RequestMethod.POST)
 	@RequestMapping(value = "/ajouterEnseignant", method = RequestMethod.POST, consumes = { "application/json;charset=UTF-8" }, produces = { "application/json;charset=UTF-8" })
-	public final String addEnseignant(@RequestBody final Enseignant enseignant) {
+	public final void addEnseignant(@RequestBody final Enseignant enseignant) {
 		// this.checkDroits(TypeDroit.CREATE);
 		enseignantService.addEnseignant(enseignant);
-		return "l'enseignant " + enseignant.getNom() + " " + enseignant.getPrenom() + " est ajouter";
+
 	}
 
 	/**
@@ -196,19 +196,20 @@ public class EnseignantController {
 	 */
 	// @RequestMapping(value="/ajouterEnseignant" , headers="Accept=application/json", method=RequestMethod.POST)
 	@RequestMapping(value = "/updateEnseignant", method = RequestMethod.POST, consumes = { "application/json;charset=UTF-8" }, produces = { "application/json;charset=UTF-8" })
-	public final String updateEnseignant(@RequestBody final Enseignant enseignant) {
+	public final void updateEnseignant(@RequestBody final Enseignant enseignant) {
 		// this.checkDroits(TypeDroit.MODIFY);
 		enseignantService.updateEnseignant(enseignant);
-		return "l'enseignant " + enseignant.getNom() + " " + enseignant.getPrenom() + " est modifier";
+
 	}
+
 	/**
 	 * @author Othman
 	 * @param noEnseignant
-	 * @return  Cette méthode retourne une liste triée d'unités d'enseignement
+	 * @return Cette méthode retourne une liste triée d'unités d'enseignement
 	 * 
 	 */
-	@RequestMapping(value="/getUEByNoEnseignant", produces = { "application/json;charset=UTF-8" })
-	public List<UniteEnseignement> getUEByNoEnseignant(HttpServletRequest request){
+	@RequestMapping(value = "/getUEByNoEnseignant", produces = { "application/json;charset=UTF-8" })
+	public List<UniteEnseignement> getUEByNoEnseignant(HttpServletRequest request) {
 		Authentification auth = (Authentification) request.getSession().getAttribute("user");
 		Enseignant ens = auth.getNoEnseignant();
 		return enseignantService.getUEByNoEnseignant(ens.getNoEnseignant());

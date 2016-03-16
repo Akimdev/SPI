@@ -9,8 +9,8 @@
 	var app = angular.module(
 			'app',
 			[ 'ngRoute', 'ngAnimate', 'ui.bootstrap', 'easypiechart',
-					'mgo-angular-wizard', 'textAngular', 'ui.tree', 'toaster',
-					'ngTagsInput', 'app.enseignants',
+			  		'mgo-angular-wizard', 'textAngular', 'ui.tree', 'toaster',
+					'ngTagsInput', 'app.enseignants', 'app.ec',
 					'app.evaluations', 'app.rubriques', 'app.formations',
 					'app.ue', 'app.etudiants', 'app.qualificatifs',
 					'app.questions', 'app.promotions', 'app.ui.ctrls',
@@ -122,11 +122,17 @@
 				}).when('/pages/features', {
 					templateUrl : 'views/pages/features.html'
 				}).when('/pages/signin', {
-					templateUrl : 'views/pages/signin.html',
-					notLoggedNeeded : true
+					templateUrl : 'views/pages/signin.html'
 				}).when('/pages/signup', {
 					templateUrl : 'views/pages/signup.html',
-					notLoggedNeeded : true
+				}).when('/admin/elementConstitutif',{
+					templateUrl:'views/elementConstitutif/list.html'
+				}).when('/admin/elementConstitutif/:new',{
+					templateUrl:'views/elementConstitutif/detail.html'
+				}).when('/admin/elementConstitutif/:id/:id2/:id3',{
+					templateUrl:'views/elementConstitutif/detail.html'
+				}).when('/admin/elementConstitutif/:infos/:id/:id2/:id3',{
+					templateUrl:'views/elementConstitutif/detail.html'
 				/*
 				 * .when('/pages/signin', { templateUrl:
 				 * 'views/pages/signin.html' }) .when('/pages/signup', {
