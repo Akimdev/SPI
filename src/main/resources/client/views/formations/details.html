@@ -81,27 +81,7 @@
 						</div>
 					</div>
 				
-					<div class="col-md-6" ng-show="formation.ue.length">
-                    <div class="panel-body table-responsive">
-                        <strong><span class="fa fa-university"></span> Unités d'Enseignement</strong>
-                        <table class="table" >
-                            <thead>
-                                <tr>
-                                    <th>Semestre</th>
-                                    <th>Code</th>
-                                    <th>Designation</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="ue in formation.ue">
-                                    <td>{{ue.semestre}}</td>
-                                    <td>{{ue.uniteEnseignementPK.codeUe}}</td>
-                                    <td>{{ue.designation}}</td>
-                                </tr>                    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+				
 				</form>
 				<a class="btn btn-success" ng-click="submit()"><span
 					class="glyphicon glyphicon-ok"></span> Valider</a>
