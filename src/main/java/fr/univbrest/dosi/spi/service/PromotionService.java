@@ -1,5 +1,7 @@
 package fr.univbrest.dosi.spi.service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Promotion;
 import fr.univbrest.dosi.spi.bean.PromotionPK;
+import fr.univbrest.dosi.spi.bean.UniteEnseignement;
 import fr.univbrest.dosi.spi.dao.PromotionRepository;
 import fr.univbrest.dosi.spi.exception.SPIException;
 
@@ -77,5 +80,15 @@ public class PromotionService {
 
 	public final void update(final Promotion promotion) {
 		promotionRepository.save(promotion);
+	}
+	
+	public List<Promotion> getPromoByNoEnseignant(final Integer noEnseignant){
+		List<Promotion> listePromo = promotionRepository.findByNoEnseignant(noEnseignant);
+		Collections.sort(listePromo, new Comparator<Promotion>() {
+		        public int compare(final Promotion pro1, final Promotion pro2) {
+		            return (pro1.getPromotionPK().getCodeFormation()).compareTo(pro2.getPromotionPK().getCodeFormation());
+		        }
+		       });
+		return listePromo;
 	}
 }
