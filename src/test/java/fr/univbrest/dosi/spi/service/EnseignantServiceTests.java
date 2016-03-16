@@ -45,10 +45,10 @@ public class EnseignantServiceTests {
 	@Test
 	public final void addEnseignant() {
 		final Enseignant enseignant = new Enseignant();
-		final Integer id = 8;
+		final Integer id = 10110;
 		enseignant.setNoEnseignant(id);
-		enseignant.setNom("LAHNAKI");
-		enseignant.setPrenom("Chakib");
+		enseignant.setNom("ASSABBAR");
+		enseignant.setPrenom("Soukaina");
 		enseignant.setType("INT");
 		enseignant.setSexe("H");
 		enseignant.setAdresse("cite universitaire de kergoat");

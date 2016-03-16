@@ -23,7 +23,7 @@
 						<li><label>Responsable</label>{{responsable.nom}} {{responsable.prenom}}</li>
 						<li><label>Date de rentr&eacute;e</label> {{promotion.dateRentree | date: "dd/MM/yyyy"}}</li>
 						<li><label>Lieu de rentr&eacute;e</label> {{promotion.lieuRentree}}</li>
-						<li><label>Processus de stage</label> {{promotion.processusStage}}</li>
+						<li><label>Processus de stage</label> {{processusStageSelected}}</li>
 						<li><label>Commentaire</label>{{promotion.commentaire}}</li>
 						<li><label>Nombre max d'&eacute;tudiants</label> {{promotion.nbMaxEtudiant}}</li>
 					</ul>
@@ -92,7 +92,7 @@
 					<div class="form-group">
 						<label for="" class="col-sm-2">Responsable</label>
 						<div class="col-sm-10">
-							<select ng-show="edit" name="listeEnseignants" ng-model="enseignantSelected" ng-change="test()">
+							<select ng-show="edit" name="listeEnseignants" ng-model="enseignantSelected">
 								<option data-ng-repeat="e in enseignants" value="{{e.noEnseignant}}" ng-selected="{{e.noEnseignant == responsable.noEnseignant}}">{{e.noEnseignant}}. {{e.nom}} {{e.prenom}}</option>
 							</select>
 							<input ng-hide="edit" type="text" class="form-control"
@@ -120,14 +120,15 @@
 					<div class="form-group">
 						<label for="" class="col-sm-2">Processus de stage</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" maxlength="5"
-								ng-model="promotion.processusStage">
+							<select ng-model="processusStageSelected" name="processusStage">
+								<option data-ng-repeat="p in processusStage" value="{{p.rvAbbreviation}}">{{p.rvMeaning}}</option>
+							</select>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">Commentaire</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" maxlength="255"
+							<input type="textarea" class="form-control" maxlength="255"
 								ng-model="promotion.commentaire">
 						</div>
 					</div>

@@ -1,7 +1,6 @@
 package fr.univbrest.dosi.spi.bean.utils;
 
 import fr.univbrest.dosi.spi.bean.Enseignant;
-import fr.univbrest.dosi.spi.bean.Formation;
 import fr.univbrest.dosi.spi.bean.UniteEnseignement;
 
 public class UniteEnseignementUtil {
