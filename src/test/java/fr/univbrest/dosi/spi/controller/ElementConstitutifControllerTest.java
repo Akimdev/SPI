@@ -32,15 +32,15 @@ public class ElementConstitutifControllerTest {
 	public void addEC() throws JsonProcessingException, Exception{
 		
 		Enseignant enseignant = new Enseignant(2);
-		ElementConstitutifPK ecPK = new ElementConstitutifPK("M2DOSI","J2EE","ZEBRA");
+		ElementConstitutifPK ecPK = new ElementConstitutifPK("M2DOSI","J2EE","newEc");
 		ElementConstitutif ec = new ElementConstitutif(ecPK);
-		ec.setDescription("descri");
-		ec.setDesignation("desig");
+		ec.setDescription("nn");
+		ec.setDesignation("nn");
 		EcUtil ecUtil = new EcUtil(enseignant, ec);
 		
 		// Création du client et  d'une requete POST
 		final HttpClient client = HttpClientBuilder.create().build();
-		final HttpPost mockRequestPost = new HttpPost("http://localhost:8090/addElementConstituf");
+		final HttpPost mockRequestPost = new HttpPost("http://localhost:8090/updateEC");
 		// création de l'objet mapper afin de convertir l'objet en jsonInSTring
 		ObjectMapper mapper = new ObjectMapper();
 		com.fasterxml.jackson.databind.ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();

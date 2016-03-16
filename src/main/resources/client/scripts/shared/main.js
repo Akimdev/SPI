@@ -65,10 +65,19 @@
 		  },
 		  getEnseignants:function(){
 			  return $http.get("http://localhost:8090/nombreEnseignants");
+		  },
+		  getElementConstitutifs:function(){
+			  return $http.get("http://localhost:8090/nombreEC");
 		  }
 	  };
   }
   ]).controller('DashboardCtrl', ['$scope','informationFactory',function($scope, informationFactory) {
+	  var promise = informationFactory.getElementConstitutifs();
+	  promise.success(function(data){
+		 $scope.nombreEC=data; 
+	  }).error(function(data){
+		  console.log("impossible de récupérer le nombre d'Elements Constitutifs")
+	  });
 	  var promise= informationFactory.getEtudiants();
       promise.success(function(data){
     	  $scope.nombreEtudiants = data ;

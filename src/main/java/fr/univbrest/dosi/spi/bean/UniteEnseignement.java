@@ -73,7 +73,6 @@ public class UniteEnseignement implements Serializable {
     @Column(name = "NBH_TP")
     private Short nbhTp;
     @JsonIgnore
-    //@JsonManagedReference(value = "enseignant-uniteEnseignement")
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne(optional = false)
     private Enseignant noEnseignant;
