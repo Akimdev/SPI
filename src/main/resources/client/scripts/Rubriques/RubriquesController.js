@@ -54,8 +54,8 @@
     	$scope.refresh=function(){
     	var init = null;
 		  var promise = rubriquesFactory.listerRubriques();
-      promise.success(function(data) {
-		    $scope.rubriques = data;
+              promise.success(function(data) {
+		      $scope.rubriques = data;
 		      $scope.searchKeywords = '';
 		      $scope.filteredRubrique = [];
 		      $scope.row = '';
@@ -122,22 +122,22 @@
       // supprime une Rubrique
       $scope.supprime = function(idRubrique){ 
           swal({   
-			  title: "Voulez-vous vraiment supprimer ce qualificatif ?",      
+			  title: "Voulez-vous vraiment supprimer cette Rubrique ?",      
 			  type: "warning",   
 			  showCancelButton: true,   
 			  confirmButtonColor: "#DD6B55",   
-			  confirmButtonText: "Oui, je veux le supprimer!",  
-			  cancelButtonText: "Non, ignorer!",   
+			  confirmButtonText: "Oui",  
+			  cancelButtonText: "Non",   
 			  closeOnConfirm: false,   closeOnCancel: false },
 			  function(isConfirm){
 				  if (isConfirm) {  
 					  var promise= rubriquesFactory.delete(idRubrique);
     	  			  promise.success(function(data,statut){
-        	          swal("Supprimé!", "le qualificatif est supprimé", "success");
+        	          swal("Supprimé!", "le rubrique est supprimé", "success");
         	           $scope.refresh();
                   });
 						promise.error(function(data,statut){
-        	        	swal("Erreur!", "vous ne pouvez pas supprimer ce qualificatif", "error");
+        	        	swal("Erreur!", "vous ne pouvez pas supprimer ce rubrique", "error");
 			  		});	
 					  }else {     
 						  swal("Ignorer", "", "error");

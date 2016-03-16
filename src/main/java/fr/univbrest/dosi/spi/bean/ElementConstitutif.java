@@ -35,6 +35,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 	@NamedQuery(name = "ElementConstitutif.findByCodeFormation", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeFormation = :codeFormation"),
 	@NamedQuery(name = "ElementConstitutif.findByCodeUe", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeUe = :codeUe"),
 	@NamedQuery(name = "ElementConstitutif.findByCodeEc", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeEc = :codeEc"),
+	@NamedQuery(name = "ElementConstitutif.findEcByCodeUe", query = "SELECT e FROM ElementConstitutif e WHERE e.elementConstitutifPK.codeUe = :codeUe AND e.elementConstitutifPK.codeFormation = :codeFormation"),
 	@NamedQuery(name = "ElementConstitutif.findByDesignation", query = "SELECT e FROM ElementConstitutif e WHERE e.designation = :designation"),
 	@NamedQuery(name = "ElementConstitutif.findByDescription", query = "SELECT e FROM ElementConstitutif e WHERE e.description = :description"),
 	@NamedQuery(name = "ElementConstitutif.findByNbhCm", query = "SELECT e FROM ElementConstitutif e WHERE e.nbhCm = :nbhCm"),
@@ -59,7 +60,7 @@ public class ElementConstitutif implements Serializable {
 	@Column(name = "NBH_TP")
 	private Short nbhTp;
 	//@JsonManagedReference(value = "enseignant-elementConstitutif")
-	@JsonIgnore
+	//@JsonIgnore
 	@JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
 	@ManyToOne(optional = false)
 	private Enseignant noEnseignant;

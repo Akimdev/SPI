@@ -11,6 +11,7 @@ import fr.univbrest.dosi.spi.bean.ElementConstitutif;
 import fr.univbrest.dosi.spi.bean.UniteEnseignement;
 import fr.univbrest.dosi.spi.bean.UniteEnseignementPK;
 import fr.univbrest.dosi.spi.dao.UniteEnseignementRepository;
+import fr.univbrest.dosi.spi.exception.SPIException;
 
 /**
  * @author Othman
@@ -23,7 +24,10 @@ public class UniteEnseignementService {
 	UniteEnseignementRepository uniteEnseignementRepository;
 
 	public void addUE(final UniteEnseignement uniteEnseignement) {
-		uniteEnseignementRepository.save(uniteEnseignement);
+		if(!uniteEnseignementRepository.exists(uniteEnseignement.getUniteEnseignementPK()))
+			uniteEnseignementRepository.save(uniteEnseignement);
+		else
+			throw new SPIException("L'unité d'enseignement existe déjà !");
 	}
 	
 	public void updateUE(final UniteEnseignement uniteEnseignement) {

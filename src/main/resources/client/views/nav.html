@@ -8,8 +8,10 @@
         <li><a href="#/dashboard"> <i class="fa fa-dashboard"></i><span data-i18n="Tableau de bord"></span> </a></li>
         <li ng-show="user=='ADM'"> 
             <a href="#/admin/promotions"><i class="fa fa-graduation-cap"></i><span data-i18n="Promotions"></span></a>
+        </li>
+        <li ng-show="user=='ADM'"> 
+            <a href="#/admin/ue"><i class="fa fa-bars"></i><span data-i18n="Unités d'enseignements"></span></a>
         </li> 
-          </li> 
         <li ng-show="user=='ADM'"> 
             <a href="#/admin/etudiants"><i class="fa fa-users"></i><span data-i18n="Etudiants"></span></a>
         </li> 
@@ -26,7 +28,13 @@
             <a href="#/admin/evaluations"><i class="fa fa-book"></i><span data-i18n="Evaluations"></span></a>
         </li>   
         <li ng-show="user=='ADM'"> 
-            <a href="#/admin/formations"><i class="fa fa-book"></i><span data-i18n="Formations"></span></a>
-        </li>   
+            <a href="#/admin/formations"><i class="fa fa-briefcase"></i><span data-i18n="Formations"></span></a>
+        </li>     
+        <li ng-show="user=='ADM'"> 
+            <a href="#/admin/elementConstitutif"><i class="fa fa-book"></i><span data-i18n="Elements Constitufs"></span></a>
+        </li>     
+        <li ng-show="user=='ADM'"> 
+            <a href="#/admin/enseignants"><i class="fa fa-users"></i><span data-i18n="Enseignants"></span></a>
+        </li>    
     </ul>
 </div>

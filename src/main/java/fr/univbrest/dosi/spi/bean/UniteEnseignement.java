@@ -72,7 +72,7 @@ public class UniteEnseignement implements Serializable {
     private Short nbhTd;
     @Column(name = "NBH_TP")
     private Short nbhTp;
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne(optional = false)
     private Enseignant noEnseignant;

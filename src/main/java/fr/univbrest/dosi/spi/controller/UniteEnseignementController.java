@@ -38,25 +38,23 @@ public class UniteEnseignementController {
 	FormationService formationService;
 
 	@RequestMapping(value = "/addUE", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody String addUE(@RequestBody final UniteEnseignementUtil ueUtil) {
+	public void addUE(@RequestBody final UniteEnseignementUtil ueUtil) {
 		Enseignant enseignant = enseignantService.getEnseignant(ueUtil.getEnseignant().getNoEnseignant());
 		Formation formation = formationService.getFormation(ueUtil.getUniteEnseignement().getUniteEnseignementPK().getCodeFormation());
 		UniteEnseignement ue = ueUtil.getUniteEnseignement();
 		ue.setFormation(formation);
 		ue.setNoEnseignant(enseignant);
 		ueServ.addUE(ue);
-		return "succes";
 	}
 	
 	@RequestMapping(value = "/updateUE", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody String updateUE(@RequestBody final UniteEnseignementUtil ueUtil) {
+	public void updateUE(@RequestBody final UniteEnseignementUtil ueUtil) {
 		Enseignant enseignant = enseignantService.getEnseignant(ueUtil.getEnseignant().getNoEnseignant());
 		Formation formation = formationService.getFormation(ueUtil.getUniteEnseignement().getUniteEnseignementPK().getCodeFormation());
 		UniteEnseignement ue = ueUtil.getUniteEnseignement();
 		ue.setFormation(formation);
 		ue.setNoEnseignant(enseignant);
 		ueServ.updateUE(ue);
-		return "succes modification";
 	}
 
 	@RequestMapping(value = "/deleteUE", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -88,6 +86,12 @@ public class UniteEnseignementController {
 	public int nombreUEs() {
 		return ueServ.nombreUEs();
 	}
+	
+	@RequestMapping(value = "/getUE", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public UniteEnseignement getUEById(@RequestBody final UniteEnseignementPK uniteEnseignementPK) {
+		return ueServ.getUE(uniteEnseignementPK);
+	}
+
 	@RequestMapping(value="/getECByUE", method = RequestMethod.POST, headers = "Accept=application/json", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public List<ElementConstitutif> getECByUE(@RequestBody final UniteEnseignementPK uniteEnseignementPK){
 		return ueServ.getECByUE(uniteEnseignementPK);

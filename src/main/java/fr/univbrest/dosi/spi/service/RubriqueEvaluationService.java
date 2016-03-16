@@ -7,9 +7,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.univbrest.dosi.spi.bean.QuestionEvaluation;
 import fr.univbrest.dosi.spi.bean.RubriqueEvaluation;
 import fr.univbrest.dosi.spi.dao.RubriqueEvaluationRepository;
+import fr.univbrest.dosi.spi.exception.SPIException;
 
 /**
  * 
@@ -48,7 +48,11 @@ public class RubriqueEvaluationService {
 	 * @param idRubriqueEvaluation
 	 */
 	public void deleteRubriqueEvaluation(Long idRubriqueEvaluation) {
-		rubriqueEvaluationRepo.delete(idRubriqueEvaluation);
+		try {
+			rubriqueEvaluationRepo.delete(idRubriqueEvaluation);
+		} catch (Exception e) {
+			throw new SPIException("La rubrique ne peut pas être supprimée !");
+		}
 	}
 
 	/**

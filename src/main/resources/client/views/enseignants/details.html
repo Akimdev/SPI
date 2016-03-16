@@ -1,37 +1,34 @@
+<!-- 
+ -- @Author ASSABBAR Soukaina
+ -- details des enseignants
+ -->
 <div class="page" ng-controller="EnsDetailsController">
-  <div class="panel panel-default ens-edit">
-    <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Enseignant</strong></div>
+
+  	<div class="panel panel-default ens-edit">
+    <div class="panel-heading">
+    	<strong><span class="glyphicon glyphicon-th"></span>
+    			 Enseignant</strong>
+    </div>
     <div class="panel-body">
-        <!-- Consultation -->
+        <!--------------------------- Consultation --------------------------->
+        
         <div class="media animate" ng-hide="edit">
-            <button class="btn btn-warning pull-right" ng-click="edition()"><span class="glyphicon glyphicon-pencil"></span> Editer</button>
+            <button class="btn btn-warning pull-right" ng-click="edition()"> <span class="glyphicon glyphicon-pencil"> </span> Editer</button>
             <div class="media-body"> 
                 <ul class="list-unstyled list-info">
-                    <li>
-                        <span class="icon glyphicon glyphicon-user"></span>
+                    <li> <span class="icon glyphicon glyphicon-user"></span>
                         <label>Nom</label>
                         {{enseignant.sexe == "H" ? 'M.' : 'Mme'}} {{enseignant.nom}} {{enseignant.prenom}} ( {{enseignant.type}} )<br/>
                     </li>
                     <li>
                         <span class="icon glyphicon glyphicon-envelope"></span>
-                        <label>E-mail</label>                        
-                        {{enseignant.emailUbo}}
-                    </li>
-                    <li>
-                        <span class="icon glyphicon glyphicon-home"></span>
-                        <label>Adresse</label>
-                        {{enseignant.adresse}} {{enseignant.codePostal}} {{enseignant.ville}}
-                    </li>
-                    <li>
-                        <span class="icon glyphicon glyphicon-earphone"></span>
-                        <label>Téléphone</label>
-                        {{enseignant.telephone}}
-                    </li>
-                    <li>
-                        <span class="icon glyphicon glyphicon-flag"></span>
-                        <label>Pays</label>
-                        {{enseignant.pays}}
-                    </li>                    
+                        <label>E-mail</label> {{enseignant.emailUbo}} </li>
+                    <li> <span class="icon glyphicon glyphicon-home"></span>
+                        <label>Adresse</label> {{enseignant.adresse}} {{enseignant.codePostal}} {{enseignant.ville}} </li>
+                    <li><span class="icon glyphicon glyphicon-earphone"></span>
+                        <label>Téléphone</label> {{enseignant.telephone}} </li>
+                    <li><span class="icon glyphicon glyphicon-flag"></span> 
+                    <label>Pays</label>{{enseignant.pays}} </li>                    
                 </ul>                
             </div>
             <div class="row">
@@ -81,44 +78,45 @@
             <a class="btn btn-primary" href="#/admin/enseignants"><span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
         </div>
 
-        <!-- Edition -->
+       <!--------------------------- Edition --------------------------->
         <div ng-show="edit">            
-            <form class="form-horizontal elegant-aero" name="enseignantForm">
-            <div ng-repeat="alert in alerts" ng-show="alert.show">
-       				 <alert type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-      		</div>
+            <form class="form-horizontal" name="enseignantForm">
+            <div class="form-group">
                 <div class="form-group">
                     <label for="" class="col-sm-2">Nom<span id="required-field">*</span></label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control"  name="nom"
-                               ng-model="enseignant.nom"  placeholder="Nom de l'enseignant" required>
+                               ng-model="enseignant.nom"  placeholder="Nom de l'enseignant"  ng-pattern="/^[A-Za-z' \-]+$/" required>
                                <span style="color:red" ng-show="enseignantForm.nom.$dirty && enseignantForm.nom.$invalid">
-								<span ng-show="enseignantForm.nom.$error.required">nom obligatoire</span>
+								<span ng-show="enseignantForm.nom.$error.required">Champ obligatoire / Type invalide</span>
                     </div>                    
                 </div>
                 <div class="form-group">
                     <label for="" class="col-sm-2">Prénom<span id="required-field">*</span></label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="prenom"
-                               ng-model="enseignant.prenom" placeholder="Pr&eacute;nom de l'enseignant" required>
+                               ng-model="enseignant.prenom"  placeholder="Pr&eacute;nom de l'enseignant" ng-pattern="/^[A-Za-z' \-]+$/" required>
                                <span style="color:red" ng-show="enseignantForm.prenom.$dirty && enseignantForm.prenom.$invalid">
-								<span ng-show="enseignantForm.prenom.$error.required">Pr&eacute;nom obligatoire</span>
+								<span ng-show="enseignantForm.prenom.$error.required">Champ obligatoire / Type invalide</span>
                     </div>                    
                 </div>
                 <div class="form-group">
                     <label for="" class="col-sm-2">Sexe<span id="required-field">*</span></label>
                     <div class="col-sm-10">
-                        <label class="ui-radio"><input name="radio1" type="radio" value="H" ng-model="enseignant.sexe" ng-checked="true"><span>Homme</span></label>
+                        <label class="ui-radio"><input name="radio1" type="radio" value="H" ng-model="enseignant.sexe" ><span>Homme</span></label>
                         <label class="ui-radio"><input name="radio1" type="radio" value="F" ng-model="enseignant.sexe"><span>Femme</span></label>
                     </div>                    
                 </div>
                 <div class="form-group">
                     <label for="" class="col-sm-2">Type<span id="required-field">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="type"
-                               ng-model="enseignant.type" placeholder="Type de contrat (eg. MCF, PRAG, ...)" required>
+<!--                         <input  ng-show="edit" type="text" class="form-control"  -->
+<!--                                ng-model="enseignant.type" /> -->
+                               <select ng-hide="isVisible" ng-model="typeSelected" name="type" required>
+								<option data-ng-repeat="e in types" value="{{e.rvAbbreviation}}">{{e.rvMeaning}}</option>
+							</select>
                                <span style="color:red" ng-show="enseignantForm.type.$dirty && enseignantForm.type.$invalid">
-								<span ng-show="enseignantForm.type.$error.required">Type obligatoire</span>
+								<span ng-show="enseignantForm.type.$error.required">Champ obligatoire / Type invalide</span>
                     </div>                    
                 </div>
                 <div class="form-group">
@@ -127,23 +125,25 @@
                         <input type="email" class="form-control" name="email"
                                ng-model="enseignant.emailUbo" placeholder="example@example.com" required>
                                <span style="color:red" ng-show="enseignantForm.email.$dirty && enseignantForm.email.$invalid">
-								<span ng-show="enseignantForm.email.$error.required">Email obligatoire</span>
+								<span ng-show="enseignantForm.email.$error.required">Email obligatoire / Type invalide</span>
                     </div>                    
                 </div>
                 <div class="form-group">
                     <label for="" class="col-sm-2">Téléphone</label>
                     <div class="col-sm-10">
-                        <input class="form-control" type="text"
+                        <input class="form-control" type="text" ng-pattern="/^([0-9]*)$/" ng-minlength="10" ng-maxlength="10" 
                                ng-model="enseignant.telephone" placeholder="0512345678">
+                               <span style="color:red" ng-show="enseignantForm.telephone.$dirty && enseignantForm.telephone.$invalid">
+							<span ng-show="enseignantForm.telephone.$error.required">Type invalide</span>
                     </div>                    
                 </div>
                 <div class="form-group">
                     <label for="" class="col-sm-2">Mobile<span id="required-field">*</span></label>
                     <div class="col-sm-10">
-                        <input class="form-control" name="text" type="text"
+                        <input class="form-control" name="text" type="text" ng-pattern="/^([0-9]*)$/" ng-minlength="10" ng-maxlength="10" 
                                ng-model="enseignant.mobile" placeholder="0612345678" required>
                                <span style="color:red" ng-show="enseignantForm.mobile.$dirty && enseignantForm.mobile.$invalid">
-								<span ng-show="enseignantForm.mobile.$error.required">T&eacute;l&eacute;phone mobile obligatoire</span>
+								<span ng-show="enseignantForm.mobile.$error.required">T&eacute;l&eacute;phone mobile obligatoire / Type invalide</span>
                     </div>                    
                 </div>
                 <div class="form-group">
@@ -158,16 +158,16 @@
                 <div class="form-group">
                     <label for="" class="col-sm-2">Code postal<span id="required-field">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="codePostale" ng-minlength="5" ng-maxlength="5" 
+                        <input type="text" class="form-control" name="codePostale"  ng-pattern="/^(0|[1-9][0-9]*)$/" ng-minlength="5" ng-maxlength="5" 
                                ng-model="enseignant.codePostal" placeholder="Example: 29000" required>
                                <span style="color:red" ng-show="enseignantForm.codePostale.$dirty && enseignantForm.codePostale.$invalid">
-								<span ng-show="enseignantForm.codePostale.$error.required">Code Postale obligatoire</span>
+								<span ng-show="enseignantForm.codePostale.$error.required">Code Postale obligatoire / Type invalide</span>
                     </div>                    
                 </div>
                 <div class="form-group">
                     <label for="" class="col-sm-2">Ville<span id="required-field">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control"  name="ville"
+                        <input type="text" class="form-control"  name="ville" ng-pattern="/^[A-Za-z' \-]+$/"
                                ng-model="enseignant.ville" placeholder="Example: Brest" required>
                                  <span style="color:red" ng-show="enseignantForm.ville.$dirty && enseignantForm.ville.$invalid">
 								<span ng-show="enseignantForm.ville.$error.required">Ville obligatoire</span>
@@ -176,15 +176,38 @@
                 <div class="form-group">
                     <label for="" class="col-sm-2">Pays<span id="required-field">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="pays"
-                               ng-model="enseignant.pays" placeholder="Example: France" required>
+                        <!-- <input type="text" class="form-control" name="pays" ng-pattern="/^[A-Za-z' \-]+$/"
+                               ng-model="enseignant.pays" placeholder="Example: France" required> -->
+                               <select ng-hide="isVisible" ng-model="paysSelected" name="pays" required>
+								<option data-ng-repeat="e in payss" value="{{e.rvAbbreviation}}">{{e.rvMeaning}}</option>
+							</select>
                                  <span style="color:red" ng-show="enseignantForm.pays.$dirty && enseignantForm.pays.$invalid">
 								<span ng-show="enseignantForm.pays.$error.required">Pays obligatoire</span>
                     </div>                    
                 </div>
             </form>
-            <a class="btn btn-success" ng-click="submit()"><span class="glyphicon glyphicon-ok"></span> Valider</a>
-            <button class="btn btn-danger pull-right" ng-click="cancel()"> Annuler</button>
+            <a class="btn btn-success" ng-click="submit()"
+				ng-disabled="enseignantForm.nom.$dirty && enseignantForm.nom.$invalid
+							||enseignantForm.prenom.$dirty && enseignantForm.prenom.$invalid
+							||enseignantForm.type.$dirty && enseignantForm.type.$invalid
+							||enseignantForm.email.$dirty && enseignantForm.email.$invalid
+							||enseignantForm.mobile.$dirty && enseignantForm.mobile.$invalid
+							||enseignantForm.adresse.$dirty && enseignantForm.adresse.$invalid
+							|| enseignantForm.codePostale.$dirty && enseignantForm.codePostale.$invalid
+							|| enseignantForm.ville.$dirty && enseignantForm.ville.$invalid
+							|| enseignantForm.pays.$dirty && enseignantForm.pays.$invalid
+							||enseignantForm.nom.$error.required
+							||enseignantForm.prenom.$error.required
+							||enseignantForm.type.$error.required
+							||enseignantForm.email.$error.required
+							||enseignantForm.mobile.$error.required
+							||enseignantForm.adresse.$error.required
+							|| enseignantForm.codePostale.$error.required
+							|| enseignantForm.ville.$error.required
+							|| enseignantForm.pays.$error.required
+					">
+				<span class="glyphicon glyphicon-ok"></span> Valider</a>
+            <button class="btn btn-danger pull-right" ng-click="cancel()">Annuler</button>
         </div>
     </div>
   </div>

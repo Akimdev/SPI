@@ -26,56 +26,105 @@
   });
 
   app.controller('FormationsController', 
-    ['$scope', '$location','$http','$filter', 'formationsFactory',
-    function($scope, $location,$http,$filter, formationsFactory){
-      // la liste globale des formations
-    	$scope.refresh = function (){
-    		 var promiseFormation = formationsFactory.all();          
-    	      promiseFormation.success(function(data) {
-    	          $scope.formations = data;
-    	         // $scope.formation.debutAccreditation = $filter('date')(data.debutAccreditation, "dd-MM-yyyy");
-    			 // $scope.formation.finAccreditation = $filter('date')(data.finAccreditation, "dd-MM-yyyy");	
-    	      });
-    	}
-     
-      // Crée la page permettant d'ajouter une formation
-      $scope.ajoutFormation = function(){
-        $location.path('/admin/formation/nouveau'); 
-      }
+		    ['$scope', '$location','$http','$filter', 'formationsFactory',
+		    function($scope, $location,$http,$filter, formationsFactory){
 
-      // affiche les détails d'une formation
-      $scope.edit = function(formation){
-        $location.path('/admin/formation/' + formation.codeFormation);
-      }
+		    	$scope.refresh = function (){
+		    		var init = null;
+		    		 var promise = formationsFactory.all();          
+		    	      promise.success(function(data) {
+		    	    	  $scope.formations = data;
+		    		      $scope.searchKeywords = '';
+		    		      $scope.filteredFormation = [];
+		    		      $scope.row = '';
+		    		      $scope.select = function(page) {
+		    		        var end, start;
+		    		        start = (page - 1) * $scope.numPerPage;
+		    		        end = start + $scope.numPerPage;
+		    		        return $scope.currentPageFormation = $scope.filteredFormation.slice(start, end);
+		    		      };
+		    		      $scope.onFilterChange = function() {
+		    		        $scope.select(1);
+		    		        $scope.currentPage = 1;
+		    		        return $scope.row = '';
+		    		      };
+		    		      $scope.onNumPerPageChange = function() {
+		    		        $scope.select(1);
+		    		        return $scope.currentPage = 1;
+		    		      };
+		    		      $scope.onOrderChange = function() {
+		    		        $scope.select(1);
+		    		        return $scope.currentPage = 1;
+		    		      };
+		    		      $scope.search = function() {
+		    		        $scope.filteredFormation = $filter('filter')($scope.formations, $scope.searchKeywords);
+		    		        return $scope.onFilterChange();
+		    		      };
+		    		      $scope.order = function(rowName) {
+		    		        if ($scope.row === rowName) {
+		    		          return;
+		    		        }
+		    		        $scope.row = rowName;
+		    		        $scope.filteredFormation = $filter('orderBy')($scope.formations, rowName);
+		    		        return $scope.onOrderChange();
+		    		      };
+		    		      $scope.numPerPageOpt = [3, 5, 10, 20];
+		    		      $scope.numPerPage = $scope.numPerPageOpt[2];
+		    		      $scope.currentPage = 1;
+		    		      $scope.currentPageFormation = [];
+		    		      init = function() {
+		    		        $scope.search();
+		    		        return $scope.select($scope.currentPage);
+		    		      };
+		    		      return init();
+		    		  }
+		    		)
+		        
+		    		.error(function(data) {
+		    			 $scope.error = 'unable to get the poneys';
+		    		  }
+		    		);
+		    	}
+		     
+		      // Crée la page permettant d'ajouter une formation
+		      $scope.ajoutFormation = function(){
+		        $location.path('/admin/formation/nouveau'); 
+		      }
 
-      // supprime une formation
-      $scope.supprime = function(formation){
-    	  swal({   
-			  title: "Voulez-vous vraiment supprimer cette formation ?",      
-			  type: "warning",   
-			  showCancelButton: true,   
-			  confirmButtonColor: "#DD6B55",   
-			  confirmButtonText: "Oui, je veux le supprimer!",  
-			  cancelButtonText: "Non, ignorer!",   
-			  closeOnConfirm: false,   closeOnCancel: false },
-			  function(isConfirm){
-				  if (isConfirm) {  
-					  var promisessuppression  = formationsFactory.delete(formation.codeFormation);
-			    	  promisessuppression.success(function(data, status, headers, config) {
-						$scope.refresh();
-						swal("Supprimé!", "la formation est supprimée", "success");
-					});
-			    	  promisessuppression.error(function(data, status, headers, config) {
-			    		  swal("Erreur!", "vous pouvez pas supprimer cette formation", "error");
-			  		});	
-					  } else {     
-						  swal("Ignorer", "", "error");
-						  }
-				  });  
-      }
-      $scope.refresh();
-    }]
-  );
+		      // affiche les détails d'une formation
+		      $scope.edit = function(formation){
+		        $location.path('/admin/formation/' + formation.codeFormation);
+		      }
+
+		      // supprime une formation
+		      $scope.supprime = function(formation){
+		    	  swal({   
+					  title: "Voulez-vous vraiment supprimer cette formation ?",      
+					  type: "warning",   
+					  showCancelButton: true,   
+					  confirmButtonColor: "#DD6B55",   
+					  confirmButtonText: "Oui",  
+					  cancelButtonText: "Non",   
+					  closeOnConfirm: false,   closeOnCancel: false },
+					  function(isConfirm){
+						  if (isConfirm) {  
+							  var promisessuppression  = formationsFactory.delete(formation.codeFormation);
+					    	  promisessuppression.success(function(data, status, headers, config) {
+								$scope.refresh();
+								swal("Supprimé!", "la formation est supprimée", "success");
+							});
+					    	  promisessuppression.error(function(data, status, headers, config) {
+					    		  swal("Erreur!", "vous pouvez pas supprimer cette formation", "error");
+					  		});	
+							  } else {     
+								  swal("Ignorer", "", "error");
+								  }
+						  });  
+		      }
+		      $scope.refresh();
+		    }]
+		  );
+
 
   app.controller('FormationDetailsController', 
     ['$scope', '$routeParams','$http', '$location','$filter', 'formationsFactory',
