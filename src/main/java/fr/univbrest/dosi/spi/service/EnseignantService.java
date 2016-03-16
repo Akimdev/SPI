@@ -1,11 +1,14 @@
 package fr.univbrest.dosi.spi.service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.univbrest.dosi.spi.bean.Enseignant;
+import fr.univbrest.dosi.spi.bean.Formation;
 import fr.univbrest.dosi.spi.dao.EnseignantRepository;
 import fr.univbrest.dosi.spi.exception.SPIException;
 
@@ -107,8 +110,14 @@ public class EnseignantService {
 	 * @return liste des enseignant
 	 */
 	public final Iterable<Enseignant> listens() {
-		final Iterable<Enseignant> enseignants = enseignantRepository.findAll();
-		return enseignants;
+		List<Enseignant> list = (List<Enseignant>) enseignantRepository.findAll();
+		Collections.sort(list, new Comparator<Enseignant>() {
+			@Override
+			public int compare(Enseignant e1, Enseignant e2) {
+				return e1.getNom().compareTo(e2.getNom());
+			}
+		});
+		return list;
 	}
 
 	/**

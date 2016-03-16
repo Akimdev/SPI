@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import fr.univbrest.dosi.spi.bean.ElementConstitutif;
 import fr.univbrest.dosi.spi.bean.ElementConstitutifPK;
+import fr.univbrest.dosi.spi.bean.UniteEnseignementPK;
 import fr.univbrest.dosi.spi.dao.ElementConstitutifRepository;
 
 /**
@@ -50,6 +51,10 @@ public class ElementConstitutifService {
 	
 	public List<ElementConstitutif> findAll(){
 		return (List<ElementConstitutif>) elementConstitutifRepository.findAll();
+	}
+	
+	public List<ElementConstitutif> getEcByUe(UniteEnseignementPK codeUe){
+		return elementConstitutifRepository.findEcByCodeUe(codeUe.getCodeUe(), codeUe.getCodeFormation());
 	}
 
 }

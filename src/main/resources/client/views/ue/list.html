@@ -2,7 +2,7 @@
 
     <section class="panel panel-default table-dynamic">
         <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Unités d'Enseignement</strong>
-        <span class="add fa fa-user-plus pull-right" ng-click="ajoutUE()"></span>
+			<button class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 pull-right" ng-click="ajoutUe()" >Nouvelle UE<i class="fa fa-user-plus pull-right"></i></button>
         </div>
 
         <div class="table-filters">
@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-sm-3 col-xs-6 filter-result-info">
                     <span>
-                        Affiche {{filteredUE.length}}/{{ue.length}}
+                        Affiche {{currentPageUE.length}}/{{ue.length}}
                     </span>              
                 </div>
             </div>
@@ -87,44 +87,37 @@
                 </tr>
             </thead>
             <tbody>
-                <tr data-ng-repeat="u in ue" class="ue">
-                    <td ng-click="edit(u.uniteEnseignementPK.codeFormation, u.uniteEnseignementPK.codeUe)">{{u.uniteEnseignementPK.codeUe}}</td>
-                    <td ng-click="edit(u.uniteEnseignementPK.codeFormation, u.uniteEnseignementPK.codeUe)">{{u.designation}}</td>
-                    <td ng-click="edit(u.uniteEnseignementPK.codeFormation, u.uniteEnseignementPK.codeUe)">{{u.noEnseignant.prenom}} {{u.noEnseignant.nom}}</td>
-                    <td ng-click="edit(u.uniteEnseignementPK.codeFormation, u.uniteEnseignementPK.codeUe)">{{u.uniteEnseignementPK.codeFormation}}</td>
-                    <td ng-click="edit(u.uniteEnseignementPK.codeFormation, u.uniteEnseignementPK.codeUe)">{{u.semestre}}</td>
-                    <td ng-click="edit(u.uniteEnseignementPK.codeFormation, u.uniteEnseignementPK.codeUe)">{{u.nbhCm}}/{{u.nbhTd}}/{{u.nbhTp}}</td>                    
-                    <td><span class="info fa fa-info" ng-click="edit(u.uniteEnseignementPK.codeFormation, u.uniteEnseignementPK.codeUe)"></td>
-                    <td><span class="edit fa fa-pencil-square-o" ng-click="edit(u.uniteEnseignementPK.codeFormation, u.uniteEnseignementPK.codeUe)"></td>
+                <tr data-ng-repeat="u in currentPageUE" class="ue">
+                    <td ng-click="afficher(u)">{{u.uniteEnseignementPK.codeUe}}</td>
+                    <td ng-click="afficher(u)">{{u.designation}}</td>
+                    <td ng-click="afficher(u)">{{u.noEnseignant.prenom}} {{u.noEnseignant.nom}}</td>
+                    <td ng-click="afficher(u)">{{u.uniteEnseignementPK.codeFormation}}</td>
+                    <td ng-click="afficher(u)">{{u.semestre}}</td>
+                    <td ng-click="afficher(u)">{{u.nbhCm}}/{{u.nbhTd}}/{{u.nbhTp}}</td>                    
+                    <td><span class="info fa fa-info" ng-click="afficher(u)"></td>
+                    <td><span class="edit fa fa-pencil-square-o" ng-click="modifier(u)"></td>
                     <td><span class="remove fa fa-trash" ng-click="supprime(u.uniteEnseignementPK)"></span></td>
                 </tr>
             </tbody>
         </table>
 
         <footer class="table-footer">
-            <div class="row">
-                <div class="col-md-6 page-num-info">
-                    <span>
-                        Afficher 
-                        <select data-ng-model="numPerPage"
-                                data-ng-options="num for num in numPerPageOpt"
-                                data-ng-change="onNumPerPageChange()">
-                        </select> 
-                        lignes par page
-                    </span>
-                </div>
-                <div class="col-md-6 text-right pagination-container">
-                    <pagination class="pagination-sm"
-                                ng-model="currentPage"
-                                total-items="filteredUE.length"
-                                max-size="4"
-                                ng-change="select(currentPage)"
-                                items-per-page="numPerPage"
-                                rotate="false"
-                                boundary-links="true"></pagination>
-                </div>
-            </div>
-        </footer>
+			<div class="row">
+				<div class="col-md-6 page-num-info">
+					<span> Affiche <select data-ng-model="numPerPage"
+						data-ng-options="num for num in numPerPageOpt"
+						data-ng-change="onNumPerPageChange()">
+					</select> lignes par page
+					</span>
+				</div>
+				<div class="col-md-6 text-right pagination-container">
+					<pagination class="pagination-sm" ng-model="currentPage"
+						total-items="filteredUE.length" max-size="4"
+						ng-change="select(currentPage)" items-per-page="numPerPage"
+						rotate="false" boundary-links="true"></pagination>
+				</div>
+			</div>
+		</footer>
     </section>
 
 </div>

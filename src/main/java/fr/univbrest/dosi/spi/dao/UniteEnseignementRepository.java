@@ -22,7 +22,6 @@ public interface UniteEnseignementRepository extends PagingAndSortingRepository<
 	 * @return
 	 */
 	List<UniteEnseignement> findByCodeFormation(@Param("codeFormation") String codeFormation);
-
 	/**
 	 *
 	 * @param noEnseignant

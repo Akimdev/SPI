@@ -1,6 +1,8 @@
 package fr.univbrest.dosi.spi.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,14 @@ public class FormationService {
 	}
 
 	public List<Formation> findAll() {
-		return (List<Formation>) formationRepository.findAll();
+		List<Formation> list = (List<Formation>) formationRepository.findAll();
+		Collections.sort(list, new Comparator<Formation>() {
+			@Override
+			public int compare(Formation f1, Formation f2) {
+				return f1.getCodeFormation().compareTo(f2.getCodeFormation()) * (-1);
+			}
+		});
+		return list;
 	}
 
 	public List<Formation> findByNomFormation(String nomFormation) {
