@@ -45,6 +45,7 @@ public class EnseignantServiceTests {
 	@Test
 	public final void addEnseignant() {
 		final Enseignant enseignant = new Enseignant();
+
 		final Integer id = 1022;
 		enseignant.setNoEnseignant(id);
 		enseignant.setNom("SOUKAINA");

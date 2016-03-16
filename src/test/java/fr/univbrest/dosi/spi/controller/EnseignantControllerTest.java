@@ -33,6 +33,7 @@ public class EnseignantControllerTest {
 	public void addserviceTest() throws ClientProtocolException, IOException {
 
 		final Enseignant enseignant = new Enseignant();
+
 		enseignant.setNoEnseignant(1000);
 		enseignant.setNom("BAQLOUL");
 		enseignant.setPrenom("SOUKAINA");
