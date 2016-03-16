@@ -133,11 +133,11 @@
 				  if (isConfirm) {  
 					  var promise= rubriquesFactory.delete(idRubrique);
     	  			  promise.success(function(data,statut){
-        	          swal("Supprimé!", "le qualificatif est supprimé", "success");
+        	          swal("Supprimé!", "le rubrique est supprimé", "success");
         	           $scope.refresh();
                   });
 						promise.error(function(data,statut){
-        	        	swal("Erreur!", "vous ne pouvez pas supprimer ce qualificatif", "error");
+        	        	swal("Erreur!", "vous ne pouvez pas supprimer ce rubrique", "error");
 			  		});	
 					  }else {     
 						  swal("Ignorer", "", "error");
