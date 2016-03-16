@@ -119,8 +119,8 @@
 			  type: "warning",   
 			  showCancelButton: true,   
 			  confirmButtonColor: "#DD6B55",   
-			  confirmButtonText: "Oui, je veux le supprimer!",  
-			  cancelButtonText: "Non, ignorer!",   
+			  confirmButtonText: "Oui",  
+			  cancelButtonText: "Non",   
 			  closeOnConfirm: false,   closeOnCancel: false },
 			  function(isConfirm){
 				  if (isConfirm) {  
@@ -130,7 +130,7 @@
 						swal("Supprimé!", "le qualificatif est supprimé", "success");
 					});
 			    	  promisessuppression.error(function(data, status, headers, config) {
-			    		  swal("Erreur!", "vous pouvez pas supprimer ce qualificatif", "error");
+			    		  swal("Erreur!", "Ce qualificatif ne peut pas être supprimer, car il est référencé", "error");
 			  		});	
 				  } else {     
 						  swal("Ignorer", "", "error");

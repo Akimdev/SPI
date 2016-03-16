@@ -2047,7 +2047,7 @@ Page footer
   clear: both;
 }
 .page-footer .page-footer-inner {
-  float: left;
+  float: inherit;
   display: inline-block;
 }
 .page-footer .page-footer-tools {
