@@ -53,7 +53,10 @@ public class EvaluationController {
 	}
 	
 	@RequestMapping(value="/updateEvaluation", method = RequestMethod.POST,consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody void updateEvaluation(@RequestBody Evaluation evaluation){
+	public @ResponseBody void updateEvaluation(@RequestBody Evaluation evaluation, HttpServletRequest request){
+		Authentification auth = (Authentification) request.getSession().getAttribute("user");
+		Enseignant ens = auth.getNoEnseignant();
+		evaluation.setNoEnseignant(ens);
 		evaServ.updateEvaluation(evaluation);
 	}
 

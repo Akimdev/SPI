@@ -47,7 +47,7 @@
 						<label for="" class="col-sm-2">Début:<span id="required-field">*</span></label>
 						<div class="col-sm-2">
 							<input type="date" class="form-control" ng-model="evaluation.debutReponse" name="debutReponse" required>
-							<span style="color:red" ng-show="evaForm.debutReponse.$dirty && evaForm.d"C:/Users/DOSI/Desktop/pr�convention-CGI"ebutReponse.$invalid">
+							<span style="color:red" ng-show="evaForm.debutReponse.$dirty && evaForm.debutReponse.$invalid">
 							<span ng-show="evaForm.debutReponse.$error.required">Champ obligatoire / Type invalide</span></span>
 						</div>
 						<label for="" class="col-sm-2">Fin:<span id="required-field">*</span></label>
@@ -57,30 +57,7 @@
 							<span ng-show="evaForm.finReponse.$error.required">Champ obligatoire / Type invalide</span></span>
 						</div>
 					</div>
-					<!-- div class="form-group">
-						<label for="" class="col-sm-2">Formation:<span id="required-field">*</span></label>
-						<div class="col-sm-10">
-							<input ng-show="isVisible" type="text" class="form-control"
-								ng-model="evaluation.code_formation">
-							<select ng-hide="isVisible" ng-model="formationSelected" name="codeFormation" ng-change="changeFormation(formationSelected)" required>
-								<option data-ng-repeat="f in formations" value="{{f.codeFormation}}">{{f.codeFormation}}</option>
-							</select>
-							<span style="color:red" ng-show="evaForm.codeFormation.$dirty && evaForm.codeFormation.$invalid">
-							<span ng-show="evaForm.codeFormation.$error.required">Champ obligatoire / Type invalide</span></span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="" class="col-sm-2">Année:<span id="required-field">*</span></label>
-						<div class="col-sm-10">
-							< <input type="text" class="form-control"
-								ng-model="evaluation.annee"> >
-							<select ng-hide="isVisible" ng-model="promotionSelected" name="promotion" required>
-								<option data-ng-repeat="e in promotions" value="{{e.promotionPK.anneeUniversitaire}}">{{e.promotionPK.anneeUniversitaire}}</option>
-							</select>
-							<span style="color:red" ng-show="evaForm.promotion.$dirty && evaForm.promotion.$invalid">
-							<span ng-show="evaForm.promotion.$error.required">Champ obligatoire / Type invalide</span></span>
-						</div>
-					</div-->
+					
 					<div class="form-group">
 						<label for="" class="col-sm-2">Promotion:<span id="required-field">*</span></label>
 						<div class="col-sm-10">
@@ -92,10 +69,10 @@
 					</div>
 					
 					<div class="form-group">
-						<label for="" class="col-sm-2">Unité Enseignement Concernée:<span id="required-field">*</span></label>
+						<label for="" class="col-sm-2">Unité Enseignement:<span id="required-field">*</span></label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control"
-								ng-model="evaluation.code_ue" ng-show="isvisible"/>
+								ng-model="evaluation.code_ue" ng-show="isVisible"/>
 							<select name="ue" ng-model="ueSelected" ng-options="ue.uniteEnseignementPK.codeUe+' - '+ue.designation for ue in ues"  ng-change="onchange()">
                          </select>
 							<span style="color:red" ng-show="evaForm.ue.$dirty && evaForm.ue.$invalid">
@@ -103,10 +80,10 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Element Constitutif Concerné:</label>
+						<label for="" class="col-sm-2">Element Constitutif:</label>
 						<div class="col-sm-10">
 							<input  type="text" class="form-control"
-								ng-model="evaluation.code_ec" ng-show="isvisible">
+								ng-model="evaluation.code_ec" ng-show="isVisible">
 							<!-- select ng-hide="isvisible" ng-model="ecSelected" name="ec">
 								<option data-ng-repeat="e in ECs" value="{{e.elementConstitutifPK.codeEc}}">{{e.elementConstitutifPK.codeEc}}</option>
 							</select-->

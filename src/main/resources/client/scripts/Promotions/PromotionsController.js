@@ -178,7 +178,7 @@ var edit= false;
 			        	  swal("Erreur!", "Impossible de supprimer la promotion car elle est déjà referencée", "error");
 			          });
 				  } else {     
-						  swal("Annulé", "", "Error");
+						  swal("Annulé", "", "error");
 				  }
 	  	 });
       }
