@@ -175,8 +175,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-td,
-th {
+td, th {
   padding: 0;
 }
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
@@ -2207,7 +2206,7 @@ caption {
   text-align: left;
 }
 th {
-  text-align: left;
+  text-align: center;
 }
 .table {
   width: 100%;
@@ -10151,8 +10150,8 @@ tr.formation:hover {
   cursor: pointer;
   color: #5D5;
 }
-.add:hover {
-  color: #3C3;
+.add:hover, .eye:hover, .edit:hover, .remove:hover {
+  color: #116;
 }
 .remove {
   cursor: pointer;
@@ -10160,6 +10159,10 @@ tr.formation:hover {
 }
 
 .edit {
+  cursor: pointer;
+  color: blue;
+}
+.eye {
   cursor: pointer;
   color: green;
 }

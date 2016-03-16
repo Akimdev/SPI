@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.univbrest.dosi.spi.bean.ElementConstitutif;
 import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Formation;
 import fr.univbrest.dosi.spi.bean.UniteEnseignement;
@@ -91,4 +92,8 @@ public class UniteEnseignementController {
 		return ueServ.getUE(uniteEnseignementPK);
 	}
 
+	@RequestMapping(value="/getECByUE", method = RequestMethod.POST, headers = "Accept=application/json", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public List<ElementConstitutif> getECByUE(@RequestBody final UniteEnseignementPK uniteEnseignementPK){
+		return ueServ.getECByUE(uniteEnseignementPK);
+	}
 }

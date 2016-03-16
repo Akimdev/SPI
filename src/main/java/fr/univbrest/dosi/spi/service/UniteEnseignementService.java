@@ -1,10 +1,13 @@
 package fr.univbrest.dosi.spi.service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fr.univbrest.dosi.spi.bean.ElementConstitutif;
 import fr.univbrest.dosi.spi.bean.UniteEnseignement;
 import fr.univbrest.dosi.spi.bean.UniteEnseignementPK;
 import fr.univbrest.dosi.spi.dao.UniteEnseignementRepository;
@@ -77,5 +80,16 @@ public class UniteEnseignementService {
 
 	public final UniteEnseignement uniteEnseignement(final UniteEnseignementPK uniteEnseignementPK) {
 		return uniteEnseignementRepository.findOne(uniteEnseignementPK);
+	}
+
+	public List<ElementConstitutif> getECByUE(final UniteEnseignementPK uniteEnseignementPK){
+		UniteEnseignement ue = uniteEnseignementRepository.findOne(uniteEnseignementPK);
+		List<ElementConstitutif> listeECs = (List<ElementConstitutif>) ue.getElementConstitutifCollection();
+		Collections.sort(listeECs, new Comparator<ElementConstitutif>() {
+	        public int compare(final ElementConstitutif ec1, final ElementConstitutif ec2) {
+	            return (ec1.getElementConstitutifPK().getCodeEc()).compareTo(ec2.getElementConstitutifPK().getCodeEc());
+	        }
+	       });
+		return listeECs;
 	}
 }

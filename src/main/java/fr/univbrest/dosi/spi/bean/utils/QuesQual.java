@@ -1,7 +1,5 @@
 package fr.univbrest.dosi.spi.bean.utils;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.bean.Question;
 

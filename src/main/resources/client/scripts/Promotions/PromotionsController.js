@@ -3,7 +3,7 @@
 
 * Script de controle des promotions
 */
-
+var edit= false;
 (function() {
   'use strict';
 
@@ -35,42 +35,35 @@
       all:list, 
       // renvoi la promotion avec l'anneeUniversitaire et codeFormation demandés
       get: function(promotionPK) { 
-    	  // TODO retourner les promotions
-    	  console.log("TODO : get promotion", promotionPK);
     	  return $http.post("http://localhost:8090/getPromotion/", promotionPK);
    	  },
       add: function(promotion, noEnseignant) {//ajout d'une nouvelle promotion 
         //La promotion à envoyer au controlleur possède une structure un peu différente (promotion + noEnseignant)
       	var newPromotion= {"promotion": promotion, "enseignant": {"noEnseignant": noEnseignant}};
-      	console.log("new promotion: ",newPromotion);
   	    return $http.post('http://localhost:8090/addPromotion',newPromotion);
       },
       set: function(promotion, noEnseignant) {// modification d'une promotion existante
     	  // La promotion à envoyé au controlleur possède une structure un peu différente (promotion + noEnseignant)
         var newPromotion= {"promotion": promotion, "enseignant": {"noEnseignant": noEnseignant}};
-        console.log("newPromotion: ", newPromotion);
-    	  return $http.post('http://localhost:8090/updatePromotion',newPromotion);
+		return $http.post('http://localhost:8090/updatePromotion',newPromotion);
         },
       delete: function(promotionPK) {
-        // TODO Supprimer une promotion
-    	  console.log("TODO : supprimer promotion",promotionPK);
     	  return  $http.post('http://localhost:8090/deletePromotion/', promotionPK);
       },
       getEtudiants : function(promotionPK){
-    	  console.log("TODO : recuperation des etudiants par promotion",promotionPK);
 		    return $http.post("http://localhost:8090/getEtudiantByPromotion/",promotionPK);
       },
       getEnseignants: function(){
-    	  console.log("TODO : recuperation de la liste des enseignants");
 		    return $http.get("http://localhost:8090/ens");
       },
       getEnseignantResponsable: function(promotionPK){
-    	  console.log("TODO : recuperation de l'enseignant responsable");
 		  return $http.post("http://localhost:8090/promotion/getEnseignantResponsable", promotionPK);
       },
       getFormations: function(){
-    	  console.log("TODO : recuperation de la liste des formations");
 		    return $http.get("http://localhost:8090/formations");
+      },
+      getNomFormations: function (codeFormations){
+    	  return $http.post("http://localhost:8090/formation/getNomFormations", codeFormations);
       }
     };
   }]);
@@ -79,17 +72,23 @@
     ['$scope', '$filter','$location', 'promotionsFactory', 'toaster',
     function($scope, $filter, $location, promotionsFactory, toaster){
     	var init;
-    	/**$scope.refresh = function (){
-   		 var promiseQuestion = questionsFactory.all();          
-   	      promiseQuestion.success(function(data) {
-   	    	  console.log(data);
-   	          $scope.questions = data;
-   	      });
-   	}*/
+    	var codeFormations= [];
     	$scope.refresh = function(){
     	var promisePromo = promotionsFactory.all();
 		promisePromo.success(function(data) {
 		    $scope.promotions = data;
+		    for(var i=0; i< data.length; i++){
+		    	codeFormations[i]= data[i].promotionPK.codeFormation;
+		    }
+		    var maPromise = promotionsFactory.getNomFormations(codeFormations);
+		    maPromise.success(function(data) {
+		    	for(var i = 0; i < $scope.promotions.length; i++){
+		    		$scope.promotions[i].designation = data[i];
+		    	}
+		    }).error(function(data) {
+				 $scope.error = 'Impossible de récuperer la designation des formations';
+			  }
+			);
 		      $scope.searchKeywords = '';
 		      $scope.filteredPromotions = [];
 		      $scope.row = '';
@@ -136,7 +135,7 @@
 		  }
 		)
 		.error(function(data) {
-			 $scope.error = 'unable to get the poneys';
+			 $scope.error = 'Impossible de récuperer les promotions';
 		  }
 		);
     	}
@@ -148,6 +147,12 @@
       // affiche les détail d'une promotion
       $scope.edit = function (promotionPK){
     	  $scope.ajout= true;
+    	  edit=true;
+    	  $location.path("/admin/promotion/"+ promotionPK.anneeUniversitaire + "/" + promotionPK.codeFormation);
+      }
+      
+      $scope.affiche= function(promotionPK){
+    	  edit= false;
     	  $location.path("/admin/promotion/"+ promotionPK.anneeUniversitaire + "/" + promotionPK.codeFormation);
       }
 
@@ -158,8 +163,8 @@
 			  type: "warning",   
 			  showCancelButton: true,   
 			  confirmButtonColor: "#DD6B55",   
-			  confirmButtonText: "Oui, je veux la supprimer!",  
-			  cancelButtonText: "Non, ignorer!",   
+			  confirmButtonText: "OUI",  
+			  cancelButtonText: "NON",   
 			  closeOnConfirm: false,   closeOnCancel: false },
 			  function(isConfirm){
 				  if (isConfirm) {
@@ -170,10 +175,10 @@
 			        	  swal("Supprimé!", "la promotion est supprimée", "success");
 			          })
 			          .error(function(data,statut, headers, config){
-			        	  swal("Erreur!", "Impossible de supprimer la promotion choisie", "error");
+			        	  swal("Erreur!", "Impossible de supprimer la promotion car elle est déjà referencée", "error");
 			          });
 				  } else {     
-						  swal("Ignorer", "", "error");
+						  swal("Annulé", "", "Error");
 				  }
 	  	 });
       }
@@ -182,9 +187,25 @@
   );
 
   app.controller('PromotionDetailsController', 
-    ['$scope', '$routeParams', '$location', '$filter', 'promotionsFactory',
-    function($scope, $routeParams, $location,$filter, promotionsFactory){      
-      $scope.edit= false;    
+    ['$scope', '$routeParams', '$location', '$filter', 'promotionsFactory', '$http',
+    function($scope, $routeParams, $location,$filter, promotionsFactory, $http){      
+    	$http.get('http://localhost:8090/getDomaine/PROCESSUS_STAGE')
+    	.success(function(data, status, headers, config) {
+    		$scope.processusStage= [];
+		    for(var i=0; i<data.length; i++){
+		    	$scope.processusStage[i]={};
+		    	$scope.processusStage[i].rvAbbreviation = data[i].rvAbbreviation;
+		    	$scope.processusStage[i].rvMeaning = data[i].rvMeaning;
+		    }
+//    		for(var i=0; i<data.length; i++){
+//		    	$scope.processusStage[data[i].rvAbbreviation]={};
+//		    	$scope.processusStage[data[i].rvAbbreviation] = data[i].rvMeaning;
+//		    }
+	    }).
+	    error(function(data, status, headers, config) {
+	      // log error
+	    });
+    	$scope.edit= false;
       var promoPK = {anneeUniversitaire:  $routeParams.ann, codeFormation: $routeParams.form};
       // si creation d'une nouvelle promotion
       if($routeParams.ann == "nouveau"){
@@ -193,7 +214,6 @@
 	        var promise1= promotionsFactory.getEnseignants();
 	        promise1.success(function(data,statut){
 	        	$scope.enseignants= data;
-	        	console.log("\tEnseignants récupérés: ", data);
 	        })
 	        .error(function(data,statut){
 	      	  console.log("impossible de recuperer la liste des enseignants");
@@ -202,7 +222,6 @@
 	        var promise2= promotionsFactory.getFormations();
 	        promise2.success(function(data,statut){
 	        	$scope.formations= data;
-	        	console.log("\tFormations récupérées: ", data);
 	        })
 	        .error(function(data,statut){
 	      	  console.log("impossible de recuperer la liste des formations");
@@ -216,12 +235,11 @@
 	            promise1.success(function(data,statut){
             	data.dateRentree = $filter('date')(data.dateRentree, "dd/MM/yyyy");
 				$scope.promotion= data;
-				console.log("TODO: recuperation de la promotion: ", $scope.promotion);
+				$scope.processusStageSelected= $scope.promotion.processusStage;
           	  	//Recuperation des etudiants  
 				var promise2= promotionsFactory.getEtudiants(promoPK);
 	            promise2.success(function(data,statut){
 	            	$scope.promotion.etudiantCollection = data ;
-	            	console.log("TODO: recuperation de la liste des étudiants pour la promotion selectionnée ",data);
 	            })
 	            .error(function(data,statut){
 	          	  console.log("impossible de recuperer les étudiants de la promotion choisie");
@@ -231,7 +249,6 @@
 		        promise3.success(function(data,statut){
 		        	$scope.responsable = data;
 		        	$scope.enseignantSelected = data.noEnseignant;
-		        	console.log("\tEnseignant responsable récupéré: ", data);
 		        })
 		        .error(function(data,statut){
 		      	  console.log("impossible de recuperer la liste des enseignants");
@@ -240,7 +257,6 @@
 	            var promise3= promotionsFactory.getEnseignants();
 		        promise3.success(function(data,statut){
 		        	$scope.enseignants= data;
-		        	console.log("\tEnseignants récupérés: ", data);
 		        })
 		        .error(function(data,statut){
 		      	  console.log("impossible de recuperer la liste des enseignants");
@@ -253,6 +269,8 @@
             $scope.etudiantDetails= function(){
             	
             }
+            
+            $scope.edit = edit;
       }
 
       $scope.edition = function(){
@@ -288,6 +306,7 @@
     			  var date = $scope.promotion.dateRentree.split('/');
     		      $scope.promotion.dateRentree = new Date(date[1] + '-' + date[0] + '-' + date[2]);  
     		  }
+    		  $scope.promotion.processusStage= $scope.processusStageSelected;
     		  var promise = promotionsFactory.set($scope.promotion, $scope.enseignantSelected);
     		  promise.success(function(){
     			  var promiseEnseignant = promotionsFactory.getEnseignantResponsable($scope.promotion.promotionPK);
@@ -307,22 +326,7 @@
       // annule l'édition
       $scope.cancel = function(){
         // si ajout d'une nouvelle promotion => retour à la liste des promotions
-        if($routeParams.ann == "nouveau"){
-          $location.path('/admin/promotions');
-        } else {
-//          var promise = promotionsFactory.get(promoPK);
-//          promise.success(function(data,statut){
-//          	  $scope.promotion= data ;
-//            })
-//            .error(function(data,statut){
-//          	  console.log("impossible de recuperer les details de la promotion");
-//            });
-        	$location.path('/admin/promotion/' + $routeParams.ann + '/' + $routeParams.form);
-          $scope.edit = false;
-        }
-      }
-      $scope.test= function(){
-    	  console.log("ens: ", $scope.enseignantSelected);
+      	history.back();
       }
       
       $scope.etudiantDetails = function(id){
