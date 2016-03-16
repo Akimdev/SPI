@@ -342,13 +342,13 @@
     	  console.log("impossible de recuperer la liste des types");
       });
       
-      var promisePays = enseignantsFactory.getPays();
-      promisePays.success(function(data) { 
-			console.log("payss: ",data);
-			$scope.payss = data;
-			$scope.domains = data;
-			//$scope.selectedOption = data[0];
-		});
+//      var promisePays = enseignantsFactory.getPays();
+//      promisePays.success(function(data) { 
+//			console.log("payss: ",data);
+//			$scope.payss = data;
+//			$scope.domains = data;
+//			//$scope.selectedOption = data[0];
+//		});
 		var promisePays= enseignantsFactory.getPays();
 		promisePays.success(function(data,statut){
       	$scope.payss= data;
