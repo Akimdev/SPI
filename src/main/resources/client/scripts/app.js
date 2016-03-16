@@ -185,7 +185,6 @@
 					$location.path("/pages/signin");
 				}
 				$rootScope.user = data.role;
-				console.log(data);
 			}).error(function(data) {
 				$location.path("/pages/signin");
 			});
