@@ -3,7 +3,7 @@ angular.module('app.auth', [])
 /**
  * A simple example service that returns some data.
  */
-.factory('AuthService', function($http, $window) {
+.service('AuthService', function($http, $window) {
 
 	return {
 		authLocal : function(requestAuth) {
@@ -37,8 +37,8 @@ angular.module('app.auth', [])
  */
 .controller(
 		'AuthenticationController',
-		[ '$scope', '$location', '$animate', 'AuthService',
-				function($scope, $location, $animate, AuthService) {
+		['$rootScope', '$scope', '$location', '$animate', 'AuthService',
+				function($rootScope, $scope, $location, $animate, AuthService) {
 					$scope.login = {};
 					/*
 					 * // Nom utilisateur et image (affichés dans le header)
@@ -61,6 +61,8 @@ angular.module('app.auth', [])
 								//Gérer les roles des utilisateurs
 								role = data.role;
 								//Pour enseignant
+								$rootScope.user = data.role;
+								console.log(":" + data.role + ":");
 								if(role === "ENS"){
 									console.log("Enseignant connecté !");
 										$location.path('/');

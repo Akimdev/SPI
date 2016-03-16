@@ -29,5 +29,12 @@ public class DomainesSevices {
 	public final List<CgRefCodes> getDomainByRvDomain(final String rvDomain) {
 		return domainesRepository.findByRvDomain(rvDomain);
 	}
+	
+	/**
+	 * @author Youssef cette méthode permet de récuperer le pays correspondant à une abrévation
+	 */
+	public CgRefCodes getPaysDomain(final String lowValue){
+		return domainesRepository.findPaysDomain(lowValue);
+	}
 
 }

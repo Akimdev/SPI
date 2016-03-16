@@ -25,6 +25,9 @@
       },
       delete: function(code) { 
     	  //return $http.get('http://localhost:8090/formations/delete', {params: {codeFormation: code}});
+      },
+      getPays: function(pays){
+    	  return $http.get('http://localhost:8090/getDomaine/pays/' + pays);
       }
     };
   });
@@ -36,7 +39,7 @@
     	var promiseEtudiants = etudiantsFactory.all();
 		promiseEtudiants.success(function(data, status) {
 		      $scope.etudiants = data;
-		      		      
+
 		      $scope.searchKeywords = '';
 		      $scope.filteredEtudiant = [];
 		      $scope.row = '';
@@ -91,7 +94,6 @@
 			 $scope.error = 'unable to get the poneys';
 		  }
 		);
-      
 
       $scope.show = function (noEtudiant){
     	  $location.path("/etudiant/"+ noEtudiant);
@@ -116,8 +118,13 @@
     	var promise = etudiantsFactory.get($stateParams.id);
         promise.success(function(data){
         	$scope.etudiant = data;
+        	var promisePays = etudiantsFactory.getPays($scope.etudiant.paysOrigine);
+        	promisePays.success(function(data){
+        		$scope.etudiant.paysOrigine = data.rvMeaning;
+        	});
+        	
         });
-        $scope.retour= function(){
+        $scope.retour = function(){
         	history.back();
         }
     }]

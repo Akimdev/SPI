@@ -30,11 +30,17 @@
 					class="cpation-subject font-red bold uppercase">Etudiants</span>
 			</div>
 			<!-- -----------------------------Recherche--------------------------------------- -->
-			<div class="row">
-				<span style="float: right;" class="col-sm-4 col-xs-6">
-						<input type="text" placeholder="search" class="form-control"
-							data-ng-model="searchKeywords" data-ng-keyup="search()">
-				</span>
+			<div>
+			<!-- ------------------------Bouton ajouter--------------------------------------- -->
+				<button class="btn blue" ng-click="ajoutEtudiant()">
+					Nouveau etudiant<i class="fa fa-plus"></i>
+				</button>
+				<div class="row">
+					<span style="float: right;" class="col-sm-4 col-xs-6">
+							<input type="text" placeholder="search" class="form-control"
+								data-ng-model="searchKeywords" data-ng-keyup="search()">
+					</span>
+				</div>
 			</div>
 			<!----------------------------------------La table de liste ---------------------------------------->
 			<div class="portlet-body">
@@ -42,16 +48,6 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>
-									<div class="th">
-										Code Etudiant <span class="glyphicon glyphicon-chevron-up"
-											data-ng-click=" order('nom') "
-											data-ng-class="{active: row == 'nom'}"></span> <span
-											class="glyphicon glyphicon-chevron-down"
-											data-ng-click=" order('-nom') "
-											data-ng-class="{active: row == '-nom'}"></span>
-									</div>
-								</th>
 								<th><div class="th">
 										Nom <span class="glyphicon glyphicon-chevron-up"
 											data-ng-click=" order('nom') "
@@ -84,16 +80,21 @@
 											data-ng-click=" order('-email') "
 											data-ng-class="{active: row == '-email'}"></span>
 									</div></th>
+									<th></th>
+									<th></th>
+									<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							<!-- currentPageEnseignant / enseignants -->
 							<tr data-ng-repeat="e in currentPageEtudiant" class="etudiant">
-								<td ng-click="show(e.noEtudiant)">{{e.noEtudiant}}</td>
 								<td ng-click="show(e.noEtudiant)">{{e.nom}}</td>
 								<td ng-click="show(e.noEtudiant)">{{e.prenom}}</td>
 								<td ng-click="show(e.noEtudiant)">{{e.promotion.promotionPK.codeFormation}}</td>
 								<td ng-click="show(e.noEtudiant)">{{e.emailUbo}}</td>
+								<td ng-click="show(e.noEtudiant)"><span class="fa fa-eye"></span></td>
+								<td ng-click="edit(e.noEtudiant)"><span class="glyphicon glyphicon-edit"></span></td>
+								<td ng-click="supprime(e.noEtudiant)"><span class="glyphicon glyphicon-trash"></span></td>
 							</tr>
 						</tbody>
 					</table>
@@ -102,10 +103,10 @@
 				<footer class="table-footer">
 					<div class="row">
 						<div class="col-md-6 page-num-info">
-							<span> Show <select data-ng-model="numPerPage"
+							<span> Afficher <select data-ng-model="numPerPage"
 								data-ng-options="num for num in numPerPageOpt"
 								data-ng-change="onNumPerPageChange()">
-							</select> entries per page
+							</select> par page
 							</span>
 						</div>
 						<div class="col-md-6 text-right pagination-container">

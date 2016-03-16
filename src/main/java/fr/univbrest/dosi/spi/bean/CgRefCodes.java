@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CgRefCodes.findAll", query = "SELECT c FROM CgRefCodes c"),
     @NamedQuery(name = "CgRefCodes.findByIdCgrc", query = "SELECT c FROM CgRefCodes c WHERE c.idCgrc = :idCgrc"),
     @NamedQuery(name = "CgRefCodes.findByRvDomain", query = "SELECT c FROM CgRefCodes c WHERE c.rvDomain = :rvDomain"),
+    @NamedQuery(name = "CgRefCodes.findPaysDomain", query = "SELECT c FROM CgRefCodes c WHERE c.rvDomain = 'PAYS' AND c.rvLowValue = :rvLowValue"),
     @NamedQuery(name = "CgRefCodes.findByRvLowValue", query = "SELECT c FROM CgRefCodes c WHERE c.rvLowValue = :rvLowValue"),
     @NamedQuery(name = "CgRefCodes.findByRvHighValue", query = "SELECT c FROM CgRefCodes c WHERE c.rvHighValue = :rvHighValue"),
     @NamedQuery(name = "CgRefCodes.findByRvAbbreviation", query = "SELECT c FROM CgRefCodes c WHERE c.rvAbbreviation = :rvAbbreviation"),
