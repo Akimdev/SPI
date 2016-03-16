@@ -28,9 +28,6 @@ public class EnseignantService {
 	 * @return l'enseignant ajouter
 	 */
 	public final Enseignant addEnseignant(final Enseignant enseignant) {
-		if (enseignantRepository.exists(enseignant.getNoEnseignant())) {
-			throw new SPIException("l'enseignant que vous souhaitez ajouter existe déjà ");
-		}
 		return enseignantRepository.save(enseignant);
 	}
 
@@ -133,12 +130,13 @@ public class EnseignantService {
 			throw new SPIException("l'enseignant que vous souhaitez modifier n'exsite pas ");
 		}
 	}
-	
+
 	/**
 	 * Cette méthode retourne le nombre d'enseignants
+	 * 
 	 * @return nombre d'enseignants
 	 */
-	public int nombreEnseignants(){
+	public int nombreEnseignants() {
 		List<Enseignant> listeEnseignants = (List<Enseignant>) enseignantRepository.findAll();
 		return listeEnseignants.size();
 	}
