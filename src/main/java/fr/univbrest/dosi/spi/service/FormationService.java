@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import fr.univbrest.dosi.spi.bean.ElementConstitutif;
 import fr.univbrest.dosi.spi.bean.Formation;
+import fr.univbrest.dosi.spi.bean.UniteEnseignement;
 import fr.univbrest.dosi.spi.dao.FormationRepository;
 import fr.univbrest.dosi.spi.exception.SPIException;
 
@@ -104,5 +106,22 @@ public class FormationService {
 	 */
 	public long nombreFormations() {
 		return formationRepository.count();
+	}
+	
+	/**
+	 * @author Othman
+	 * @param codeFormation
+	 * @return Cette méthode retourne une liste d'unités d'enseignement en lui donnant comme paramètre
+	 * un code de formation
+	 */
+	public List<UniteEnseignement> getUEsByCodeFormation(String codeFormation){
+		Formation formation = formationRepository.findOne(codeFormation);
+		List<UniteEnseignement> listeUEs = (List<UniteEnseignement>) formation.getUniteEnseignementCollection();
+		Collections.sort(listeUEs, new Comparator<UniteEnseignement>() {
+	        public int compare(final UniteEnseignement ue1, final UniteEnseignement ue2) {
+	            return (ue1.getUniteEnseignementPK().getCodeUe()).compareTo(ue2.getUniteEnseignementPK().getCodeUe());
+	        }
+	       });
+		return listeUEs;
 	}
 }

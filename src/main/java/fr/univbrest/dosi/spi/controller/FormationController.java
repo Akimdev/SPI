@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.univbrest.dosi.spi.bean.Formation;
+import fr.univbrest.dosi.spi.bean.UniteEnseignement;
 import fr.univbrest.dosi.spi.service.FormationService;
 
 /**
@@ -79,5 +80,16 @@ public class FormationController {
 	@RequestMapping(value = "/nombreFormations", headers = "Accept=application/json")
 	public long nombreFormations() {
 		return formationService.nombreFormations();
+	}
+	
+	/**
+	 * @author othman
+	 * @param codeFormation
+	 * @return Cette méthode retourne une liste d'unités d'enseignement en lui donnant comme paramètre
+	 * un code de formation
+	 */
+	@RequestMapping(value="/getUEsByFormation-{codeFormation}", method = RequestMethod.GET, headers = "Accept=application/json")
+	public List<UniteEnseignement> getUEsByCodeFormation(@PathVariable("codeFormation")String codeFormation){
+		return formationService.getUEsByCodeFormation(codeFormation);
 	}
 }
