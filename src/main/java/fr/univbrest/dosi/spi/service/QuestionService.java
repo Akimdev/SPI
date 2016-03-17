@@ -87,7 +87,16 @@ public class QuestionService {
 	public Qualificatif getQualificatif(Long idQuestion) {
 		return questRepo.findQualificatif(idQuestion);
 	}
-
+//	-----------------------------Service à écrire pour récuperer les qualificatifs-------------
+//	/**
+//	 * @author Zouhair et Kenza Rechercher le qualificatif d'une question
+//	 * @param idQuestions
+//	 */
+//	public List<Qualificatif> getQualificatif(List<Long> idQuestions) {
+//		List<Qualificatif> l= new A
+//		return questRepo.findQualificatif(idQuestion);
+//	}
+//	-----------------------------------------------------------------------------------------
 	/**
 	 * Cette méthode retourne un qualificatif
 	 *
