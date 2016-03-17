@@ -85,6 +85,7 @@ angular.module('app.auth', [])
 							});
 						})
 						.error(function() {
+							$scope.afficher = true;
 							// si la connexion a échoué : "secoue" le formulaire de connexion 
 							// TODO : afficher un message d'erreur de connexion
 							var elt = angular.element('.form-container');

@@ -12,74 +12,57 @@
 			</div>
 		</div>
 		<!--------------------------- Consultation --------------------------->
+		</br>
 		<div class="portlet-body form" ng-hide="edit">
 			<button class="btn btn-warning pull-right" ng-click="edition()">
 				<span class="glyphicon glyphicon-pencil"></span> Editer
 			</button>
 			<form class="form-horizontal form-bordered">
 				<div class="form-group">
-					<div class="col-md-3">
-						<strong>Ann&eacute;e universitaire</strong>
-					</div>
+					<div class="col-md-3"><strong>Ann&eacute;e</strong></div>
 					<div class="col-md-3">{{promotion.promotionPK.anneeUniversitaire}}</div>
 				</div>
 				<div class="form-group">
-					<div class="col-md-3">
-						<strong>Code formation</strong>
-					</div>
+					<div class="col-md-3"><strong>Formation</strong></div>
 					<div class="col-md-3">{{promotion.promotionPK.codeFormation}}</div>
 				</div>
 				<div class="form-group">
-					<div class="col-md-3">
-						<strong>Sigle</strong>
-					</div>
+					<div class="col-md-3"><strong>Sigle</strong></div>
 					<div class="col-md-3">{{promotion.siglePromotion}}</div>
 				</div>
 				<div class="form-group">
-					<div class="col-md-3">
-						<strong>Responsable</strong>
-					</div>
+					<div class="col-md-3"><strong>Responsable</strong></div>
 					<div class="col-md-3">{{responsable.nom}}
 						{{responsable.prenom}}</div>
 				</div>
 				<div class="form-group">
-					<div class="col-md-3">
-						<strong>Date de rentr&eacute;e</strong>
-					</div>
+					<div class="col-md-3"><strong>Nombre max d'&eacute;tudiants</strong></div>
+					<div class="col-md-3">{{promotion.nbMaxEtudiant}}</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3"><strong>Date de rentr&eacute;e</strong></div>
 					<div class="col-md-3">{{promotion.dateRentree | date:
 						"dd/MM/yyyy"}}</div>
 				</div>
 				<div class="form-group">
-					<div class="col-md-3">
-						<strong>Lieu de rentr&eacute;e</strong>
-					</div>
+					<div class="col-md-3"><strong>Lieu de rentr&eacute;e</strong></div>
 					<div class="col-md-3">{{promotion.lieuRentree}}</div>
 				</div>
 				<div class="form-group">
-					<div class="col-md-3">
-						<strong>Processus de stage</strong>
-					</div>
-					<div class="col-md-3">{{promotion.processusStage}}</div>
+					<div class="col-md-3"><strong>Processus de stage</strong></div>
+					<div class="col-md-3">{{processusSignification}}</div>
 				</div>
 				<div class="form-group">
-					<div class="col-md-3">
-						<strong>Commentaire</strong>
-					</div>
+					<div class="col-md-3"><strong>Commentaire</strong></div>
 					<div class="col-md-3">{{promotion.commentaire}}</div>
 				</div>
-				<div class="form-group">
-					<div class="col-md-3">
-						<strong>Nombre max d'&eacute;tudiants</strong>
-					</div>
-					<div class="col-md-3">{{promotion.nbMaxEtudiant}}</div>
-				</div>
+				</br> <a class="btn btn-primary" href="#/promotions" ng-hide="promotion.etudiantCollection.length">
+					<span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
 			</form>
-			</br> <a class="btn btn-primary" href="#/promotions"><span
-				class="glyphicon glyphicon-arrow-left"></span> Retour</a>
-		</div>
+			
+		</div>	
 		</br>
-		</br>
-		<!--------------------------- Edition ------------------------- -->
+
 		<div class="media animate" ng-hide="edit">
 		<div class="row">
 			<div class="col-md-6" ng-show="promotion.etudiantCollection.length">
@@ -107,16 +90,16 @@
 				</div>
 			</div>
 		</div>
-		<a class="btn btn-primary" href="#/promotions"><span
-			class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+		<a class="btn btn-primary" href="#/promotions" ng-show="promotion.etudiantCollection.length">
+			<span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
 	</div>
 
 	<!--------------------------- Edition --------------------------->
 	<div ng-show="edit">
 		<form class="form-horizontal">
 			<div class="form-group">
-				<label for="" class="col-sm-2">Ann&eacute;e universitaire<span
-					id="required-field">*</span></label>
+				<label for="" class="col-sm-2">Ann&eacute;e<span
+					id="required-field"> *</span></label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control"
 						ng-model="promotion.promotionPK.anneeUniversitaire"
@@ -124,19 +107,20 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="" class="col-sm-2">Code formation<span
-					id="required-field">*</span></label>
+				<label for="" class="col-sm-2">Formation<span
+					id="required-field"> *</span></label>
 				<div class="col-sm-10">
 					<select ng-show="ajout" ng-model="formationSelected">
-						<option data-ng-repeat="f in formations"
-							value="{{f.codeFormation}}">{{f.codeFormation}}</option>
-					</select> <input ng-hide="ajout" type="text" class="form-control"
+						<option data-ng-repeat="f in formations" value="{{f.codeFormation}}"
+								ng-selected="{{f.codeFormation == promotion.promotionPK.codeFormation}}">{{f.codeFormation}}</option>
+					</select>
+					<input ng-hide="ajout" type="text" class="form-control"
 						ng-model="promotion.promotionPK.codeFormation" ng-readonly="true">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="" class="col-sm-2">Sigle<span
-					id="required-field">*</span></label>
+					id="required-field"> *</span></label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control"
 						ng-model="promotion.siglePromotion" required>
@@ -145,17 +129,20 @@
 			<div class="form-group">
 				<label for="" class="col-sm-2">Responsable</label>
 				<div class="col-sm-10">
-					<select ng-show="edit" name="listeEnseignants"
-						ng-model="enseignantSelected">
+					<select name="listeEnseignants" ng-model="enseignantSelected">
 						<option data-ng-repeat="e in enseignants"
-							value="{{e.noEnseignant}}"
-							ng-selected="{{e.noEnseignant == responsable.noEnseignant}}">{{e.noEnseignant}}.
-							{{e.nom}} {{e.prenom}}</option>
-					</select> <input ng-hide="edit" type="text" class="form-control"
-						ng-model="enseignants.nom" placeholder="Nom Responsable"></br>
-					<input ng-hide="edit" type="text" class="form-control"
-						ng-model="enseignants.prenom"
-						placeholder="Pr&eacute;nom Responsable">
+								value="{{e.noEnseignant}}"
+								ng-selected="{{e.noEnseignant == responsable.noEnseignant}}">
+								{{e.nom}} {{e.prenom}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="" class="col-sm-2">Nombre max d'&eacute;tudiants<span
+					id="required-field"> *</span></label>
+				<div class="col-sm-10">
+					<input type="number" class="form-control"
+						ng-model="promotion.nbMaxEtudiant" required>
 				</div>
 			</div>
 			<div class="form-group">
@@ -175,8 +162,13 @@
 			<div class="form-group">
 				<label for="" class="col-sm-2">Processus de stage</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control"
-						ng-model="promotion.processusStage">
+					<!-- <input type="text" class="form-control"
+						ng-model="promotion.processusStage"> -->
+					<select ng-model="processusStageSelected" name="processusStage">
+						<option data-ng-repeat="p in processusStage" 
+								value="{{p.rvAbbreviation}}"
+								ng-selected="{{promotion.processusStage == p.rvAbbreviation}}">{{p.rvMeaning}}</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">
@@ -184,14 +176,6 @@
 				<div class="col-sm-10">
 					<input type="text" class="form-control"
 						ng-model="promotion.commentaire">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="" class="col-sm-2">Nombre max d'&eacute;tudiants<span
-					id="required-field">*</span></label>
-				<div class="col-sm-10">
-					<input type="number" class="form-control"
-						ng-model="promotion.nbMaxEtudiant" required>
 				</div>
 			</div>
 		</form>

@@ -937,7 +937,7 @@ app
 							.state(
 									'detailspromotions',
 									{
-										url : "/promotions/:ann/:form",
+										url : "/promotion/:ann/:form",
 										templateUrl : "views/promotions/details.html",
 										data : {
 											pageTitle : 'Detail des promotions',
@@ -1248,7 +1248,7 @@ app
 													} ]
 										}
 									})
-									
+
 							// Rubriques
 							.state(
 									'rubriques',
@@ -1418,10 +1418,7 @@ app
 									})
 								$urlRouterProvider.otherwise(function($injector, $location) {
 										var AuthService = $injector.get('AuthService');
-
 										var temp = AuthService.getUser();
-										console.log(temp);
-										
 										AuthService.getUser().success(function(data){
 											if (data) {
 												$location.path("/dashboard.html");
@@ -1435,6 +1432,7 @@ app
 
 									}); 
 				} ]).run([ "$rootScope", "settings", "$state", "$route", "$location", "AuthService",
+
 		function($rootScope, settings, $state, $route, $location, AuthService) {
 			$rootScope.$state = $state; // state to be accessed from view
 			
@@ -1455,6 +1453,7 @@ app
 			});*/
 			
 			$rootScope.$on("$locationChangeStart", function(e, to) {	
+
 				if (to.notLoggedNeeded) {
 					return;
 				}

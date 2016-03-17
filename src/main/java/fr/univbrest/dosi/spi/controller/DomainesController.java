@@ -33,4 +33,12 @@ public class DomainesController {
 	public List<CgRefCodes> getDomainByRvDomain(@PathVariable(value = "rvDomain") final String rvDomain) {
 		return domainesService.getDomainByRvDomain(rvDomain);
 	}
+	/**
+	 * @author Youssef
+	 * Pour récupérer le pays correspondant à une abréviation
+	 */
+	@RequestMapping(value = "/getDomaine/pays/{lowValue}", produces = { MediaType.APPLICATION_JSON_VALUE }, headers = "Accept=application/json")
+	public CgRefCodes getPaysByDomain(@PathVariable(value = "lowValue") final String lowValue) {
+		return domainesService.getPaysDomain(lowValue);
+	}
 }
