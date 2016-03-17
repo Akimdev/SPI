@@ -1,7 +1,9 @@
 package fr.univbrest.dosi.spi.controller;
 
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import fr.univbrest.dosi.spi.bean.Authentification;
+import fr.univbrest.dosi.spi.bean.CgRefCodes;
 import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Evaluation;
-import fr.univbrest.dosi.spi.bean.UniteEnseignement;
+import fr.univbrest.dosi.spi.service.DomainesSevices;
 import fr.univbrest.dosi.spi.service.EvaluationService;
 
 /**
@@ -28,8 +32,19 @@ public class EvaluationController {
 	@Autowired
 	EvaluationService evaServ;
 	
+	@Autowired
+	DomainesSevices domaineService;
+	
 	@RequestMapping(value="/evaluations")
 	public List<Evaluation> listerEvaluations(){
+		
+		for(int nbr=0; nbr<evaServ.nombreEvaluations();nbr++){
+			Evaluation evaluation =evaServ.getAllEvaluations().get(nbr);
+			String etat =evaluation.getEtat();
+			CgRefCodes domaine = domaineService.getRvMainingByRvAbbreviation(etat);
+			String etatEvaluation = domaine.getRvMeaning();
+			evaluation.setEtat(etatEvaluation);	
+		}
 		return evaServ.getAllEvaluations();
 	}
 	

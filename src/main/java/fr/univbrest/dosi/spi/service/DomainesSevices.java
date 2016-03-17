@@ -35,4 +35,11 @@ public class DomainesSevices {
 	public CgRefCodes getPaysDomain(final String lowValue){
 		return domainesRepository.findPaysDomain(lowValue);
 	}
+	
+	/**
+	 * @author Baqloul 
+	 */
+	public final CgRefCodes getRvMainingByRvAbbreviation(final String rvAbbreviation) {
+		return domainesRepository.findByRvAbbreviation(rvAbbreviation);
+	}
 }
