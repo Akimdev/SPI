@@ -12,15 +12,27 @@
       },
       // renvoi l'enseignant avec le code demandé
       get: function(code) { 
-    	  return $http.get('http://localhost:8090/formationByCode/' + code);    
+    	  return $http.get('http://localhost:8090/formation/getFormation/' + code);    
       },
       
-      set: function(formation) {	
-    	  return $http.post('http://localhost:8090/formation/createFormation', formation);
+      addFormation: function(formation) {	
+    	  return $http.post('http://localhost:8090/formation/addFormation', formation);
+      },
+      
+      updateFormation: function(formation){
+    	  return $http.post('http://localhost:8090/formation/updateFormation', formation);
       },
       
       delete: function(codeFormation) { 
-    	  return $http.get('http://localhost:8090/formation/delete?codeFormation=' + codeFormation);
+    	  return $http.get('http://localhost:8090/formation/deleteFormation/' + codeFormation);
+      },
+      
+      getDomain:function(){
+    	  return $http.get('http://localhost:8090/getDomaine/DIPLOME');
+      },
+      
+      getDomainDiplome:function(){
+    	  return $http.get('http://localhost:8090/getDomaine/OUI_NON');
       },
       
       getUEsByCodeFormation(codeFormation) {
@@ -115,8 +127,8 @@
 		    	 var promiseEC = formationsFactory.getECsByCodeUe(uePK);
 		    	    promiseEC.success(function(data){
 		    	    	$scope.ecs = data;
-		    	    	$scope.ec = true
-;			    	    })
+		    	    	$scope.ec = true;
+		    	    	})
 		    	    .error(function(data){
 		    	    	$scope.error = 'unable to get the poneys';
 		    	    });
@@ -138,8 +150,8 @@
 			  type: "warning",   
 			  showCancelButton: true,   
 			  confirmButtonColor: "#DD6B55",   
-			  confirmButtonText: "Oui, je veux le supprimer!",  
-			  cancelButtonText: "Non, ignorer!",   
+			  confirmButtonText: "Oui",  
+			  cancelButtonText: "Non",   
 			  closeOnConfirm: false,   closeOnCancel: false },
 			  function(isConfirm){
 				  if (isConfirm) {  
@@ -149,7 +161,7 @@
 						swal("Supprimé!", "la formation est supprimée", "success");
 					});
 			    	  promisessuppression.error(function(data, status, headers, config) {
-			    		  swal("Erreur!", "vous pouvez pas supprimer cette formation", "error");
+			    		  swal("Erreur!", "vous ne pouvez pas supprimer cette formation", "error");
 			  		});	
 					  } else {     
 						  swal("Ignorer", "", "error");
@@ -163,38 +175,42 @@
   app.controller('FormationDetailsController', 
     ['$scope', '$stateParams','$http', '$location','$filter', 'formationsFactory',
     function($scope, $stateParams, $http, $location,$filter, formationsFactory){  
-
-    		  $http.get('http://localhost:8090/getDomaine/DIPLOME').
-    		    success(function(data, status, headers, config) {
-    		      $scope.domaines = data._embedded.domaines;
-    		      $scope.domaines = {
-    					    availableOptions: data._embedded.domaines,
-    					    selectedOption:  data._embedded.domaines[0]
-    				    };
-    		    }).
-    		    error(function(data, status, headers, config) {
-    		      // log error
-    		    });
-    		
-    	
-      $scope.edit= false;    
-
+    	$scope.edit= false;    
       // si creation d'une nouvelle formation
-      if($routeParams.id == "nouveau"){
+      if($stateParams.id == "nouveau"){
         $scope.formation= { };
+        var promiseDomaines = formationsFactory.getDomain();
+	    promiseDomaines.success(function(data) {
+	      $scope.domaines = data;
+	    });
+	    
+	    var promiseDomainesDiplome = formationsFactory.getDomainDiplome();
+	    promiseDomainesDiplome.success(function(data) {
+	      $scope.domainesDiplome = data;
+	    });
+	    
         $scope.edit= true;    
       } else { // sinon on edite une formation existante
-        var f = formationsFactory.get($routeParams.id);
-        var promisesFactory = formationsFactory.get($routeParams.id);
+        var f = formationsFactory.get($stateParams.id);
+        var promisesFactory = formationsFactory.get($stateParams.id);
      	promisesFactory.success(function(data) {
      		$scope.formation = data;   
 				$scope.formation.debutAccreditation = $filter('date')(data.debutAccreditation, "dd/MM/yyyy");
 				$scope.formation.finAccreditation = $filter('date')(data.finAccreditation, "dd/MM/yyyy");		
      	});
+     	var promiseDomaines = formationsFactory.getDomain();
+	    promiseDomaines.success(function(data) {
+	      $scope.domaines = data;
+	    });
+	    
+	    var promiseDomainesDiplome = formationsFactory.getDomainDiplome();
+	    promiseDomainesDiplome.success(function(data) {
+	      $scope.domainesDiplome = data;
+	    });
       }      
       
       $scope.edition = function(){
-    	  var promisessuppression = formationsFactory.set($scope.formation);    	  
+    	  var promisessuppression = formationsFactory.addFormation($scope.formation);    	  
     	  formationsFactory.get($scope.formation);
           $scope.edit = true;
         }
@@ -206,7 +222,12 @@
             	var date2 = $scope.formation.finAccreditation.split('/');
             	$scope.formation.finAccreditation = new Date(date2[1] + '-' + date2[0] + '-' + date2[2]);
         	}
-        	var promisesajout = formationsFactory.set($scope.formation);
+        	$scope.formation.diplome = $scope.diplomeSelected;
+    	    $scope.formation.doubleDiplome = $scope.doubleDiplomeSelected;
+    	    console.log($scope.diplomeSelected);
+    	    console.log("objet en question",$scope.formation);
+    	    if($stateParams.id == "nouveau"){
+        	var promisesajout = formationsFactory.addFormation($scope.formation);
         	promisesajout.success(function(data, status, headers, config) {
         		$location.path('/formations');
 				
@@ -214,7 +235,17 @@
         	promisesajout.error(function(data, status, headers, config) {
 				alert( "failure message: " + JSON.stringify({data: data}));
 			});		
-        	
+    	    }
+    	    else{
+    	    	var promiseUpdate = formationsFactory.updateFormation($scope.formation);
+    	    	promiseUpdate.success(function(data, status, headers, config) {
+            		$location.path('/formations');
+    				
+    			})
+            	.error(function(data, status, headers, config) {
+    				alert( "failure message: " + JSON.stringify({data: data}));
+    			});	
+    	    }
 			// Making the fields empty
 			//				
 			$scope.formation = {};
@@ -232,7 +263,7 @@
           $location.path('/formations');
         } else {
         	$location.path('/formations');
-         // var e = formationFactory.get($routeParams.id);
+         // var e = formationFactory.get($stateParams.id);
           //$scope.formation = JSON.parse(JSON.stringify(e));
           $scope.edit = false;
         }
