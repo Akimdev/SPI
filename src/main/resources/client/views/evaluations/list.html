@@ -1,162 +1,171 @@
-<ul class="page-breadcrumb breadcrumb">
-	<li>
-		<a href="#/">Accueil</a>
-		<i class="fa fa-circle"></i>
-	</i>
-	<li>
-		<a href="#">Administration</a>
-		<i class="fa fa-circle"></i>
-	</li>
-	<li>
-		<span class="active">Evaluations</span>
-	</li>
-</ul>
+<!-- @Author Zouhair -->
 <!-- 
  -- @Author Mohamed LAKRAA
  -- lister Evaluation
  -->
+ <!-- -----------------------------------------------Navigation-------------------------------------- -->
+<ul class="page-breadcrumb breadcrumb">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+	<li><a href="#/">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">Evaluations</span></li>
+</ul>
+<!-- -------------------------------------------END Navigation---------------------------------------- -->
 <div class="page page-table" data-ng-controller="EvaluationsController">
-    <section class="panel panel-default table-dynamic">
-        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Listes des évaluations</strong>
-         <button class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 pull-right" ng-click="ajoutEvaluation()" >Nouvelle evaluation<i class="fa fa-plus-circle pull-right"></i></button>
-        </div>
-		
-          <div class="table-filters">
-            <div class="row">
-                <div class="col-sm-4 col-xs-6">
-                    <form>
-                        <input type="text"
-                               placeholder="Rechercher"
-                               class="form-control"
-                               data-ng-model="searchKeywords"
-                               data-ng-keyup="search()">
-                    </form>
-                </div>
-                <div class="col-sm-3 col-xs-6 filter-result-info">
-                    <span>
-                        Affiche {{currentPageEvaluation.length}}/{{evaluations.length}}
-                    </span>              
-                </div>
-            </div>
-        </div>  
+	<!-- ---------------------------------------Note pour la gestion-------------------------------------- -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="portlet box red">
+				<div class="portlet-title">
+					<div class="caption">
+						<i class="icon-info"></i>Gestion des evaluations
+					</div>
+				</div>
+				<div class="portlet-body">
+					<p>
+						Cette page permet la gestion de l'ensemble des evaluations du
+						d&eacute;partement informatique de l'UBO.</br> Consulter les
+						informations g&eacute;n&eacute;rales, la liste des
+						&eacute;tudiants appartenant &agrave; chacune des promotions,
+						l'ajout, la suppression et la mise &agrave; jour des promotions.
+					</p>
+				</div>
 
-        <table class="table table-bordered table-striped table-responsive">
-            <thead>
-                <tr>
-                    <th><div class="th">
-                        Désignation
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('periode') "
-                              data-ng-class="{active: row == 'periode'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-periode') "
-                              data-ng-class="{active: row == '-periode'}"></span>
-                    </div></th>
-                    <th><div class="th">
-                    
-                        Code Formation
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('codeFormation') "
-                              data-ng-class="{active: row == 'codeFormation'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-codeFormation') "
-                              data-ng-class="{active: row == '-codeFormation'}"></span>
-                    </div></th>
-                    <th><div class="th">
-                        Année Universitaire
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('anneeUniversitaire') "
-                              data-ng-class="{active: row == 'anneeUniversitaire'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-anneeUniversitaire') "
-                              data-ng-class="{active: row == '-anneeUniversitaire'}"></span>
-                    </div></th>
-                    <th><div class="th">
-                        Code UE
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('codeUE') "
-                              data-ng-class="{active: row == 'codeUE'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-codeUE') "
-                              data-ng-class="{active: row == '-codeUE'}"></span>
-                    </div></th> 
-                    <th><div class="th">
-                        Etat
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('etat') "
-                              data-ng-class="{active: row == 'etat'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-etat') "
-                              data-ng-class="{active: row == '-etat'}"></span>
-                    </div></th>
-                    <th><div class="th">
-                        Enseignant
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('periode') "
-                              data-ng-class="{active: row == 'periode'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-periode') "
-                              data-ng-class="{active: row == '-periode'}"></span>
-                    </div></th>
-                    <th><div class="th">
-                        Début réponse
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('periode') "
-                              data-ng-class="{active: row == 'periode'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-periode') "
-                              data-ng-class="{active: row == '-periode'}"></span>
-                    </div></th>
-                    <th><div class="th">
-                        Fin réponse
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('periode') "
-                              data-ng-class="{active: row == 'periode'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-periode') "
-                              data-ng-class="{active: row == '-periode'}"></span>
-                    </div></th>   <th></th>
-                    <!-- <th></th> -->                
-                </tr>
-            </thead>
-            <tbody>
-                <tr data-ng-repeat="e in evaluations" class="evaluation">
-                <td ng-click="edit(e.idEvaluation)">{{e.designation}}</td>
-                    <td ng-click="edit(e.codeFormation)">{{e.code_formation}}</td>
-                    <td ng-click="edit(e.idEvaluation)">{{e.annee}}</td>
-                    <td ng-click="edit(e.idEvaluation)">{{e.code_ue}}</td>
-                    <td ng-click="edit(e.idEvaluation)">{{e.etat}}</td>
-                    <td ng-click="edit(e.idEvaluation)">{{e.periode}}</td>
-                    <td ng-click="edit(e)" class="icon-list"><span class="glyphicon glyphicon-edit" ></span></td>
-                    <td ng-click="supprime(e)" class="icon-list"><span class="glyphicon glyphicon-trash" ></span></td>
-                </tr>
-            </tbody>
-        </table>
+			</div>
+		</div>
+	</div>
+	<!-- ---------------------------------FIN--Note pour la gestion-------------------------------------- -->
+	<!-- --------------------------------------- LA GESTION ----------------------------------------------- -->
+	<div class="portlet light bordered">
+		<div class="portlet-title">
+			<div class="caption">
+				<i class="icon-social-dribble font-red"></i> <span
+					class="cpation-subject font-red bold uppercase">Evaluations</span>
+			</div>
+			<!-- ------------------------Bouton ajouter--------------------------------------- -->
+			<button class="btn blue" ng-click="ajoutEvaluation()">
+				Nouvelle evaluation<i class="fa fa-plus"></i>
+			</button>
+			<!-- -----------------------------Recherche--------------------------------------- -->
+			<div class="row">
+				<span style="float: right;" class="col-sm-4 col-xs-6">
+					<form>
+						<input type="text" placeholder="Recherche" class="form-control"
+							data-ng-model="searchKeywords" data-ng-keyup="search()">
+					</form>
+				</span>
+			</div>
+		</div>
+		<!----------------------------------------La table de liste ---------------------------------------->
+		<div class="portlet-body">
+			<table class="table-scrollable">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th><div class="th">
+									D&eacute;signation <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('periode') "
+										data-ng-class="{active: row == 'periode'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-periode') "
+										data-ng-class="{active: row == '-periode'}"></span>
+								</div></th>
+							<th><div class="th">
 
-        <footer class="table-footer">
-            <div class="row">
-                <div class="col-md-6 page-num-info">
-                    <span>
-                        Show 
-                        <select data-ng-model="numPerPage"
-                                data-ng-options="num for num in numPerPageOpt"
-                                data-ng-change="onNumPerPageChange()">
-                        </select> 
-                        entries per page
-                    </span>
-                </div>
-                <div class="col-md-6 text-right pagination-container">
-                    <pagination class="pagination-sm"
-                                ng-model="currentPage"
-                                total-items="filteredEvaluation.length"
-                                max-size="4"
-                                ng-change="select(currentPage)"
-                                items-per-page="numPerPage"
-                                rotate="false"
-                                boundary-links="true"></pagination>
-                </div>
-            </div>
-        </footer>
-    </section>
-
+									Code Formation <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('codeFormation') "
+										data-ng-class="{active: row == 'codeFormation'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-codeFormation') "
+										data-ng-class="{active: row == '-codeFormation'}"></span>
+								</div></th>
+							<th><div class="th">
+									Ann&eacute;e Universitaire <span
+										class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('anneeUniversitaire') "
+										data-ng-class="{active: row == 'anneeUniversitaire'}"></span>
+									<span class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-anneeUniversitaire') "
+										data-ng-class="{active: row == '-anneeUniversitaire'}"></span>
+								</div></th>
+							<th><div class="th">
+									Code UE <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('codeUE') "
+										data-ng-class="{active: row == 'codeUE'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-codeUE') "
+										data-ng-class="{active: row == '-codeUE'}"></span>
+								</div></th>
+							<th><div class="th">
+									Etat <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('etat') "
+										data-ng-class="{active: row == 'etat'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-etat') "
+										data-ng-class="{active: row == '-etat'}"></span>
+								</div></th>
+							<th><div class="th">
+									Enseignant <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('periode') "
+										data-ng-class="{active: row == 'periode'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-periode') "
+										data-ng-class="{active: row == '-periode'}"></span>
+								</div></th>
+							<th><div class="th">
+									D&eacute;but r&eacute;ponse <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('periode') "
+										data-ng-class="{active: row == 'periode'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-periode') "
+										data-ng-class="{active: row == '-periode'}"></span>
+								</div></th>
+							<th><div class="th">
+									Fin r&eacute;ponse <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('periode') "
+										data-ng-class="{active: row == 'periode'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-periode') "
+										data-ng-class="{active: row == '-periode'}"></span>
+								</div></th>
+							<th></th>
+							<!-- <th></th> -->
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat="e in evaluations" class="evaluation">
+							<td ng-click="edit(e.idEvaluation)">{{e.designation}}</td>
+							<td ng-click="edit(e.codeFormation)">{{e.code_formation}}</td>
+							<td ng-click="edit(e.idEvaluation)">{{e.annee}}</td>
+							<td ng-click="edit(e.idEvaluation)">{{e.code_ue}}</td>
+							<td ng-click="edit(e.idEvaluation)">{{e.etat}}</td>
+							<td ng-click="edit(e.idEvaluation)">{{e.noEnseignant.nom}}
+								{{e.noEnseignant.prenom}}</td>
+							<td ng-click="edit(e.idEvaluation)">{{e.debutReponse}}</td>
+							<td ng-click="edit(e.idEvaluation)">{{e.finReponse}}</td>
+							<!-- <td ng-click="edit(e)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td> -->
+							<td ng-click="supprime(e)" class="icon-list"><span
+								class="remove fa fa-trash"></span></td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- -------------------------------Footer ----------------------- -->
+				<footer class="table-footer">
+					<div class="row">
+						<div class="col-md-6 page-num-info">
+							<span> Afficher <select data-ng-model="numPerPage"
+								data-ng-options="num for num in numPerPageOpt"
+								data-ng-change="onNumPerPageChange()">
+							</select> par page
+							</span>
+						</div>
+						<div class="col-md-6 text-right pagination-container">
+							<pagination class="pagination-sm" ng-model="currentPage"
+								total-items="filteredEvaluation.length" max-size="4"
+								ng-change="select(currentPage)" items-per-page="numPerPage"
+								rotate="false" boundary-links="true"></pagination>
+						</div>
+					</div>
+				</footer>
+		</div>
+	</div>
 </div>

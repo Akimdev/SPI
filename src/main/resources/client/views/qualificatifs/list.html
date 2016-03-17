@@ -56,24 +56,6 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th>
-								<div class="th">
-									idQualification <span class="glyphicon glyphicon-chevron-up"
-										data-ng-click=" order('idQualificatif') "
-										data-ng-class="{active: row == 'idQualificatif'}"></span> <span
-										class="glyphicon glyphicon-chevron-down"
-										data-ng-click=" order('-idQualificatif') "
-										data-ng-class="{active: row == '-idQualificatif'}"></span>
-								</div>
-							</th>
-							<th><div class="th">
-									Maximal <span class="glyphicon glyphicon-chevron-up"
-										data-ng-click=" order('maximal') "
-										data-ng-class="{active: row == 'maximal'}"></span> <span
-										class="glyphicon glyphicon-chevron-down"
-										data-ng-click=" order('-maximal') "
-										data-ng-class="{active: row == '-maximal'}"></span>
-								</div></th>
 							<th><div class="th">
 									Minimal <span class="glyphicon glyphicon-chevron-up"
 										data-ng-click=" order('minimal') "
@@ -82,15 +64,25 @@
 										data-ng-click=" order('-minimal') "
 										data-ng-class="{active: row == '-minimal'}"></span>
 								</div></th>
+							<th><div class="th">
+									Maximal <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('maximal') "
+										data-ng-class="{active: row == 'maximal'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-maximal') "
+										data-ng-class="{active: row == '-maximal'}"></span>
+								</div></th>
+								<th></th><th></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr data-ng-repeat="q in qualificatifs" class="qualificatif">
-							<td ng-click="edit(q)">{{q.idQualificatif}}</td>
 							<td ng-click="edit(q)">{{q.maximal}}</td>
 							<td ng-click="edit(q)">{{q.minimal}}</td>
-							<td ng-click="edit(q)"><span class="glyphicon glyphicon-edit"></span></td>
-							<td ng-click="supprime(q)"><span class="glyphicon glyphicon-trash"></span></td>
+							<td ng-click="edit(q)"><span
+								class="glyphicon glyphicon-edit"></span></td>
+							<td ng-click="supprime(q)"><span
+								class="glyphicon glyphicon-trash"></span></td>
 						</tr>
 					</tbody>
 				</table>
@@ -98,10 +90,10 @@
 				<footer class="table-footer">
 					<div class="row">
 						<div class="col-md-6 page-num-info">
-							<span> Show <select data-ng-model="numPerPage"
+							<span> Affichage <select data-ng-model="numPerPage"
 								data-ng-options="num for num in numPerPageOpt"
 								data-ng-change="onNumPerPageChange()">
-							</select> entries per page
+							</select> entrees par page
 							</span>
 						</div>
 						<div class="col-md-6 text-right pagination-container">

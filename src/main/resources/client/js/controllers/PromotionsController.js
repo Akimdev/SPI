@@ -4,6 +4,7 @@
 * Script de controle des promotions
 */
 var edit= false;
+
 (function() {
   'use strict';
 
@@ -45,22 +46,29 @@ var edit= false;
       set: function(promotion, noEnseignant) {// modification d'une promotion existante
     	  // La promotion à envoyé au controlleur possède une structure un peu différente (promotion + noEnseignant)
         var newPromotion= {"promotion": promotion, "enseignant": {"noEnseignant": noEnseignant}};
-        return $http.post('http://localhost:8090/updatePromotion',newPromotion);
+        console.log("newPromotion: ", newPromotion);
+    	  return $http.post('http://localhost:8090/updatePromotion',newPromotion);
         },
       delete: function(promotionPK) {
-        return  $http.post('http://localhost:8090/deletePromotion/', promotionPK);
+        // TODO Supprimer une promotion
+    	  console.log("TODO : supprimer promotion",promotionPK);
+    	  return  $http.post('http://localhost:8090/deletePromotion/', promotionPK);
       },
       getEtudiants : function(promotionPK){
-    	 return $http.post("http://localhost:8090/getEtudiantByPromotion/",promotionPK);
+    	  console.log("TODO : recuperation des etudiants par promotion",promotionPK);
+		    return $http.post("http://localhost:8090/getEtudiantByPromotion/",promotionPK);
       },
       getEnseignants: function(){
-    	 return $http.get("http://localhost:8090/ens");
+    	  console.log("TODO : recuperation de la liste des enseignants");
+		    return $http.get("http://localhost:8090/ens");
       },
       getEnseignantResponsable: function(promotionPK){
-    	  return $http.post("http://localhost:8090/promotion/getEnseignantResponsable", promotionPK);
+    	  console.log("TODO : recuperation de l'enseignant responsable");
+		  return $http.post("http://localhost:8090/promotion/getEnseignantResponsable", promotionPK);
       },
       getFormations: function(){
-    	  return $http.get("http://localhost:8090/formations");
+    	  console.log("TODO : recuperation de la liste des formations");
+		    return $http.get("http://localhost:8090/formations");
       },
       getNomFormations: function (codeFormations){
     	  return $http.post("http://localhost:8090/formation/getNomFormations", codeFormations);
@@ -73,7 +81,6 @@ var edit= false;
     function($scope, $filter, $location, promotionsFactory, toaster){
     	var init;
     	var codeFormations= [];
-
     	$scope.refresh = function(){
     	var promisePromo = promotionsFactory.all();
 		promisePromo.success(function(data) {
@@ -157,13 +164,14 @@ var edit= false;
     	  edit= false;
     	  $location.path("/promotion/"+ promotionPK.anneeUniversitaire + "/" + promotionPK.codeFormation);
       }
+
       // supprime une promotion
       $scope.supprime = function(promotionPK){
     	  swal({   
 			  title: "Etes-vous sûr de vouloir supprimer cette promotion ?",      
 			  type: "warning",   
 			  showCancelButton: true,   
-			  confirmButtonColor: "#DD6B55",   
+			  confirmButtonColor: "#DD6B55",
 			  confirmButtonText: "OUI",  
 			  cancelButtonText: "NON",   
 			  closeOnConfirm: false,   closeOnCancel: false },
@@ -187,7 +195,7 @@ var edit= false;
     }]
   );
 
-  app.controller('PromotionDetailsController', 
+  app.controller('PromotionDetailsController',
     ['$scope', '$stateParams', '$location', '$filter', 'promotionsFactory', '$http',
     function($scope, $stateParams, $location,$filter, promotionsFactory, $http){      
     	$scope.edit= edit;
@@ -322,8 +330,6 @@ var edit= false;
       $scope.etudiantDetails = function(id){
     	  $location.path("/etudiant/"+id);
       }
-      
-      
     }]
   );
 }).call(this);

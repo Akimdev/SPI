@@ -1219,6 +1219,37 @@ app
 										}
 									})
 									
+
+							.state(
+									'creationEvaluation',
+									{
+										url : "/creationEvaluation",
+										templateUrl : "views/creationEvaluation/list.html",
+										data : {
+											pageTitle : 'Liste des évaluations',
+											pageSubTitle : 'Liste des évaluations'
+										},
+										controller : "EvaluationsController",
+										resolve : {
+											deps : [
+													'$ocLazyLoad',
+													function($ocLazyLoad) {
+														return $ocLazyLoad
+																.load({
+																	name : 'app',
+																	insertBefore : '#ng_load_plugins_before', // load
+																												// the
+																												// above
+																												// css
+																												// files
+																												// before
+																												// '#ng_load_plugins_before'
+																	files : [ ]
+																});
+													} ]
+										}
+									})
+
 							// Rubriques
 							.state(
 									'rubriques',
@@ -1389,6 +1420,10 @@ app
 								$urlRouterProvider.otherwise(function($injector, $location) {
 										var AuthService = $injector.get('AuthService');
 
+
+										var temp = AuthService.getUser();
+										console.log(temp);
+
 										AuthService.getUser().success(function(data){
 											if (data) {
 												$location.path("/dashboard.html");
@@ -1401,13 +1436,28 @@ app
 										});
 
 									}); 
-				} ]);
 
-/* Init global settings and run the app */
-app.run([ "$rootScope", "settings", "$state", "$route", "$location", "AuthService",
+	} ]).run([ "$rootScope", "settings", "$state", "$route", "$location", "AuthService",
 		function($rootScope, settings, $state, $route, $location, AuthService) {
 			$rootScope.$state = $state; // state to be accessed from view
-			$rootScope.$on("$routeChangeStart", function(e, to) {	
+			
+			/*$rootScope.$on("$routeChangeStart", function(e, to) {	
+				if (to.notLoggedNeeded) {
+					return;
+				}
+				AuthService.getUser().success(function(data) {
+					$rootScope.user = data.role;
+					console.log(":" + data.role + ":");
+					$rootScope.userNum = data;
+					if (!data) {
+						$location.path("/pages/signin.html");
+					}
+				}).error(function(data) {
+					$location.path("/pages/signin.html");
+				});
+			});*/
+			
+			$rootScope.$on("$locationChangeStart", function(e, to) {
 				if (to.notLoggedNeeded) {
 					return;
 				}
