@@ -57,16 +57,6 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th>
-								<div class="th">
-									Ordre <span class="glyphicon glyphicon-chevron-up"
-										data-ng-click=" order('ordre') "
-										data-ng-class="{active: row == 'ordre'}"></span> <span
-										class="glyphicon glyphicon-chevron-down"
-										data-ng-click=" order('-ordre') "
-										data-ng-class="{active: row == '-ordre'}"></span>
-								</div>
-							</th>
 							<th><div class="th">
 									Désignation <span class="glyphicon glyphicon-chevron-up"
 										data-ng-click=" order('designation') "
@@ -80,14 +70,12 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr data-ng-repeat="e in currentPageRubrique" class="rubrique">
-							<td ng-click="edit(e.idRubrique)">{{e.ordre}}</td>
-							<td ng-click="edit(e.idRubrique)">{{e.designation}}</td>
-							<td ng-click="edit(e.idRubrique)"><span class="glyphicon glyphicon-edit"></span></td>
-							<td ng-click="supprime(e.idRubrique)"><span class="glyphicon glyphicon-trash"></span></td>
-
-						</tr>
-					</tbody>
+				<tr data-ng-repeat="e in currentPageRubrique| orderBy:'designation'" class="rubrique">
+					<td ng-click="show(e.idRubrique)">{{e.designation}}</td>
+					<td ng-click="edit(e.idRubrique)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td>
+					<td ng-click="supprime(e.idRubrique)" class="icon-list"><span class="remove fa fa-trash" ></span></td>
+				</tr>
+			</tbody>
 				</table>
 				<!-- -------------------------------Footer ----------------------- -->
 				<footer class="table-footer">
