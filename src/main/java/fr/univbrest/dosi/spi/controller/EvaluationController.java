@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.univbrest.dosi.spi.bean.Authentification;
 import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Evaluation;
+import fr.univbrest.dosi.spi.bean.UniteEnseignement;
 import fr.univbrest.dosi.spi.service.EvaluationService;
 
 /**
@@ -33,6 +34,7 @@ public class EvaluationController {
 	public List<Evaluation> listerEvaluations(){
 		return evaServ.getAllEvaluations();
 	}
+	
 	
 	@RequestMapping(value="/findEvaluationById-{idEvaluation}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public Evaluation getEvaluation(@PathVariable(value="idEvaluation")Integer idEvaluation){

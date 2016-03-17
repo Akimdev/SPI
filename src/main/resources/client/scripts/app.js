@@ -10,7 +10,7 @@
 			'app',
 			[ 'ngRoute', 'ngAnimate', 'ui.bootstrap', 'easypiechart',
 			  		'mgo-angular-wizard', 'textAngular', 'ui.tree', 'toaster',
-					'ngTagsInput', 'app.enseignants', 'app.ec',
+					'ngTagsInput', 'app.enseignants', 'app.ec','app.gestEval',
 					'app.evaluations', 'app.rubriques', 'app.formations',
 					'app.ue', 'app.etudiants', 'app.qualificatifs',
 					'app.questions', 'app.promotions', 'app.ui.ctrls',
@@ -133,6 +133,8 @@
 					templateUrl:'views/elementConstitutif/detail.html'
 				}).when('/admin/elementConstitutif/:infos/:id/:id2/:id3',{
 					templateUrl:'views/elementConstitutif/detail.html'
+				}).when('/admin/gestion_evaluation/:id',{
+					templateUrl:'views/evaluations/gestion.html'
 				/*
 				 * .when('/pages/signin', { templateUrl:
 				 * 'views/pages/signin.html' }) .when('/pages/signup', {

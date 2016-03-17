@@ -102,7 +102,7 @@
                         <span class="glyphicon glyphicon-chevron-down"
                               data-ng-click=" order('-periode') "
                               data-ng-class="{active: row == '-periode'}"></span>
-                    </div></th>   <th></th>
+                    </div></th>  <th></th> <th></th><th></th><th></th>
                     <!-- <th></th> -->                
                 </tr>
             </thead>
@@ -125,8 +125,8 @@
                     <!-- td ng-click="edit(e.idEvaluation)">{{e.noEnseignant.nom}} {{e.noEnseignant.prenom}}</td-->
                     <td>{{e.debutReponse}}</td>
                     <td>{{e.finReponse}}</td>
-                    <td><span ng-click="affiche(p.promotionPK)" class="eye fa fa-eye"></span></td>
-<!--                     <td ng-click="edit(e)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td> -->
+                    <td class="icon-list"><span ng-click="affiche(p.promotionPK)" class="eye fa fa-eye"></span></td>
+                    <td class="icon-list" ng-click="create(e)"><span class="edit fa-hand-pointer-o" >+</span></td> 
                     <td class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td>
                     <td ng-click="supprime(e)" class="icon-list"><span class="remove fa fa-trash" ></span></td>
                 </tr>

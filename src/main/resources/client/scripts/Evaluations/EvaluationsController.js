@@ -159,7 +159,9 @@
 				  }
 	  	 });
       }
-      
+      $scope.create=function(e){
+    	  $location.path("/admin/gestion_evaluation/"+e.idEvaluation);
+      };
       $scope.refresh();
     }]
   );

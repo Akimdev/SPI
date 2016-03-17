@@ -1,0 +1,112 @@
+<!-- 
+ -- Author Ait Errami Abdelhakim
+ -- Création d'une nouvelle Evaluation
+ -->
+ <div class="page page-table" data-ng-controller="gestEvalController">
+
+	<section class="panel panel-default table-dynamic"> 
+		<div class="panel-heading">
+		
+			<strong style="color:green"><span class="glyphicon glyphicon-th"></span> {{evaluation.designation}}</strong>
+			<!-- <span class="add fa fa-user-plus pull-right" ng-click="ajoutPromotion()"></span> -->
+			<button class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 pull-right" ng-click="ajoutEc()" >Nouveau Element Constitutif<i class="fa fa-user-plus pull-right"></i></button>
+		</div>
+
+		<div class="table-filters">
+			<div class="row">
+				<div class="col-sm-6 col-xs-6">
+					<div class="media-body">
+					<ul class="list-unstyled list-info">
+						<li><label>Unite d'Enseignement</label> {{}}<br /></li>
+						<li><label>Element Constitutif</label> {{}}</li>
+						<li><label>Periode</label> {{}}</li>
+					</ul>
+				</div>
+				</div>
+				<div class="col-sm-1 col-xs-6 filter-result-info">
+					
+				</div>
+			</div>
+		</div>
+		
+		<table class="table table-bordered table-striped table-responsive">
+			<thead>
+				<tr>
+					<th><div class="th">
+								Code EC<span class="glyphicon glyphicon-chevron-up"
+								data-ng-click=" order('codeEc') "
+								data-ng-class="{active: row == 'codeEc'}"></span> <span
+								class="glyphicon glyphicon-chevron-down"
+								data-ng-click=" order('-codeEc') "
+								data-ng-class="{active: row == '-codeEc'}"></span>
+						</div></th>
+					<th><div class="th">
+							 Code UE<span class="glyphicon glyphicon-chevron-up"
+								data-ng-click=" order('codeUe') "
+								data-ng-class="{active: row == 'codeUe'}"></span> <span
+								class="glyphicon glyphicon-chevron-down"
+								data-ng-click=" order('-codeUe') "
+								data-ng-class="{active: row == '-codeUe'}"></span>
+						</div></th>
+					<th><div class="th">
+							Description <span class="glyphicon glyphicon-chevron-up"
+								data-ng-click=" order('description') "
+								data-ng-class="{active: row == 'description'}"></span> <span
+								class="glyphicon glyphicon-chevron-down"
+								data-ng-click=" order('-description') "
+								data-ng-class="{active: row == '-description'}"></span>
+						</div></th>
+					<th><div class="th">
+						Designation <span class="glyphicon glyphicon-chevron-up"
+							data-ng-click=" order('designation') "
+							data-ng-class="{active: row == 'designation'}"></span> <span
+							class="glyphicon glyphicon-chevron-down"
+							data-ng-click=" order('-designation') "
+							data-ng-class="{active: row == '-designation'}"></span>
+					</div></th>
+					<th><div class="th">
+							Code Formation <span class="glyphicon glyphicon-chevron-up"
+								data-ng-click=" order('codeFormation') "
+								data-ng-class="{active: row == 'codeFormation'}"></span> <span
+								class="glyphicon glyphicon-chevron-down"
+								data-ng-click=" order('-codeFormation') "
+								data-ng-class="{active: row == '-codeFormation'}"></span>
+					</div></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- currentPageElementConstitutif / ElementConstitutif -->
+				<tr data-ng-repeat="ec in currentPageEc" class="promotion">
+					<td ng-click="detail(ec.elementConstitutifPK)">{{ec.elementConstitutifPK.codeEc}}</td>
+					<td ng-click="detail(ec.elementConstitutifPK)">{{ec.elementConstitutifPK.codeUe}}</td>
+					<td ng-click="detail(ec.elementConstitutifPK)">{{ec.description}}</td>
+					<td ng-click="detail(ec.elementConstitutifPK)">{{ec.designation}}</td>
+					<td ng-click="detail(ec.elementConstitutifPK)">{{ec.elementConstitutifPK.codeFormation}}</td>
+					<td ng-click="edit(ec.elementConstitutifPK)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td>
+					<td><span class="remove fa fa-trash" ng-click="supprime(ec.elementConstitutifPK)"></span></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<footer class="table-footer">
+			<div class="row">
+				<div class="col-md-6 page-num-info">
+					<span> Show <select data-ng-model="numPerPage"
+						data-ng-options="num for num in numPerPageOpt"
+						data-ng-change="onNumPerPageChange()">
+					</select> entries per page
+					</span>
+				</div>
+				<div class="col-md-6 text-right pagination-container">
+					<pagination class="pagination-sm" ng-model="currentPage"
+						total-items="filteredEcs.length" max-size="4"
+						ng-change="select(currentPage)" items-per-page="numPerPage"
+						rotate="false" boundary-links="true"></pagination>
+				</div>
+			</div>
+		</footer>
+	</section>
+
+</div>
