@@ -95,14 +95,16 @@
 
 	<!--------------------------- Edition --------------------------->
 	<div ng-show="edit">
-		<form class="form-horizontal">
+		<form class="form-horizontal" name="promotionForm">
 			<div class="form-group">
-				<label for="" class="col-sm-2">Ann&eacute;e<span
-					id="required-field"> *</span></label>
+				<label for="" class="col-sm-2">Ann&eacute;e
+					<span id="required-field"> *</span></label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control"
-						ng-model="promotion.promotionPK.anneeUniversitaire"
-						ng-readonly="!ajout">
+					<input type="text" class="form-control" id="anneeUniversitaire" name="anneeUniversitaire" maxlength="9"
+						ng-model="promotion.promotionPK.anneeUniversitaire" ng-readonly="!ajout"
+						ng-pattern="/[1,2][0,9][0-9][0-9]-[1,2][0,9][0-9][0-9]/" placeholder="yyyy-yyyy">
+						<span style="color:red" ng-show="promotionForm.anneeUniversitaire.$dirty && promotionForm.anneeUniversitaire.$invalid">
+						<span ng-show="promotionForm.anneeUniversitaire.$error.required">Champ obligatoire / Type invalide</span></span>
 				</div>
 			</div>
 			<div class="form-group">
@@ -113,6 +115,8 @@
 						<option data-ng-repeat="f in formations" value="{{f.codeFormation}}"
 								ng-selected="{{f.codeFormation == promotion.promotionPK.codeFormation}}">{{f.codeFormation}}</option>
 					</select>
+					<span style="color:red" ng-show="promotionForm.codeFormation.$dirty && promotionForm.codeFormation.$invalid">
+					<span ng-show="promotionForm.codeFormation.$error.required">Champ obligatoire / Type invalide</span></span>
 					<input ng-hide="ajout" type="text" class="form-control"
 						ng-model="promotion.promotionPK.codeFormation" ng-readonly="true">
 				</div>
@@ -128,12 +132,13 @@
 			<div class="form-group">
 				<label for="" class="col-sm-2">Responsable</label>
 				<div class="col-sm-10">
-					<select name="listeEnseignants" ng-model="enseignantSelected">
+					<!-- <select name="listeEnseignants" ng-model="enseignantSelected">
 						<option data-ng-repeat="e in enseignants"
 								value="{{e.noEnseignant}}"
 								ng-selected="{{e.noEnseignant == responsable.noEnseignant}}">
 								{{e.nom}} {{e.prenom}}</option>
-					</select>
+					</select> -->
+					<select name="listeEnseignants" ng-model="enseignantSelected" ng-options="e as (e.nom +' '+ e.prenom) for e in enseignants"></select>
 				</div>
 			</div>
 			<div class="form-group">
@@ -161,13 +166,7 @@
 			<div class="form-group">
 				<label for="" class="col-sm-2">Processus de stage</label>
 				<div class="col-sm-10">
-					<!-- <input type="text" class="form-control"
-						ng-model="promotion.processusStage"> -->
-					<select ng-model="processusStageSelected" name="processusStage">
-						<option data-ng-repeat="p in processusStage" 
-								value="{{p.rvAbbreviation}}"
-								ng-selected="{{promotion.processusStage == p.rvAbbreviation}}">{{p.rvMeaning}}</option>
-					</select>
+					<select ng-model="processusStageSelected" name="processusStage" ng-options="p.rvMeaning for p in processusStage"></select>
 				</div>
 			</div>
 			<div class="form-group">
