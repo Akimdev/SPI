@@ -218,7 +218,7 @@ var edit= false;
 		        });
 				// Initialisation du processusStage dans le cas d'une consultation d'une promotion
 				for(var i=0; i< $scope.processusStage.length; i++){
-					if($scope.processusStage[i].rvAbbreviation== data3.processusStage) {
+					if($scope.processusStage[i].rvAbbreviation == data3.processusStage) {
 						$scope.processusSignification= $scope.processusStage[i].rvMeaning;
 						$scope.processusStageSelected = $scope.processusStage[i];
 					}
@@ -274,11 +274,14 @@ var edit= false;
     	
 
       $scope.edition = function(){
-			console.log("$scope.enseignantSelected avnt: ", $scope.enseignantSelected);
-			$scope.enseignantSelected= $scope.responsable;
-			console.log("$scope.enseignantSelected apres: ", $scope.enseignantSelected);
+			
 			$scope.ajout= true;
 			$scope.edit=edit=true;
+			console.log("$scope.enseignantSelected avnt: ", $scope.enseignantSelected);
+			console.log($scope.enseignantSelected);
+			console.log($scope.enseignants);
+			$scope.enseignantSelected= $scope.responsable;
+			console.log("$scope.enseignantSelected apres: ", $scope.enseignantSelected);
       }
       
       // valide le formulaire d'édition d'une promotion
