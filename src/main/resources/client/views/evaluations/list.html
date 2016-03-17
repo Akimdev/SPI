@@ -1,0 +1,162 @@
+<ul class="page-breadcrumb breadcrumb">
+	<li>
+		<a href="#/">Accueil</a>
+		<i class="fa fa-circle"></i>
+	</i>
+	<li>
+		<a href="#">Administration</a>
+		<i class="fa fa-circle"></i>
+	</li>
+	<li>
+		<span class="active">Evaluations</span>
+	</li>
+</ul>
+<!-- 
+ -- @Author Mohamed LAKRAA
+ -- lister Evaluation
+ -->
+<div class="page page-table" data-ng-controller="EvaluationsController">
+    <section class="panel panel-default table-dynamic">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Listes des évaluations</strong>
+         <button class="btn btn-cyan btn-ef btn-ef-7 btn-ef-7h mb-10 pull-right" ng-click="ajoutEvaluation()" >Nouvelle evaluation<i class="fa fa-plus-circle pull-right"></i></button>
+        </div>
+		
+          <div class="table-filters">
+            <div class="row">
+                <div class="col-sm-4 col-xs-6">
+                    <form>
+                        <input type="text"
+                               placeholder="Rechercher"
+                               class="form-control"
+                               data-ng-model="searchKeywords"
+                               data-ng-keyup="search()">
+                    </form>
+                </div>
+                <div class="col-sm-3 col-xs-6 filter-result-info">
+                    <span>
+                        Affiche {{currentPageEvaluation.length}}/{{evaluations.length}}
+                    </span>              
+                </div>
+            </div>
+        </div>  
+
+        <table class="table table-bordered table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th><div class="th">
+                        Désignation
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('periode') "
+                              data-ng-class="{active: row == 'periode'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-periode') "
+                              data-ng-class="{active: row == '-periode'}"></span>
+                    </div></th>
+                    <th><div class="th">
+                    
+                        Code Formation
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('codeFormation') "
+                              data-ng-class="{active: row == 'codeFormation'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-codeFormation') "
+                              data-ng-class="{active: row == '-codeFormation'}"></span>
+                    </div></th>
+                    <th><div class="th">
+                        Année Universitaire
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('anneeUniversitaire') "
+                              data-ng-class="{active: row == 'anneeUniversitaire'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-anneeUniversitaire') "
+                              data-ng-class="{active: row == '-anneeUniversitaire'}"></span>
+                    </div></th>
+                    <th><div class="th">
+                        Code UE
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('codeUE') "
+                              data-ng-class="{active: row == 'codeUE'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-codeUE') "
+                              data-ng-class="{active: row == '-codeUE'}"></span>
+                    </div></th> 
+                    <th><div class="th">
+                        Etat
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('etat') "
+                              data-ng-class="{active: row == 'etat'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-etat') "
+                              data-ng-class="{active: row == '-etat'}"></span>
+                    </div></th>
+                    <th><div class="th">
+                        Enseignant
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('periode') "
+                              data-ng-class="{active: row == 'periode'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-periode') "
+                              data-ng-class="{active: row == '-periode'}"></span>
+                    </div></th>
+                    <th><div class="th">
+                        Début réponse
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('periode') "
+                              data-ng-class="{active: row == 'periode'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-periode') "
+                              data-ng-class="{active: row == '-periode'}"></span>
+                    </div></th>
+                    <th><div class="th">
+                        Fin réponse
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('periode') "
+                              data-ng-class="{active: row == 'periode'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-periode') "
+                              data-ng-class="{active: row == '-periode'}"></span>
+                    </div></th>   <th></th>
+                    <!-- <th></th> -->                
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="e in evaluations" class="evaluation">
+                <td ng-click="edit(e.idEvaluation)">{{e.designation}}</td>
+                    <td ng-click="edit(e.codeFormation)">{{e.code_formation}}</td>
+                    <td ng-click="edit(e.idEvaluation)">{{e.annee}}</td>
+                    <td ng-click="edit(e.idEvaluation)">{{e.code_ue}}</td>
+                    <td ng-click="edit(e.idEvaluation)">{{e.etat}}</td>
+                    <td ng-click="edit(e.idEvaluation)">{{e.periode}}</td>
+                    <td ng-click="edit(e)" class="icon-list"><span class="glyphicon glyphicon-edit" ></span></td>
+                    <td ng-click="supprime(e)" class="icon-list"><span class="glyphicon glyphicon-trash" ></span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <footer class="table-footer">
+            <div class="row">
+                <div class="col-md-6 page-num-info">
+                    <span>
+                        Show 
+                        <select data-ng-model="numPerPage"
+                                data-ng-options="num for num in numPerPageOpt"
+                                data-ng-change="onNumPerPageChange()">
+                        </select> 
+                        entries per page
+                    </span>
+                </div>
+                <div class="col-md-6 text-right pagination-container">
+                    <pagination class="pagination-sm"
+                                ng-model="currentPage"
+                                total-items="filteredEvaluation.length"
+                                max-size="4"
+                                ng-change="select(currentPage)"
+                                items-per-page="numPerPage"
+                                rotate="false"
+                                boundary-links="true"></pagination>
+                </div>
+            </div>
+        </footer>
+    </section>
+
+</div>

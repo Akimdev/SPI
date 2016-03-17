@@ -1,0 +1,128 @@
+<!-- @Author Zouhair -->
+<!-- -----------------------------------------------Navigation-------------------------------------- -->
+<ul class="page-breadcrumb breadcrumb">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+	<li><a href="#/">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">Promotions</span></li>
+</ul>
+<!-- -------------------------------------------END Navigation---------------------------------------- -->
+<!-- 
+ -- Author Kenza ABOUAKIL
+ -- Liste des promotions
+ -->
+<div class="page page-table" data-ng-controller="PromotionsController">
+	<!-- ---------------------------------------Note pour la gestion-------------------------------------- -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="portlet box yellow">
+				<div class="portlet-title">
+					<div class="caption">
+						<i class="icon-info"></i>Gestion des promotions
+					</div>
+				</div>
+				<div class="portlet-body">
+					<p>Cette page permet la gestion de l'ensemble des promotions du d&eacute;partement informatique de l'UBO.</br>
+Consulter les informations g&eacute;n&eacute;rales, la liste des &eacute;tudiants appartenant &agrave; chacune des promotions, l'ajout, la suppression et la mise &agrave; jour des promotions.</p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- ---------------------------------FIN--Note pour la gestion-------------------------------------- -->
+	<!-- --------------------------------------- LA GESTION ----------------------------------------------- -->
+	<div class="portlet light bordered">
+		<div class="portlet-title">
+			<div class="caption">
+				<i class="icon-social-dribble font-red"></i> <span
+					class="cpation-subject font-red bold uppercase">Promotions</span>
+			</div>
+			<!-- ------------------------Bouton ajouter--------------------------------------- -->
+			<button class="btn blue" ng-click="ajoutPromotion()">
+				Nouvelle promotion<i class="fa fa-plus"></i>
+			</button>
+			<!-- -----------------------------Recherche--------------------------------------- -->
+			<div class="row">
+				<span style="float: right;" class="col-sm-4 col-xs-6">
+					<form>
+						<input type="text" placeholder="search" class="form-control"
+							data-ng-model="searchKeywords" data-ng-keyup="search()">
+					</form>
+				</span>
+			</div>
+		</div>
+		<!----------------------------------------La table de liste ---------------------------------------->
+		<div class="portlet-body">
+			<table class="table-scrollable">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th><div class="th">
+									Ann&eacute;e<span
+										class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('anneeUniversitaire') "
+										data-ng-class="{active: row == 'anneeUniversitaire'}"></span>
+									<span class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-anneeUniversitaire') "
+										data-ng-class="{active: row == '-anneeUniversitaire'}"></span>
+								</div></th>
+							<th><div class="th">
+									Formation <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('codeFormation') "
+										data-ng-class="{active: row == 'codeFormation'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('codeFormation') "
+										data-ng-class="{active: row == '-codeFormation'}"></span>
+								</div></th>
+							<th><div class="th">
+								Designation <span class="glyphicon glyphicon-chevron-up"
+									data-ng-click=" order('designationFormation') "
+									data-ng-class="{active: row == 'designationFormation'}"></span> <span
+									class="glyphicon glyphicon-chevron-down"
+									data-ng-click=" order('-designationFormation') "
+									data-ng-class="{active: row == '-designationFormation'}"></span>
+							</div></th>	
+							<th><div class="th">
+									Sigle <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('siglePromotion') "
+										data-ng-class="{active: row == 'siglePromotion'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-siglePromotion') "
+										data-ng-class="{active: row == '-siglePromotion'}"></span>
+								</div></th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- currentPagePromotion / promotions -->
+						<tr data-ng-repeat="p in currentPagePromotion" class="promotion">
+							<td ng-click="affiche(p.promotionPK)">{{p.promotionPK.anneeUniversitaire}}</td>
+							<td ng-click="affiche(p.promotionPK)">{{p.promotionPK.codeFormation}}</td>
+		 					<td ng-click="affiche(p.promotionPK)">{{p.designation}}</td>
+							<td ng-click="affiche(p.promotionPK)">{{p.siglePromotion}}</td>
+							<td><span ng-click="affiche(p.promotionPK)" class="eye fa fa-eye"></span></td>
+							<td><span ng-click="edit(p.promotionPK)" class="glyphicon glyphicon-edit" ></span></td>
+							<td><span class="glyphicon glyphicon-trash" ng-click="supprime(p.promotionPK)"></span></td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- -------------------------------Footer ----------------------- -->
+				<footer class="table-footer">
+					<div class="row">
+						<div class="col-md-6 page-num-info">
+							<span> Affichage <select data-ng-model="numPerPage"
+								data-ng-options="num for num in numPerPageOpt"
+								data-ng-change="onNumPerPageChange()">
+							</select> entr&eacute;es par page
+							</span>
+						</div>
+						<div class="col-md-6 text-right pagination-container">
+							<pagination class="pagination-sm" ng-model="currentPage"
+								total-items="filteredPromotion.length" max-size="4"
+								ng-change="select(currentPage)" items-per-page="numPerPage"
+								rotate="false" boundary-links="true"></pagination>
+						</div>
+					</div>
+				</footer>
+			</table>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,48 @@
+<!-- @Author Zouhair -->
+<!-- 
+ -- @Author Mohamed LAKRAA
+ -- Details des qualificatifs
+ -->
+<div class="page" ng-controller="QualificatifDetailsController">
+
+	<div class="portlet light bordered">
+		<div class="portlet-title">
+			<div class="caption">
+				<i class="icon-social-dribble font-red"></i> <span
+					class="cpation-subject font-red bold uppercase">Qualificatif</span>
+			</div>
+		</div>
+		<!----------------------------- Consultation -------------------->
+		<div class="portlet-body form">
+			<form class="form-horizontal form-bordered">
+				<div class="form-group">
+					<div class="col-md-3">
+						<strong>ID Qualificatif</strong>
+					</div>
+					<div class="col-md-3">{{qualificatif.idQualificatif}}</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3">
+						<strong>Maximal</strong>
+					</div>
+					<div class="col-md-3">{{qualificatif.maximal}}</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3">
+						<strong>Minimal</strong>
+					</div>
+					<div class="col-md-3">{{qualificatif.minimal}}</div>
+				</div>
+			</form>
+		</div>
+		<!------------------------Boutons Valider et Annuler-------------------------------------->
+		</br> <a class="btn btn-success" ng-click="submit()"
+			ng-disabled="qualificatifForm.idQualificatif.$dirty && qualificatifForm.idQualificatif.$invalid ||  
+				qualificatifForm.maximal.$dirty && qualificatifForm.maximal.$invalid ||  
+				qualificatifForm.minimal.$dirty && qualificatifForm.minimal.$invalid|| qualificatifForm.$invalid"><span
+			class="glyphicon glyphicon-ok"></span> Valider</a>
+		<button class="btn btn-danger pull-right" ng-click="cancel()">Annuler</button>
+	</div>
+</div>
+</div>
+</div>

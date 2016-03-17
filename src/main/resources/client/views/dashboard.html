@@ -1,0 +1,149 @@
+<!-- @Author Zouhair Je-->
+<!-- BEGIN PAGE BREADCRUMB -->
+<ul class="page-breadcrumb breadcrumb hide">
+	<li>
+		<a href="#">Accueil</a><i class="fa fa-circle"></i>
+	</li>
+	<li class="active">
+		Tableau de bord
+	</li>
+</ul>
+<div ng-controller="DashboardController" class="margin-top-10">
+	<div class="note note-success note-shadow">
+		<h3> Bienvenue <span class="close" data-close="note"></span></h3>
+		<p>
+			Bienvenue au Syst&egrave;me d'Information pour le Suivi, la Pr&eacute;paration et l'Insertion professionnelle (SPI)
+		</p><!-- 
+		<span class="label label-info">NOTE:</span> blablablabl abla bla bbla.
+		</p> -->
+	</div>
+	<div class="row">
+		<!---------------------------------------- Enseignants  ---------------------------------------->
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat purple">
+				<div class="visual">
+					<i class="fa fa-user"> </i>
+				</div>
+				<div class="details">
+					<div class="number">
+						<span data-counter="counterup" data-value="{{nombreEnseignants}}">{{nombreEnseignants}}</span>
+					</div>
+					<div class="desc">Enseignants</div>
+				</div>
+				<a class="more" href="#/enseignants">Afficher la liste<i
+					class="m-icon-swapright m-icon-white"></i>
+				</a>
+			</div>
+		</div>
+		<!---------------------------------------- ETUDIANTS  ---------------------------------------->
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat grey-salsa">
+				<div class="visual">
+					<i class="fa fa-users"> </i>
+				</div>
+				<div class="details">
+					<div class="number">
+						<span data-counter="counterup" data-value="{{nombreEtudiants}}">{{nombreEtudiants}}</span>
+					</div>
+					<div class="desc">Etudiants</div>
+				</div>
+				<a class="more" href="#/etudiants">Afficher la liste<i
+					class="m-icon-swapright m-icon-white"></i>
+				</a>
+			</div>
+		</div>
+		<!---------------------------------------- RUBRIQUES  ---------------------------------------->
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat yellow-gold">
+				<div class="visual">
+					<i class="fa fa-file-text"> </i>
+				</div>
+				<div class="details">
+					<div class="number">
+						<span data-counter="counterup" data-value="{{nombreRubriques}}">{{nombreRubriques}}</span>
+					</div>
+					<div class="desc">Rubriques</div>
+				</div>
+				<a class="more" href="#/rubriques">Afficher la liste<i
+					class="m-icon-swapright m-icon-white"></i>
+				</a>
+			</div>
+		</div>
+		<!---------------------------------------- Evaluations  ---------------------------------------->
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat green-jungle">
+				<div class="visual">
+					<i class="fa fa-list-alt"> </i>
+				</div>
+				<div class="details">
+					<div class="number">
+						<span data-counter="counterup" data-value="{{nombreEvaluations}}">{{nombreEvaluations}}</span>
+					</div>
+					<div class="desc">Evaluations</div>
+				</div>
+				<a class="more" href="#/evaluations">Afficher la liste<i
+					class="m-icon-swapright m-icon-white"></i>
+				</a>
+			</div>
+		</div>
+		<!---------------------------------------- Questions  ---------------------------------------->
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat yellow">
+				<div class="visual">
+					<i class="fa fa-question-circle"> </i>
+				</div>
+				<div class="details">
+					<div class="number">
+						<span data-counter="counterup" data-value="{{nombreQuestions}}">{{nombreQuestions}}</span>
+					</div>
+					<div class="desc">Questions</div>
+				</div>
+				<a class="more" href="#/questions">Afficher la liste<i
+					class="m-icon-swapright m-icon-white"></i>
+				</a>
+			</div>
+		</div>
+		<!---------------------------------------- Promotions  ---------------------------------------->
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat blue">
+				<div class="visual">
+					<i class="glyphicon glyphicon-book"> </i>
+				</div>
+				<div class="details">
+					<div class="number">
+						<span data-counter="counterup" data-value="{{nombrePromotions}}">{{nombrePromotions}}</span>
+					</div>
+					<div class="desc">Promotions</div>
+				</div>
+				<a class="more" href="#/promotions">Afficher la liste<i
+					class="m-icon-swapright m-icon-white"></i>
+				</a>
+			</div>
+		</div>
+		<!---------------------------------------- Qualificatifs  ---------------------------------------->
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat red-intense">
+				<div class="visual">
+					<i class="fa fa-bookmark-o"> </i>
+				</div>
+				<div class="details">
+					<div class="number">
+						<span data-counter="counterup" data-value="{{nombreQualificatifs}}">{{nombreQualificatifs}}</span>
+					</div>
+					<div class="desc">Qualificatifs</div>
+				</div>
+				<a class="more" href="#/qualificatifs">Afficher la liste<i
+					class="m-icon-swapright m-icon-white"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+	
+</div>
+<!-- END MAIN CONTENT -->
+<!-- BEGIN MAIN JS & CSS -->
+<!-- <script>
+	Index.init();    
+	Tasks.initDashboardWidget();
+</script> -->
+<!-- BEGIN MAIN JS & CSS -->
