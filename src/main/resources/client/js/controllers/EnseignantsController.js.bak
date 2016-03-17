@@ -292,7 +292,6 @@ getDomain : function(){
       	  console.log("impossible de recuperer les details de l'enseignant choisi");
         });
 		$scope.edit= edit;
-}
 /*
         var e = enseignantsFactory.get($routeParams.id);
         //alert(e.nom);
