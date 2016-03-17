@@ -21,6 +21,10 @@
       
       delete: function(codeFormation) { 
     	  return $http.get('http://localhost:8090/formation/delete?codeFormation=' + codeFormation);
+      },
+      
+      getUEsByCodeFormation(codeFormation) {
+    	  return $http.get("http://localhost:8090/getUEsByFormation-"+codeFormation);
       }
     };
   });

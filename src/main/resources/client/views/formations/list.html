@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <table class="table table-bordered table-striped table-responsive">
+        <table  class="table table-bordered table-striped table-responsive">
             <thead>
                 <tr>
                     <th><div class="th">
@@ -79,7 +79,9 @@
                               data-ng-click=" order('-email') "
                               data-ng-class="{active: row == '-email'}"></span>
                     </div></th>
-                    <th></th><th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -89,12 +91,160 @@
                     <td ng-click="edit(f)">{{f.nomFormation}}</td>
                     <td ng-click="edit(f)">{{f.doubleDiplome}}</td>
                     <td ng-click="edit(f)">{{f.debutAccreditation | date: "dd/MM/yyyy"}} => {{f.finAccreditation | date: "dd/MM/yyyy"}}</td>
+                    <td><span class="info fa fa-info" ng-click="afficher(u)"></td>
                     <td ng-click="edit(f)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td>
                     <td><span class="remove fa fa-trash" ng-click="supprime(f)"></span></td>
                 </tr>
             </tbody>
         </table>
-
+        <div ng-hide="ue">
+        <div style="height:5em;"></div>
+		<table  class="table table-bordered table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th><div class="th">
+                        UE
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('code') "
+                              data-ng-class="{active: row == 'code'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-code') "
+                              data-ng-class="{active: row == '-code'}"></span>
+                    </div></th>
+                    <th><div class="th">
+                        Désignation
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('diplome') "
+                              data-ng-class="{active: row == 'diplome'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-diplome') "
+                              data-ng-class="{active: row == '-diplome'}"></span>
+                    </div></th>                    
+                    <th><div class="th">
+                        Enseignant responsable
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('email') "
+                              data-ng-class="{active: row == 'email'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-email') "
+                              data-ng-class="{active: row == '-email'}"></span>
+                    </div></th>
+                    <th><div class="th">
+                        Formation
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('email') "
+                              data-ng-class="{active: row == 'email'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-email') "
+                              data-ng-class="{active: row == '-email'}"></span>
+                    </div></th>
+                    <th><div class="th">
+                        Semestre
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('email') "
+                              data-ng-class="{active: row == 'email'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-email') "
+                              data-ng-class="{active: row == '-email'}"></span>
+                    </div></th>
+                    <th><div class="th">
+                        Heures(CM/TD/TP)
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('email') "
+                              data-ng-class="{active: row == 'email'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-email') "
+                              data-ng-class="{active: row == '-email'}"></span>
+                    </div></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="f in formations" class="formation">
+                    <td ng-click="edit(f)">{{f.codeFormation}}</td>
+                    <td ng-click="edit(f)">{{f.diplome}}{{f.n0Annee}}</td>
+                    <td ng-click="edit(f)">{{f.nomFormation}}</td>
+                     <td ng-click="edit(f)">{{f.nomFormation}}</td>
+                    <td ng-click="edit(f)">{{f.doubleDiplome}}</td>
+                    <td ng-click="edit(f)">{{f.debutAccreditation | date: "dd/MM/yyyy"}} => {{f.finAccreditation | date: "dd/MM/yyyy"}}</td>
+                    <td><span class="info fa fa-info" ng-click="afficher(u)"></td>
+                    <td ng-click="edit(f)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td>
+                    <td><span class="remove fa fa-trash" ng-click="supprime(f)"></span></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <div ng-show="ec">
+        <div style="height:5em;"></div>
+        <table class="table table-bordered table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th><div class="th">
+                        EC
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('code') "
+                              data-ng-class="{active: row == 'code'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-code') "
+                              data-ng-class="{active: row == '-code'}"></span>
+                    </div></th>
+                    <th><div class="th">
+                        Description
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('diplome') "
+                              data-ng-class="{active: row == 'diplome'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-diplome') "
+                              data-ng-class="{active: row == '-diplome'}"></span>
+                    </div></th>                    
+                    <th><div class="th">
+                        Désignation 
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('email') "
+                              data-ng-class="{active: row == 'email'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-email') "
+                              data-ng-class="{active: row == '-email'}"></span>
+                    </div></th>
+                    <th><div class="th">
+                        Formation
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('email') "
+                              data-ng-class="{active: row == 'email'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-email') "
+                              data-ng-class="{active: row == '-email'}"></span>
+                    </div></th>
+                    <th><div class="th">
+                        UE
+                        <span class="glyphicon glyphicon-chevron-up"
+                              data-ng-click=" order('email') "
+                              data-ng-class="{active: row == 'email'}"></span>
+                        <span class="glyphicon glyphicon-chevron-down"
+                              data-ng-click=" order('-email') "
+                              data-ng-class="{active: row == '-email'}"></span>
+                    </div></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="f in formations" class="formation">
+                    <td ng-click="edit(f)">{{f.codeFormation}}</td>
+                    <td ng-click="edit(f)">{{f.diplome}}{{f.n0Annee}}</td>
+                    <td ng-click="edit(f)">{{f.nomFormation}}</td>
+                    <td ng-click="edit(f)">{{f.doubleDiplome}}</td>
+                    <td ng-click="edit(f)">{{f.debutAccreditation | date: "dd/MM/yyyy"}} => {{f.finAccreditation | date: "dd/MM/yyyy"}}</td>
+                    <td><span class="info fa fa-info" ng-click="afficher(u)"></td>
+                    <td ng-click="edit(f)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td>
+                    <td><span class="remove fa fa-trash" ng-click="supprime(f)"></span></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
         <footer class="table-footer">
 
 			<div class="row">

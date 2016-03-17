@@ -60,7 +60,7 @@ public class UniteEnseignementServiceTest {
 		ueServ.updateUE(ue);
 		UniteEnseignement ueBDD = ueServ.getUE(uePK);
 		Assert.assertNotNull(ueBDD);
-		Assert.assertEquals("10 ", ueBDD.getSemestre());
+		Assert.assertEquals("9  ", ueBDD.getSemestre());
 	}
 	
 	@Test

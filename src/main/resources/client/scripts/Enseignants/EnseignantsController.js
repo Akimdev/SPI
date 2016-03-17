@@ -201,6 +201,8 @@
 		  }
 		);
     	}
+    	
+    	$scope.refresh();
       // Crée la page permettant d'ajouter un enseignant
       // TODO Lien vers la page permettant de créer un enseignant /admin/enseignant/nouveau
       $scope.ajoutEnseignant = function(){
@@ -245,9 +247,10 @@
 			  if (isConfirm) {
 				  var promise= enseignantsFactory.delete(noEnseignant);
 		          promise.success(function(data,statut, headers, config){
-		        	  $scope.filteredEnseignant.removeValue("noEnseignant",noEnseignant);
-		        	  $scope.refresh();
+		        	 // $scope.filteredEnseignant.removeValue("noEnseignant",noEnseignant);
+		        	  //$scope.refresh();
 		        	  swal("Supprimé!", "l'enseignant est supprimé", "success");
+		        	  $scope.refresh();
 		          });
 		          promise.error(function(data,statut, headers, config){
 		        	  swal("Erreur!", "Impossible de supprimer l'enseignant choisi", "error");
@@ -383,6 +386,7 @@
 	                    showCloseButton: true
 	                });
 				});
+	        	
 	        	$location.path('/admin/enseignants');
 								        }
 			 else{ // modification
