@@ -3,6 +3,7 @@
 'use strict';
 app.factory('informationFactory',['$http',function($http){
 	  return{
+		  
 		  getRubriques:function(){
 			  return $http.get("http://localhost:8090/nombreRubriques");
 		  },

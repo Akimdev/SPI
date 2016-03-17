@@ -12,14 +12,14 @@
 	<div class="note note-success note-shadow">
 		<h3> Bienvenue <span class="close" data-close="note"></span></h3>
 		<p>
-			Bienvenue au Syst&egrave;me d'Information pour le Suivi, la Pr&eacute;paration et l'Insertion professionnelle (SPI)
+			Bienvenue dans le Syst&egrave;me d'Information pour le Suivi, la Pr&eacute;paration et l'Insertion professionnelle (SPI)
 		</p><!-- 
 		<span class="label label-info">NOTE:</span> blablablabl abla bla bbla.
 		</p> -->
 	</div>
 	<div class="row">
 		<!---------------------------------------- Enseignants  ---------------------------------------->
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div ng-show="user=='ADM'" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			<div class="dashboard-stat purple">
 				<div class="visual">
 					<i class="fa fa-user"> </i>
@@ -36,7 +36,7 @@
 			</div>
 		</div>
 		<!---------------------------------------- ETUDIANTS  ---------------------------------------->
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div ng-show="user=='ADM'" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			<div class="dashboard-stat grey-salsa">
 				<div class="visual">
 					<i class="fa fa-users"> </i>
@@ -53,7 +53,7 @@
 			</div>
 		</div>
 		<!---------------------------------------- RUBRIQUES  ---------------------------------------->
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div ng-show="user=='ADM'" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			<div class="dashboard-stat yellow-gold">
 				<div class="visual">
 					<i class="fa fa-file-text"> </i>
@@ -87,7 +87,7 @@
 			</div>
 		</div>
 		<!---------------------------------------- Questions  ---------------------------------------->
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div ng-show="user=='ADM'" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			<div class="dashboard-stat yellow">
 				<div class="visual">
 					<i class="fa fa-question-circle"> </i>
@@ -104,7 +104,7 @@
 			</div>
 		</div>
 		<!---------------------------------------- Promotions  ---------------------------------------->
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div ng-show="user=='ADM'" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			<div class="dashboard-stat blue">
 				<div class="visual">
 					<i class="glyphicon glyphicon-book"> </i>
@@ -121,7 +121,7 @@
 			</div>
 		</div>
 		<!---------------------------------------- Qualificatifs  ---------------------------------------->
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div ng-show="user=='ADM'" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			<div class="dashboard-stat red-intense">
 				<div class="visual">
 					<i class="fa fa-bookmark-o"> </i>
