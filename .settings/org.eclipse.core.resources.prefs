@@ -1,10 +1,9 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=ad516cacb3c6f3ca1d08b029a0d4ed977a573f34
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
-encoding//src/main/resources/client/styles/main.css=UTF-8
-<<<<<<< HEAD
 encoding//src/main/resources/client/views/evaluations/details.html=UTF-8
-=======
->>>>>>> ad516cacb3c6f3ca1d08b029a0d4ed977a573f34
 encoding//src/main/resources/client/views/questions/list.html=UTF-8
 encoding/<project>=UTF-8
