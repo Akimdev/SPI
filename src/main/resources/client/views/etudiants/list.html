@@ -41,7 +41,7 @@
 				</button>
 				<div class="row">
 					<span style="float: right;" class="col-sm-4 col-xs-6">
-							<input type="text" placeholder="search" class="form-control"
+							<input type="text" placeholder="Rechercher" class="form-control"
 								data-ng-model="searchKeywords" data-ng-keyup="search()">
 					</span>
 				</div>
@@ -69,7 +69,15 @@
 											data-ng-class="{active: row == '-prenom'}"></span>
 									</div></th>
 								<th><div class="th">
-										Code Formation <span class="glyphicon glyphicon-chevron-up"
+										Formation <span class="glyphicon glyphicon-chevron-up"
+											data-ng-click=" order('email') "
+											data-ng-class="{active: row == 'email'}"></span> <span
+											class="glyphicon glyphicon-chevron-down"
+											data-ng-click=" order('-email') "
+											data-ng-class="{active: row == '-email'}"></span>
+									</div></th>
+								<th><div class="th">
+										Promotion <span class="glyphicon glyphicon-chevron-up"
 											data-ng-click=" order('email') "
 											data-ng-class="{active: row == 'email'}"></span> <span
 											class="glyphicon glyphicon-chevron-down"
@@ -95,6 +103,7 @@
 								<td ng-click="show(e.noEtudiant)">{{e.nom}}</td>
 								<td ng-click="show(e.noEtudiant)">{{e.prenom}}</td>
 								<td ng-click="show(e.noEtudiant)">{{e.promotion.promotionPK.codeFormation}}</td>
+								<td ng-click="show(e.noEtudiant)">{{e.promotion.promotionPK.anneeUniversitaire}}</td>
 								<td ng-click="show(e.noEtudiant)">{{e.emailUbo}}</td>
 								<td ng-click="show(e.noEtudiant)"><span class="fa fa-eye"></span></td>
 								<td ng-click="edit(e.noEtudiant)"><span class="glyphicon glyphicon-edit"></span></td>
