@@ -713,3 +713,8 @@ body,input,select,td,textarea {
 #close {
     display: none;
 }
+
+#iconGestion{
+	width: 60px;
+	text-align: center;
+}
