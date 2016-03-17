@@ -1105,7 +1105,7 @@ app
 							.state(
 									'detailsquestions',
 									{
-										url : "/questions/:id",
+										url : "/question/:idQuestion",
 										templateUrl : "views/questions/details.html",
 										data : {
 											pageTitle : 'Details des questions',
