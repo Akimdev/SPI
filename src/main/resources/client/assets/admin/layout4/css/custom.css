@@ -718,3 +718,20 @@ body,input,select,td,textarea {
 	width: 60px;
 	text-align: center;
 }
+
+.searchResult{
+	background: #0079BF;
+	color: white;
+	border: 3px solid #ddd;
+	text-align: center;
+	font-weight: normal !important;
+}
+
+#required-field{
+	font-weight: bold;
+	color: red;
+}
+
+label{
+	font-weight: bold;
+}

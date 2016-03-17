@@ -851,9 +851,9 @@ app
 							
 							// UE détaillée
 							.state(
-									'detailsue',
+									'detailsUE',
 									{
-										url : "/ue/:id",
+										url : "/ue/:codeFormation/:codeUe",
 										templateUrl : "views/ue/details.html",
 										data : {
 											pageTitle : 'Détails des UE',
