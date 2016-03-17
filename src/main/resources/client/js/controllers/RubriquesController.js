@@ -1,6 +1,6 @@
 /*
 * Author BAQLOUL Soukaina
-* Script de controlleur des Rubriques
+* Script de controle des Rubriques
 */
 (function() {
   'use strict';
@@ -36,7 +36,9 @@
       },
       set : function(rubrique){
       	return $http.post('http://localhost:8090/updateRubrique', rubrique);
-
+      },
+      getMaxIdRubrique: function(){
+    	  return $http.get("http://localhost:8090/getMaxIdRubrique");
       }
 
     };
@@ -52,8 +54,8 @@
     	$scope.refresh=function(){
     	var init = null;
 		  var promise = rubriquesFactory.listerRubriques();
-      promise.success(function(data) {
-		    $scope.rubriques = data;
+              promise.success(function(data) {
+		      $scope.rubriques = data;
 		      $scope.searchKeywords = '';
 		      $scope.filteredRubrique = [];
 		      $scope.row = '';
@@ -107,38 +109,40 @@
 	}
      
   $scope.ajoutRubrique = function(){
-      $location.path('/rubriques/nouveau'); 
+      $location.path('/rubrique/nouveau'); 
    }
   
  
-  $scope.edit = function (idRubrique){
-	  $location.path("/rubriques/"+ idRubrique);
+  $scope.show = function (idRubrique){
+	  $location.path("/rubrique/"+ idRubrique);
+	 
+  }
+  
+  $scope.edit= function (idRubrique){
+	  $location.path("/rubrique/"+ idRubrique +"/edit");
 	 
   }
 
 
       // supprime une Rubrique
       $scope.supprime = function(idRubrique){ 
-    	
-
-    	  
           swal({   
-			  title: "Voulez-vous vraiment supprimer ce qualificatif ?",      
+			  title: "Voulez-vous vraiment supprimer cette Rubrique ?",      
 			  type: "warning",   
 			  showCancelButton: true,   
 			  confirmButtonColor: "#DD6B55",   
-			  confirmButtonText: "Oui, je veux le supprimer!",  
-			  cancelButtonText: "Non, ignorer!",   
+			  confirmButtonText: "Oui",  
+			  cancelButtonText: "Non",   
 			  closeOnConfirm: false,   closeOnCancel: false },
 			  function(isConfirm){
 				  if (isConfirm) {  
 					  var promise= rubriquesFactory.delete(idRubrique);
     	  			  promise.success(function(data,statut){
-        	          swal("Supprimé!", "le qualificatif est supprimé", "success");
+        	          swal("Supprimé!", "le rubrique est supprimé", "success");
         	           $scope.refresh();
                   });
 						promise.error(function(data,statut){
-        	        	swal("Erreur!", "vous pouvez pas supprimer ce qualificatif", "error");
+        	        	swal("Erreur!", "vous ne pouvez pas supprimer ce rubrique", "error");
 			  		});	
 					  }else {     
 						  swal("Ignorer", "", "error");
@@ -155,21 +159,32 @@
 		    ['$scope', '$stateParams', '$location', '$filter', 'rubriquesFactory',
 		    function($scope, $stateParams, $location,$filter, rubriquesFactory){  
    $scope.edit=false;
-   var idRubrique = $stateParams.id;
-
+   $scope.editer= function (idRubrique){
+		  $location.path("/rubrique/"+ idRubrique +"/edit");
+		 
+	  }
    /* -Ajout- */
    if ($stateParams.id=="nouveau") {
 	   $scope.rubrique={};
+	   var promise = rubriquesFactory.getMaxIdRubrique();
+	   promise.success(function(data,status){
+			$scope.rubrique.idRubrique= data +1;
+			$scope.rubrique.type= "Rubrique Standard";
+	   }).error(function(data,status){
+	   		console.log('Erreur de récupéreration de la rubrique: '+$stateParams.id);
+	   });
 	   $scope.ajout=true;
 	   $scope.edit=true;
    /* -Edit- */	
    }else{
-	   var promise = rubriquesFactory.getRubrique(idRubrique);
+	   var promise = rubriquesFactory.getRubrique($stateParams.id);
 	   promise.success(function(data,status){
+		   $scope.idrub = $stateParams.id;
 	   	 $scope.rubrique=data;
+	   	$scope.rubrique.type= ($scope.rubrique.type =="RBS") ? "Rubrique Standard" : "Rubrique Personnelle";
 	   }).error(function(data,status){
-	   	console.log('erreur de récupérer '+idRubrique);
-	   })
+	   		console.log('Erreur de récupéreration de la rubrique: '+$stateParams.id);
+	   });
    }
    
    	$scope.edition = function(){
@@ -177,14 +192,26 @@
      }
    	/* valide le formulaire d'édition d'une promotion */
     $scope.submit = function(){
+		$scope.rubrique.type= ($scope.rubrique.type =="Rubrique Standard") ? "RBS" : "RBP";
    	  if($stateParams.id == "nouveau"){
-   		  rubriquesFactory.add($scope.rubrique);
-   		  swal("Félicitation!", "La nouvelle rubrique est ajouté!", "success");
+   		var promise = rubriquesFactory.add($scope.rubrique);
+     	promise.success(function(data,statut){
+     		swal("Félicitation!", "La nouvelle rubrique est ajoutée!", "success");
+        })
+        .error(function(data,statut){
+        	swal("Erreur!", "Impossible d'ajouter la rubrique", "error");
+        });
    	  }
-   	  else// modification
-   		 rubriquesFactory.set($scope.rubrique);
-   		swal("Félicitation!", "La nouvelle rubrique a été modifié", "success");
-         $scope.edit = false;        
+   	  else{// modification
+   		var promise = rubriquesFactory.set($scope.rubrique);
+     	promise.success(function(data,statut){
+     		swal("Félicitation!", "La rubrique a été modifiée", "success");
+        })
+        .error(function(data,statut){
+        	swal("Erreur!", "Impossible de modifier la rubrique", "error");
+        });
+   	  }
+   	  $scope.edit = false;
      }
     /* annule l'édition */
     $scope.cancel = function(){
@@ -192,13 +219,13 @@
        if($stateParams.id == "nouveau"){
          	$location.path('/rubriques');
        	}else {
-       		$location.path('/rubriques');
-       	   var promise = rubriquesFactory.getRubrique(idRubrique);
+       		$location.path('/rubrique/'+$stateParams.id);
+       		var promise = rubriquesFactory.getRubrique($stateParams.id);
          	promise.success(function(data,statut){
          	 	$scope.promotion= data ;
             })
             .error(function(data,statut){
-         	    console.log("impossible de recuperer les details de la rubrique");
+         	    console.log("Impossible de récuperer les details de la rubrique");
             });
     	$scope.edit = false;
        }
@@ -207,4 +234,3 @@
   }]);
 }).call(this);
   
-
