@@ -1379,7 +1379,7 @@ app
 							.state(
 									'detailsrubriques',
 									{
-										url : "/rubriques/:id",
+										url : "/rubrique/:id",
 										templateUrl : "views/rubriques/details.html",
 										data : {
 											pageTitle : 'Details des rubriques',

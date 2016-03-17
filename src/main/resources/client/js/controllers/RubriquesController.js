@@ -109,7 +109,7 @@
 	}
      
   $scope.ajoutRubrique = function(){
-      $location.path('/rubrique/nouveau'); 
+      $location.path('/rubrique/nouveau/edit'); 
    }
   
  
@@ -216,19 +216,20 @@
     /* annule l'édition */
     $scope.cancel = function(){
        /* si ajout d'une nouvelle promotion => retour à la liste des promotions */
-       if($stateParams.id == "nouveau"){
-         	$location.path('/rubriques');
-       	}else {
-       		$location.path('/rubrique/'+$stateParams.id);
-       		var promise = rubriquesFactory.getRubrique($stateParams.id);
-         	promise.success(function(data,statut){
-         	 	$scope.promotion= data ;
-            })
-            .error(function(data,statut){
-         	    console.log("Impossible de récuperer les details de la rubrique");
-            });
-    	$scope.edit = false;
-       }
+//       if($stateParams.id == "nouveau"){
+//         	$location.path('/rubriques');
+//       	}else {
+//       		$location.path('/rubrique/'+$stateParams.id);
+//       		var promise = rubriquesFactory.getRubrique($stateParams.id);
+//         	promise.success(function(data,statut){
+//         	 	$scope.rubrique = data ;
+//            })
+//            .error(function(data,statut){
+//         	    console.log("Impossible de récuperer les details de la rubrique");
+//            });
+//    	$scope.edit = false;
+//       }
+    	history.back();
      };
 	  
   }]);
