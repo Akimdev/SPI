@@ -1,7 +1,6 @@
 package fr.univbrest.dosi.spi.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.exception.SPIException;
 import fr.univbrest.dosi.spi.service.QualificatifService;
@@ -19,6 +17,7 @@ import fr.univbrest.dosi.spi.service.QualificatifService;
  *
  * @author othman cet classe permet de gérer le CRUD d'un qualificatif
  */
+ 
 @RestController
 public class QualificatifController {
 
@@ -37,6 +36,7 @@ public class QualificatifController {
 	 * @author Kenza ABOUAKIL permet de retourner la valeur de MaxIdQualificatif pour généré un nouveau ID au qualificatif
 	 * @return l'IdQualificatif maximal pour tous les qualificatifs
 	 */
+	 
 	@RequestMapping(value = "/getMaxIdQualificatif")
 	public Integer getMaxIdQualificatif() {
 		return qualifServ.getMaxIdQualificatif();

@@ -2,13 +2,11 @@ package fr.univbrest.dosi.spi.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import fr.univbrest.dosi.spi.bean.Authentification;
 import fr.univbrest.dosi.spi.bean.User;
 import fr.univbrest.dosi.spi.exception.SPIException;
@@ -36,9 +34,7 @@ public class UserController {
 		final Authentification auth = authentificationService.logIn(login, authentification.getMotPasse());
 		if (auth != null) {
 			auth.setMotPasse(null);
-			System.out.println(auth.getRole());
 			request.getSession().setAttribute("user", auth);
-			System.out.println(auth);
 		} else {
 			request.getSession().removeAttribute("user");
 			throw new SPIException("impossible de s'authentifier");
@@ -55,7 +51,6 @@ public class UserController {
 	public Authentification users(final HttpServletRequest request, final HttpServletResponse response) {
 		final Authentification auth = (Authentification) request.getSession().getAttribute("user");
 		return auth;
-
 	}
 	
 	/**
@@ -66,5 +61,4 @@ public class UserController {
 	public void authentifier(final HttpServletRequest request) {
 		request.getSession().removeAttribute("user");
 	}
-
 }

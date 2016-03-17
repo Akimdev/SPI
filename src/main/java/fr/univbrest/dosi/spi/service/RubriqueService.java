@@ -1,11 +1,7 @@
 package fr.univbrest.dosi.spi.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import fr.univbrest.dosi.spi.bean.Question;
 import fr.univbrest.dosi.spi.bean.Rubrique;
 import fr.univbrest.dosi.spi.dao.RubriqueRepository;
 import fr.univbrest.dosi.spi.exception.SPIException;
@@ -52,9 +48,9 @@ public class RubriqueService {
 		return rubriqueRepository.getMaxIdRubrique();
 	}
 
-//	public final Rubrique getRubrique(final Long idRubrique) {
-//		return rubriqueRepository.findOne(idRubrique);
-//	}
+	public final Rubrique getRubrique(final Long idRubrique) {
+		return rubriqueRepository.findOne(idRubrique);
+	}
 
 	/**
 	 *

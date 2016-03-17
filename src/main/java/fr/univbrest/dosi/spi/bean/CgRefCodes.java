@@ -146,6 +146,5 @@ public class CgRefCodes implements Serializable {
     @Override
     public String toString() {
         return "jpa.CgRefCodes[ idCgrc=" + idCgrc + " ]";
-    }
-    
+    }  
 }

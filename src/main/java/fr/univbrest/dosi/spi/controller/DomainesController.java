@@ -8,7 +8,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import fr.univbrest.dosi.spi.bean.CgRefCodes;
 import fr.univbrest.dosi.spi.service.DomainesSevices;
 
@@ -33,6 +32,7 @@ public class DomainesController {
 	public List<CgRefCodes> getDomainByRvDomain(@PathVariable(value = "rvDomain") final String rvDomain) {
 		return domainesService.getDomainByRvDomain(rvDomain);
 	}
+	
 	/**
 	 * @author Youssef
 	 * Pour récupérer le pays correspondant à une abréviation

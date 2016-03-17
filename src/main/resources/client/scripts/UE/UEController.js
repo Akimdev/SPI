@@ -1,0 +1,262 @@
+var edit = true;
+(function() {
+  'use strict';
+
+  var app = angular.module('app.ue', []);
+
+  app.factory('ueFactory', function($http){      
+    return {
+    	all: function() { 
+         	  return $http.get("http://localhost:8090/UEs")
+        },
+        get: function(uniteEnseignementPK) {
+        	return $http.post("http://localhost:8090/getUE", uniteEnseignementPK);
+        },
+        update: function(ue){
+			return $http.post('http://localhost:8090/updateUE', ue);
+		},
+		add: function(ue){
+			return $http.post('http://localhost:8090/addUE', ue);
+		},
+	    delete:function(uniteEnseignementPK){
+	    	return $http.post('http://localhost:8090/deleteUE', uniteEnseignementPK);;
+	    },
+	    getEc : function(elementConstitutifPK) {
+	    	return $http.post("http://localhost:8090/elementConstitutif/findByUE", elementConstitutifPK);
+	    },
+	    getAllFormations : function(){
+	    	return $http.get("http://localhost:8090/formations");
+	    },
+	    getAllEnseignants : function(){
+	    	return $http.get("http://localhost:8090/ens");
+	    }
+    };
+  });
+
+  
+
+  app.controller('UEController', 
+    ['$scope', '$filter', '$location', 'ueFactory', 
+    function($scope, $filter, $location, ueFactory){
+    	var init;
+        $scope.refresh = function(){
+        	var promise= ueFactory.all();
+        	promise.success(function(data) {
+        		$scope.ue = data ;
+    		      $scope.searchKeywords = '';
+    		      $scope.filteredUE = [];
+    		      $scope.row = '';
+    		      $scope.select = function(page) {
+    		        var end, start;
+    		        start = (page - 1) * $scope.numPerPage;
+    		        end = start + $scope.numPerPage;
+    		        return $scope.currentPageUE = $scope.filteredUE.slice(start, end);
+    		      };
+    		      $scope.onFilterChange = function() {
+    		        $scope.select(1);
+    		        $scope.currentPage = 1;
+    		        return $scope.row = '';
+    		      };
+    		      $scope.onNumPerPageChange = function() {
+    		        $scope.select(1);
+    		        return $scope.currentPage = 1;
+    		      };
+    		      $scope.onOrderChange = function() {
+    		        $scope.select(1);
+    		        return $scope.currentPage = 1;
+    		      };
+    		      $scope.search = function() {
+    		        $scope.filteredUE = $filter('filter')($scope.ue, $scope.searchKeywords);
+    		        return $scope.onFilterChange();
+    		      };
+    		      $scope.order = function(rowName) {
+    		        if ($scope.row === rowName) {
+    		          return;
+    		        }
+    		        $scope.row = rowName;
+    		        $scope.filteredUE = $filter('orderBy')($scope.ue, rowName);
+    		        return $scope.onOrderChange();
+    		      };
+    		      $scope.numPerPageOpt = [3, 5, 10, 20];
+    		      $scope.numPerPage = $scope.numPerPageOpt[2];
+    		      $scope.currentPage = 1;
+    		      $scope.currentPageUE = [];
+    		      init = function() {
+    		        $scope.search();
+    		        return $scope.select($scope.currentPage);
+    		      };
+    		      return init();
+        	});
+        }
+        
+        $scope.ajoutUE = function(){
+        	$scope.ajout = true;
+            $location.path('/admin/ue/nouveau'); 
+         }
+        
+        $scope.afficher = function(ue){
+        	edit = false;
+        	$location.path('/admin/ue/' + ue.uniteEnseignementPK.codeFormation + "/" + ue.uniteEnseignementPK.codeUe);
+        }
+        
+        $scope.modifier = function(ue){
+        	edit = true;
+        	$location.path('/admin/ue/' + ue.uniteEnseignementPK.codeFormation + "/" + ue.uniteEnseignementPK.codeUe);
+        	
+        }
+        
+        $scope.ajoutUe = function(){
+        	edit = true;
+        	$scope.ajout = true;
+        	$location.path('/admin/ue/nouveau/nouveau');
+
+        }
+        
+        $scope.supprime = function(uniteEnseignementPK){
+        	swal({   
+  			  title: "Voulez-vous vraiment supprimer cette unité d'enseignement ?",      
+  			  type: "warning",   
+  			  showCancelButton: true,   
+  			  confirmButtonColor: "#DD6B55",   
+  			  confirmButtonText: "Oui, je veux le supprimer!",  
+  			  cancelButtonText: "Non, ignorer!",   
+  			  closeOnConfirm: false,   closeOnCancel: false },
+  			  function(isConfirm){
+  				  if (isConfirm) {  
+  		        	var prom = ueFactory.delete(uniteEnseignementPK);
+  		        	prom.success(function(data){
+  		        		swal("Félicitation!", "L'unité d'enseignement est supprimée!", "success");
+  		        		$scope.refresh();
+  		        	})
+  		        	.error(function(data){
+  		        		swal("Erreur!", "Impossible de supprimer cette unité d'enseignement!", "error");
+  		        	});
+  				  } else {     
+  					  	swal("Ignorer", "", "error");
+  				  }
+  	  	   }); 
+        }
+        
+        $scope.refresh();
+    }]
+  );
+
+  app.controller('UEDetailsController', 
+    ['$scope', '$routeParams', '$location', 'ueFactory', 'toaster',
+    function($scope, $routeParams, $location, ueFactory, toaster){      
+    	
+    	$scope.show = function(){
+    		var uniteEnseignementPK = {
+            		"codeFormation" : $routeParams.codeFormation,
+            		"codeUe" : $routeParams.codeUe
+            };
+    		
+            var promisesFactory = ueFactory.get(uniteEnseignementPK);
+            promisesFactory.success(function(data) {
+         		$scope.ue = data;
+         		$scope.ue.semestre = parseInt(data.semestre);
+         		$scope.formations = [{
+         				"codeFormation" : $scope.ue.uniteEnseignementPK.codeFormation
+         		}];
+         		
+         		var promiseEc = ueFactory.getEc(uniteEnseignementPK);
+         		promiseEc.success(function(data) {
+         			$scope.ec = data;
+         			$scope.getEnseignants();
+         		});
+            });
+    	}
+    	
+    	$scope.getEnseignants = function(){
+    		var promiseEns = ueFactory.getAllEnseignants();
+ 	    	promiseEns.success(function(data){
+ 	    		$scope.enseignants = data;
+ 	    		if($routeParams.codeUe != "nouveau"){
+ 	    			$scope.responsable = $scope.ue.noEnseignant;
+ 	    			$scope.enseignant = $scope.responsable.noEnseignant;
+ 	    		}
+ 	    	});
+    	}
+    	
+    	$scope.edit = edit;
+    	
+    	if($routeParams.codeUe == "nouveau"){
+            $scope.ue= { };
+            $scope.edit= true;   
+            $scope.ajout = true;
+            var prom = ueFactory.getAllFormations();
+            prom.success(function(data){
+            	$scope.formations = data;
+            	$scope.getEnseignants();
+            });
+        } else { 
+            $scope.show();
+        }      
+          
+        $scope.edition = function(){
+        	edit = true;
+            $scope.edit = edit;
+        }
+
+        $scope.submit = function(){
+        	console.log("ens: ", $scope.enseignant);
+        	var ue = {
+        			"uniteEnseignement" : {
+        				"uniteEnseignementPK" : {
+        					"codeFormation" : $scope.ue.uniteEnseignementPK.codeFormation,
+        					"codeUe" : $scope.ue.uniteEnseignementPK.codeUe
+        				},
+        				"designation" : $scope.ue.designation,
+        				"semestre" : $scope.ue.semestre,
+        				"description" : $scope.ue.description,
+        				"nbhCm" : $scope.ue.nbhCm,
+        				"nbhTd" : $scope.ue.nbhTd,
+        				"nbhTp" : $scope.ue.nbhTp
+        			},
+        			"enseignant" : {
+        				"noEnseignant" : $scope.enseignant
+        			}
+        	}
+        	        	
+        	if($routeParams.codeUe == "nouveau"){
+        		var promiseAdd = ueFactory.add(ue);
+            	promiseAdd.success(function(data){
+            		swal("Félicitation!", "L'unité d'enseignement est ajoutée!", "success");
+            		edit = false;
+                    $scope.edit = edit;
+                	$location.path('/admin/ue');
+            	})
+            	.error(function(data){
+            		swal({
+            			title: "Error!",
+            			text: "Insertion impossible !",
+            			type: "error",
+            			confirmButtonText: "Ok" 
+            		});
+            	});
+            }else {
+            	var promiseUpdate = ueFactory.update(ue);
+            	promiseUpdate.success(function(data){
+            		swal("Félicitation!", "L'unité d'enseignement est modifiée!", "success");
+            		edit = false;
+                    $scope.edit = edit;
+                    $location.path('/admin/ue');
+            	})
+            	.error(function(data){
+            		swal({
+            			title: "Error!",
+            			text: "Modification impossible !",
+            			type: "error",
+            			confirmButtonText: "Ok" 
+            		});
+            	});
+            }
+        }
+        
+        $scope.cancel = function(){
+        	$location.path('/admin/ue');
+        }
+        
+    }]
+  );
+})();

@@ -33,9 +33,9 @@ public class EnseignantControllerTest {
 	public void addserviceTest() throws ClientProtocolException, IOException {
 
 		final Enseignant enseignant = new Enseignant();
-		enseignant.setNoEnseignant(7);
-		enseignant.setNom("LAHNAKI");
-		enseignant.setPrenom("Chakib");
+		enseignant.setNoEnseignant(1000);
+		enseignant.setNom("BAQLOUL");
+		enseignant.setPrenom("SOUKAINA");
 		enseignant.setType("INT");
 		enseignant.setSexe("H");
 		enseignant.setAdresse("cite universitaire de kergoat");
@@ -61,50 +61,14 @@ public class EnseignantControllerTest {
 
 		// Le code retour HTTP doit être un succès (200)
 		Assert.assertEquals(200, mockResponse.getStatusLine().getStatusCode());
-
-		/*
-		 * final BufferedReader rd = new BufferedReader(new InputStreamReader(mockResponse.getEntity().getContent()));
-		 * 
-		 * 
-		 * Iterable<Enseignant> ens = mapper.readValue(rd, Iterable.class);
-		 * 
-		 * Assert.assertNotNull(ens);
-		 */
-
 	}
 
-	/*
-	 * public void makeHTTPPOSTRequest() { try { HttpClient c = new DefaultHttpClient(); HttpPost p = new HttpPost(this.apiURL);
-	 * 
-	 * 
-	 * p.setEntity(new StringEntity("{\"username\":\"" + this.apiusername + "\",\"password\":\"" + this.apipassword + "\"}", ContentType.create("application/json")));
-	 * 
-	 * HttpResponse r = c.execute(p);
-	 * 
-	 * BufferedReader rd = new BufferedReader(new InputStreamReader(r.getEntity().getContent())); String line = ""; while ((line = rd.readLine()) != null) { //Parse our JSON response JSONParser j =
-	 * new JSONParser(); JSONObject o = (JSONObject)j.parse(line); Map response = (Map)o.get("response");
-	 * 
-	 * System.out.println(response.get("somevalue")); } } catch(ParseException e) { System.out.println(e); } catch(IOException e) { System.out.println(e); } }
-	 */
-
 	@Test
-	public final void deleteEnseignanrTest() throws ClientProtocolException, IOException {
-
-		// Création du client et éxécution d'une requete GET
+	public final void deleteEnseignanrTest() throws ClientProtocolException, IOException {		
 		final HttpClient client = HttpClientBuilder.create().build();
-		final HttpGet mockRequest = new HttpGet("http://localhost:8090/deleteEnseignant/7");
-
+		final HttpGet mockRequest = new HttpGet("http://localhost:8090/deleteEnseignant/1005");
 		final HttpResponse mockResponse = client.execute(mockRequest);
-
-		// Le code retour HTTP doit être un succès (200)
-		Assert.assertEquals(200, mockResponse.getStatusLine().getStatusCode());
-
-		final BufferedReader rd = new BufferedReader(new InputStreamReader(mockResponse.getEntity().getContent()));
-		final ObjectMapper mapper = new ObjectMapper();
-
-		final Iterable<Enseignant> ens = mapper.readValue(rd, Iterable.class);
-
-		Assert.assertNotNull(ens);
+		Assert.assertEquals(200, mockResponse.getStatusLine().getStatusCode());		
 	}
 
 	@Test
@@ -121,26 +85,7 @@ public class EnseignantControllerTest {
 
 		final BufferedReader rd = new BufferedReader(new InputStreamReader(mockResponse.getEntity().getContent()));
 		final ObjectMapper mapper = new ObjectMapper();
-
-		// Enseignant ens = mapper.readValue(rd, Enseignant.class);
-
-		// Assert.assertNotNull(ens);
-
 	}
-
-	/*
-	 * public void makeHTTPPOSTRequest() { try { HttpClient c = new DefaultHttpClient(); HttpPost p = new HttpPost(this.apiURL);
-	 * 
-	 * 
-	 * p.setEntity(new StringEntity("{\"username\":\"" + this.apiusername + "\",\"password\":\"" + this.apipassword + "\"}", ContentType.create("application/json")));
-	 * 
-	 * HttpResponse r = c.execute(p);
-	 * 
-	 * BufferedReader rd = new BufferedReader(new InputStreamReader(r.getEntity().getContent())); String line = ""; while ((line = rd.readLine()) != null) { //Parse our JSON response JSONParser j =
-	 * new JSONParser(); JSONObject o = (JSONObject)j.parse(line); Map response = (Map)o.get("response");
-	 * 
-	 * System.out.println(response.get("somevalue")); } } catch(ParseException e) { System.out.println(e); } catch(IOException e) { System.out.println(e); } }
-	 */
 
 	@Test
 	public final void listEnseignantTest() throws ClientProtocolException, IOException {

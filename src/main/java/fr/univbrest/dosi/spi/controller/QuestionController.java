@@ -1,7 +1,6 @@
 package fr.univbrest.dosi.spi.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.bean.Question;
 import fr.univbrest.dosi.spi.bean.utils.QuesQual;
@@ -23,6 +21,7 @@ import fr.univbrest.dosi.spi.service.QuestionService;
  * @author hakim
  *
  */
+ 
 @RestController
 public class QuestionController {
 
@@ -36,6 +35,7 @@ public class QuestionController {
 	 *
 	 * @param question
 	 */
+	 
 	@RequestMapping(value = "/addQuestion", method = RequestMethod.POST, headers = "Accept=application/json")
 	public void addQuestion(@RequestBody QuesQual quesQual) {
 		/** récupération de la question à créer ! */
@@ -51,6 +51,7 @@ public class QuestionController {
 	 * @author Kenza ABOUAKIL permet de retourner la valeur de MaxIdQuestion pour généré un nouveau ID au qualificatif
 	 * @return l'IdQualificatif maximal pour tous les qualificatifs
 	 */
+	 
 	@RequestMapping(value = "/getMaxIdQuestion")
 	public Integer getMaxIdQualificatif() {
 		return questServ.getMaxIdQuestion();
@@ -59,6 +60,7 @@ public class QuestionController {
 	/**
 	 * @author Youssef Retourne le qualificatif correspondant
 	 */
+	 
 	@RequestMapping(value = "/getQualificatif/{idQuestion}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public Qualificatif getQualificatif(@PathVariable(value = "idQuestion") Long idQuestion) {
 		return questServ.getQualificatif(idQuestion);
@@ -67,6 +69,7 @@ public class QuestionController {
 	/**
 	 * Retourne une question par ID
 	 */
+	 
 	@RequestMapping(value = "/getQuestionById/{idQuestion}")
 	public Question getQuestionById(@PathVariable(value = "idQuestion") Long idQuestion) {
 		return questServ.getQuestionById(idQuestion);

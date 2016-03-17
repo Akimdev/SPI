@@ -17,13 +17,13 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  *
  * @author DOSI
  */
+ 
 @Entity
 @Table(name = "REPONSE_QUESTION")
 @XmlRootElement
@@ -38,7 +38,7 @@ public class ReponseQuestion implements Serializable {
     protected ReponseQuestionPK reponseQuestionPK;
     @Column(name = "POSITIONNEMENT")
     private BigInteger positionnement;
-    @JsonIgnore
+    @JsonManagedReference
     @JoinColumn(name = "ID_QUESTION_EVALUATION", referencedColumnName = "ID_QUESTION_EVALUATION", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private QuestionEvaluation questionEvaluation;
@@ -113,6 +113,5 @@ public class ReponseQuestion implements Serializable {
     @Override
     public String toString() {
         return "com.example.beans.ReponseQuestion[ reponseQuestionPK=" + reponseQuestionPK + " ]";
-    }
-    
+    }  
 }

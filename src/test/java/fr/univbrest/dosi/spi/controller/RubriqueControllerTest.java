@@ -2,15 +2,10 @@ package fr.univbrest.dosi.spi.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
 import junit.framework.Assert;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -20,11 +15,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.Test;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-
-import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.bean.Rubrique;
 
 
@@ -55,8 +47,7 @@ public class RubriqueControllerTest {
 		final HttpDelete mockRequest = new HttpDelete("http://localhost:8090/deleteRubrique/"+new Long(9));
 		final HttpResponse mockResponse = client.execute(mockRequest);
 		
-		Assert.assertEquals(200, mockResponse.getStatusLine().getStatusCode());	
-	
+		Assert.assertEquals(200, mockResponse.getStatusLine().getStatusCode());		
 	} 
 	
 	@Test
@@ -72,8 +63,7 @@ public class RubriqueControllerTest {
 		rd = new BufferedReader(new InputStreamReader(mockResponse.getEntity().getContent()));
 		final ObjectMapper mapper = new ObjectMapper();
 		List<Rubrique> rubrique;
-		rubrique = mapper.readValue(rd, ArrayList.class);
-		
+		rubrique = mapper.readValue(rd, ArrayList.class);		
 	}
 	
 	@Test
@@ -92,9 +82,6 @@ public class RubriqueControllerTest {
 		mockPost.setEntity(new StringEntity(json));
 		HttpResponse response = client.execute(mockPost);
 		
-		Assert.assertEquals(200, response.getStatusLine().getStatusCode());
-	
+		Assert.assertEquals(200, response.getStatusLine().getStatusCode());	
 	} 
-	
-   
 }
