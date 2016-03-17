@@ -24,4 +24,6 @@ public interface DomainesRepository extends PagingAndSortingRepository<CgRefCode
 	 * @return récupérer le pays correspondant à une abréviation
 	 */
 	CgRefCodes findPaysDomain(@Param("rvLowValue") String rvLowValue);
+	
+	CgRefCodes findByRvAbbreviation(@Param("rvAbbreviation") String rvAbbreviation);
 }
