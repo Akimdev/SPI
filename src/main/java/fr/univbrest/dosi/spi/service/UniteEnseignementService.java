@@ -3,11 +3,15 @@ package fr.univbrest.dosi.spi.service;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import fr.univbrest.dosi.spi.bean.ElementConstitutif;
 import fr.univbrest.dosi.spi.bean.UniteEnseignement;
 import fr.univbrest.dosi.spi.bean.UniteEnseignementPK;
 import fr.univbrest.dosi.spi.dao.UniteEnseignementRepository;
+import fr.univbrest.dosi.spi.exception.SPIException;
 
 /**
  * @author DOSI

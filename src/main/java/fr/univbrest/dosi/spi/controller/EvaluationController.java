@@ -58,4 +58,12 @@ public class EvaluationController {
 		evaluation.setNoEnseignant(ens);
 		evaServ.updateEvaluation(evaluation);
 	}
+	
+	/**
+	 * @author Othman controlleur pour retourner le nombre de formations
+	 */
+	@RequestMapping(value = "/nombreEvaluations", headers = "Accept=application/json")
+	public long nombreEvaluations() {
+		return evaServ.nombreEvaluations();
+	}
 }

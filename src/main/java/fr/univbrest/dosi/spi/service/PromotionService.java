@@ -80,7 +80,6 @@ public class PromotionService {
 		promotionRepository.save(promotion);
 	}
 	
-<<<<<<< HEAD
 	/** 
 	 * @author Zouhair
 	 * Cette méthode retourne le nombre des promotions

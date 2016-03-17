@@ -115,14 +115,14 @@
 
 
 	$scope.ajoutEc=function(){
-		$location.path("/admin/elementConstitutif/nouveau");
+		$location.path("/elementConstitutif/nouveau");
 	}
 	$scope.edit=function(elementConstitutifPK){
-		$location.path("/admin/elementConstitutif/"+elementConstitutifPK.codeFormation+"/"+elementConstitutifPK.codeUe+"/"+
+		$location.path("/elementConstitutif/"+elementConstitutifPK.codeFormation+"/"+elementConstitutifPK.codeUe+"/"+
 						elementConstitutifPK.codeEc);
 	}
 	$scope.detail=function(elementConstitutifPK){
-		$location.path("/admin/elementConstitutif/infos/"+elementConstitutifPK.codeFormation+"/"+elementConstitutifPK.codeUe+"/"+
+		$location.path("/elementConstitutif/infos/"+elementConstitutifPK.codeFormation+"/"+elementConstitutifPK.codeUe+"/"+
 						elementConstitutifPK.codeEc);
 	}
 	$scope.supprime=function(elementConstitutifPK){
@@ -154,8 +154,8 @@
     }]);
 
   app.controller('EcDetailsController', 
-		    ['$scope', '$routeParams', '$location', '$filter', 'ecFactory',
-		    function($scope, $routeParams, $location,$filter, ecFactory){ 
+		    ['$scope', '$stateParams', '$location', '$filter', 'ecFactory',
+		    function($scope, $stateParams, $location,$filter, ecFactory){ 
 	/** recuperer toutes les formations**/
 	var promiseFormations = ecFactory.getFormations();
 		promiseFormations.success(function(data){
@@ -180,15 +180,15 @@
 	/** a la base , l'edition est false**/	    	
 		$scope.edit=false;
 	/** pour créer un ec**/	
-		if($routeParams.new=="nouveau"){
+		if($stateParams.new=="nouveau"){
 			$scope.edit=true;
 			$scope.ec={};
 			$scope.ajout=true;
 	/** pour voir les détails d'un ec**/		
-		}else if($routeParams.infos){
-			var elementConstitutifPK = {"codeFormation":$routeParams.id,
-										"codeUe":$routeParams.id2,
-										"codeEc":$routeParams.id3};
+		}else if($stateParams.infos){
+			var elementConstitutifPK = {"codeFormation":$stateParams.id,
+										"codeUe":$stateParams.id2,
+										"codeEc":$stateParams.id3};
 			/**lors d'un détail , on récupère l'ec désigne **/
 			var promise =ecFactory.get(elementConstitutifPK);
 			promise.success(function(data){
@@ -199,9 +199,9 @@
 			});
 	/** pour modifier un ec  **/		 
 		}else{
-			var elementConstitutifPK = {"codeFormation":$routeParams.id,
-					"codeUe":$routeParams.id2,
-					"codeEc":$routeParams.id3};
+			var elementConstitutifPK = {"codeFormation":$stateParams.id,
+					"codeUe":$stateParams.id2,
+					"codeEc":$stateParams.id3};
 			var promise =ecFactory.get(elementConstitutifPK);
 			promise.success(function(data){
 				$scope.ec=data;
@@ -214,15 +214,15 @@
 		}
 	/** la fonction qui permet de modifier un ec **/	
 	$scope.edition=function(){
-		var elementConstitutifPK = {"codeFormation":$routeParams.id,
-									"codeUe":$routeParams.id2,
-									"codeEc":$routeParams.id3};
-		$location.path("/admin/elementConstitutif/"+elementConstitutifPK.codeFormation+"/"+elementConstitutifPK.codeUe+"/"+
+		var elementConstitutifPK = {"codeFormation":$stateParams.id,
+									"codeUe":$stateParams.id2,
+									"codeEc":$stateParams.id3};
+		$location.path("/elementConstitutif/"+elementConstitutifPK.codeFormation+"/"+elementConstitutifPK.codeUe+"/"+
 				elementConstitutifPK.codeEc);
 	}
 	/** afin d'annuler **/
 	$scope.cancel=function(){
-		$location.path('/admin/elementConstitutif/');
+		$location.path('/elementConstitutif/');
 	}
 	/** fonction pour ajouter **/
 	$scope.submit=function(){
@@ -244,7 +244,7 @@
 				}
 		};
 		/** si c'est un simple ajout **/
-		if($routeParams.new=="nouveau"){
+		if($stateParams.new=="nouveau"){
 		/** on fait un controle sur le result de la http **/
 		var promiseAdd =ecFactory.add(ecUtil);
 		promiseAdd.success(function(status){

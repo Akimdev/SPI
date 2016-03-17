@@ -2,7 +2,7 @@
  * @Author Zouhair Je
  ******************************************************************************/
 
-var app = angular.module("app", [ 'ngRoute',"ui.router", "ui.bootstrap", "oc.lazyLoad",'app.controllers', 
+var app = angular.module("app", [ 'ngRoute',"ui.router", "ui.bootstrap", "oc.lazyLoad",'app.controllers','app.ec',
 		"ngSanitize", 'app.enseignants', 'app.formations', 'app.ue','ngAnimate','toaster', 'app.task',
 		'app.etudiants', 'app.qualificatifs', 'app.questions','app.evaluations', 'app.rubriques',
 		'app.promotions', 'app.auth']);
@@ -886,6 +886,90 @@ app
 																			'assets/admin/pages/scripts/tasks.js',
 
 																			'js/controllers/UEController.js' ]
+																});
+													} ]
+										}
+									})
+							
+							// EC liste
+							.state(
+									'ec',
+									{
+										url : "/ec",
+										templateUrl : "views/elementConstitutif/list.html",
+										data : {
+											pageTitle : 'Liste des EC',
+											pageSubTitle : 'Liste des EC'
+										},
+										controller : "ecController",
+										resolve : {
+											deps : [
+													'$ocLazyLoad',
+													function($ocLazyLoad) {
+														return $ocLazyLoad
+																.load({
+																	name : 'app',
+																	insertBefore : '#ng_load_plugins_before', // load
+																												// the
+																												// above
+																												// css
+																												// files
+																												// before
+																												// '#ng_load_plugins_before'
+																	files : [
+																			'assets/global/plugins/morris/morris.css',
+																			'assets/admin/pages/css/tasks.css',
+
+																			'assets/global/plugins/morris/morris.min.js',
+																			'assets/global/plugins/morris/raphael-min.js',
+																			'assets/global/plugins/jquery.sparkline.min.js',
+
+																			'assets/admin/pages/scripts/index3.js',
+																			'assets/admin/pages/scripts/tasks.js',
+
+																			'js/controllers/EcController.js' ]
+																});
+													} ]
+										}
+									})
+							
+							// EC détaillée
+							.state(
+									'detailsec',
+									{
+										url : "/elementConstitutif/:new",
+										templateUrl : "views/elementConstitutif/detail.html",
+										data : {
+											pageTitle : 'Détails des EC',
+											pageSubTitle : 'Détails des EC'
+										},
+										controller : "EcDetailsController",
+										resolve : {
+											deps : [
+													'$ocLazyLoad',
+													function($ocLazyLoad) {
+														return $ocLazyLoad
+																.load({
+																	name : 'app',
+																	insertBefore : '#ng_load_plugins_before', // load
+																												// the
+																												// above
+																												// css
+																												// files
+																												// before
+																												// '#ng_load_plugins_before'
+																	files : [
+																			'assets/global/plugins/morris/morris.css',
+																			'assets/admin/pages/css/tasks.css',
+
+																			'assets/global/plugins/morris/morris.min.js',
+																			'assets/global/plugins/morris/raphael-min.js',
+																			'assets/global/plugins/jquery.sparkline.min.js',
+
+																			'assets/admin/pages/scripts/index3.js',
+																			'assets/admin/pages/scripts/tasks.js',
+
+																			'js/controllers/EcController.js' ]
 																});
 													} ]
 										}

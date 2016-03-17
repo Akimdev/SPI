@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import fr.univbrest.dosi.spi.bean.ElementConstitutif;
 import fr.univbrest.dosi.spi.bean.ElementConstitutifPK;
 import fr.univbrest.dosi.spi.bean.Enseignant;
@@ -27,21 +28,9 @@ import fr.univbrest.dosi.spi.service.UniteEnseignementService;
 public class ElementConstitutifController {
 
 	@Autowired
-	private ElementConstitutifRepository elementConstitutifRepository;
-
-	@RequestMapping(value = "/elementConstitutif/findByCodeFormation/{codeFormation}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public List<ElementConstitutif> findByCodeFormation(@PathVariable("codeFormation") String codeFormation) {
-		return elementConstitutifRepository.findByCodeFormation(codeFormation);
-	}
-
 	private ElementConstitutifService elementConstitutifService;
 	@Autowired
 	private UniteEnseignementService uniteEnseignementService;
-
-	@RequestMapping(value = "/EC/findByCodeFormation/{codeFormation}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public List<ElementConstitutif> findByCodeFormation(@PathVariable("codeFormation") String codeFormation) {
-		return elementConstitutifService.findByCodeFormation(codeFormation);
-	}
 	
 	@RequestMapping(value = "/elementConstitutif/findByUE", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public List<ElementConstitutif> findByUE(@RequestBody UniteEnseignementPK ue) {
