@@ -18,10 +18,9 @@
 						<alert type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Code<span
-							id="required-field">*</span></label>
-						<div class="col-sm-10">
-							<input type="number" class="form-control" name="codeFormation"
+						<label for="" class="col-sm-2">Code</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" name="codeFormation"
 								min="1" ng-model="formation.codeFormation"
 								ng-disabled="isVisible" required> <span
 								style="color: red"
@@ -32,53 +31,56 @@
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">Diplome</label>
-						<div class="col-sm-10">
-							<select ng-model="myOption"
-								ng-options="value.id as value.label group by value.group for value in myOptions">
-								<option>--</option>
+						<div class="col-sm-4">
+							<select ng-model="diplomeSelected">
+								<option data-ng-repeat="domaine in domaines" value="{{domaine.rvLowValue}}"
+								ng-selected="{{domaine.rvLowValue}}">{{domaine.rvMeaning}}</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">No. année</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control"
+						<div class="col-sm-4">
+							<input type="number" class="form-control"
 								ng-model="formation.n0Annee" placeholder="Numéro d'année">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">Nom formation</label>
-						<div class="col-sm-10">
+						<div class="col-sm-4">
 							<input type="text" class="form-control"
 								ng-model="formation.nomFormation">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">Double diplôme</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control"
-								ng-model="formation.doubleDiplome">
+						<div class="col-sm-4">
+							<select ng-model="doubleDiplomeSelected">
+								<option data-ng-repeat="domaine in domainesDiplome" value="{{domaine.rvLowValue}}"
+								ng-selected="{{domaine.rvLowValue}}">{{domaine.rvMeaning}}</option>
+							</select>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">Début d'accréditation</label>
-						<div class="col-sm-10">
+						<div class="col-sm-4">
 							<input type="text" class="form-control"
 								ng-model="formation.debutAccreditation">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">Fin d'accréditation</label>
-						<div class="col-sm-10">
+						<div class="col-sm-4">
 							<input type="text" class="form-control"
 								ng-model="formation.finAccreditation">
 						</div>
 					</div>
 				</form>
-				<a class="btn btn-success" ng-click="submit()"><span
-					class="glyphicon glyphicon-ok"></span> Valider</a>
-				<button class="btn btn-danger pull-right" ng-click="cancel()">
-					Annuler</button>
+				<a class="btn btn-danger" ng-click="cancel()"><span
+					class="glyphicon glyphicon-remove"></span> Annuler</a>
+				<button class="btn btn-success pull-right" ng-click="submit()"><span
+					class="glyphicon glyphicon-ok"></span>
+					Valider</button>
 			</div>
 		</div>
 	</div>
