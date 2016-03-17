@@ -109,12 +109,12 @@
   $scope.refresh();
      
   $scope.ajoutQuestion = function(){
-      $location.path('/admin/question/nouveau'); 
+      $location.path('/question/nouveau'); 
    }
   
  
   $scope.edit = function (question){
-	  $location.path("/admin/question/"+ question.idQuestion);
+	  $location.path("/question/"+ question.idQuestion);
 	 
   }
 
@@ -149,12 +149,12 @@
   );
 
   app.controller('QuestionDetailsController', 
-    ['$scope', '$routeParams','$http', '$location','$filter', 'questionsFactory', 'qualificatifsFactory', 'toaster',
-    function($scope, $routeParams, $http, $location,$filter, questionsFactory, qualificatifsFactory, toaster){      
+    ['$scope', '$stateParams','$http', '$location','$filter', 'questionsFactory', 'qualificatifsFactory', 'toaster',
+    function($scope, $stateParams, $http, $location,$filter, questionsFactory, qualificatifsFactory, toaster){      
       $scope.edit= false;    
       
       // si creation d'une nouvelle question
-      if($routeParams.id == "nouveau"){
+      if($stateParams.id == "nouveau"){
         $scope.question= { };
         $scope.edit= true;
  		var promiseQualificatifs = qualificatifsFactory.all();
@@ -168,13 +168,13 @@
 		});
  		
 	 } else { // sinon on edite une question existante
-        var promisesFactory = questionsFactory.get($routeParams.id);
+        var promisesFactory = questionsFactory.get($stateParams.id);
      	promisesFactory.success(function(data) {
      		$scope.isVisible = true;
      		$scope.question = data;   
      		var promiseQualificatifs = qualificatifsFactory.all();
      		promiseQualificatifs.success(function(data) {   
-     			var promiseQualif = questionsFactory.getQualificatif($routeParams.id);
+     			var promiseQualif = questionsFactory.getQualificatif($stateParams.id);
          		promiseQualif.success(function(result){
          			$scope.qualif = result;
 	     			$scope.qualificatifs = data;
@@ -228,13 +228,13 @@
 	    	console.log(quesQual);
 	    	
 	    	var promisesajout;
-	    	if($routeParams.id == "nouveau")
+	    	if($stateParams.id == "nouveau")
 		    	promisesajout = questionsFactory.add(quesQual);
 	    	else
 	    		promisesajout = questionsFactory.set(quesQual);
 	    	   	
         	promisesajout.success(function(data, status, headers, config) {
-	    		if($routeParams.id == "nouveau")
+	    		if($stateParams.id == "nouveau")
 	    			swal("Félicitation!", "La question est ajoutée!", "success");
 	    		else
 	    			swal("Félicitation!", "La question est modifiée!", "success");
@@ -246,9 +246,9 @@
 	    		})
 	    		.error(function(data){
 	    			swal("Erreur !", "Impossible de récupérer la question !", "error");
-	        		$location.path('/admin/questions');
+	        		$location.path('/questions');
 	    		});
-	    		$location.path('/admin/question/' + $scope.question.idQuestion);	
+	    		$location.path('/question/' + $scope.question.idQuestion);	
 			})
 			.error(function(data, status, headers, config) {
         		toaster.pop({
@@ -268,16 +268,16 @@
       // valide le formulaire d'édition d'une question
       
       // TODO coder une fonction submit permettant de modifier une question
-		// et rediriger vers /admin/questions
+		// et rediriger vers /questions
 
 
    // annule l'édition
       $scope.cancel = function(){
-        if($routeParams.id == "nouveau"){
-          $location.path('/admin/questions');
+        if($stateParams.id == "nouveau"){
+          $location.path('/questions');
         } else {
-        	$location.path('/admin/question/' + $routeParams.id);
-          //var e = questionFactory.get($routeParams.id);
+        	$location.path('/question/' + $stateParams.id);
+          //var e = questionFactory.get($stateParams.id);
           $scope.edit = false;
         }
       }
