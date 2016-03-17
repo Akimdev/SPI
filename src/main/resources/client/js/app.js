@@ -937,7 +937,7 @@ app
 							.state(
 									'detailsec',
 									{
-										url : "/elementConstitutif/:new",
+										url : "/elementConstitutif/infos/:id/:id2/:id3",
 										templateUrl : "views/elementConstitutif/detail.html",
 										data : {
 											pageTitle : 'Détails des EC',
