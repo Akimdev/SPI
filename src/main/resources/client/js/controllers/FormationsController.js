@@ -214,7 +214,6 @@
     	  formationsFactory.get($scope.formation);
           $scope.edit = true;
         }
-
         $scope.submit = function(){
         	if($scope.formation.debutAccreditation && $scope.formation.finAccreditation){
             	var date = $scope.formation.debutAccreditation.split('/');
