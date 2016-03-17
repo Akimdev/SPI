@@ -144,6 +144,7 @@ var edit= false;
     	}
       // Crée la page permettant d'ajouter une promotion
       $scope.ajoutPromotion = function(){
+    	  edit = true;
           $location.path('/promotion/nouveau/nouveau');
        }
       
@@ -212,7 +213,6 @@ var edit= false;
 		        	data1.nom= data1.nom.toUpperCase();
 		        	$scope.responsable = data1;
 		        	$scope.enseignantSelected= $scope.responsable;
-		        	console.log("ensR: ",data1);
 		        }).error(function(data1,statut){
 		      	  console.log("Impossible de recuperer l'enseignant resposable de la promotion");
 		        });
@@ -229,7 +229,7 @@ var edit= false;
 	            promise2.success(function(data,statut){
 	            	$scope.promotion.etudiantCollection = data ;
 	            }).error(function(data,statut){
-	          	  console.log("impossible de recuperer les étudiants de la promotion choisie");
+	          	  console.log("Impossible de recuperer les étudiants de la promotion choisie");
 	            });
 	        }).error(function(data3,statut){
 	      	  console.log("impossible de recuperer les details de la promotion choisie");
@@ -247,12 +247,11 @@ var edit= false;
 		    // Récuperation des enseignants
 	        var promise1= promotionsFactory.getEnseignants();
 	        promise1.success(function(data1,statut){
-				console.log("data: ",data1);
 	        	for (var d=0; d<data1.length; d++)
 	        		data1[d].nom= data1[d].nom.toUpperCase();
 	        	$scope.enseignants= data1;
 	        }).error(function(data1,statut){
-	      	  console.log("impossible de recuperer la liste des enseignants");
+	      	  console.log("Impossible de recuperer la liste des enseignants");
 	        });
 	        
 	        // Récuperation des formations
@@ -260,7 +259,7 @@ var edit= false;
 	        promise2.success(function(data2,statut){
 	        	$scope.formations= data2;
 	        }).error(function(data2,statut){
-	      	  console.log("impossible de recuperer la liste des formations");
+	      	  console.log("Impossible de recuperer la liste des formations");
 	        });
 		      // si creation d'une nouvelle promotion
 		      if($stateParams.ann == "nouveau"){
@@ -275,8 +274,11 @@ var edit= false;
     	
 
       $scope.edition = function(){
-    	  $scope.ajout= true;
-    	  $scope.edit=edit=true;
+			console.log("$scope.enseignantSelected avnt: ", $scope.enseignantSelected);
+			$scope.enseignantSelected= $scope.responsable;
+			console.log("$scope.enseignantSelected apres: ", $scope.enseignantSelected);
+			$scope.ajout= true;
+			$scope.edit=edit=true;
       }
       
       // valide le formulaire d'édition d'une promotion
@@ -290,7 +292,7 @@ var edit= false;
     		  if(!$scope.enseignantSelected) {
     			  $scope.enseignantSelected = null;
     		  }
-    		  var promise = promotionsFactory.add($scope.promotion, $scope.enseignantSelected);
+    		  var promise = promotionsFactory.add($scope.promotion, $scope.enseignantSelected.noEnseignant);
     		  promise.success(function(data){
     			  var promiseEnseignant = promotionsFactory.getEnseignantResponsable($scope.promotion.promotionPK);
     			  promiseEnseignant.success(function(data){
@@ -309,7 +311,7 @@ var edit= false;
     		      $scope.promotion.dateRentree = new Date(date[1] + '-' + date[0] + '-' + date[2]);  
     		  }
     		  $scope.promotion.processusStage= $scope.processusStageSelected.rvAbbreviation;
-    		  var promise = promotionsFactory.set($scope.promotion, $scope.enseignantSelected);
+    		  var promise = promotionsFactory.set($scope.promotion, $scope.enseignantSelected.noEnseignant);
     		  promise.success(function(){
     			  var promiseEnseignant = promotionsFactory.getEnseignantResponsable($scope.promotion.promotionPK);
     			  promiseEnseignant.success(function(data){

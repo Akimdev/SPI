@@ -55,7 +55,7 @@ Consulter les informations g&eacute;n&eacute;rales, la liste des &eacute;tudiant
 		<!----------------------------------------La table de liste ---------------------------------------->
 		<div class="portlet-body">
 			<table class="table-scrollable">
-				<table class="table table-hover">
+				<table class="table table-bordered table-striped table-hover">
 					<thead>
 						<tr>
 							<th><div class="th">
@@ -96,14 +96,14 @@ Consulter les informations g&eacute;n&eacute;rales, la liste des &eacute;tudiant
 					</thead>
 					<tbody>
 						<!-- currentPagePromotion / promotions -->
-						<tr data-ng-repeat="p in currentPagePromotion" class="promotion">
+						<tr style="cursor:pointer" data-ng-repeat="p in currentPagePromotion" class="promotion">
 							<td ng-click="affiche(p.promotionPK)">{{p.promotionPK.anneeUniversitaire}}</td>
 							<td ng-click="affiche(p.promotionPK)">{{p.promotionPK.codeFormation}}</td>
 		 					<td ng-click="affiche(p.promotionPK)">{{p.designation}}</td>
 							<td ng-click="affiche(p.promotionPK)">{{p.siglePromotion}}</td>
-							<td><span ng-click="affiche(p.promotionPK)" class="eye fa fa-eye"></span></td>
-							<td><span ng-click="edit(p.promotionPK)" class="glyphicon glyphicon-edit" ></span></td>
-							<td><span class="glyphicon glyphicon-trash" ng-click="supprime(p.promotionPK)"></span></td>
+							<td id="iconGestion"><span ng-click="affiche(p.promotionPK)" class="eye fa fa-eye"></span></td>
+							<td id="iconGestion"><span ng-click="edit(p.promotionPK)" class="glyphicon glyphicon-edit" ></span></td>
+							<td id="iconGestion"><span class="glyphicon glyphicon-trash" ng-click="supprime(p.promotionPK)"></span></td>
 						</tr>
 					</tbody>
 				</table>
@@ -111,7 +111,7 @@ Consulter les informations g&eacute;n&eacute;rales, la liste des &eacute;tudiant
 				<footer class="table-footer">
 					<div class="row">
 						<div class="col-md-6 page-num-info">
-							<span> Affichage <select data-ng-model="numPerPage"
+							<span> Afficher <select data-ng-model="numPerPage"
 								data-ng-options="num for num in numPerPageOpt"
 								data-ng-change="onNumPerPageChange()">
 							</select> entr&eacute;es par page
