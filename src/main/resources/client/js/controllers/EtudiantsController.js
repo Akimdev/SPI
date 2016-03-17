@@ -39,7 +39,6 @@
     	var promiseEtudiants = etudiantsFactory.all();
 		promiseEtudiants.success(function(data, status) {
 		      $scope.etudiants = data;
-
 		      $scope.searchKeywords = '';
 		      $scope.filteredEtudiant = [];
 		      $scope.row = '';
@@ -118,6 +117,7 @@
     	var promise = etudiantsFactory.get($stateParams.id);
         promise.success(function(data){
         	$scope.etudiant = data;
+
         	var promisePays = etudiantsFactory.getPays($scope.etudiant.paysOrigine);
         	promisePays.success(function(data){
         		$scope.etudiant.paysOrigine = data.rvMeaning;

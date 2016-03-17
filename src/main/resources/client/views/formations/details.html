@@ -33,12 +33,6 @@
 					<div class="form-group">
 						<label for="" class="col-sm-2">Diplome</label>
 						<div class="col-sm-10">
-							<!--                         <input type="text" class="form-control" name="diplome" min="1" -->
-							<!--                                ng-model="formation.diplome"> -->
-<!-- 							<select> -->
-<!-- 								<option ng-repeat="domaine in domaines">{{domaine.rvAbbreviation}} -->
-<!-- 									- {{domaine.rvMeaning}}</option> -->
-<!-- 							</select>  -->
 							<select ng-model="myOption"
 								ng-options="value.id as value.label group by value.group for value in myOptions">
 								<option>--</option>

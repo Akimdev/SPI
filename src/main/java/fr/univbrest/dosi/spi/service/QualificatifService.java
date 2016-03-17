@@ -2,12 +2,9 @@ package fr.univbrest.dosi.spi.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import fr.univbrest.dosi.spi.bean.Qualificatif;
-import fr.univbrest.dosi.spi.bean.Rubrique;
 import fr.univbrest.dosi.spi.dao.QualificatifRepository;
 import fr.univbrest.dosi.spi.exception.SPIException;
 

@@ -1,56 +1,37 @@
-<!-- @Author Zouhair -->
-
 <div class="page" ng-controller="EvasDetailsController">
-	<div class="portlet light bordered">
-		<div class="portlet-title">
-			<div class="caption">
-				<i class="icon-social-dribble font-red"></i> <span
-					class="cpation-subject font-red bold uppercase">Promotion</span>
-			</div>
+	<div class="panel panel-default ens-edit">
+		<div class="panel-heading">
+			<strong><span class="glyphicon glyphicon-th"></span>
+				évaluation</strong>
 		</div>
-		<!--------------------------- Consultation --------------------------->
-		<div class="portlet-body form">
+		<div class="panel-body">
+			<!-- Edition -->
 			<div ng-show="edit">
 				<form class="form-horizontal" name="evaForm">
 					<div class="form-group">
-						<label for="" class="col-sm-2">Numéro évaluation:<span
-							id="required-field">*</span></label>
+						<label for="" class="col-sm-2">Numéro évaluation:<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="number" class="form-control"
-								ng-model="evaluation.noEvaluation" name="noEvaluation" required>
-							<span style="color: red"
-								ng-show="evaForm.noEvaluation.$dirty && evaForm.noEvaluation.$invalid">
-								<span ng-show="evaForm.noEvaluation.$error.required">Champ
-									obligatoire / Type invalide</span>
-							</span>
+							<input type="number" class="form-control" ng-model="evaluation.noEvaluation" name="noEvaluation" required>
+							<span style="color:red" ng-show="evaForm.noEvaluation.$dirty && evaForm.noEvaluation.$invalid">
+							<span ng-show="evaForm.noEvaluation.$error.required">Champ obligatoire / Type invalide</span></span>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Désignation:<span
-							id="required-field">*</span></label>
+						<label for="" class="col-sm-2">Désignation:<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control"
-								ng-model="evaluation.designation" name="designation" required>
-							<span style="color: red"
-								ng-show="evaForm.designation.$dirty && evaForm.designation.$invalid">
-								<span ng-show="evaForm.designation.$error.required">Champ
-									obligatoire / Type invalide</span>
-							</span>
+							<input type="text" class="form-control" ng-model="evaluation.designation" name="designation" required>
+							<span style="color:red" ng-show="evaForm.designation.$dirty && evaForm.designation.$invalid">
+							<span ng-show="evaForm.designation.$error.required">Champ obligatoire / Type invalide</span></span>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Etat:<span
-							id="required-field">*</span></label>
+						<label for="" class="col-sm-2">Etat:<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<!-- 							<input ng-show="edit" type="text" class="form-control" -->
-							<!-- 								ng-model="evaluation.etat"/> -->
-							<select ng-hide="isVisible" ng-model="etatSelected" name="etat"
-								required>
+							<select ng-hide="isVisible" ng-model="etatSelected" name="etat" required>
 								<option data-ng-repeat="e in etats" value="{{e.rvAbbreviation}}">{{e.rvMeaning}}</option>
-							</select> <span style="color: red"
-								ng-show="evaForm.etat.$dirty && evaForm.etat.$invalid"> <span
-								ng-show="evaForm.etat.$error.required">Champ obligatoire
-									/ Type invalide</span></span>
+							</select>
+							<span style="color:red" ng-show="evaForm.etat.$dirty && evaForm.etat.$invalid">
+							<span ng-show="evaForm.etat.$error.required">Champ obligatoire / Type invalide</span></span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -61,31 +42,21 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Début:<span
-							id="required-field">*</span></label>
+						<label for="" class="col-sm-2">Début Réponse:<span id="required-field">*</span></label>
 						<div class="col-sm-2">
-							<input type="date" class="form-control"
-								ng-model="evaluation.debutReponse" name="debutReponse" required>
-							<span style="color: red"
-								ng-show="evaForm.debutReponse.$dirty && evaForm.d"C:/Users/DOSI/Desktop/pr�convention-CGI"ebutReponse.$invalid">
-								<span ng-show="evaForm.debutReponse.$error.required">Champ
-									obligatoire / Type invalide</span>
-							</span>
+							<input type="date" class="form-control" ng-model="evaluation.debutReponse" name="debutReponse" required>
+							<span style="color:red" ng-show="evaForm.debutReponse.$dirty && evaForm.debutReponse.$invalid">
+							<span ng-show="evaForm.debutReponse.$error.required">Champ obligatoire / Type invalide</span></span>
 						</div>
-						<label for="" class="col-sm-2">Fin:<span
-							id="required-field">*</span></label>
+						<label for="" class="col-sm-2">Fin Réponse:<span id="required-field">*</span></label>
 						<div class="col-sm-2">
-							<input type="date" class="form-control"
-								ng-model="evaluation.finReponse" name="finReponse" required>
-							<span style="color: red"
-								ng-show="evaForm.finReponse.$dirty && evaForm.finReponse.$invalid">
-								<span ng-show="evaForm.finReponse.$error.required">Champ
-									obligatoire / Type invalide</span>
-							</span>
+							<input type="date" class="form-control" ng-model="evaluation.finReponse" name="finReponse" required>
+							<span style="color:red" ng-show="evaForm.finReponse.$dirty && evaForm.finReponse.$invalid">
+							<span ng-show="evaForm.finReponse.$error.required">Champ obligatoire / Type invalide</span></span>
 						</div>
 					</div>
-					<!-- div class="form-group">
-						<label for="" class="col-sm-2">Formation:<span id="required-field">*</span></label>
+					<div class="form-group">
+						<label for="" class="col-sm-2">Code formation:<span id="required-field">*</span></label>
 						<div class="col-sm-10">
 							<input ng-show="isVisible" type="text" class="form-control"
 								ng-model="evaluation.code_formation">
@@ -97,193 +68,39 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Année:<span id="required-field">*</span></label>
+						<label for="" class="col-sm-2">Année Universitaire:<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							< <input type="text" class="form-control"
-								ng-model="evaluation.annee"> >
 							<select ng-hide="isVisible" ng-model="promotionSelected" name="promotion" required>
 								<option data-ng-repeat="e in promotions" value="{{e.promotionPK.anneeUniversitaire}}">{{e.promotionPK.anneeUniversitaire}}</option>
 							</select>
 							<span style="color:red" ng-show="evaForm.promotion.$dirty && evaForm.promotion.$invalid">
 							<span ng-show="evaForm.promotion.$error.required">Champ obligatoire / Type invalide</span></span>
 						</div>
-					</div-->
-					<div class="form-group">
-						<label for="" class="col-sm-2">Promotion:<span
-							id="required-field">*</span></label>
-						<div class="col-sm-10">
-							<select name="promotion" ng-model="selectedPromotion"
-								ng-options="promotion.promotionPK.codeFormation+' -- '+promotion.promotionPK.anneeUniversitaire for promotion in promotionevaluation"
-								ng-change="onchangePro()">
-							</select> <span style="color: red"
-								ng-show="evaForm.promotion.$dirty && evaForm.promotion.$invalid">
-								<span ng-show="evaForm.promotion.$error.required">Champ
-									obligatoire / Type invalide</span>
-							</span>
-						</div>
 					</div>
-
+					
+					
 					<div class="form-group">
-						<label for="" class="col-sm-2">Unité Enseignement
-							Concernée:<span id="required-field">*</span>
-						</label>
+						<label for="" class="col-sm-2">Code UE:<span id="required-field">*</span></label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control"
-								ng-model="evaluation.code_ue" ng-show="isvisible" /> <select
-								name="ue" ng-model="ueSelected"
-								ng-options="ue.uniteEnseignementPK.codeUe+' - '+ue.designation for ue in ues"
-								ng-change="onchange()">
-							</select> <span style="color: red"
-								ng-show="evaForm.ue.$dirty && evaForm.ue.$invalid"> <span
-								ng-show="evaForm.ue.$error.required">Champ obligatoire /
-									Type invalide</span></span>
+								ng-model="evaluation.code_ue" ng-show="isvisible"/>
+							<select ng-hide="isvisible" ng-model="ueSelected" name="ue" required>
+								<option data-ng-repeat="e in UEs" value="{{e.uniteEnseignementPK.codeUe}}">{{e.uniteEnseignementPK.codeUe}}</option>
+							</select>
+							<span style="color:red" ng-show="evaForm.ue.$dirty && evaForm.ue.$invalid">
+							<span ng-show="evaForm.ue.$error.required">Champ obligatoire / Type invalide</span></span>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Element Constitutif
-							Concerné:</label>
+						<label for="" class="col-sm-2">Code EC:</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control"
+							<input  type="text" class="form-control"
 								ng-model="evaluation.code_ec" ng-show="isvisible">
-							<!-- select ng-hide="isvisible" ng-model="ecSelected" name="ec">
+							<select ng-hide="isvisible" ng-model="ecSelected" name="ec">
 								<option data-ng-repeat="e in ECs" value="{{e.elementConstitutifPK.codeEc}}">{{e.elementConstitutifPK.codeEc}}</option>
-							</select-->
-							<select ng-model="ecSelected"
-								ng-options="ec.designation for ec in ecs"
-								ng-change="onchangeEC()">
 							</select>
 						</div>
 					</div>
-					<!-- 
-					<menu id="nestable-menu">
-						<button type="button" data-action="expand-all">Expand All</button>
-						<button type="button" data-action="collapse-all">Collapse
-							All</button>
-					</menu>
-
-					<div class="cf nestable-lists">
-
-						<div class="dd" id="nestable">
-							<ol class="dd-list">
-								<li class="dd-item" data-id="1">
-									<div class="dd-handle">Item 1</div>
-								</li>
-								<li class="dd-item" data-id="2">
-									<div class="dd-handle">Item 2</div>
-									<ol class="dd-list">
-										<li class="dd-item" data-id="3"><div class="dd-handle">Item
-												3</div></li>
-										<li class="dd-item" data-id="4"><div class="dd-handle">Item
-												4</div></li>
-										<li class="dd-item" data-id="5">
-											<div class="dd-handle">Item 5</div>
-											<ol class="dd-list">
-												<li class="dd-item" data-id="6"><div class="dd-handle">Item
-														6</div></li>
-												<li class="dd-item" data-id="7"><div class="dd-handle">Item
-														7</div></li>
-												<li class="dd-item" data-id="8"><div class="dd-handle">Item
-														8</div></li>
-											</ol>
-										</li>
-										<li class="dd-item" data-id="9"><div class="dd-handle">Item
-												9</div></li>
-										<li class="dd-item" data-id="10"><div class="dd-handle">Item
-												10</div></li>
-									</ol>
-								</li>
-								<li class="dd-item" data-id="11">
-									<div class="dd-handle">Item 11</div>
-								</li>
-								<li class="dd-item" data-id="12">
-									<div class="dd-handle">Item 12</div>
-								</li>
-							</ol>
-						</div>
-
-						<div class="dd" id="nestable2">
-							<ol class="dd-list">
-								<li class="dd-item" data-id="13">
-									<div class="dd-handle">Item 13</div>
-								</li>
-								<li class="dd-item" data-id="14">
-									<div class="dd-handle">Item 14</div>
-								</li>
-								<li class="dd-item" data-id="15">
-									<div class="dd-handle">Item 15</div>
-									<ol class="dd-list">
-										<li class="dd-item" data-id="16"><div class="dd-handle">Item
-												16</div></li>
-										<li class="dd-item" data-id="17"><div class="dd-handle">Item
-												17</div></li>
-										<li class="dd-item" data-id="18"><div class="dd-handle">Item
-												18</div></li>
-									</ol>
-								</li>
-							</ol>
-						</div>
-
-					</div>
-					<script>
-						$(document)
-								.ready(
-										function() {
-
-											var updateOutput = function(e) {
-												var list = e.length ? e
-														: $(e.target), output = list
-														.data('output');
-												if (window.JSON) {
-													output
-															.val(window.JSON
-																	.stringify(list
-																			.nestable('serialize')));//, null, 2));
-												} else {
-													output
-															.val('JSON browser support required for this demo.');
-												}
-											};
-
-											// activate Nestable for list 1
-											$('#nestable').nestable({
-												group : 1
-											}).on('change', updateOutput);
-
-											// activate Nestable for list 2
-											$('#nestable2').nestable({
-												group : 1
-											}).on('change', updateOutput);
-
-											// output initial serialised data
-											updateOutput($('#nestable').data(
-													'output',
-													$('#nestable-output')));
-											updateOutput($('#nestable2').data(
-													'output',
-													$('#nestable2-output')));
-
-											$('#nestable-menu')
-													.on(
-															'click',
-															function(e) {
-																var target = $(e.target), action = target
-																		.data('action');
-																if (action === 'expand-all') {
-																	$('.dd')
-																			.nestable(
-																					'expandAll');
-																}
-																if (action === 'collapse-all') {
-																	$('.dd')
-																			.nestable(
-																					'collapseAll');
-																}
-															});
-
-											$('#nestable3').nestable();
-
-										});
-					</script>-->
 				</form>
 				<button ng-click="submit()" class="btn btn-success"
 					ng-disabled="evaForm.noEvaluation.$dirty && evaForm.noEvaluation.$invalid
@@ -372,7 +189,7 @@
 							</div>
 						</div>
 					</div>
-					<a class="btn btn-primary" href="#/admin/evaluations"><span
+					<a class="btn btn-primary" href="#/evaluations"><span
 						class="glyphicon glyphicon-arrow-left"></span> Retour</a>
 				</div>
 

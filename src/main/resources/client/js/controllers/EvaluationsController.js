@@ -57,7 +57,6 @@
       listePromotion:function(){
     	  return $http.get("http://localhost:8090/getPromoByNoEnseignant");
       }
-      
     };
   });
     
@@ -135,25 +134,25 @@
       $scope.supprime = function(evaluation){
 
     	  swal({   
-			  title: "Voulez-vous vraiment supprimer cette evaluation ?",      
+			  title: "Voulez-vous vraiment supprimer cette evaluation ?",   
 			  type: "warning",   
 			  showCancelButton: true,   
 			  confirmButtonColor: "#DD6B55",   
-			  confirmButtonText: "Oui, je veux le supprimer!",  
-			  cancelButtonText: "Non, ignorer!",   
+			  confirmButtonText: "OUI",  
+			  cancelButtonText: "NON",   
 			  closeOnConfirm: false,   closeOnCancel: false },
 			  function(isConfirm){
-				  if (isConfirm) {  
+				  if (isConfirm) {
 			    	  var promisessuppression  = evaluationsFactory.delete(evaluation.idEvaluation);
 			    	  promisessuppression.success(function(data, status, headers, config) {
 			  			$scope.refresh();
-						swal("Supprimé!", "la evaluation est supprimée", "success");
+						swal("Supprimé!", "L'evaluation est supprimée", "success");
 			      	  });
 			    	  promisessuppression.error(function(data, status, headers, config) {
-			    		  swal("Erreur!", "vous pouvez pas supprimer cette evaluation", "error");
+			    		  swal("Erreur!", "Vous ne pouvez pas supprimer cette evaluation", "error");
 			  		});	
 				  } else {     
-						  swal("Ignorer", "", "error");
+						  swal("Annulé", "", "error");
 				  }
 	  	 });
       }
@@ -233,10 +232,10 @@
      	});
      	
       }
+
       $scope.edition = function(){
-    	  var promisessuppression = evaluationsFactory.set($scope.evaluation);    	  
-    	  evaluationsFactory.get($scope.evaluation);
-    	  
+          var promisessuppression = evaluationsFactory.set($scope.evaluation);    	  
+          evaluationsFactory.get($scope.evaluation);
           $scope.edit = true;
         }
 
@@ -271,7 +270,7 @@
                     showCloseButton: true
                 });
         	});
-			$scope.edit = false;  
+			$scope.edit = false;
         }
 
       $scope.edition = function(){

@@ -2,10 +2,8 @@ package fr.univbrest.dosi.spi.service;
 
 import java.math.BigDecimal;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import fr.univbrest.dosi.spi.bean.CgRefCodes;
 import fr.univbrest.dosi.spi.dao.DomainesRepository;
 
@@ -15,6 +13,7 @@ import fr.univbrest.dosi.spi.dao.DomainesRepository;
 
 @Service
 public class DomainesSevices {
+	
 	@Autowired
 	DomainesRepository domainesRepository;
 
@@ -36,5 +35,4 @@ public class DomainesSevices {
 	public CgRefCodes getPaysDomain(final String lowValue){
 		return domainesRepository.findPaysDomain(lowValue);
 	}
-
 }

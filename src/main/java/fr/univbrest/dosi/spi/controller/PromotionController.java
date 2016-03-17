@@ -1,7 +1,7 @@
 package fr.univbrest.dosi.spi.controller;
 
 import java.util.List;
-
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
+import fr.univbrest.dosi.spi.bean.Authentification;
 import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Etudiant;
 import fr.univbrest.dosi.spi.bean.Formation;
@@ -35,8 +35,10 @@ public class PromotionController {
 
 	@Autowired
 	private EtudiantService etudiantservice;
+	
 	@Autowired
 	FormationService formationservice;
+	
 	@Autowired
 	private PromotionService promotionService;
 
@@ -124,6 +126,7 @@ public class PromotionController {
 	 *
 	 *         la methode permet de Lister toutes les promotions
 	 */
+	 
 	@RequestMapping(value = "/promotions", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE })
 	public Iterable<Promotion> getPromotions() {
 		return promotionService.getPromotionALL();
@@ -133,6 +136,7 @@ public class PromotionController {
 	 *
 	 * @param proEns
 	 */
+	 
 	@RequestMapping(value = "/updatePromotion", method = RequestMethod.POST, headers = "Accept=application/json")
 	public void updatePromotion(@RequestBody ProEns proEns) {
 		/** récupération de la promotion à créer ! */
@@ -159,8 +163,16 @@ public class PromotionController {
 	 * @param idRubrique
 	 * @return
 	 */
+	 
 	@RequestMapping(value="/nombrePromotions")
 	public int nombrePromotions(){
 		return promotionService.nombrePromotions();
+	}
+
+	@RequestMapping(value="/getPromoByNoEnseignant" , produces = { "application/json;charset=UTF-8" })
+	public List<Promotion> getPromoByNoEnseignant(final HttpServletRequest request){
+		Authentification auth = (Authentification) request.getSession().getAttribute("user");
+		Enseignant ens = auth.getNoEnseignant();
+		return promotionService.getPromoByNoEnseignant(ens.getNoEnseignant());
 	}
 }

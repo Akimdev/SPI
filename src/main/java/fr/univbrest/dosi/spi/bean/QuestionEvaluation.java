@@ -26,14 +26,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  *
  * @author DOSI
  */
+ 
 @Entity
 @Table(name = "QUESTION_EVALUATION", catalog = "", schema = "DOSI")
 @XmlRootElement
@@ -58,19 +57,19 @@ public class QuestionEvaluation implements Serializable {
     @Size(max = 64)
     @Column(name = "INTITULE")
     private String intitule;
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name = "ID_QUALIFICATIF", referencedColumnName = "ID_QUALIFICATIF")
     @ManyToOne
     private Qualificatif idQualificatif;
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name = "ID_QUESTION", referencedColumnName = "ID_QUESTION")
     @ManyToOne
     private Question idQuestion;
-    @JsonIgnore
+    //@JsonIgnore
     @JoinColumn(name = "ID_RUBRIQUE_EVALUATION", referencedColumnName = "ID_RUBRIQUE_EVALUATION", nullable = false)
     @ManyToOne(optional = false)
     private RubriqueEvaluation idRubriqueEvaluation;
-    @JsonIgnore
+    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionEvaluation")
     private Collection<ReponseQuestion> reponseQuestionCollection;
 
@@ -166,6 +165,5 @@ public class QuestionEvaluation implements Serializable {
     @Override
     public String toString() {
         return "com.example.beans.QuestionEvaluation[ idQuestionEvaluation=" + idQuestionEvaluation + " ]";
-    }
-    
+    } 
 }

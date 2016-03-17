@@ -118,9 +118,9 @@
 			  title: "Voulez-vous vraiment supprimer ce qualificatif ?",      
 			  type: "warning",   
 			  showCancelButton: true,   
-			  confirmButtonColor: "#DD6B55",   
+			  confirmButtonColor: "#DD6B55",
 			  confirmButtonText: "Oui",  
-			  cancelButtonText: "Non",   
+			  cancelButtonText: "Non",
 			  closeOnConfirm: false,   closeOnCancel: false },
 			  function(isConfirm){
 				  if (isConfirm) {  

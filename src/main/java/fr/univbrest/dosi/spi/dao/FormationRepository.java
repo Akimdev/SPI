@@ -9,13 +9,14 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import fr.univbrest.dosi.spi.bean.Formation;
 
 /**
- * @author DOSI
+ * @author 
  *
  */
 @RepositoryRestResource(collectionResourceRel = "formation", path = "formation")
 public interface FormationRepository extends PagingAndSortingRepository<Formation, String> {
 
-	public Formation findByCodeFormation(@Param("codeFormation") String codeFormation);
+	@Override
+	public List<Formation> findAll();
 
-	public List<Formation> findByNomFormation(@Param("nomFormation") String nomFormation);
+	public Formation findByCodeFormation(@Param("codeFormation") String codeFormation);
 }

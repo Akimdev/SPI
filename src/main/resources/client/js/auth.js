@@ -91,7 +91,6 @@ angular.module('app.auth', [])
 							var elt = angular.element('.form-container');
 							$animate.addClass(elt, 'shake', function() {
 								$animate.removeClass(elt, 'shake');
-								
 							});
 						});
 					}

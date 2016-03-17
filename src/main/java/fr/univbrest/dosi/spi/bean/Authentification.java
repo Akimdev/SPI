@@ -65,11 +65,9 @@ public class Authentification implements Serializable {
     @Size(max = 32)
     @Column(name = "MOT_PASSE")
     private String motPasse;
-    @JsonIgnore
     @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
     @ManyToOne
     private Enseignant noEnseignant;
-    @JsonIgnore
     @JoinColumn(name = "NO_ETUDIANT", referencedColumnName = "NO_ETUDIANT")
     @ManyToOne
     private Etudiant noEtudiant;
@@ -167,5 +165,4 @@ public class Authentification implements Serializable {
     public String toString() {
         return "com.example.beans.Authentification[ idConnection=" + idConnection + " ]";
     }
-    
 }

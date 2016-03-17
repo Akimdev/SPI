@@ -19,6 +19,8 @@
 					<div class="caption">
 						<i class="icon-info"></i>Gestion des promotions
 					</div>
+					<div class="tools"><a class="remove" data-original-title title></a></div>
+					<div class="tools"><a class="collapse" data-original-title title></a></div>
 				</div>
 				<div class="portlet-body">
 					<p>Cette page permet la gestion de l'ensemble des promotions du d&eacute;partement informatique de l'UBO.</br>
@@ -57,7 +59,7 @@ Consulter les informations g&eacute;n&eacute;rales, la liste des &eacute;tudiant
 					<thead>
 						<tr>
 							<th><div class="th">
-									Ann&eacute;e Universitaire <span
+									Ann&eacute;e<span
 										class="glyphicon glyphicon-chevron-up"
 										data-ng-click=" order('anneeUniversitaire') "
 										data-ng-class="{active: row == 'anneeUniversitaire'}"></span>
@@ -66,13 +68,22 @@ Consulter les informations g&eacute;n&eacute;rales, la liste des &eacute;tudiant
 										data-ng-class="{active: row == '-anneeUniversitaire'}"></span>
 								</div></th>
 							<th><div class="th">
-									Code Formation <span class="glyphicon glyphicon-chevron-up"
+									Formation <span class="glyphicon glyphicon-chevron-up"
+
 										data-ng-click=" order('codeFormation') "
 										data-ng-class="{active: row == 'codeFormation'}"></span> <span
 										class="glyphicon glyphicon-chevron-down"
 										data-ng-click=" order('codeFormation') "
 										data-ng-class="{active: row == '-codeFormation'}"></span>
 								</div></th>
+							<th><div class="th">
+								Designation <span class="glyphicon glyphicon-chevron-up"
+									data-ng-click=" order('designationFormation') "
+									data-ng-class="{active: row == 'designationFormation'}"></span> <span
+									class="glyphicon glyphicon-chevron-down"
+									data-ng-click=" order('-designationFormation') "
+									data-ng-class="{active: row == '-designationFormation'}"></span>
+							</div></th>	
 							<th><div class="th">
 									Sigle <span class="glyphicon glyphicon-chevron-up"
 										data-ng-click=" order('siglePromotion') "
@@ -86,11 +97,13 @@ Consulter les informations g&eacute;n&eacute;rales, la liste des &eacute;tudiant
 					<tbody>
 						<!-- currentPagePromotion / promotions -->
 						<tr data-ng-repeat="p in currentPagePromotion" class="promotion">
-							<td ng-click="edit(p.promotionPK)">{{p.promotionPK.anneeUniversitaire}}</td>
-							<td ng-click="edit(p.promotionPK)">{{p.promotionPK.codeFormation}}</td>
-							<td ng-click="edit(p.promotionPK)">{{p.siglePromotion}}</td>
-							<td ng-click="edit(p.promotionPK)"><span class="glyphicon glyphicon-edit"></span></td>
-							<td ng-click="supprime(p.promotionPK)"><span class="glyphicon glyphicon-trash"></span></td>
+							<td ng-click="affiche(p.promotionPK)">{{p.promotionPK.anneeUniversitaire}}</td>
+							<td ng-click="affiche(p.promotionPK)">{{p.promotionPK.codeFormation}}</td>
+		 					<td ng-click="affiche(p.promotionPK)">{{p.designation}}</td>
+							<td ng-click="affiche(p.promotionPK)">{{p.siglePromotion}}</td>
+							<td><span ng-click="affiche(p.promotionPK)" class="eye fa fa-eye"></span></td>
+							<td><span ng-click="edit(p.promotionPK)" class="glyphicon glyphicon-edit" ></span></td>
+							<td><span class="glyphicon glyphicon-trash" ng-click="supprime(p.promotionPK)"></span></td>
 						</tr>
 					</tbody>
 				</table>
@@ -98,10 +111,10 @@ Consulter les informations g&eacute;n&eacute;rales, la liste des &eacute;tudiant
 				<footer class="table-footer">
 					<div class="row">
 						<div class="col-md-6 page-num-info">
-							<span> Show <select data-ng-model="numPerPage"
+							<span> Affichage <select data-ng-model="numPerPage"
 								data-ng-options="num for num in numPerPageOpt"
 								data-ng-change="onNumPerPageChange()">
-							</select> entries per page
+							</select> entr&eacute;es par page
 							</span>
 						</div>
 						<div class="col-md-6 text-right pagination-container">
