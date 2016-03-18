@@ -3,10 +3,11 @@ package fr.univbrest.dosi.spi.service;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import fr.univbrest.dosi.spi.bean.Enseignant;
-import fr.univbrest.dosi.spi.bean.Formation;
 import fr.univbrest.dosi.spi.bean.UniteEnseignement;
 import fr.univbrest.dosi.spi.dao.EnseignantRepository;
 import fr.univbrest.dosi.spi.exception.SPIException;
@@ -30,9 +31,6 @@ public class EnseignantService {
 	 * @return l'enseignant ajouter
 	 */
 	public final Enseignant addEnseignant(final Enseignant enseignant) {
-		if (enseignantRepository.exists(enseignant.getNoEnseignant())) {
-			throw new SPIException("l'enseignant que vous souhaitez ajouter existe déjà ");
-		}
 		return enseignantRepository.save(enseignant);
 	}
 
@@ -42,11 +40,17 @@ public class EnseignantService {
 	 *            l'id de l'enseignant
 	 */
 	public final void deleteEnseignant(final Integer noEnseignant) {
+		// enseignantRepository.delete(noEnseignant);
+		// return enseignantRepository.findAll();
 		if (enseignantRepository.exists(noEnseignant)) {
 			enseignantRepository.delete(noEnseignant);
 		} else {
 			throw new SPIException("Cant delete Enseignant");
 		}
+		/*
+		 * try { enseignantRepository.delete(noEnseignant); } catch (EmptyResultDataAccessException e1) { throw new SPIException("Il y a aucun enseignant avec ce numero", e1); } catch (Exception e) {
+		 * throw new SPIException("Cant delete Enseignant", e); }
+		 */
 	}
 
 	/**
@@ -64,6 +68,12 @@ public class EnseignantService {
 		}
 	}
 
+	/*
+	 * public Enseignant addEnseignant(Enseignant enseignant) { Boolean exist = enseignantRepository.exists(enseignant .getNoEnseignant()); if (exist) { throw new SPIException(
+	 * "l'enseignant que vous souhaitez ajouter exsite déja ");
+	 * 
+	 * } else { return enseignantRepository.save(enseignant); } }
+	 */
 	/**
 	 *
 	 * @param id
@@ -129,12 +139,13 @@ public class EnseignantService {
 			throw new SPIException("l'enseignant que vous souhaitez modifier n'exsite pas ");
 		}
 	}
-	
+
 	/**
 	 * Cette méthode retourne le nombre d'enseignants
+	 * 
 	 * @return nombre d'enseignants
 	 */
-	public int nombreEnseignants(){
+	public int nombreEnseignants() {
 		List<Enseignant> listeEnseignants = (List<Enseignant>) enseignantRepository.findAll();
 		return listeEnseignants.size();
 	}
@@ -142,18 +153,20 @@ public class EnseignantService {
 	/**
 	 * @author Othman
 	 * @param noEnseignant
-	 * @return 
+	 * @return
 	 * 
-	 * Cette méthode retourne une liste triée d'unités d'enseignement
+	 *         Cette méthode retourne une liste triée d'unités d'enseignement
 	 */
-	public List<UniteEnseignement> getUEByNoEnseignant(Integer noEnseignant){
+	public List<UniteEnseignement> getUEByNoEnseignant(Integer noEnseignant) {
 		Enseignant ens = enseignantRepository.findOne(noEnseignant);
-	List<UniteEnseignement> listeUEs =(List<UniteEnseignement>) ens.getUniteEnseignementCollection();
-	Collections.sort(listeUEs, new Comparator<UniteEnseignement>() {
-	        public int compare(final UniteEnseignement ue1, final UniteEnseignement ue2) {
-	            return (ue1.getUniteEnseignementPK().getCodeUe()).compareTo(ue2.getUniteEnseignementPK().getCodeUe());
-	        }
-	       });
+		List<UniteEnseignement> listeUEs = (List<UniteEnseignement>) ens.getUniteEnseignementCollection();
+		Collections.sort(listeUEs, new Comparator<UniteEnseignement>() {
+			@Override
+			public int compare(final UniteEnseignement ue1, final UniteEnseignement ue2) {
+				return (ue1.getUniteEnseignementPK().getCodeUe()).compareTo(ue2.getUniteEnseignementPK().getCodeUe());
+			}
+		});
 		return listeUEs;
 	}
+
 }

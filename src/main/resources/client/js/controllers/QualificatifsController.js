@@ -1,3 +1,4 @@
+var edit = false;
 (function() {
   'use strict';
 
@@ -106,13 +107,24 @@
     	}
      
       $scope.ajoutQualificatif = function(){
-        $location.path('/qualificatifs/nouveau'); 
+        $location.path('/qualificatifs/nouveau');
+        edit = true;
+        $scope.edit = edit;
       }
 
       $scope.edit = function(qualificatif){
         $location.path('/qualificatifs/' + qualificatif.idQualificatif);
+        edit = true;
+        $scope.edit = edit;
       }
-
+      
+    // Affiche les détails des qualificatifs
+  	$scope.afficheQualificatif = function(qualificatif){
+  		 $location.path('/qualificatifs/' + qualificatif.idQualificatif);
+         edit = false;
+         $scope.edit = edit;
+  	} 
+      
       $scope.supprime = function(qualificatif){
 		  swal({   
 			  title: "Voulez-vous vraiment supprimer ce qualificatif ?",      
@@ -145,14 +157,15 @@
   app.controller('QualificatifDetailsController', 
     ['$scope', '$stateParams','$http', '$location','$filter', 'qualificatifsFactory', 'toaster',
     function($scope, $stateParams , $http, $location,$filter, qualificatifsFactory , toaster){ 
-      
+
+      $scope.edit= edit; 
+    	
       if($stateParams.id == "nouveau"){
 			$scope.qualificatif= { };
 			var promisesFactory = qualificatifsFactory.getMaxIdQualificatif();
 			promisesFactory.success(function(data) {
 				$scope.qualificatif.idQualificatif = data +1;
-			});
-			$scope.edit= true;       
+			});      
       } else {
     	  	var promisesFactory = qualificatifsFactory.get($stateParams.id);
 	     	promisesFactory.success(function(data) {
@@ -163,7 +176,8 @@
       }      
       
       $scope.edition = function(){
-    	  $scope.edit = true;
+    	  edit = true;
+    	  $scope.edit = edit;
         }
 
         $scope.submit = function(){
@@ -196,7 +210,8 @@
 	                });
 				});
 	        	
-	        	$scope.edit = false;
+	            edit = false;
+	            $scope.edit = edit;
 	        }
         	$scope.refresh();
       }
@@ -211,7 +226,8 @@
           $location.path('/qualificatifs');
         } else {
         	$location.path('/qualificatifs/'+$stateParams.id);
-        	$scope.edit = false;
+            edit = false;
+            $scope.edit = edit;
         }
       } 
 
