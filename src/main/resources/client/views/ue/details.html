@@ -64,9 +64,10 @@
                 <div class="form-group">
                     <label for="" class="col-sm-2">Formation<span id="required-field">*</span></label>
                     <div class="col-sm-10">
-	                    <select ng-model="ue.uniteEnseignementPK.codeFormation" name="codeFormation" ng-disabled="!ajout">
+	                    <select ng-model="ue.uniteEnseignementPK.codeFormation" ng-show="ajout" name="codeFormation" ng-disabled="!ajout">
 							<option data-ng-repeat="f in formations" value="{{f.codeFormation}}">{{f.codeFormation}}</option>
 						</select>                        
+                        <input type="text" class="form-control" name="codeFormation" ng-disabled="!ajout" ng-show="!ajout" ng-model="ue.uniteEnseignementPK.codeFormation" >
                         <span style="color:red" ng-show="ueForm.codeFormation.$dirty && ueForm.codeFormation.$invalid">
 						<span ng-show="ueForm.codeFormation.$error.required">Champs obligatoire ou type invalide.</span>
                     </div> 
@@ -131,7 +132,7 @@
         </div>
         <br/>
         <div class="" ng-if="!edit">
-	        <table class="portlet light bordered table table-bordered table-striped table-responsive">
+	        <table class="portlet light bordered table table-bordered table-striped table-responsive" ng-show="filled">
 	            <thead>
 	                <tr>
 	                	<th><div class="th">

@@ -1,4 +1,4 @@
-var edit = true;
+var edit = false;
 (function() {
   'use strict';
 
@@ -144,7 +144,7 @@ var edit = true;
   app.controller('UEDetailsController', 
     ['$scope', '$stateParams', '$location', 'ueFactory', 'toaster',
     function($scope, $stateParams, $location, ueFactory, toaster){      
-    	edit = false;
+    	$scope.edit = edit;
     	
     	$scope.show = function(){
     		var uniteEnseignementPK = {
@@ -157,12 +157,17 @@ var edit = true;
          		$scope.ue = data;
          		$scope.ue.semestre = parseInt(data.semestre);
          		$scope.formations = [{
-         				"codeFormation" : $scope.ue.uniteEnseignementPK.codeFormation
+         				"codeFormation" : data.uniteEnseignementPK.codeFormation
          		}];
          		
          		var promiseEc = ueFactory.getEc(uniteEnseignementPK);
          		promiseEc.success(function(data) {
          			$scope.ec = data;
+         			if(data.length > 0)
+         				$scope.filled = true;
+         			else
+         				$scope.filled = false;
+         			
          			$scope.getEnseignants();
          		});
             });

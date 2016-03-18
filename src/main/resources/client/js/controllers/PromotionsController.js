@@ -193,108 +193,152 @@ var edit= false;
 
   app.controller('PromotionDetailsController',
     ['$scope', '$stateParams', '$location', '$filter', 'promotionsFactory', '$http',
-    function($scope, $stateParams, $location,$filter, promotionsFactory, $http){      
+    function($scope, $stateParams, $location,$filter, promotionsFactory, $http){     
+    	
     	$scope.edit= edit;
     	var initAjout= function(){
     		$scope.promotion= { };
+//    		$scope.enseignantSelected= null;
 	        $scope.ajout = true;
     	}
     	
     	var initEdition= function(){
     		var promoPK = {anneeUniversitaire:  $stateParams.ann, codeFormation: $stateParams.form};
     		//Recuperation de la promotion
-            var promise1= promotionsFactory.get(promoPK);
-            promise1.success(function(data3,statut){
-	        	data3.dateRentree = $filter('date')(data3.dateRentree, "dd/MM/yyyy");
-				$scope.promotion= data3;
-	            //Recuperation de l'enseignant responsable
-	            var promise3= promotionsFactory.getEnseignantResponsable(promoPK);
-		        promise3.success(function(data1,statut){
-		        	data1.nom= data1.nom.toUpperCase();
-		        	$scope.responsable = data1;
-		        	$scope.enseignantSelected= $scope.responsable;
-		        }).error(function(data1,statut){
-		      	  console.log("Impossible de recuperer l'enseignant resposable de la promotion");
-		        });
-				// Initialisation du processusStage dans le cas d'une consultation d'une promotion
-				for(var i=0; i< $scope.processusStage.length; i++){
-					if($scope.processusStage[i].rvAbbreviation == data3.processusStage) {
-						$scope.processusSignification= $scope.processusStage[i].rvMeaning;
-						$scope.processusStageSelected = $scope.processusStage[i];
-					}
-				}
-				
-				//Recuperation des etudiants  
-				var promise2= promotionsFactory.getEtudiants(promoPK);
-	            promise2.success(function(data,statut){
-	            	$scope.promotion.etudiantCollection = data ;
-	            }).error(function(data,statut){
-	          	  console.log("Impossible de recuperer les étudiants de la promotion choisie");
-	            });
-	        }).error(function(data3,statut){
-	      	  console.log("impossible de recuperer les details de la promotion choisie");
-	        });
+            return promotionsFactory.get(promoPK).then(
+            		function(data3,statut){
+        	        	data3.data.dateRentree = $filter('date')(data3.data.dateRentree, "dd/MM/yyyy");
+        				$scope.promotion= data3.data;
+        				// select la formation;
+        				for (var i=0; i < $scope.formations.length; i++) {
+        	        		if ($scope.formations[i].codeFormation == $scope.promotion.promotionPK.codeFormation) {
+        	        			$scope.formationSelected = $scope.formations[i];
+        	        			break;
+        	        		}
+        	        	}
+        				console.log("recup promo ok");
+        				
+        	            //Recuperation de l'enseignant responsable
+        	            return promotionsFactory.getEnseignantResponsable(promoPK);
+        	        },
+        	        function(data3,statut){
+        		      	  console.log("impossible de recuperer les details de la promotion choisie");
+    		        }
+            ).then(
+            		function(data1,statut){
+            			if(data1.data.nom)
+            				data1.data.nom= data1.data.nom.toUpperCase();
+    		        	$scope.responsable = data1.data;
+    		        	$scope.enseignantSelected= $scope.responsable;
+//    		        	for (var i=0; i < $scope.enseignants.length; i++) {
+//        	        		if ($scope.enseignants[i].noEnseignant == $scope.responsable.noEnseignant) {
+//        	        			$scope.enseignantSelected = $scope.enseignants[i];
+//        	        			break;
+//        	        		}
+//        	        	}
+    		        	// Initialisation du processusStage dans le cas d'une consultation d'une promotion
+        				for(var i=0; i< $scope.processusStage.length; i++){
+        					if($scope.processusStage[i].rvAbbreviation == $scope.promotion.processusStage) {
+        						$scope.processusSignification= $scope.processusStage[i].rvMeaning;
+        						$scope.processusStageSelected = $scope.processusStage[i];
+        					}
+        				}
+        				console.log("recup responsable ok");
+        				
+        				//Recuperation des etudiants  
+        				return promotionsFactory.getEtudiants(promoPK);
+    		        },function(data1,statut){
+      		      	  console.log("Impossible de recuperer l'enseignant resposable de la promotion");
+    		        }
+    		        
+            ).then(
+            		function(data,statut){
+    	            	$scope.promotion.etudiantCollection = data.data ;
+    	            	console.log("recup etu ok");
+    	            },
+    	            function(data,statut){
+      	          	  console.log("Impossible de recuperer les étudiants de la promotion choisie");
+      	            }
+            );
             $scope.ajout= true;
     	}
-    	$http.get('http://localhost:8090/getDomaine/PROCESSUS_STAGE')
-    	.success(function(data, status, headers, config) {
-    		$scope.processusStage= [];
-		    for(var i=0; i<data.length; i++){
-		    	$scope.processusStage[i]={};
-		    	$scope.processusStage[i].rvAbbreviation = data[i].rvAbbreviation;
-		    	$scope.processusStage[i].rvMeaning = data[i].rvMeaning;
-		    }
-		    // Récuperation des enseignants
-	        var promise1= promotionsFactory.getEnseignants();
-	        promise1.success(function(data1,statut){
-	        	for (var d=0; d<data1.length; d++)
-	        		data1[d].nom= data1[d].nom.toUpperCase();
-	        	$scope.enseignants= data1;
-	        }).error(function(data1,statut){
-	      	  console.log("Impossible de recuperer la liste des enseignants");
-	        });
-	        
-	        // Récuperation des formations
-	        var promise2= promotionsFactory.getFormations();
-	        promise2.success(function(data2,statut){
-	        	$scope.formations= data2;
-	        }).error(function(data2,statut){
-	      	  console.log("Impossible de recuperer la liste des formations");
-	        });
-		      // si creation d'une nouvelle promotion
-		      if($stateParams.ann == "nouveau"){
-		    	  initAjout();
-		      } else { // sinon on edite une promotion existante
-		    	  initEdition();
-		      }
-		      $scope.edit = edit;
-	    }).error(function(data, status, headers, config) {
-	      console.log("Impossible de récuperer le domaine PROCESSUS_STAGE");
-	    });
     	
+    	
+    	
+    	$http.get('http://localhost:8090/getDomaine/PROCESSUS_STAGE').then(
+    			function(data, status, headers, config) {
+    	    		$scope.processusStage= [];
+    			    for(var i=0; i<data.data.length; i++){
+    			    	$scope.processusStage[i]={};
+    			    	$scope.processusStage[i].rvAbbreviation = data.data[i].rvAbbreviation;
+    			    	$scope.processusStage[i].rvMeaning = data.data[i].rvMeaning;
+    			    }
+    			    console.log("recup process stage ok");
+    			    
+    			    // Récuperation des enseignants
+    		        return promotionsFactory.getEnseignants();
+    		    },
+    		    function(data, status, headers, config) {
+    			      console.log("Impossible de récuperer le domaine PROCESSUS_STAGE");
+			    }
+    		    
+    	).then(
+			    // Récuperation des enseignants
+    			function(data1,statut){
+		        	for (var d=0; d<data1.data.length; d++) {
+		        		if(data1.data[d].nom)
+            				data1.data[d].nom= data1.data[d].nom.toUpperCase();
+		        	}
+		        	$scope.enseignants= data1.data;
+		        	console.log("recup enseignants ok");
+		        	
+		        	return promotionsFactory.getFormations();
+		        },
+		        function(data1,statut){
+  		      	  console.log("Impossible de recuperer la liste des enseignants");
+  		        }
+		        
+    	).then(
+		        // Récuperation des formations
+    			function(data2,statut){
+		        	$scope.formations= data2.data;
+		        	console.log("recup formations ok");
+		        },
+		        function(data2,statut){
+  		      	  console.log("Impossible de recuperer la liste des formations");
+  		        }
+    	).then(
+    			function () {
+    				console.log("determination ajout/edit");
+    			// si creation d'une nouvelle promotion
+			      if($stateParams.ann == "nouveau"){
+			    	  initAjout();
+			      } else { // sinon on edite une promotion existante
+			    	  initEdition();
+			      }
+			      $scope.edit = edit;
+    			}
+    	);
 
       $scope.edition = function(){
 			
-			$scope.ajout= true;
+			$scope.ajout= false;
 			$scope.edit=edit=true;
-			console.log("$scope.enseignantSelected avnt: ", $scope.enseignantSelected);
-			console.log($scope.enseignantSelected);
-			console.log($scope.enseignants);
-			$scope.enseignantSelected= $scope.responsable;
-			console.log("$scope.enseignantSelected apres: ", $scope.enseignantSelected);
       }
       
       // valide le formulaire d'édition d'une promotion
       $scope.submit = function(){
     	  if($stateParams.ann == "nouveau"){
-    		  $scope.promotion.promotionPK.codeFormation= $scope.formationSelected;
+    		  $scope.promotion.promotionPK.codeFormation= $scope.formationSelected.codeFormation;
     		  if($scope.promotion.dateRentree) {
     			  var date = $scope.promotion.dateRentree.split('/');
     		      $scope.promotion.dateRentree = new Date(date[1] + '-' + date[0] + '-' + date[2]);  
     		  }
     		  if(!$scope.enseignantSelected) {
-    			  $scope.enseignantSelected = null;
+    			  $scope.enseignantSelected= {noEnseignant : null};
     		  }
+    		  console.log("promo :", $scope.promotion);
+    		  console.log("ensSelected :", $scope.enseignantSelected);
     		  var promise = promotionsFactory.add($scope.promotion, $scope.enseignantSelected.noEnseignant);
     		  promise.success(function(data){
     			  var promiseEnseignant = promotionsFactory.getEnseignantResponsable($scope.promotion.promotionPK);
@@ -309,6 +353,7 @@ var edit= false;
     		  });
     	  }
     	  else{ // modification
+    		  console.log("modification: ", $scope.promotion);
     		  if($scope.promotion.dateRentree) {
     			  var date = $scope.promotion.dateRentree.split('/');
     		      $scope.promotion.dateRentree = new Date(date[1] + '-' + date[0] + '-' + date[2]);  

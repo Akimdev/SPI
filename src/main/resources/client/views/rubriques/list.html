@@ -3,7 +3,7 @@
 <ul class="page-breadcrumb breadcrumb">
 	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
 	<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
-	<li><span class="active">rubriques</span></li>
+	<li><span class="active">Rubriques standards</span></li>
 </ul>
 <!-- -------------------------------------------END Navigation---------------------------------------- -->
 <!-- 
@@ -11,7 +11,7 @@
  -- Liste des Rubriques
  -->
 <div class="page page-table" data-ng-controller="RubriquesController">
-<!-- ---------------------------------------Note pour la gestion-------------------------------------- -->
+	<!-- ---------------------------------------Note pour la gestion-------------------------------------- -->
 	<div class="row">
 		<div class="col-md-12">
 			<div class="portlet box purple">
@@ -19,12 +19,19 @@
 					<div class="caption">
 						<i class="icon-info"></i>Gestion des rubriques standards
 					</div>
-					<div class="tools"><a class="remove" data-original-title title></a></div>
-					<div class="tools"><a class="collapse" data-original-title title></a></div>
+					<div class="tools">
+						<a class="remove" data-original-title title></a>
+					</div>
+					<div class="tools">
+						<a class="collapse" data-original-title title></a>
+					</div>
 				</div>
 				<div class="portlet-body">
-					<p>Cette page permet la gestion des rubriques standards.</br>
-					Consulter, mettre &agrave; jour, supprimer et ajouter les rubriques standards des &eacute;valuations.</p>
+					<p>
+						Cette page permet la gestion des rubriques standards.</br> Consulter,
+						mettre &agrave; jour, supprimer et ajouter les rubriques standards
+						des &eacute;valuations.
+					</p>
 				</div>
 			</div>
 		</div>
@@ -35,17 +42,17 @@
 		<div class="portlet-title">
 			<div class="caption">
 				<i class="icon-social-dribble font-red"></i> <span
-					class="cpation-subject font-red bold uppercase">Rubriques</span>
+					class="cpation-subject font-red bold uppercase">Rubriques Standards</span>
 			</div>
 			<div>
 				<!-- ------------------------Bouton ajouter--------------------------------------- -->
 				<button class="btn blue" ng-click="ajoutRubrique()">
-					Nouvelle rubrique<i class="fa fa-plus"></i>
+					Nouvelle rubrique standard<i class="fa fa-plus"></i>
 				</button>
 				<!-- -----------------------------Recherche--------------------------------------- -->
 				<div class="row">
 					<span style="float: right;" class="col-sm-4 col-xs-6"> <input
-						type="text" placeholder="search" class="form-control"
+						type="text" placeholder="Rechercher" class="form-control"
 						data-ng-model="searchKeywords" data-ng-keyup="search()">
 					</span>
 				</div>
@@ -54,10 +61,18 @@
 		<!----------------------------------------La table de liste ---------------------------------------->
 		<div class="portlet-body">
 			<table class="table-scrollable">
-				<table class="table table-hover">
+				<table class="table table-bordered table-striped table-hover" >
 					<thead>
 						<tr>
 							<th><div class="th">
+									Ordre <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('ordre') "
+										data-ng-class="{active: row == 'ordre'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-ordre') "
+										data-ng-class="{active: row == '-ordre'}"></span>
+								</div></th>
+						<th><div class="th">
 									Désignation <span class="glyphicon glyphicon-chevron-up"
 										data-ng-click=" order('designation') "
 										data-ng-class="{active: row == 'designation'}"></span> <span
@@ -65,31 +80,32 @@
 										data-ng-click=" order('-designation') "
 										data-ng-class="{active: row == '-designation'}"></span>
 								</div></th>
-
-							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-				<tr data-ng-repeat="e in currentPageRubrique| orderBy:'designation'" class="rubrique">
-					<td ng-click="show(e.idRubrique)">{{e.designation}}</td>
-					<td ng-click="edit(e.idRubrique)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td>
-					<td ng-click="supprime(e.idRubrique)" class="icon-list"><span class="remove fa fa-trash" ></span></td>
-				</tr>
-			</tbody>
+						<tr
+							data-ng-repeat="e in currentPageRubrique| orderBy:'ordre'" class="rubrique" style="cursor:pointer">
+							<td ng-click="show(e.idRubrique)">{{e.ordre}}</td>
+							<td ng-click="show(e.idRubrique)">{{e.designation}}</td>
+							<td id="iconGestion" ng-click="show(e.idRubrique)"><span class="fa fa-eye"></span></td>
+							<td id="iconGestion" ng-click="edit(e.idRubrique)"><span class="glyphicon glyphicon-edit"></span></td>
+							<td id="iconGestion" ng-click="supprime(e.idRubrique)"><span class="glyphicon glyphicon-trash"></span></td>
+						</tr>
+					</tbody>
 				</table>
 				<!-- -------------------------------Footer ----------------------- -->
 				<footer class="table-footer">
 					<div class="row">
 						<div class="col-md-6 page-num-info">
-							<span> Show <select data-ng-model="numPerPage"
+							<span> Afficher <select data-ng-model="numPerPage"
 								data-ng-options="num for num in numPerPageOpt"
 								data-ng-change="onNumPerPageChange()">
-							</select> entries per page
+							</select> par page
 							</span>
 						</div>
 						<div class="col-md-6 text-right pagination-container">
 							<pagination class="pagination-sm" ng-model="currentPage"
-								total-items="filteredQualificatif.length" max-size="4"
+								total-items="filteredRubrique.length" max-size="4"
 								ng-change="select(currentPage)" items-per-page="numPerPage"
 								rotate="false" boundary-links="true"></pagination>
 						</div>

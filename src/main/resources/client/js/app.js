@@ -2,7 +2,7 @@
  * @Author Zouhair Je
  ******************************************************************************/
 
-var app = angular.module("app", [ 'ngRoute',"ui.router", "ui.bootstrap", "oc.lazyLoad",'app.controllers','app.ec',
+var app = angular.module("app", [ 'ngRoute',"ui.router", "ui.bootstrap", "oc.lazyLoad",'app.controllers','app.ec', 'app.configEvaluation',
 		"ngSanitize", 'app.enseignants', 'app.formations', 'app.ue','ngAnimate','toaster', 'app.task',
 		'app.etudiants', 'app.qualificatifs', 'app.questions','app.evaluations', 'app.rubriques', 'easypiechart',
 		'app.form.validation','app.ui.form.ctrls','app.chart.ctrls', 'app.chart.directives',
@@ -940,7 +940,89 @@ app
 							.state(
 									'detailsec',
 									{
-										url : "/elementConstitutif/infos/:id/:id2/:id3",
+										url : "/elementConstitutif/:infos/:id/:id2/:id3",
+										templateUrl : "views/elementConstitutif/detail.html",
+										data : {
+											pageTitle : 'Détails des EC',
+											pageSubTitle : 'Détails des EC'
+										},
+										controller : "EcDetailsController",
+										resolve : {
+											deps : [
+													'$ocLazyLoad',
+													function($ocLazyLoad) {
+														return $ocLazyLoad
+																.load({
+																	name : 'app',
+																	insertBefore : '#ng_load_plugins_before', // load
+																												// the
+																												// above
+																												// css
+																												// files
+																												// before
+																												// '#ng_load_plugins_before'
+																	files : [
+																			'assets/global/plugins/morris/morris.css',
+																			'assets/admin/pages/css/tasks.css',
+
+																			'assets/global/plugins/morris/morris.min.js',
+																			'assets/global/plugins/morris/raphael-min.js',
+																			'assets/global/plugins/jquery.sparkline.min.js',
+
+																			'assets/admin/pages/scripts/index3.js',
+																			'assets/admin/pages/scripts/tasks.js',
+
+																			'js/controllers/EcController.js' ]
+																});
+													} ]
+										}
+									})
+									// EC détaillée
+							.state(
+									'detailsec2',
+									{
+										url : "/elementConstitutif/:id/:id2/:id3",
+										templateUrl : "views/elementConstitutif/detail.html",
+										data : {
+											pageTitle : 'Détails des EC',
+											pageSubTitle : 'Détails des EC'
+										},
+										controller : "EcDetailsController",
+										resolve : {
+											deps : [
+													'$ocLazyLoad',
+													function($ocLazyLoad) {
+														return $ocLazyLoad
+																.load({
+																	name : 'app',
+																	insertBefore : '#ng_load_plugins_before', // load
+																												// the
+																												// above
+																												// css
+																												// files
+																												// before
+																												// '#ng_load_plugins_before'
+																	files : [
+																			'assets/global/plugins/morris/morris.css',
+																			'assets/admin/pages/css/tasks.css',
+
+																			'assets/global/plugins/morris/morris.min.js',
+																			'assets/global/plugins/morris/raphael-min.js',
+																			'assets/global/plugins/jquery.sparkline.min.js',
+
+																			'assets/admin/pages/scripts/index3.js',
+																			'assets/admin/pages/scripts/tasks.js',
+
+																			'js/controllers/EcController.js' ]
+																});
+													} ]
+										}
+									})
+									// EC détaillée
+							.state(
+									'detailsec3',
+									{
+										url : "/elementConstitutif/:new",
 										templateUrl : "views/elementConstitutif/detail.html",
 										data : {
 											pageTitle : 'Détails des EC',
@@ -1503,6 +1585,48 @@ app
 													} ]
 										}
 									})
+									
+									// Configurer evaluation
+									.state(
+											'configEvaluation',
+											{
+												url : "/evaluation/config/:id",
+												templateUrl : "views/evaluations/config.html",
+												data : {
+													pageTitle : 'Configurer Evaluation',
+													pageSubTitle : ''
+												},
+												controller : "ConfigEvaluationController",
+												resolve : {
+													deps : [
+													        '$ocLazyLoad',
+													        function($ocLazyLoad) {
+													        	return $ocLazyLoad
+													        	.load({
+													        		name : 'app',
+													        		insertBefore : '#ng_load_plugins_before', // load
+													        		// the
+													        		// above
+													        		// css
+													        		// files
+													        		// before
+													        		// '#ng_load_plugins_before'
+													        		files : [
+													        		         'assets/global/plugins/morris/morris.css',
+													        		         'assets/admin/pages/css/tasks.css',
+													        		         
+													        		         'assets/global/plugins/morris/morris.min.js',
+													        		         'assets/global/plugins/morris/raphael-min.js',
+													        		         'assets/global/plugins/jquery.sparkline.min.js',
+													        		         
+													        		         'assets/admin/pages/scripts/index3.js',
+													        		         'assets/admin/pages/scripts/tasks.js',
+													        		         
+													        		         'js/controllers/EnseignantsController.js' ]
+													        	});
+													        } ]
+												}
+											})
 									
 							// Liste detaillée des Enseignants
 							.state(

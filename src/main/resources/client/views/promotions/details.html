@@ -142,7 +142,7 @@
 								ng-selected="{{e.noEnseignant == responsable.noEnseignant}}">
 								{{e.nom}} {{e.prenom}}</option>
 					</select> -->
-					<select name="listeEnseignants" ng-model="enseignantSelected" ng-options="e.ens as (e.nom +' '+ e.prenom) for e in enseignants"></select>
+					<select name="listeEnseignants" ng-model="enseignantSelected" ng-options="e.ens as (e.nom +' '+ e.prenom) for e in enseignants"/>
 				</div>
 			</div>	
 			<div class="form-group">
