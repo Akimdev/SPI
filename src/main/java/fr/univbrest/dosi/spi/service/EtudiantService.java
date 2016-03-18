@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.univbrest.dosi.spi.bean.Etudiant;
+import fr.univbrest.dosi.spi.bean.Promotion;
 import fr.univbrest.dosi.spi.bean.PromotionPK;
 import fr.univbrest.dosi.spi.dao.EtudiantRepository;
 import fr.univbrest.dosi.spi.exception.SPIException;
@@ -70,4 +71,6 @@ public class EtudiantService {
 		return etudiantRepository.findAll();
 
 	}
+	
+	
 }
