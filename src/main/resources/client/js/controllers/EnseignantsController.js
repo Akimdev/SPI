@@ -1,3 +1,6 @@
+/*
+ * @author ASSABBAR Soukaina
+ */
 (function() {
   'use strict';
 
@@ -69,54 +72,68 @@
     	  return  $http.get('http://localhost:8090/getens/'+noEnseignant);
     	  
    	  },
-      set: function(enseignant) {
-        var idx = enseignant.noEnseignant;
-        // si modification d'un enseignant existant
-        if(idx){
-          // TODO alimenter l'objet enseignant trouvé
-        	console.log("TODO : update enseignant",idx);
-        	//list.removeValue("no_enseignant",enseignant.no_enseignant);
-        	//return list.push(enseignant);
-        	
-        	var newEnseignant = {
-          		      "noEnseignant" : idx,
-         			  "nom" : enseignant.nom,
-         			  "prenom" : enseignant.prenom,
-         			  "type" : enseignant.type,
-         			  "sexe" : enseignant.sexe,
-         			  "adresse" : enseignant.adresse,
-         			  "codePostal" : enseignant.codePostal,
-         			  "ville" : enseignant.ville,
-         			  "pays" : enseignant.pays,
-         			  "mobile" : enseignant.mobile,
-         			  "telephone" : enseignant.telephone,
-         			  "emailPerso" : enseignant.emailPerso,
-         			  "emailUbo" : enseignant.emailUbo,
-         		  };      	  
-  	        	$http.post('http://localhost:8090/updateEnseignant',newEnseignant);
-        } else { // si ajout d'un nouvel enseignant
-          // TODO ajouter un enseignant à la liste
-        	
-        	  var newEnseignant = {
-        		  "noEnseignant" : "8",
-       			  "nom" : enseignant.nom,
-       			  "prenom" : enseignant.prenom,
-       			  "type" : enseignant.type,
-       			  "sexe" : enseignant.sexe,
-       			  "adresse" : enseignant.adresse,
-       			  "codePostal" : enseignant.codePostal,
-       			  "ville" : enseignant.ville,
-       			  "pays" : enseignant.pays,
-       			  "mobile" : enseignant.mobile,
-       			  "telephone" : enseignant.telephone,
-       			  "emailPerso" : enseignant.emailPerso,
-       			  "emailUbo" : enseignant.emailUbo,
-       		  };      	  
-	        	$http.post('http://localhost:8090/ajouterEnseignant',newEnseignant);
-        	
-        	//return list.push(enseignant);
-        }
-      },
+   	  
+   	//ajout d'une nouvel enseignant
+     	add: function(enseignant) {
+    	  return $http.post('http://localhost:8090/ajouterEnseignant', enseignant);
+     	},
+     	
+    	set: function(enseignant) {
+    	  	  return $http({
+    	  		  method: 'POST',
+    	  		  url: 'http://localhost:8090/updateEnseignant',
+    	  		  data: enseignant,
+    	  		  headers:{ 'Content-Type' : 'application/json'}
+    	  	  });
+    	    },
+//      set: function(enseignant) {
+//        var idx = enseignant.noEnseignant;
+//        // si modification d'un enseignant existant
+//        if(idx){
+//          // TODO alimenter l'objet enseignant trouvé
+//        	console.log("TODO : update enseignant",idx);
+//        	//list.removeValue("no_enseignant",enseignant.no_enseignant);
+//        	//return list.push(enseignant);
+//        	
+//        	var newEnseignant = {
+//          		      "noEnseignant" : idx,
+//         			  "nom" : enseignant.nom,
+//         			  "prenom" : enseignant.prenom,
+//         			  "type" : enseignant.type,
+//         			  "sexe" : enseignant.sexe,
+//         			  "adresse" : enseignant.adresse,
+//         			  "codePostal" : enseignant.codePostal,
+//         			  "ville" : enseignant.ville,
+//         			  "pays" : enseignant.pays,
+//         			  "mobile" : enseignant.mobile,
+//         			  "telephone" : enseignant.telephone,
+//         			  "emailPerso" : enseignant.emailPerso,
+//         			  "emailUbo" : enseignant.emailUbo,
+//         		  };      	  
+//  	        	$http.post('http://localhost:8090/updateEnseignant',newEnseignant);
+//        } else { // si ajout d'un nouvel enseignant
+//          // TODO ajouter un enseignant à la liste
+//        	
+//        	  var newEnseignant = {
+//        		  "noEnseignant" : "8",
+//       			  "nom" : enseignant.nom,
+//       			  "prenom" : enseignant.prenom,
+//       			  "type" : enseignant.type,
+//       			  "sexe" : enseignant.sexe,
+//       			  "adresse" : enseignant.adresse,
+//       			  "codePostal" : enseignant.codePostal,
+//       			  "ville" : enseignant.ville,
+//       			  "pays" : enseignant.pays,
+//       			  "mobile" : enseignant.mobile,
+//       			  "telephone" : enseignant.telephone,
+//       			  "emailPerso" : enseignant.emailPerso,
+//       			  "emailUbo" : enseignant.emailUbo,
+//       		  };      	  
+//	        	$http.post('http://localhost:8090/ajouterEnseignant',newEnseignant);
+//        	
+//        	//return list.push(enseignant);
+//        }
+//      },
       delete: function(noEnseignant) { 
         // TODO Supprimer 
     	  console.log("TODO : supprimer enseignant",noEnseignant);
@@ -124,7 +141,7 @@
     	  //list.removeValue("no_enseignant",enseignant.no_enseignant);
     	  //return list;
       },
-getDomain : function(){
+      getDomain : function(){
     	  return $http.get("http://localhost:8090/getDomaine/TYPE_ENSEIGNANT");
       },
       getPays : function(){
@@ -236,31 +253,32 @@ getDomain : function(){
 			  type: "warning",   
 			  showCancelButton: true,   
 			  confirmButtonColor: "#DD6B55",   
-			  confirmButtonText: "Oui, je veux le supprimer!",  
-			  cancelButtonText: "Non, ignorer!",   
+			  confirmButtonText: "OUI",  
+			  cancelButtonText: "NON",   
 			  closeOnConfirm: false,   closeOnCancel: false },
 			  function(isConfirm){
 				  if (isConfirm) {  
 					  var promise= enseignantsFactory.delete(noEnseignant);
-					  promise.success(function(data,statut){
+					  promise.success(function(data,statut, headers, config){
 						$scope.refresh();
 						$scope.currentPageEnseignant.removeValue("noEnseignant",noEnseignant);
 						swal("Supprimé!", "l'enseignant est supprimé", "success");
 					});
-					  promise.error(function(data,statut){
-			    		  swal("Erreur!", "vous pouvez pas supprimer cet enseignant", "error");
+					  promise.error(function(data,statut, headers, config){
+			    		  swal("Erreur!", "Impossiple de supprimer l'enseignant choisi car il est déja réfferencié", "error");
 			  		});	
 					  } else {     
-						  swal("Ignorer", "", "error");
+						  swal("Annulé", "", "error");
 						  }
 				  });  
       }
+      //$scope.refresh();
     }]
   );
 
   app.controller('EnsDetailsController', 
-    ['$scope', '$stateParams', '$location', 'enseignantsFactory',
-    function($scope, $stateParams, $location, enseignantsFactory){      
+    ['$scope', '$stateParams','$http', '$location','$filter', 'enseignantsFactory','toaster',
+    function($scope, $stateParams , $http, $location, $filter, enseignantsFactory, toaster){      
       $scope.edit= false;    
 
       // si creation d'un nouvel enseignant
@@ -268,7 +286,6 @@ getDomain : function(){
         $scope.enseignant= { };
         $scope.edit= true;    
       } else { // sinon on edite un enseignant existant
-    	  
         var promise = enseignantsFactory.get($stateParams.id);
         promise.success(function(data){
       	  $scope.enseignant = data ;
@@ -316,18 +333,73 @@ getDomain : function(){
 			 $scope.error = 'unable to get the poneys';
 		  }
 		);*/
-      }
-
-      $scope.edition = function(){
+   var promise3= enseignantsFactory.getDomain();
+      promise3.success(function(data,statut){
+      	$scope.types= data;
+      	console.log("\tTypes récupérés: ", data);
+      })
+      .error(function(data,statut){
+    	  console.log("impossible de recuperer la liste des types");
+      });
+	var promisePays= enseignantsFactory.getPays();
+		promisePays.success(function(data,statut){
+      	$scope.payss= data;
+      	console.log("\tPays récupérés: ", data);
+      })
+      .error(function(data,statut){
+    	  console.log("impossible de recuperer la liste des pays");
+      });
+    $scope.edition = function(){
         $scope.edit = true;
       }
 
       // valide le formulaire d'édition d'un enseignant
-      $scope.submit = function(){    	 
+      $scope.submit = function(){ 
+	  	$scope.enseignant.type= $scope.typeSelected;
+    	$scope.enseignant.pays= $scope.paysSelected;   	 
         enseignantsFactory.set($scope.enseignant);        
         $scope.edit = false;        
       }
-
+$scope.submit = function(){
+    	  $scope.enseignant.type= $scope.typeSelected;
+    	  $scope.enseignant.pays= $scope.paysSelected;
+		if($stateParams.id == "nouveau"){
+	        	var promisesajout = enseignantsFactory.add($scope.enseignant);
+	        	console.log($scope.enseignant);
+	        	promisesajout.success(function(data, status, headers, config) {
+	        		swal("Félicitation!", "Le nouveau enseignant est ajouté!", "success");
+				});
+	        	promisesajout.error(function(data, status, headers, config) {
+	        		toaster.pop({
+	                    type: 'error',
+	                    title: 'Insertion ou modification impossible. noEnseignant déjà	 existant',
+	                    positionClass: 'toast-bottom-right',
+	                    showCloseButton: true
+	                });
+				});
+	        	$location.path('/admin/enseignants');
+								        }
+			 else{ // modification
+	        	var promisesajout = enseignantsFactory.set($scope.enseignant);
+	        	promisesajout.success(function(data, status, headers, config) {
+	        		swal("Félicitation!", "Enseignant modifié!", "success");
+				});
+	        	promisesajout.error(function(data, status, headers, config) {
+	        		toaster.pop({
+	                    type: 'error',
+	                    title: 'Modification echouée',
+	                    positionClass: 'toast-bottom-right',
+	                    showCloseButton: true
+	                });
+				});
+	        	
+	        	$scope.edit = false;
+	        }
+    }
+      $scope.edition = function(){
+          $scope.edit = true;
+          $scope.button_clicked = true;
+        }
       // annule l'édition
       $scope.cancel = function(){
         if(!$scope.enseignant.noEnseignant){

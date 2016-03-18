@@ -86,11 +86,17 @@
 							<!-- currentPageEnseignant / enseignants -->
 							<tr data-ng-repeat="e in currentPageEnseignant"
 								class="enseignant">
-								<td ng-click="edit(e.noEnseignant)">{{e.nom}}</td>
-								<td ng-click="edit(e.noEnseignant)">{{e.prenom}}</td>
+								<!--<td ng-click="edit(e.noEnseignant)">{{e.nom}}</td>
+								 <td ng-click="edit(e.noEnseignant)">{{e.prenom}}</td>
 								<td ng-click="edit(e.noEnseignant)">{{e.emailUbo}}</td>
 								<td ng-click="edit(e.noEnseignant)"><span class="glyphicon glyphicon-edit"></span></td>
-								<td ng-click="supprime(e.noEnseignant)"><span class="glyphicon glyphicon-trash"></span></td>
+								<td ng-click="supprime(e.noEnseignant)"><span class="glyphicon glyphicon-trash"></span></td> -->
+								<td ng-click="affiche(e.noEnseignant)">{{e.nom}}</td>
+                    <td ng-click="affiche(e.noEnseignant)">{{e.prenom}}</td>
+                    <td ng-click="affiche(e.noEnseignant)">{{e.emailUbo}}</td>
+                    <td><span ng-click="affiche(e.noEnseignant)" class="eye fa fa-eye"></span></td>
+                    <td ng-click="edit(e.noEnseignant)" class="icon-list"><span class="glyphicon glyphicon-edit" ></span></td>
+                    <td ng-click="supprime(e.noEnseignant)" class="icon-list"><span class="glyphicon glyphicon-trash" ></span></td>
 							</tr>
 						</tbody>
 					</table>
