@@ -70,7 +70,7 @@
 								</div></th>
 							<th><div class="th">
 
-									Code Formation <span class="glyphicon glyphicon-chevron-up"
+									Formation <span class="glyphicon glyphicon-chevron-up"
 										data-ng-click=" order('codeFormation') "
 										data-ng-class="{active: row == 'codeFormation'}"></span> <span
 										class="glyphicon glyphicon-chevron-down"
@@ -78,7 +78,7 @@
 										data-ng-class="{active: row == '-codeFormation'}"></span>
 								</div></th>
 							<th><div class="th">
-									Ann&eacute;e Universitaire <span
+									Ann&eacute;e <span
 										class="glyphicon glyphicon-chevron-up"
 										data-ng-click=" order('anneeUniversitaire') "
 										data-ng-class="{active: row == 'anneeUniversitaire'}"></span>
@@ -87,7 +87,7 @@
 										data-ng-class="{active: row == '-anneeUniversitaire'}"></span>
 								</div></th>
 							<th><div class="th">
-									Code UE <span class="glyphicon glyphicon-chevron-up"
+									UE <span class="glyphicon glyphicon-chevron-up"
 										data-ng-click=" order('codeUE') "
 										data-ng-class="{active: row == 'codeUE'}"></span> <span
 										class="glyphicon glyphicon-chevron-down"
@@ -103,7 +103,7 @@
 										data-ng-class="{active: row == '-etat'}"></span>
 								</div></th>
 							<th><div class="th">
-									Enseignant <span class="glyphicon glyphicon-chevron-up"
+									D&eacute;but <span class="glyphicon glyphicon-chevron-up"
 										data-ng-click=" order('periode') "
 										data-ng-class="{active: row == 'periode'}"></span> <span
 										class="glyphicon glyphicon-chevron-down"
@@ -111,15 +111,7 @@
 										data-ng-class="{active: row == '-periode'}"></span>
 								</div></th>
 							<th><div class="th">
-									D&eacute;but r&eacute;ponse <span class="glyphicon glyphicon-chevron-up"
-										data-ng-click=" order('periode') "
-										data-ng-class="{active: row == 'periode'}"></span> <span
-										class="glyphicon glyphicon-chevron-down"
-										data-ng-click=" order('-periode') "
-										data-ng-class="{active: row == '-periode'}"></span>
-								</div></th>
-							<th><div class="th">
-									Fin r&eacute;ponse <span class="glyphicon glyphicon-chevron-up"
+									Fin <span class="glyphicon glyphicon-chevron-up"
 										data-ng-click=" order('periode') "
 										data-ng-class="{active: row == 'periode'}"></span> <span
 										class="glyphicon glyphicon-chevron-down"
@@ -131,14 +123,12 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr data-ng-repeat="e in evaluations" class="evaluation">
+						<tr data-ng-repeat="e in evaluations| orderBy:'anneeUniversitaire'" class="evaluation">
 							<td ng-click="edit(e.idEvaluation)">{{e.designation}}</td>
 							<td ng-click="edit(e.codeFormation)">{{e.code_formation}}</td>
 							<td ng-click="edit(e.idEvaluation)">{{e.annee}}</td>
 							<td ng-click="edit(e.idEvaluation)">{{e.code_ue}}</td>
 							<td ng-click="edit(e.idEvaluation)">{{e.etat}}</td>
-							<td ng-click="edit(e.idEvaluation)">{{e.noEnseignant.nom}}
-								{{e.noEnseignant.prenom}}</td>
 							<td ng-click="edit(e.idEvaluation)">{{e.debutReponse}}</td>
 							<td ng-click="edit(e.idEvaluation)">{{e.finReponse}}</td>
 							<!-- <td ng-click="edit(e)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td> -->

@@ -851,9 +851,9 @@ app
 							
 							// UE détaillée
 							.state(
-									'detailsue',
+									'detailsUE',
 									{
-										url : "/ue/:id",
+										url : "/ue/:codeFormation/:codeUe",
 										templateUrl : "views/ue/details.html",
 										data : {
 											pageTitle : 'Détails des UE',
@@ -937,7 +937,7 @@ app
 							.state(
 									'detailsec',
 									{
-										url : "/elementConstitutif/:new",
+										url : "/elementConstitutif/infos/:id/:id2/:id3",
 										templateUrl : "views/elementConstitutif/detail.html",
 										data : {
 											pageTitle : 'Détails des EC',
@@ -1379,11 +1379,53 @@ app
 							.state(
 									'detailsrubriques',
 									{
-										url : "/rubriques/:id",
+										url : "/rubrique/:id",
 										templateUrl : "views/rubriques/details.html",
 										data : {
 											pageTitle : 'Details des rubriques',
 											pageSubTitle : 'Details des rubriques'
+										},
+										controller : "RubriqueDetailsController",
+										resolve : {
+											deps : [
+													'$ocLazyLoad',
+													function($ocLazyLoad) {
+														return $ocLazyLoad
+																.load({
+																	name : 'app',
+																	insertBefore : '#ng_load_plugins_before', // load
+																												// the
+																												// above
+																												// css
+																												// files
+																												// before
+																												// '#ng_load_plugins_before'
+																	files : [
+																			'assets/global/plugins/morris/morris.css',
+																			'assets/admin/pages/css/tasks.css',
+
+																			'assets/global/plugins/morris/morris.min.js',
+																			'assets/global/plugins/morris/raphael-min.js',
+																			'assets/global/plugins/jquery.sparkline.min.js',
+
+																			'assets/admin/pages/scripts/index3.js',
+																			'assets/admin/pages/scripts/tasks.js',
+
+																			'js/controllers/RubriquesController.js' ]
+																});
+													} ]
+										}
+									})
+									
+							// Edit Rubriques
+							.state(
+									'editrubriques',
+									{
+										url : "/rubrique/:id/edit",
+										templateUrl : "views/rubriques/edit.html",
+										data : {
+											pageTitle : 'Edition des rubriques',
+											pageSubTitle : 'Edition des rubriques'
 										},
 										controller : "RubriqueDetailsController",
 										resolve : {
