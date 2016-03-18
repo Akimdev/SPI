@@ -26,8 +26,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -143,6 +143,7 @@ public class Etudiant implements Serializable {
     private Collection<Authentification> authentificationCollection;
     @OneToMany(mappedBy = "noEtudiant")
     private Collection<ReponseEvaluation> reponseEvaluationCollection;
+    @JsonIgnore
     @JoinColumns({
         @JoinColumn(name = "ANNEE_UNIVERSITAIRE", referencedColumnName = "ANNEE_UNIVERSITAIRE"),
         @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION")})
