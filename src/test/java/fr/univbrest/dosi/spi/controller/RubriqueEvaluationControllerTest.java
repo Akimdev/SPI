@@ -24,14 +24,10 @@ import fr.univbrest.dosi.spi.bean.Evaluation;
 import fr.univbrest.dosi.spi.bean.Rubrique;
 import fr.univbrest.dosi.spi.bean.RubriqueEvaluation;
 import fr.univbrest.dosi.spi.bean.utils.RubriqueEvaluationUtil;
-import fr.univbrest.dosi.spi.service.EvaluationService;
-import fr.univbrest.dosi.spi.service.RubriqueService;
 
 public class RubriqueEvaluationControllerTest {
 
-	RubriqueService rebriqueService;
 	
-	EvaluationService evaluationService;
 
 	@Test
 	public final void addRubriqueEvaluationTest() throws ClientProtocolException, IOException {
