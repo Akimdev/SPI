@@ -145,7 +145,7 @@
         	        	swal("Erreur!", "vous ne pouvez pas supprimer ce rubrique", "error");
 			  		});	
 					  }else {     
-						  swal("Ignorer", "", "error");
+						  swal("Annulé", "", "error");
 						  }
 				  });  
       }
@@ -197,6 +197,7 @@
    		var promise = rubriquesFactory.add($scope.rubrique);
      	promise.success(function(data,statut){
      		swal("Félicitation!", "La nouvelle rubrique est ajoutée!", "success");
+     		history.back();
         })
         .error(function(data,statut){
         	swal("Erreur!", "Impossible d'ajouter la rubrique", "error");
@@ -206,6 +207,7 @@
    		var promise = rubriquesFactory.set($scope.rubrique);
      	promise.success(function(data,statut){
      		swal("Félicitation!", "La rubrique a été modifiée", "success");
+     		history.back();
         })
         .error(function(data,statut){
         	swal("Erreur!", "Impossible de modifier la rubrique", "error");
