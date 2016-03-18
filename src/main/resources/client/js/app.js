@@ -851,9 +851,9 @@ app
 							
 							// UE détaillée
 							.state(
-									'detailsue',
+									'detailsUE',
 									{
-										url : "/ue/:id",
+										url : "/ue/:codeFormation/:codeUe",
 										templateUrl : "views/ue/details.html",
 										data : {
 											pageTitle : 'Détails des UE',
@@ -937,7 +937,7 @@ app
 							.state(
 									'detailsec',
 									{
-										url : "/elementConstitutif/:new",
+										url : "/elementConstitutif/infos/:id/:id2/:id3",
 										templateUrl : "views/elementConstitutif/detail.html",
 										data : {
 											pageTitle : 'Détails des EC',

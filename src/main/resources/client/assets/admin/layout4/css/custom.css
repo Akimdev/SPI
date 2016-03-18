@@ -719,6 +719,23 @@ body,input,select,td,textarea {
 	text-align: center;
 }
 
+.searchResult{
+	background: #0079BF;
+	color: white;
+	border: 3px solid #ddd;
+	text-align: center;
+	font-weight: normal !important;
+}
+
+#required-field{
+	font-weight: bold;
+	color: red;
+}
+
+label{
+	font-weight: bold;
+}
+
 ::-webkit-scrollbar {width: 12px;}
 ::-webkit-scrollbar-track { background-color: #eaeaea; border-left: 1px solid #ccc; }
 ::-webkit-scrollbar-thumb { background-color: #ccc; } ‘

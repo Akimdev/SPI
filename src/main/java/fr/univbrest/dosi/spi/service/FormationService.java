@@ -38,6 +38,20 @@ public class FormationService {
 		else
 			throw new SPIException("Le Code Formation existe déjà dans la BD !");
 	}
+	/**
+	 * @author Othman
+	 * 
+	 * 		Modification d'une formation existante
+	 * @param formation
+	 * 			: la formation à modifier
+	 */
+	public void updateFormation(Formation formation) {
+		if (!formationRepository.exists(formation.getCodeFormation()))
+			throw new SPIException("Le Code Formation n'existe pas dans la BD !");
+		else{
+		formationRepository.save(formation);
+		}
+	}
 
 	public List<Formation> findAll() {
 		List<Formation> list = (List<Formation>) formationRepository.findAll();

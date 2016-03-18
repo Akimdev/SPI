@@ -61,20 +61,20 @@ angular.module('app.auth', [])
 								//Gérer les roles des utilisateurs
 								role = data.role;
 								//Pour enseignant
-								$rootScope.user = data.role;
+								$rootScope.user = data.role;								
 								console.log(":" + data.role + ":");
 								if(role === "ENS"){
-									console.log("Enseignant connecté !");
+									// récuperer le nom et le sexe de l'enseignant connecter 
+									$rootScope.nameUser = data.noEnseignant.prenom;
+									$rootScope.sexeUser = data.noEnseignant.sexe;
 										$location.path('/');
 								}
 								//Pour administrateur
 								else if(role === "ADM"){
-									console.log("Administrateur connecté !");
 									$location.path('/');
 								}
 								//Pour étudiant
 								else if(role === "ETU"){
-									console.log("Etudiant connecté !");
 									//$location.path('/');
 								}
 								//Pour Secrétariat

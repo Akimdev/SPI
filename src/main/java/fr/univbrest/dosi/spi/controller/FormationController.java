@@ -31,6 +31,17 @@ public class FormationController {
 	public @ResponseBody void addFormation(@RequestBody Formation formation) {
 		formationService.addFormation(formation);
 	}
+	/**
+	 * @author Othman
+	 * 
+	 * 		Modification d'une formation existante
+	 * @param formation
+	 * 			: la formation à modifier
+	 */
+	@RequestMapping(value = "/formation/updateFormation", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody void updateFormation(@RequestBody Formation formation) {
+		formationService.updateFormation(formation);
+	}
 
 	/*
 	 * @Inherited
