@@ -157,6 +157,10 @@
 	  	 });
       }
       
+      $scope.config = function(evaluation){
+          $location.path('/evaluation/config/' + evaluation);
+      }
+      
       $scope.refresh();
     }]
   );

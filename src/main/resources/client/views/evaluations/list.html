@@ -118,8 +118,6 @@
 										data-ng-click=" order('-periode') "
 										data-ng-class="{active: row == '-periode'}"></span>
 								</div></th>
-							<th></th>
-							<!-- <th></th> -->
 						</tr>
 					</thead>
 					<tbody>
@@ -131,9 +129,9 @@
 							<td ng-click="edit(e.idEvaluation)">{{e.etat}}</td>
 							<td ng-click="edit(e.idEvaluation)">{{e.debutReponse}}</td>
 							<td ng-click="edit(e.idEvaluation)">{{e.finReponse}}</td>
-							<!-- <td ng-click="edit(e)" class="icon-list"><span class="edit fa fa-pencil-square-o" ></span></td> -->
-							<td ng-click="supprime(e)" class="icon-list"><span
-								class="remove fa fa-trash"></span></td>
+							<td id="iconGestion" ng-click="affiche(e.idEvaluation)"><span class="fa fa-eye"></span></td>
+							<td id="iconGestion" ng-click="edit(e.idEvaluation)"><span class="glyphicon glyphicon-edit"></span></td>
+							<td id="iconGestion" ng-click="config(e.idEvaluation)"><span class="icon-settings"></span></td>
 						</tr>
 					</tbody>
 				</table>
