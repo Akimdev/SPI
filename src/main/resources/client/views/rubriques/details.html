@@ -12,9 +12,6 @@
 		</div>
 		<!--------------------------- Consultation --------------------------->
 			<div class="media animate" ng-hide="edit">
-				<button class="btn btn-warning pull-right" ng-click="editer(idrub)">
-					<span class="glyphicon glyphicon-pencil"></span> Editer
-				</button>
 				<div class="media-body">
 					<ul class="list-unstyled list-info">
 						<li><label>Type</label> {{rubrique.type}}</li>
@@ -24,6 +21,9 @@
 				
 				<a class="btn btn-primary" href="#/rubriques"><span
 					class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+				<button class="btn btn-warning pull-right" ng-click="editer(idrub)">
+					<span class="glyphicon glyphicon-pencil"></span> Editer
+				</button>
 			</div>
 	</div>
 </div>
