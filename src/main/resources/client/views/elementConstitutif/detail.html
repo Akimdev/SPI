@@ -12,7 +12,7 @@
 			</div>
 		</div>
 		<!--------------------------- Consultation --------------------------->
-		<div class="portlet-body form" ng-show="edit">
+		<div class="portlet-body form" ng-hide="edit">
 			<form class="form-horizontal form-bordered">
 				<div class="form-group">
 					<div class="col-md-3">
@@ -53,25 +53,25 @@
 				</div>
 				<div class="form-group">
 					<div class="col-md-3">
-						<strong>Nombre d'heure CM</strong>
+						<strong>Nombre d'heures CM</strong>
 					</div>
 					<div class="col-md-3">{{ec.nbhCm}}</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-3">
-						<strong>Nombre d'heure TD</strong>
+						<strong>Nombre d'heures TD</strong>
 					</div>
 					<div class="col-md-3">{{ec.nbhTd}}</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-3">
-						<strong>Nombre d'heure TP</strong>
+						<strong>Nombre d'heures TP</strong>
 					</div>
 					<div class="col-md-3">{{ec.nbhTp}}</div>
 				</div>
 			</form>
 			<!------------------------Boutons Retour et Editer----------->
-			<a class="btn btn-primary" href="#/elementConstitutif"><span
+			<a class="btn btn-primary" href="#/ec"><span
 				class="glyphicon glyphicon-arrow-left"></span> Retour</a>
 			<button class="btn btn-warning pull-right" ng-click="edition()">
 				<span class="glyphicon glyphicon-pencil"></span> Editer
@@ -83,7 +83,7 @@
 
 
 
-		<div ng-hide="edit">
+		<div ng-show="edit">
 				<form class="form-horizontal" name="ecForm">
 					<div class="form-group">
 						<label for="" class="col-sm-2">Code Element Constitutif<span id="required-field">*</span></label>
@@ -144,7 +144,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Nombre d'heur CM</label>
+						<label for="" class="col-sm-2">Nombre d'heures CM</label>
 						<div class="col-sm-10">
 							<input name="nbhCM" type="number" class="form-control" ng-model="ec.nbhCm" maxlength="2" required>
 							<span style="color:red" ng-show="ecForm.nbhCM.$dirty && ecForm.nbhCM.$invalid">
@@ -152,7 +152,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Nombre d'heur TD</label>
+						<label for="" class="col-sm-2">Nombre d'heures TD</label>
 						<div class="col-sm-10">
 							<input name="nbhTD" type="number" class="form-control" ng-model="ec.nbhTd" maxlength="2" required>
 							<span style="color:red" ng-show="ecForm.nbhTD.$dirty && ecForm.nbhTD.$invalid">
@@ -160,7 +160,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Nombre d'heur TP</label>
+						<label for="" class="col-sm-2">Nombre d'heures TP</label>
 						<div class="col-sm-10">
 							<input name="nbhTP" type="number" class="form-control" ng-model="ec.nbhTp" maxlength="2" required>
 							<span style="color:red" ng-show="ecForm.nbhTP.$dirty && ecForm.nbhTP.$invalid">
@@ -168,7 +168,7 @@
 						</div>
 					</div>
 				</form>
-				<a class="btn btn-success" ng-click="submit()" ng-disabled="ecForm.codeFormation.$dirty && ecForm.codeFormation.$invalid || ecForm.description.$dirty && ecForm.description.$invalid || 
-								ecForm.designation.$dirty && ecForm.designation.$invalid || ecForm.codeUe.$dirty && ecForm.codeUe.$invalid ||ecForm.codeUe.$dirty && ecForm.codeUe.$invalid ||ecForm.codeEc.$dirty && ecForm.codeEc.$invalid || ecForm.$invalid"><span class="glyphicon glyphicon-ok"></span>
-				Valider</a> <button class="btn btn-danger pull-right" ng-click="#/elementConstitutif">Annuler</button>
+				<a class="btn btn-danger" ng-click="cancel()">
+				Annuler</a> <button class="btn btn-success pull-right" ng-disabled="ecForm.codeFormation.$dirty && ecForm.codeFormation.$invalid || ecForm.description.$dirty && ecForm.description.$invalid || 
+								ecForm.designation.$dirty && ecForm.designation.$invalid || ecForm.codeUe.$dirty && ecForm.codeUe.$invalid ||ecForm.codeUe.$dirty && ecForm.codeUe.$invalid ||ecForm.codeEc.$dirty && ecForm.codeEc.$invalid || ecForm.$invalid" ng-click="submit()"><span class="glyphicon glyphicon-ok"></span> Valider</button>
 			</div>

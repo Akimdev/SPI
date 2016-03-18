@@ -118,7 +118,7 @@
 		$location.path("/elementConstitutif/nouveau");
 	}
 	$scope.edit=function(elementConstitutifPK){
-		$location.path("/elementConstitutif/infos/"+elementConstitutifPK.codeFormation+"/"+elementConstitutifPK.codeUe+"/"+
+		$location.path("/elementConstitutif/"+elementConstitutifPK.codeFormation+"/"+elementConstitutifPK.codeUe+"/"+
 						elementConstitutifPK.codeEc);
 	}
 	$scope.detail=function(elementConstitutifPK){
@@ -223,7 +223,7 @@
 	}
 	/** afin d'annuler **/
 	$scope.cancel=function(){
-		$location.path('/elementConstitutif/');
+		$location.path('/ec');
 	}
 	/** fonction pour ajouter **/
 	$scope.submit=function(){
