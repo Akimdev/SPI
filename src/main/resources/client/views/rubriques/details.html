@@ -1,4 +1,4 @@
-<!-- 
+<!-- @Author Zouhair
  -- Author Kenza ABOUAKIL
  -- Détails d'une rubrique
  -->
@@ -7,23 +7,32 @@
 		<div class="portlet-title">
 			<div class="caption">
 				<i class="icon-social-dribble font-red"></i> <span
-					class="cpation-subject font-red bold uppercase">Rubrique</span>
+					class="cpation-subject font-red bold">Details d'une rubrique standard</span>
 			</div>
 		</div>
 		<!--------------------------- Consultation --------------------------->
-			<div class="media animate" ng-hide="edit">
-				<div class="media-body">
-					<ul class="list-unstyled list-info">
-						<li><label>Type</label> {{rubrique.type}}</li>
-						<li><label>Designation</label>{{rubrique.designation}}</li>
-					</ul>
+		<div class="portlet-body form" ng-hide="edit">
+			<form class="form-horizontal form-bordered">
+				<div class="form-group">
+					<div class="col-md-3">
+						<strong>Ordre</strong>
+					</div>
+					<div class="col-md-3">{{rubrique.ordre}}</div>
 				</div>
-				
-				<a class="btn btn-primary" href="#/rubriques"><span
+				<div class="form-group">
+					<div class="col-md-3">
+						<strong>Designation</strong>
+					</div>
+					<div class="col-md-3">{{rubrique.designation}}</div>
+				</div>
+				<br>
+				<!------------------------Boutons Retour et Editer----------->
+				<a class="btn btn-warning" href="#/rubriques"><span
 					class="glyphicon glyphicon-arrow-left"></span> Retour</a>
-				<button class="btn btn-warning pull-right" ng-click="editer(idrub)">
+				<button class="btn btn-primary pull-right" ng-click="editer(idrub)">
 					<span class="glyphicon glyphicon-pencil"></span> Editer
 				</button>
-			</div>
+			</form>
+		</div>
 	</div>
 </div>
