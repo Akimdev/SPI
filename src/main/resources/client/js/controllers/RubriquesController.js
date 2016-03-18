@@ -138,11 +138,11 @@
 				  if (isConfirm) {  
 					  var promise= rubriquesFactory.delete(idRubrique);
     	  			  promise.success(function(data,statut){
-        	          swal("Supprimé!", "le rubrique est supprimé", "success");
+        	          swal("Supprimé!", "la rubrique a été supprimée avec succès.", "success");
         	           $scope.refresh();
                   });
 						promise.error(function(data,statut){
-        	        	swal("Erreur!", "vous ne pouvez pas supprimer ce rubrique", "error");
+        	        	swal("Erreur!", "Cette rubrique ne peut pas être supprimer car elle est déjà référencée.", "error");
 			  		});	
 					  }else {     
 						  swal("Annulé", "", "error");
