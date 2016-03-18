@@ -84,9 +84,9 @@
 					</thead>
 					<tbody>
 						<tr
-							data-ng-repeat="e in currentPageRubrique| orderBy:'ordre'" class="rubrique" style="cursor:pointer">
-							<td ng-click="show(e.idRubrique)">{{e.ordre}}</td>
-							<td ng-click="show(e.idRubrique)">{{e.designation}}</td>
+							data-ng-repeat="e in currentPageRubrique| orderBy:'ordre'" class="rubrique">
+							<td>{{e.ordre}}</td>
+							<td>{{e.designation}}</td>
 							<td id="iconGestion" ng-click="show(e.idRubrique)"><span class="fa fa-eye"></span></td>
 							<td id="iconGestion" ng-click="edit(e.idRubrique)"><span class="glyphicon glyphicon-edit"></span></td>
 							<td id="iconGestion" ng-click="supprime(e.idRubrique)"><span class="glyphicon glyphicon-trash"></span></td>

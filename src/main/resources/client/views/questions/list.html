@@ -87,8 +87,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr style="cursor: pointer" data-ng-repeat="q in currentPageQuestion" class="question">
-								<td ng-click="edit(q)">{{q.intitule}}</td>
+							<tr data-ng-repeat="q in currentPageQuestion | orderBy:'intitule'" class="question">
+								<td>{{q.intitule}}</td>
 								<td></td>
 								<td id="iconGestion" ng-click="show(q)"><span class="fa fa-eye"></span></td>
 								<td id="iconGestion" ng-click="edit(q)"><span class="glyphicon glyphicon-edit"></span></td>
