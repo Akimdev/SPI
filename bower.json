@@ -32,7 +32,8 @@
     "jquery-spinner": "jquery.spinner#~0.2.0",
     "angularjs-toaster": "~1.2.0",
     "sweetalert": "latest",
-    "angular-ui-router": "1.0.0alpha0"
+    "angular-ui-router": "1.0.0alpha0",
+    "angular-mask": "latest"
   },
   "resolutions": {
     "angular": "~1.3.x"

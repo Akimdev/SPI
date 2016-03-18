@@ -4,8 +4,11 @@
 
 var app = angular.module("app", [ 'ngRoute',"ui.router", "ui.bootstrap", "oc.lazyLoad",'app.controllers','app.ec',
 		"ngSanitize", 'app.enseignants', 'app.formations', 'app.ue','ngAnimate','toaster', 'app.task',
-		'app.etudiants', 'app.qualificatifs', 'app.questions','app.evaluations', 'app.rubriques',
-		'app.promotions', 'app.auth']);
+		'app.etudiants', 'app.qualificatifs', 'app.questions','app.evaluations', 'app.rubriques', 'easypiechart',
+		'app.form.validation','app.ui.form.ctrls','app.chart.ctrls', 'app.chart.directives',
+		'mgo-angular-wizard', 'textAngular', 'ui.tree', 
+		'app.ui.form.ctrls', 'app.ui.form.directives','app.ui.directives',
+		'app.promotions', 'app.auth', 'ngMask']);
 
 /* To configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
 app.config([ '$ocLazyLoadProvider', function($ocLazyLoadProvider) {

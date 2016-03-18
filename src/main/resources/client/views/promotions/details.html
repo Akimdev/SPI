@@ -3,6 +3,8 @@
  -- Détails d'une promotion
  -->
 <div class="page" ng-controller="PromotionDetailsController">
+<div class="panel panel-default ens-edit">
+		<div class="panel-body">
 	<div class="portlet light bordered">
 		<div class="portlet-title">
 			<div class="caption">
@@ -100,9 +102,11 @@
 				<label for="" class="col-sm-2">Ann&eacute;e
 					<span id="required-field"> *</span></label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control"  name="anneeUniversitaire" maxlength="9"
-						ng-model="promotion.promotionPK.anneeUniversitaire" ng-readonly="!ajout"
-						ng-pattern="/[1,2][0,9][0-9][0-9]-[1,2][0,9][0-9][0-9]/" placeholder="yyyy-yyyy">
+					<input type="text" class="form-control"  name="anneeUniversitaire"  minlength="9" maxlength="9"
+						ng-model="promotion.promotionPK.anneeUniversitaire"
+						ng-model='maskModel'  mask-validate='true' ng-readonly="!ajout"
+						aria-required="true" aria-invalid="false" aria-describedby="name-error"  
+            			mask='2999-2999'   placeholder="yyyy-yyyy" required>
 						<span style="color:red" ng-show="promotionForm.anneeUniversitaire.$dirty && promotionForm.anneeUniversitaire.$invalid">
 						<span ng-show="promotionForm.anneeUniversitaire.$error.required">Champ obligatoire / Type invalide</span></span>
 				</div>
@@ -112,7 +116,7 @@
 					id="required-field"> *</span></label>
 				<div class="col-sm-10">
 					<select ng-show="ajout" ng-model="formationSelected">
-						<option data-ng-repeat="f in formations" value="{{f.codeFormation}}"
+						<option data-ng-repeat="f in formations" value="{{f.codeFormation}}" required
 								ng-selected="{{f.codeFormation == promotion.promotionPK.codeFormation}}">{{f.codeFormation}}</option>
 					</select>
 					<span style="color:red" ng-show="promotionForm.codeFormation.$dirty && promotionForm.codeFormation.$invalid">
@@ -140,7 +144,7 @@
 					</select> -->
 					<select name="listeEnseignants" ng-model="enseignantSelected" ng-options="e.ens as (e.nom +' '+ e.prenom) for e in enseignants"></select>
 				</div>
-			</div>
+			</div>	
 			<div class="form-group">
 				<label for="" class="col-sm-2">Nombre max d'&eacute;tudiants<span
 					id="required-field"> *</span></label>
@@ -153,6 +157,7 @@
 				<label for="" class="col-sm-2">Date de rentr&eacute;e</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control"
+					mask="39/19/2999"
 						ng-model="promotion.dateRentree" placeholder="dd/mm/yyyy">
 				</div>
 			</div>
@@ -182,8 +187,8 @@
 				<button class="btn btn-danger pull-left" ng-click="cancel()">Annuler</button>
 			</div>
 		</form>
-		
-	</div>
+		</div>
+</div>		
 </div>
 </div>
 </div>
