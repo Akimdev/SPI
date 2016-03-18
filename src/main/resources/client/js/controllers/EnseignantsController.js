@@ -158,13 +158,10 @@
       }
     };
   }]);
-
-  
-
   app.controller('EnseignantsController', 
     ['$scope', '$filter','$location', 'enseignantsFactory',
     function($scope, $filter, $location, enseignantsFactory){
-    	var init;
+$scope.refresh = function(){
     	enseignantsFactory.all()
 		.success(function(data) {
 		    $scope.enseignants = data;
@@ -206,6 +203,7 @@
 		      $scope.numPerPage = $scope.numPerPageOpt[2];
 		      $scope.currentPage = 1;
 		      $scope.currentPageEnseignant = [];
+			var init = null;
 		      init = function() {
 		        $scope.search();
 		        return $scope.select($scope.currentPage);
@@ -217,6 +215,8 @@
 			 $scope.error = 'unable to get the poneys';
 		  }
 		);
+			}
+$scope.refresh();
       // la liste globale des enseignants
       //$scope.enseignants = enseignantsFactory.all();          
 
@@ -247,7 +247,7 @@
 	$location.path("/enseignant/"+ noEnseignant);
 		}
       // supprime un enseignant
-      $scope.supprime = function(noEnseignant){   
+	$scope.supprime = function(noEnseignant){   
 		  swal({   
 			  title: "Voulez-vous vraiment supprimer cet enseignant ?",      
 			  type: "warning",   
@@ -272,7 +272,7 @@
 						  }
 				  });  
       }
-      //$scope.refresh();
+      $scope.refresh();
     }]
   );
 
@@ -284,7 +284,7 @@
       // si creation d'un nouvel enseignant
       if($stateParams.id == "nouveau"){
         $scope.enseignant= { };
-        $scope.edit= true;    
+        $scope.edit= true; 
       } else { // sinon on edite un enseignant existant
         var promise = enseignantsFactory.get($stateParams.id);
         promise.success(function(data){
@@ -354,19 +354,19 @@
       }
 
       // valide le formulaire d'édition d'un enseignant
-      $scope.submit = function(){ 
+      /*$scope.submit = function(){ 
 	  	$scope.enseignant.type= $scope.typeSelected;
     	$scope.enseignant.pays= $scope.paysSelected;   	 
         enseignantsFactory.set($scope.enseignant);        
         $scope.edit = false;        
-      }
+      }*/
 $scope.submit = function(){
     	  $scope.enseignant.type= $scope.typeSelected;
     	  $scope.enseignant.pays= $scope.paysSelected;
+    	  console.log($scope.enseignant);
 		if($stateParams.id == "nouveau"){
 	        	var promisesajout = enseignantsFactory.add($scope.enseignant);
-	        	console.log($scope.enseignant);
-	        	promisesajout.success(function(data, status, headers, config) {
+	        	promisesajout.success(function(data, status) {
 	        		swal("Félicitation!", "Le nouveau enseignant est ajouté!", "success");
 				});
 	        	promisesajout.error(function(data, status, headers, config) {
@@ -377,7 +377,7 @@ $scope.submit = function(){
 	                    showCloseButton: true
 	                });
 				});
-	        	$location.path('/admin/enseignants');
+	        	$location.path('/enseignants');
 								        }
 			 else{ // modification
 	        	var promisesajout = enseignantsFactory.set($scope.enseignant);

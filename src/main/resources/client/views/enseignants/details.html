@@ -1,4 +1,7 @@
-<!-- @Author Zouhair -->
+<!-- 
+ -- Author Soukaina ASSABBAR
+ -- Détails d'une promotion
+ -->
 <div class="page" ng-controller="EnsDetailsController">
 	<div class="portlet light bordered">
 		<div class="portlet-title">
@@ -115,11 +118,11 @@
 							id="required-field">*</span></label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" name="nom"
-								ng-model="enseignant.nom" placeholder="Nom de l'enseignant"
-								required> <span style="color: red"
+								ng-model="enseignant.nom" placeholder="Nom de l'enseignant" ng-pattern="/^[A-Za-z' \-]+$/" required> 
+								<span style="color: red"
 								ng-show="enseignantForm.nom.$dirty && enseignantForm.nom.$invalid">
-								<span ng-show="enseignantForm.nom.$error.required">nom
-									obligatoire</span>
+								<span ng-show="enseignantForm.nom.$error.required">
+								Champ obligatoire / Type invalide</span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -128,7 +131,7 @@
 						<div class="col-sm-10">
 							<input type="text" class="form-control" name="prenom"
 								ng-model="enseignant.prenom"
-								placeholder="Pr&eacute;nom de l'enseignant" required> <span
+								placeholder="Pr&eacute;nom de l'enseignant" ng-pattern="/^[A-Za-z' \-]+$/" required> <span
 								style="color: red"
 								ng-show="enseignantForm.prenom.$dirty && enseignantForm.prenom.$invalid">
 								<span ng-show="enseignantForm.prenom.$error.required">Pr&eacute;nom
