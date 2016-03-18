@@ -138,14 +138,14 @@
 				  if (isConfirm) {  
 					  var promise= rubriquesFactory.delete(idRubrique);
     	  			  promise.success(function(data,statut){
-        	          swal("Supprimé!", "le rubrique est supprimé", "success");
+        	          swal("Supprimé!", "la rubrique a été supprimée avec succès.", "success");
         	           $scope.refresh();
                   });
 						promise.error(function(data,statut){
-        	        	swal("Erreur!", "vous ne pouvez pas supprimer ce rubrique", "error");
+        	        	swal("Erreur!", "Cette rubrique ne peut pas être supprimer car elle est déjà référencée.", "error");
 			  		});	
 					  }else {     
-						  swal("Ignorer", "", "error");
+						  swal("Annulé", "", "error");
 						  }
 				  });  
       }
@@ -197,6 +197,7 @@
    		var promise = rubriquesFactory.add($scope.rubrique);
      	promise.success(function(data,statut){
      		swal("Félicitation!", "La nouvelle rubrique est ajoutée!", "success");
+     		history.back();
         })
         .error(function(data,statut){
         	swal("Erreur!", "Impossible d'ajouter la rubrique", "error");
@@ -206,6 +207,7 @@
    		var promise = rubriquesFactory.set($scope.rubrique);
      	promise.success(function(data,statut){
      		swal("Félicitation!", "La rubrique a été modifiée", "success");
+     		history.back();
         })
         .error(function(data,statut){
         	swal("Erreur!", "Impossible de modifier la rubrique", "error");
