@@ -1,4 +1,7 @@
-<!-- @Author Zouhair -->
+<!-- 
+ -- Author Soukaina ASSABBAR
+ -- Détails d'une promotion
+ -->
 <div class="page" ng-controller="EnsDetailsController">
 	<div class="portlet light bordered">
 		<div class="portlet-title">
@@ -115,11 +118,11 @@
 							id="required-field">*</span></label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" name="nom"
-								ng-model="enseignant.nom" placeholder="Nom de l'enseignant"
-								required> <span style="color: red"
+								ng-model="enseignant.nom" placeholder="Nom de l'enseignant" ng-pattern="/^[A-Za-z' \-]+$/" required> 
+								<span style="color: red"
 								ng-show="enseignantForm.nom.$dirty && enseignantForm.nom.$invalid">
-								<span ng-show="enseignantForm.nom.$error.required">nom
-									obligatoire</span>
+								<span ng-show="enseignantForm.nom.$error.required">
+								Champ obligatoire / Type invalide</span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -128,7 +131,7 @@
 						<div class="col-sm-10">
 							<input type="text" class="form-control" name="prenom"
 								ng-model="enseignant.prenom"
-								placeholder="Pr&eacute;nom de l'enseignant" required> <span
+								placeholder="Pr&eacute;nom de l'enseignant" ng-pattern="/^[A-Za-z' \-]+$/" required> <span
 								style="color: red"
 								ng-show="enseignantForm.prenom.$dirty && enseignantForm.prenom.$invalid">
 								<span ng-show="enseignantForm.prenom.$error.required">Pr&eacute;nom
@@ -140,24 +143,24 @@
 							id="required-field">*</span></label>
 						<div class="col-sm-10">
 							<label class="ui-radio"><input name="radio1" type="radio"
-								value="H" ng-model="enseignant.sexe" ng-checked="true"><span>Homme</span></label>
+								value="H" ng-model="enseignant.sexe" ><span>Homme</span></label>
 							<label class="ui-radio"><input name="radio1" type="radio"
 								value="F" ng-model="enseignant.sexe"><span>Femme</span></label>
 						</div>
 					</div>
-					<div class="form-group">
+					 <div class="form-group">
 						<label for="" class="col-sm-2">Type<span
 							id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="type"
-								ng-model="enseignant.type"
-								placeholder="Type de contrat (eg. MCF, PRAG, ...)" required>
+							<select ng-hide="isVisible" ng-model="typeSelected" name="type" required>
+								<option data-ng-repeat="e in types" value="{{e.rvAbbreviation}}">{{e.rvMeaning}}</option>
+							</select>
 							<span style="color: red"
 								ng-show="enseignantForm.type.$dirty && enseignantForm.type.$invalid">
 								<span ng-show="enseignantForm.type.$error.required">Type
 									obligatoire</span>
 						</div>
-					</div>
+					</div> 
 					<div class="form-group">
 						<label for="" class="col-sm-2">E-mail<span
 							id="required-field">*</span></label>
@@ -230,12 +233,11 @@
 						<label for="" class="col-sm-2">Pays<span
 							id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="pays"
-								ng-model="enseignant.pays" placeholder="Example: France"
-								required> <span style="color: red"
-								ng-show="enseignantForm.pays.$dirty && enseignantForm.pays.$invalid">
-								<span ng-show="enseignantForm.pays.$error.required">Pays
-									obligatoire</span>
+							<select ng-hide="isVisible" ng-model="paysSelected" name="pays" required>
+								<option data-ng-repeat="e in payss" value="{{e.rvAbbreviation}}">{{e.rvMeaning}}</option>
+							</select>
+							<span style="color: red" ng-show="enseignantForm.pays.$dirty && enseignantForm.pays.$invalid">
+								<span ng-show="enseignantForm.pays.$error.required">Pays obligatoire</span>
 						</div>
 					</div>
 				</form>

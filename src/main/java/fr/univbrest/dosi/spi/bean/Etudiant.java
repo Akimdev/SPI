@@ -143,7 +143,6 @@ public class Etudiant implements Serializable {
     private Collection<Authentification> authentificationCollection;
     @OneToMany(mappedBy = "noEtudiant")
     private Collection<ReponseEvaluation> reponseEvaluationCollection;
-    @JsonIgnore
     @JoinColumns({
         @JoinColumn(name = "ANNEE_UNIVERSITAIRE", referencedColumnName = "ANNEE_UNIVERSITAIRE"),
         @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION")})
