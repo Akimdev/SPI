@@ -38,17 +38,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "PROMOTION")
 @XmlRootElement
 @NamedQueries({ @NamedQuery(name = "Promotion.findAll", query = "SELECT p FROM Promotion p ORDER BY p.promotionPK.anneeUniversitaire"),
-	@NamedQuery(name = "Promotion.findByCodeFormation", query = "SELECT p FROM Promotion p WHERE p.promotionPK.codeFormation = :codeFormation"),
-	@NamedQuery(name = "Promotion.findByAnneeUniversitaire", query = "SELECT p FROM Promotion p WHERE p.promotionPK.anneeUniversitaire = :anneeUniversitaire"),
-	@NamedQuery(name = "Promotion.findBySiglePromotion", query = "SELECT p FROM Promotion p WHERE p.siglePromotion = :siglePromotion"),
-	@NamedQuery(name = "Promotion.findByNbMaxEtudiant", query = "SELECT p FROM Promotion p WHERE p.nbMaxEtudiant = :nbMaxEtudiant"),
-	@NamedQuery(name = "Promotion.findByDateReponseLp", query = "SELECT p FROM Promotion p WHERE p.dateReponseLp = :dateReponseLp"),
-	@NamedQuery(name = "Promotion.findByDateReponseLalp", query = "SELECT p FROM Promotion p WHERE p.dateReponseLalp = :dateReponseLalp"),
-	@NamedQuery(name = "Promotion.findByDateRentree", query = "SELECT p FROM Promotion p WHERE p.dateRentree = :dateRentree"),
-	@NamedQuery(name = "Promotion.findByLieuRentree", query = "SELECT p FROM Promotion p WHERE p.lieuRentree = :lieuRentree"),
-	@NamedQuery(name = "Promotion.findByProcessusStage", query = "SELECT p FROM Promotion p WHERE p.processusStage = :processusStage"),
-	@NamedQuery(name = "Promotion.findByCommentaire", query = "SELECT p FROM Promotion p WHERE p.commentaire = :commentaire"),
-	@NamedQuery(name = "Promotion.findByNoEnseignant", query = "SELECT p FROM Promotion p WHERE p.noEnseignant.noEnseignant = :noEnseignant") })
+		@NamedQuery(name = "Promotion.findByCodeFormation", query = "SELECT p FROM Promotion p WHERE p.promotionPK.codeFormation = :codeFormation"),
+		@NamedQuery(name = "Promotion.findByAnneeUniversitaire", query = "SELECT p FROM Promotion p WHERE p.promotionPK.anneeUniversitaire = :anneeUniversitaire"),
+		@NamedQuery(name = "Promotion.findBySiglePromotion", query = "SELECT p FROM Promotion p WHERE p.siglePromotion = :siglePromotion"),
+		@NamedQuery(name = "Promotion.findByNbMaxEtudiant", query = "SELECT p FROM Promotion p WHERE p.nbMaxEtudiant = :nbMaxEtudiant"),
+		@NamedQuery(name = "Promotion.findByDateReponseLp", query = "SELECT p FROM Promotion p WHERE p.dateReponseLp = :dateReponseLp"),
+		@NamedQuery(name = "Promotion.findByDateReponseLalp", query = "SELECT p FROM Promotion p WHERE p.dateReponseLalp = :dateReponseLalp"),
+		@NamedQuery(name = "Promotion.findByDateRentree", query = "SELECT p FROM Promotion p WHERE p.dateRentree = :dateRentree"),
+		@NamedQuery(name = "Promotion.findByLieuRentree", query = "SELECT p FROM Promotion p WHERE p.lieuRentree = :lieuRentree"),
+		@NamedQuery(name = "Promotion.findByProcessusStage", query = "SELECT p FROM Promotion p WHERE p.processusStage = :processusStage"),
+		@NamedQuery(name = "Promotion.findByCommentaire", query = "SELECT p FROM Promotion p WHERE p.commentaire = :commentaire"),
+		@NamedQuery(name = "Promotion.findByNoEnseignant", query = "SELECT p FROM Promotion p WHERE p.noEnseignant.noEnseignant = :noEnseignant") })
 public class Promotion implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@JsonIgnore

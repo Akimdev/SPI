@@ -1,7 +1,11 @@
 package fr.univbrest.dosi.spi.controller;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import fr.univbrest.dosi.spi.bean.Authentification;
 import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Promotion;
@@ -47,7 +52,7 @@ public class EnseignantController {
 	 *            l'entité de l'enseignant
 	 * @return le message d'ajout
 	 */
-	 
+
 	@RequestMapping(value = "/ajouterEnseignant", method = RequestMethod.POST, consumes = { "application/json;charset=UTF-8" }, produces = { "application/json;charset=UTF-8" })
 	public final void addEnseignant(@RequestBody final Enseignant enseignant) {
 		enseignantService.addEnseignant(enseignant);
@@ -64,12 +69,19 @@ public class EnseignantController {
 	}
 
 	/**
-	 *
+	 * @Author Kenza ABOUAKIL
 	 * @return liste des enseignant
 	 */
 	@RequestMapping("/ens")
 	public final Iterable<Enseignant> enseignant() {
-		return enseignantService.listens();
+		List enseignants = (List) enseignantService.listens();
+		Collections.sort(enseignants, new Comparator<Enseignant>() {
+			@Override
+			public int compare(Enseignant e1, Enseignant e2) {
+				return e1.getNom().compareTo(e2.getNom());
+			}
+		});
+		return enseignants;
 	}
 
 	/**
@@ -101,7 +113,7 @@ public class EnseignantController {
 	 *            de recherche pour un enseignant
 	 * @return list des enseignant ayant le parmetre nom
 	 */
-	 
+
 	@RequestMapping(value = "/getensnom/{nom}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public final List<Enseignant> getEnseignantByNom(@PathVariable(value = "nom") final String nom) {
 		return enseignantService.getEnseignantByNom(nom);
@@ -138,6 +150,20 @@ public class EnseignantController {
 		return uniteEnseignementService.getUEByEnseignant(noEnseignant);
 	}
 
+	/**
+	 * @author Othman
+	 * @param noEnseignant
+	 * @return Cette méthode retourne une liste triée d'unités d'enseignement
+	 *
+	 */
+
+	@RequestMapping(value = "/getUEByNoEnseignant", produces = { "application/json;charset=UTF-8" })
+	public List<UniteEnseignement> getUEByNoEnseignant(HttpServletRequest request) {
+		Authentification auth = (Authentification) request.getSession().getAttribute("user");
+		Enseignant ens = auth.getNoEnseignant();
+		return enseignantService.getUEByNoEnseignant(ens.getNoEnseignant());
+	}
+
 	public UniteEnseignementService getUniteEnseignementService() {
 		return uniteEnseignementService;
 	}
@@ -165,23 +191,9 @@ public class EnseignantController {
 	 *            objet
 	 * @return message de modification
 	 */
-	 
+
 	@RequestMapping(value = "/updateEnseignant", method = RequestMethod.POST, consumes = { "application/json;charset=UTF-8" }, produces = { "application/json;charset=UTF-8" })
 	public final void updateEnseignant(@RequestBody final Enseignant enseignant) {
 		enseignantService.updateEnseignant(enseignant);
-	}
-
-	/**
-	 * @author Othman
-	 * @param noEnseignant
-	 * @return Cette méthode retourne une liste triée d'unités d'enseignement
-	 * 
-	 */
-	 
-	@RequestMapping(value = "/getUEByNoEnseignant", produces = { "application/json;charset=UTF-8" })
-	public List<UniteEnseignement> getUEByNoEnseignant(HttpServletRequest request) {
-		Authentification auth = (Authentification) request.getSession().getAttribute("user");
-		Enseignant ens = auth.getNoEnseignant();
-		return enseignantService.getUEByNoEnseignant(ens.getNoEnseignant());
 	}
 }

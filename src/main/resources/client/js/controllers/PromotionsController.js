@@ -203,6 +203,8 @@ var edit= false;
     	}
     	
     	var initEdition= function(){
+    		if(edit)
+    	  		$("select option").prop("selected", false);
     		var promoPK = {anneeUniversitaire:  $stateParams.ann, codeFormation: $stateParams.form};
     		//Recuperation de la promotion
             return promotionsFactory.get(promoPK).then(
@@ -216,7 +218,6 @@ var edit= false;
         	        			break;
         	        		}
         	        	}
-        				console.log("recup promo ok");
         				
         	            //Recuperation de l'enseignant responsable
         	            return promotionsFactory.getEnseignantResponsable(promoPK);
@@ -229,13 +230,16 @@ var edit= false;
             			if(data1.data.nom)
             				data1.data.nom= data1.data.nom.toUpperCase();
     		        	$scope.responsable = data1.data;
-    		        	$scope.enseignantSelected= $scope.responsable;
-//    		        	for (var i=0; i < $scope.enseignants.length; i++) {
-//        	        		if ($scope.enseignants[i].noEnseignant == $scope.responsable.noEnseignant) {
+//    		        	$scope.enseignantSelected= $scope.responsable;
+    		        	for (var i=0; i < $scope.enseignants.length; i++) {
+        	        		if ($scope.enseignants[i].noEnseignant == $scope.responsable.noEnseignant) {
 //        	        			$scope.enseignantSelected = $scope.enseignants[i];
-//        	        			break;
-//        	        		}
-//        	        	}
+        	        			document.getElementsByName("listeEnseignants").selectedIndex = i;
+        	        			console.log("selected: "+i+" "+document.getElementsByName("listeEnseignants").selectedIndex);
+        	        			break;
+        	        		}
+        	        	}
+    		        	console.log("apreees: ", document.getElementsByName("listeEnseignants").selectedIndex);
     		        	// Initialisation du processusStage dans le cas d'une consultation d'une promotion
         				for(var i=0; i< $scope.processusStage.length; i++){
         					if($scope.processusStage[i].rvAbbreviation == $scope.promotion.processusStage) {
@@ -243,7 +247,6 @@ var edit= false;
         						$scope.processusStageSelected = $scope.processusStage[i];
         					}
         				}
-        				console.log("recup responsable ok");
         				
         				//Recuperation des etudiants  
         				return promotionsFactory.getEtudiants(promoPK);
@@ -254,7 +257,6 @@ var edit= false;
             ).then(
             		function(data,statut){
     	            	$scope.promotion.etudiantCollection = data.data ;
-    	            	console.log("recup etu ok");
     	            },
     	            function(data,statut){
       	          	  console.log("Impossible de recuperer les étudiants de la promotion choisie");
@@ -273,8 +275,6 @@ var edit= false;
     			    	$scope.processusStage[i].rvAbbreviation = data.data[i].rvAbbreviation;
     			    	$scope.processusStage[i].rvMeaning = data.data[i].rvMeaning;
     			    }
-    			    console.log("recup process stage ok");
-    			    
     			    // Récuperation des enseignants
     		        return promotionsFactory.getEnseignants();
     		    },
@@ -290,8 +290,6 @@ var edit= false;
             				data1.data[d].nom= data1.data[d].nom.toUpperCase();
 		        	}
 		        	$scope.enseignants= data1.data;
-		        	console.log("recup enseignants ok");
-		        	
 		        	return promotionsFactory.getFormations();
 		        },
 		        function(data1,statut){
@@ -302,26 +300,22 @@ var edit= false;
 		        // Récuperation des formations
     			function(data2,statut){
 		        	$scope.formations= data2.data;
-		        	console.log("recup formations ok");
 		        },
 		        function(data2,statut){
   		      	  console.log("Impossible de recuperer la liste des formations");
   		        }
     	).then(
     			function () {
-    				console.log("determination ajout/edit");
     			// si creation d'une nouvelle promotion
 			      if($stateParams.ann == "nouveau"){
 			    	  initAjout();
 			      } else { // sinon on edite une promotion existante
 			    	  initEdition();
 			      }
-			      $scope.edit = edit;
     			}
     	);
 
       $scope.edition = function(){
-			
 			$scope.ajout= false;
 			$scope.edit=edit=true;
       }
@@ -337,8 +331,6 @@ var edit= false;
     		  if(!$scope.enseignantSelected) {
     			  $scope.enseignantSelected= {noEnseignant : null};
     		  }
-    		  console.log("promo :", $scope.promotion);
-    		  console.log("ensSelected :", $scope.enseignantSelected);
     		  var promise = promotionsFactory.add($scope.promotion, $scope.enseignantSelected.noEnseignant);
     		  promise.success(function(data){
     			  var promiseEnseignant = promotionsFactory.getEnseignantResponsable($scope.promotion.promotionPK);
@@ -353,7 +345,6 @@ var edit= false;
     		  });
     	  }
     	  else{ // modification
-    		  console.log("modification: ", $scope.promotion);
     		  if($scope.promotion.dateRentree) {
     			  var date = $scope.promotion.dateRentree.split('/');
     		      $scope.promotion.dateRentree = new Date(date[1] + '-' + date[0] + '-' + date[2]);  
