@@ -78,9 +78,9 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr style="cursor:pointer" data-ng-repeat="q in qualificatifs | orderBy:'minimal'" class="qualificatif">
-							<td ng-click="afficheQualificatif(q)">{{q.maximal}}</td>
-							<td ng-click="afficheQualificatif(q)">{{q.minimal}}</td>
+						<tr data-ng-repeat="q in qualificatifs | orderBy:'minimal'" class="qualificatif">
+							<td>{{q.maximal}}</td>
+							<td>{{q.minimal}}</td>
 							<td id="iconGestion" ng-click="afficheQualificatif(q)"><span class="fa fa-eye"></span></td>
 							<td id="iconGestion" ng-click="edit(q)"><span class="glyphicon glyphicon-edit"></span></td>
 							<td id="iconGestion" ng-click="supprime(q)"><span class="glyphicon glyphicon-trash"></span></td>

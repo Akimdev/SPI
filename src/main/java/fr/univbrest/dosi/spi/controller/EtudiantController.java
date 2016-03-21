@@ -85,4 +85,6 @@ public class EtudiantController {
 	public int nombreEtudiants(){
 		return etudiantService.getNombreEtudiants();
 	}
+	
+	
 }

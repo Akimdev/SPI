@@ -717,6 +717,7 @@ body,input,select,td,textarea {
 #iconGestion{
 	width: 60px;
 	text-align: center;
+	cursor: pointer;
 }
 
 .searchResult{
@@ -739,3 +740,15 @@ label{
 ::-webkit-scrollbar-track { background-color: #eaeaea; border-left: 1px solid #ccc; }
 ::-webkit-scrollbar-thumb { background-color: #ccc; } ‘
 ::-webkit-scrollbar-thumb:hover { background-color: #aaa; }
+
+.glyphicon-trash{
+	color: #da1b1b;
+}
+
+.glyphicon-edit{
+	color: #11bb80;
+}
+
+.fa-eye{
+	color: #107bb6;
+}

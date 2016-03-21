@@ -3,12 +3,13 @@ package fr.univbrest.dosi.spi.service;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Promotion;
 import fr.univbrest.dosi.spi.bean.PromotionPK;
-import fr.univbrest.dosi.spi.bean.UniteEnseignement;
 import fr.univbrest.dosi.spi.dao.PromotionRepository;
 import fr.univbrest.dosi.spi.exception.SPIException;
 
@@ -58,6 +59,17 @@ public class PromotionService {
 		return promotionRepository.findOne(promotionPK).getNoEnseignant();
 	}
 
+	public List<Promotion> getPromoByNoEnseignant(final Integer noEnseignant) {
+		List<Promotion> listePromo = promotionRepository.findByNoEnseignant(noEnseignant);
+		Collections.sort(listePromo, new Comparator<Promotion>() {
+			@Override
+			public int compare(final Promotion pro1, final Promotion pro2) {
+				return (pro1.getPromotionPK().getCodeFormation()).compareTo(pro2.getPromotionPK().getCodeFormation());
+			}
+		});
+		return listePromo;
+	}
+
 	public final Promotion getPromotion(final PromotionPK promotionPK) {
 		return promotionRepository.findOne(promotionPK);
 	}
@@ -76,27 +88,16 @@ public class PromotionService {
 		return promotionRepository.findByNoEnseignant(noEnseignant);
 	}
 
-	public final void update(final Promotion promotion) {
-		promotionRepository.save(promotion);
-	}
-	
-	/** 
-	 * @author Zouhair
-	 * Cette méthode retourne le nombre des promotions
+	/**
+	 * @author Zouhair Cette méthode retourne le nombre des promotions
 	 * @return
 	 */
-	public int nombrePromotions(){
-		List<Promotion> listPromotions = (List<Promotion>) promotionRepository.findAll();
+	public int nombrePromotions() {
+		List<Promotion> listPromotions = promotionRepository.findAll();
 		return listPromotions.size();
 	}
-	
-	public List<Promotion> getPromoByNoEnseignant(final Integer noEnseignant){
-		List<Promotion> listePromo = promotionRepository.findByNoEnseignant(noEnseignant);
-		Collections.sort(listePromo, new Comparator<Promotion>() {
-		        public int compare(final Promotion pro1, final Promotion pro2) {
-		            return (pro1.getPromotionPK().getCodeFormation()).compareTo(pro2.getPromotionPK().getCodeFormation());
-		        }
-		       });
-		return listePromo;
+
+	public final void update(final Promotion promotion) {
+		promotionRepository.save(promotion);
 	}
 }
