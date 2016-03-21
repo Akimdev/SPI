@@ -663,20 +663,6 @@ body,input,select,td,textarea {
     z-index: 10;
 }
 
-.modal {
-    width: 300px;
-    height: 200px;
-    line-height: 200px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-top: -100px;
-    margin-left: -150px;
-    background-color: #f1c40f;
-    border-radius: 5px;
-    text-align: center;
-    z-index: 11;
-}
 
 .js-selected-navigation-item:hover {
     color: silver;
