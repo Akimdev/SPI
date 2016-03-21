@@ -167,7 +167,10 @@
       $scope.create=function(e){
     	  $location.path("/admin/gestion_evaluation/"+e.idEvaluation);
       };
-      $scope.refresh();
+      $scope.config = function(evaluation){
+          $location.path('/evaluation/config/' + evaluation);
+      }
+	  $scope.refresh();
     }]
   );
 

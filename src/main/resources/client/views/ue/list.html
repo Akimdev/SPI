@@ -1,110 +1,144 @@
+<!-- -----------------------------------------------Navigation-------------------------------------- -->
+<ul class="page-breadcrumb breadcrumb">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+	<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">Unités d'Enseignement</span></li>
+</ul>
+<!-- -------------------------------------------END Navigation---------------------------------------- -->
 <div class="page page-table" data-ng-controller="UEController">
-
-    <section class="panel panel-default table-dynamic">
-        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Unités d'Enseignement</strong>
-        <span class="add fa fa-user-plus pull-right" ng-click="ajoutUE()"></span>
-                        Affiche {{currentPageUE.length}}/{{ue.length}}
-                    </span>              
-                </div>
-            </div>
-
-        <table class="table table-bordered table-striped table-responsive">
-            <thead>
-                <tr>
-                    <th><div class="th">
-                        Formation
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('code') "
-                              data-ng-class="{active: row == 'code'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-code') "
-                              data-ng-class="{active: row == '-code'}"></span>
-                    </div></th>
-                    <th><div class="th">
-                        Code
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('diplome') "
-                              data-ng-class="{active: row == 'diplome'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-diplome') "
-                              data-ng-class="{active: row == '-diplome'}"></span>
-                    </div></th>                    
-                    <th><div class="th">
-                        Enseignant responsable
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('email') "
-                              data-ng-class="{active: row == 'email'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-email') "
-                              data-ng-class="{active: row == '-email'}"></span>
-                    </div></th>
-                    <th><div class="th">
-                        Designation
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('email') "
-                              data-ng-class="{active: row == 'email'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-email') "
-                              data-ng-class="{active: row == '-email'}"></span>
-                    </div></th>
-                    <th><div class="th">
-                        Semestre
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('email') "
-                              data-ng-class="{active: row == 'email'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-email') "
-                              data-ng-class="{active: row == '-email'}"></span>
-                    </div></th>
-                    <th><div class="th">
-                        Heures (CM/TD/TP)
-                        <span class="glyphicon glyphicon-chevron-up"
-                              data-ng-click=" order('email') "
-                              data-ng-class="{active: row == 'email'}"></span>
-                        <span class="glyphicon glyphicon-chevron-down"
-                              data-ng-click=" order('-email') "
-                              data-ng-class="{active: row == '-email'}"></span>
-                    </div></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr data-ng-repeat="u in ue" class="ue">
-                    <td ng-click="edit(u)">{{u.uniteEnseignementPK.codeFormation}}</td>
-                    <td ng-click="edit(u)">{{u.uniteEnseignementPK.codeUe}}</td>
-                    <td ng-click="edit(u)">{{u.noEnseignant.prenom}} {{u.noEnseignant.nom}}</td>
-                    <td ng-click="edit(u)">{{u.designation}}</td>
-                    <td ng-click="edit(u)">{{u.semestre}}</td>
-                    <td ng-click="edit(u)">{{u.nbhCm}}/{{u.nbhTd}}/{{u.nbhTp}}</td>
-                    <td><span class="remove fa fa-remove" ng-click="supprime(f)"></span></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <footer class="table-footer">
-            <div class="row">
-                <div class="col-md-6 page-num-info">
-                    <span>
-                        Show 
-                        <select data-ng-model="numPerPage"
-                                data-ng-options="num for num in numPerPageOpt"
-                                data-ng-change="onNumPerPageChange()">
-                        </select> 
-                        entries per page
-                    </span>
-                </div>
-                <div class="col-md-6 text-right pagination-container">
-                    <pagination class="pagination-sm"
-                                ng-model="currentPage"
-                                total-items="filteredStores.length"
-                                max-size="4"
-                                ng-change="select(currentPage)"
-                                items-per-page="numPerPage"
-                                rotate="false"
-                                boundary-links="true"></pagination>
-                </div>
-            </div>
-        </footer>
-    </section>
-
+	<!-- ---------------------------------------Note pour la gestion-------------------------------------- -->
+	<!-- 	<div class="container" style="width: 100%;"> -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="portlet green-sharp box">
+				<div class="portlet-title">
+					<div class="caption">
+						<i class="icon-info"></i>Gestion des unités d'enseignement
+					</div>
+					<div class="tools">
+						<a class="remove" data-original-title title></a>
+					</div>
+					<div class="tools">
+						<a class="collapse" data-original-title title></a>
+					</div>
+				</div>
+				<div class="portlet-body collapse" style="display: block;">
+					<p>Cette page permet de consulter et lister les unités
+						d'enseignement l'ensemble des formations du d&eacute;partement
+						informatique de l'UBO.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- -----------------------------------END--Note pour la gestion-------------------------------------- -->
+	<div class="portlet light bordered">
+		<div class="portlet-title">
+			<div class="caption">
+				<i class="icon-social-dribble font-red"></i> <span
+					class="cpation-subject font-red bold uppercase">Unités
+					d'Enseignement</span>
+			</div>
+			<!-- -----------------------------Recherche--------------------------------------- -->
+			<div>
+				<!-- ------------------------Bouton ajouter--------------------------------------- -->
+				<button class="btn blue" ng-click="ajoutUE()">
+					Nouvelle unité d'enseignement<i class="fa fa-plus"></i>
+				</button>
+				<div class="row">
+					<span style="float: right;" class="col-sm-4 col-xs-6"> <input
+						type="text" placeholder="Rechercher" class="form-control"
+						data-ng-model="searchKeywords" data-ng-keyup="search()">
+					</span>
+				</div>
+			</div>
+			<!----------------------------------------La table de liste ---------------------------------------->
+			<div class="portlet-body">
+				<table class="table-scrollable">
+					<table class="table table-bordered table-striped table-hover">
+						<thead>
+							<tr>
+								<th><div class="th">
+										Unit&eacute; d'enseignement <span
+											class="glyphicon glyphicon-chevron-up"
+											data-ng-click=" order('designation') "
+											data-ng-class="{active: row == 'designation'}"></span> <span
+											class="glyphicon glyphicon-chevron-down"
+											data-ng-click=" order('-designation') "
+											data-ng-class="{active: row == '-designation'}"></span>
+									</div></th>
+								<th><div class="th">
+										Sigle <span class="glyphicon glyphicon-chevron-up"
+											data-ng-click=" order('codeUe') "
+											data-ng-class="{active: row == 'codeUe'}"></span> <span
+											class="glyphicon glyphicon-chevron-down"
+											data-ng-click=" order('-codeUe') "
+											data-ng-class="{active: row == '-codeUe'}"></span>
+									</div></th>
+								<th><div class="th">
+										Responsable <span class="glyphicon glyphicon-chevron-up"
+											data-ng-click=" order('email') "
+											data-ng-class="{active: row == 'email'}"></span> <span
+											class="glyphicon glyphicon-chevron-down"
+											data-ng-click=" order('-email') "
+											data-ng-class="{active: row == '-email'}"></span>
+									</div></th>
+								<th><div class="th">
+										Formation <span class="glyphicon glyphicon-chevron-up"
+											data-ng-click=" order('codeFormation') "
+											data-ng-class="{active: row == 'codeFormation'}"></span> <span
+											class="glyphicon glyphicon-chevron-down"
+											data-ng-click=" order('-codeFormation') "
+											data-ng-class="{active: row == '-codeFormation'}"></span>
+									</div></th>
+								<th><div class="th">
+										Semestre <span class="glyphicon glyphicon-chevron-up"
+											data-ng-click=" order('semestre') "
+											data-ng-class="{active: row == 'semestre'}"></span> <span
+											class="glyphicon glyphicon-chevron-down"
+											data-ng-click=" order('-semestre') "
+											data-ng-class="{active: row == '-semestre'}"></span>
+									</div></th>
+								<th colspan="3"><div class="th">
+										Heures
+									</div></th>
+								<th class="searchResult" colspan="3"><i>Affiche :
+										{{currentPageUE.length}} / {{ue.length}}</i></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr data-ng-repeat="u in currentPageUE | orderBy:'designation'"" class="ue">
+								<td>{{u.designation}}</td>
+								<td>{{u.uniteEnseignementPK.codeUe}}</td>
+			                    <td>{{u.noEnseignant.prenom}} {{u.noEnseignant.nom}}</td>
+			                    <td>{{u.uniteEnseignementPK.codeFormation}}</td>
+			                    <td>{{u.semestre}}</td>
+                    			<td><b>CM : </b>{{u.nbhCm}}</td>
+                    			<td><b>TD : </b>{{u.nbhTd}}</td>
+                    			<td><b>TP : </b>{{u.nbhTp}}</td>
+								<td id="iconGestion" ng-click="afficher(u)"><span class="fa fa-eye"></td>
+			                    <td id="iconGestion" ng-click="modifier(u)"><span class="glyphicon glyphicon-edit"></td>
+			                    <td id="iconGestion" ng-click="supprime(u.uniteEnseignementPK)"><span class="glyphicon glyphicon-trash"></span></td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- -------------------------------Footer ----------------------- -->
+					<footer class="table-footer">
+						<div class="row">
+							<div class="col-md-6 page-num-info">
+								<span> Affiche <select data-ng-model="numPerPage"
+									data-ng-options="num for num in numPerPageOpt"
+									data-ng-change="onNumPerPageChange()">
+								</select> par page
+								</span>
+							</div>
+							<div class="col-md-6 text-right pagination-container">
+								<pagination class="pagination-sm" ng-model="currentPage"
+									total-items="filteredUE.length" max-size="4"
+									ng-change="select(currentPage)" items-per-page="numPerPage"
+									rotate="false" boundary-links="true"></pagination>
+							</div>
+						</div>
+					</footer>
+		</div>
+	</div>
 </div>

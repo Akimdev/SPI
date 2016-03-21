@@ -1,0 +1,67 @@
+<div class="page" ng-controller="ConfigEvaluationController">
+	<div class="portlet light bordered">
+		<div class="portlet-title">
+			<div class="caption">
+				<i class="icon-social-dribble font-red"></i> <span
+					class="cpation-subject font-red bold uppercase">Configurer évaluation</span>
+			</div>
+		</div>
+		<div class="portlet-body">
+			<div class="portlet box blue">
+		        <div class="portlet-title">
+		            <div class="caption">Informations générales</div>
+		            <div class="tools"><a href="javascript:;" class="collapse"></a></div>
+		        </div>
+		        <div class="portlet-body form">
+		            <form class="form-horizontal" role="form">
+		                <div class="form-body">
+		                    <div class="row">
+		                        <div class="col-md-6">
+		                            <div class="form-group">
+		                                <label class="control-label col-md-3">Désignation</label>
+		                                <div class="col-md-9">
+		                                    <p class="form-control-static"> {{ue.designation}} </p>
+		                                </div>
+		                            </div>
+		                        </div>
+		                        <!--/span-->
+		                        <div class="col-md-6">
+		                            <div class="form-group">
+		                                <label class="control-label col-md-3">Formation</label>
+		                                <div class="col-md-9">
+		                                    <p class="form-control-static"> {{ue.codeFormation}} </p>
+		                                </div>
+		                            </div>
+		                        </div>
+		                        <!--/span-->
+		                    </div>
+		                    <div class="row">
+		                        <div class="col-md-6">
+		                            <div class="form-group">
+		                                <label class="control-label col-md-3">Année universitaire</label>
+		                                <div class="col-md-9">
+		                                    <p class="form-control-static"> {{ue.designation}} </p>
+		                                </div>
+		                            </div>
+		                        </div>
+		                        <!--/span-->
+		                        <div class="col-md-6">
+		                            <div class="form-group">
+		                                <label class="control-label col-md-3">Formation</label>
+		                                <div class="col-md-9">
+		                                    <p class="form-control-static"> {{ue.codeFormation}} </p>
+		                                </div>
+		                            </div>
+		                        </div>
+		                        <!--/span-->
+		                    </div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!------------------------------------------  -->
+		<a class="btn btn-primary"  ng-click="cancel()"><span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+		<a href="javascript:;" class="btn green btn-outline sbold" href="#todo-members-modal" data-toggle="modal"> Ajouter Rubrique <i class="fa fa-plus"></i></a>
+	</div>
+</div>

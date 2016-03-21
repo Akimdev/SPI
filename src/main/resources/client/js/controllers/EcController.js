@@ -59,7 +59,7 @@
     ['$scope', '$filter','$location', 'ecFactory', 'toaster',
     function($scope, $filter, $location, ecFactory, toaster){
     	var init;
-	
+    	edit = false;
     	$scope.refresh = function(){
     	var promiseEc = ecFactory.all();
     	promiseEc.success(function(data){
@@ -214,15 +214,16 @@
 		}
 	/** la fonction qui permet de modifier un ec **/	
 	$scope.edition=function(){
+		$scope.edit= true;
 		var elementConstitutifPK = {"codeFormation":$stateParams.id,
 									"codeUe":$stateParams.id2,
 									"codeEc":$stateParams.id3};
-		$location.path("/elementConstitutif/"+elementConstitutifPK.codeFormation+"/"+elementConstitutifPK.codeUe+"/"+
+		$location.path("/elementConstitutif/infos/"+elementConstitutifPK.codeFormation+"/"+elementConstitutifPK.codeUe+"/"+
 				elementConstitutifPK.codeEc);
 	}
 	/** afin d'annuler **/
 	$scope.cancel=function(){
-		$location.path('/elementConstitutif/');
+		$location.path('/ec');
 	}
 	/** fonction pour ajouter **/
 	$scope.submit=function(){

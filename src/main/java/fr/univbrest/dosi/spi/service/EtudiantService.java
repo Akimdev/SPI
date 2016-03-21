@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.univbrest.dosi.spi.bean.Etudiant;
+import fr.univbrest.dosi.spi.bean.Promotion;
 import fr.univbrest.dosi.spi.bean.PromotionPK;
 import fr.univbrest.dosi.spi.dao.EtudiantRepository;
+import fr.univbrest.dosi.spi.exception.SPIException;
 
 /**
  * @author DOSI
@@ -20,10 +22,24 @@ public class EtudiantService {
 	private EtudiantRepository etudiantRepository;
 
 	public final void addEtudiant(final Etudiant etudiant) {
+		if(!(etudiantRepository.exists(etudiant.getNoEtudiant()))){
 		etudiantRepository.save(etudiant);
+		}
+		else{
+			throw new SPIException("Cet étudiant existe déjà en base de données");
+		}
+	}
+	
+	public final void updateEtudiant(final Etudiant etudiant) {
+		if(etudiantRepository.exists(etudiant.getNoEtudiant())){
+		etudiantRepository.save(etudiant);
+		}
+		else{
+			throw new SPIException("Cet étudiant n'existe pas en base de données");	
+		}
 	}
 
-	public final void deletEtudiant(final String noEtudiant) {
+	public final void deleteEtudiant(final String noEtudiant) {
 		etudiantRepository.delete(noEtudiant);
 	}
 
@@ -37,6 +53,7 @@ public class EtudiantService {
 	/**
 	 * @author Othman 
 	 * Fonction pour récupérer le nombre d'étudiants
+	 * @return retourne le nombre un entier qui définit le nombre d'étudiants existants dans la BD
 	 */
 	public int getNombreEtudiants(){
 		List<Etudiant> listeEtudiants = (List<Etudiant>) etudiantRepository.findAll();
@@ -54,4 +71,6 @@ public class EtudiantService {
 		return etudiantRepository.findAll();
 
 	}
+	
+	
 }

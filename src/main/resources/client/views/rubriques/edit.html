@@ -1,0 +1,48 @@
+<!-- 
+ -- Author Kenza ABOUAKIL
+ -- Détails d'une rubrique
+ -->
+<div class="page" ng-controller="RubriqueDetailsController">
+	<div class="portlet light bordered">
+		<div class="portlet-title">
+			<div class="caption">
+				<i class="icon-social-dribble font-red"></i> <span
+					class="cpation-subject font-red bold uppercase">Mise &agrave; jour rubrique standard</span>
+			</div>
+		</div>
+		<!--------------------------- Edition --------------------------->
+		<div>
+			<br>
+			<form class="form-horizontal" name="editForm">
+				<div class="form-group">
+					<label for="" class="col-sm-2">Designation<span
+						id="required-field">*</span></label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="designation"
+							ng-model="rubrique.designation" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="" class="col-sm-2">Ordre<span
+						id="required-field">*</span></label>
+					<div class="col-sm-10">
+						<input type="number" class="form-control" name="ordre"
+							ng-model="rubrique.ordre" required>
+					</div>
+				</div>
+			</form>
+			<button class="btn btn-danger" ng-click="cancel()">Annuler</button>
+			<button ng-click="submit()" class="btn btn-success pull-right"
+				ng-disabled="editForm.idRubrique.$dirty && editForm.idRubrique.$invalid  
+												|| editForm.designation.$dirty && editForm.designation.$invalid
+												|| editForm.type.$dirty && editForm.type.$invalid
+												|| editForm.ordre.$dirty && editForm.ordre.$invalid
+												|| editForm.idRubrique.$error.required
+												|| editForm.designation.$error.required
+												|| editForm.type.$error.required
+												|| editForm.ordre.$error.required">Valider</button>
+			<!-- <a class="btn btn-success" ng-click="submit()"><span
+					class="glyphicon glyphicon-ok"></span> Valider</a> -->
+		</div>
+	</div>
+</div>

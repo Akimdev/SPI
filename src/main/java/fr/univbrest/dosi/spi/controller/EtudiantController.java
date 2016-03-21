@@ -3,10 +3,16 @@ package fr.univbrest.dosi.spi.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import fr.univbrest.dosi.spi.bean.Etudiant;
+import fr.univbrest.dosi.spi.bean.Promotion;
+import fr.univbrest.dosi.spi.bean.utils.EtudiantPromotionUtil;
 import fr.univbrest.dosi.spi.service.EtudiantService;
+import fr.univbrest.dosi.spi.service.PromotionService;
 
 @RestController
 public class EtudiantController {
@@ -14,6 +20,44 @@ public class EtudiantController {
 	@Autowired
 	EtudiantService etudiantService;
 
+	@Autowired
+	PromotionService promotionService;
+	/**
+	 * @author Othman
+	 * @param etudiant
+	 * @return retourne un message de validation de l'ajout
+	 */
+	@RequestMapping(value="/etudiants/addEtudiant", method = RequestMethod.POST, headers= "Accept=application/json")
+	public String addEtudiant(@RequestBody final EtudiantPromotionUtil etudiantPromotionUtil){
+		Promotion promotion = promotionService.getPromotion(etudiantPromotionUtil.getPromotion().getPromotionPK());
+		Etudiant etudiant = etudiantPromotionUtil.getEtudiant();
+		etudiant.setPromotion(promotion);
+		etudiantService.addEtudiant(etudiant);
+		return "Succès";
+	}
+	/**
+	 * @author Othman
+	 * @param etudiant
+	 * @return retourne un message de validation de la modification
+	 */
+	@RequestMapping(value="/etudiants/updateEtudiant", method = RequestMethod.POST, headers= "Accept=application/json")
+	public String updateEtudiant(@RequestBody final EtudiantPromotionUtil etudiantPromotionUtil){
+		Promotion promotion = promotionService.getPromotion(etudiantPromotionUtil.getPromotion().getPromotionPK());
+		Etudiant etudiant = etudiantPromotionUtil.getEtudiant();
+		etudiant.setPromotion(promotion);
+		etudiantService.updateEtudiant(etudiant);
+		return "Succès";
+	}
+	/**
+	 * @author Othman
+	 * @param noEtudiant
+	 * @return retourne un message de validation de la suppression
+	 */
+	@RequestMapping(value="/etudiants/deleteEtudiant-{noEtudiant}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public String deleteEtudiant(@PathVariable("noEtudiant")String noEtudiant){
+		etudiantService.deleteEtudiant(noEtudiant);
+		return "Succès";
+	}
 	/**
 	 * 
 	 * @return une liste de formation
@@ -33,7 +77,7 @@ public class EtudiantController {
 	 * @return retourne un etudiant particulier
 	 */
 	@RequestMapping(value = "/etudiants/{noEtudiant}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public final Etudiant etudiant(@PathVariable(value = "noEtudiant") final String noEtudiant) {
+	public final Etudiant getEtudiant(@PathVariable(value = "noEtudiant") final String noEtudiant) {
 		return etudiantService.getEtudiant(noEtudiant);
 	}
 	
@@ -41,4 +85,6 @@ public class EtudiantController {
 	public int nombreEtudiants(){
 		return etudiantService.getNombreEtudiants();
 	}
+	
+	
 }

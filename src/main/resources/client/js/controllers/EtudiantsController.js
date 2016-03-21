@@ -28,7 +28,7 @@
       },
       getPays: function(pays){
     	  return $http.get('http://localhost:8090/getDomaine/pays/' + pays);
-      }
+      },
     };
   });
   
@@ -42,6 +42,7 @@
 		      $scope.searchKeywords = '';
 		      $scope.filteredEtudiant = [];
 		      $scope.row = '';
+		    
 		      
 		      $scope.select = function(page) {
 		        var end, start;
