@@ -2,65 +2,127 @@
 	<div class="portlet light bordered">
 		<div class="portlet-title">
 			<div class="caption">
-				<i class="icon-social-dribble font-red"></i> <span
-					class="cpation-subject font-red bold uppercase">Configurer évaluation</span>
+				<i class="icon-social-dribble font-red"></i> <span class="cpation-subject font-red bold uppercase">évaluation</span>
 			</div>
 		</div>
 		<div class="portlet-body">
 			<div class="portlet box blue">
-		        <div class="portlet-title">
-		            <div class="caption">Informations générales</div>
-		            <div class="tools"><a href="javascript:;" class="collapse"></a></div>
-		        </div>
-		        <div class="portlet-body form">
-		            <form class="form-horizontal" role="form">
-		                <div class="form-body">
-		                    <div class="row">
-		                        <div class="col-md-6">
-		                            <div class="form-group">
-		                                <label class="control-label col-md-3">Désignation</label>
-		                                <div class="col-md-9">
-		                                    <p class="form-control-static"> {{ue.designation}} </p>
-		                                </div>
-		                            </div>
-		                        </div>
-		                        <!--/span-->
-		                        <div class="col-md-6">
-		                            <div class="form-group">
-		                                <label class="control-label col-md-3">Formation</label>
-		                                <div class="col-md-9">
-		                                    <p class="form-control-static"> {{ue.codeFormation}} </p>
-		                                </div>
-		                            </div>
-		                        </div>
-		                        <!--/span-->
-		                    </div>
-		                    <div class="row">
-		                        <div class="col-md-6">
-		                            <div class="form-group">
-		                                <label class="control-label col-md-3">Année universitaire</label>
-		                                <div class="col-md-9">
-		                                    <p class="form-control-static"> {{ue.designation}} </p>
-		                                </div>
-		                            </div>
-		                        </div>
-		                        <!--/span-->
-		                        <div class="col-md-6">
-		                            <div class="form-group">
-		                                <label class="control-label col-md-3">Formation</label>
-		                                <div class="col-md-9">
-		                                    <p class="form-control-static"> {{ue.codeFormation}} </p>
-		                                </div>
-		                            </div>
-		                        </div>
-		                        <!--/span-->
-		                    </div>
+				<div class="portlet-title">
+					<div class="caption">Informations générales</div>
+					<div class="tools">
+						<a href="javascript:;" class="collapse"></a>
+					</div>
+				</div>
+				<div class="portlet-body form">
+					<form class="form-horizontal" role="form">
+						<div class="form-body">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-md-3">Désignation :</label>
+										<div class="col-md-9">
+											<p class="form-control-static">{{eval.designation}}</p>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-md-3">Formation :</label>
+										<div class="col-md-9">
+											<p class="form-control-static">{{eval.code_formation}}</p>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-md-3">Année universitaire :</label>
+										<div class="col-md-9">
+											<p class="form-control-static">{{eval.annee}}</p>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-md-3">Période :</label>
+										<div class="col-md-9">
+											<p class="form-control-static">{{eval.periode}}</p>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-md-3">Unité enseignement :</label>
+										<div class="col-md-9">
+											<p class="form-control-static">{{eval.code_ue}}</p>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-md-6" ng-show="eval.codeEc">
+									<div class="form-group">
+										<label class="control-label col-md-3">Elément constitutif :</label>
+										<div class="col-md-9">
+											<p class="form-control-static">{{eval.codeEc}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 		<!------------------------------------------  -->
-		<a class="btn btn-primary"  ng-click="cancel()"><span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+		<hr />
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption">
+					<span class="cpation-subject font-red bold uppercase">Configurer évaluation</span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<table class="table configEval">
+					<thead>
+						<tr>
+							<td colspan="4" style="border: 0px !important;">
+								<button type="button" ng-click="addRubrique()" class="btn green btn-outline sbold uppercase pull-right">
+									<span class="glyphicon glyphicon-plus"></span> Rubrique
+								</button>
+							</td>
+						</tr>
+					</thead>
+					<tbody ng-repeat="rub in rubriques">
+						<tr class="">
+							<td colspan="3" class="sbold uppercase"><i class="icon-tag" style="margin-right: 10px;"></i><b> {{rub.designation}}</b></td>
+							<td>
+								<button type="button" ng-click="addQuestion(rub.idRubrique)" class="btn green btn-outline sbold uppercase plusQues">
+									<span class="glyphicon glyphicon-plus"></span> Question
+								</button>
+								<button type="button" ng-click="removeRubrique(rub.idRubrique)" class="btn red btn-outline sbold uppercase plusQues">
+									<span class="glyphicon glyphicon-remove"></span> Rubrique
+								</button>
+							</td>
+						</tr>
+						<tr id="" ng-repeat="ques in rub.questions">
+							<td><span><i class="icon-question" style="margin-right: 10px;"></i></span> {{ques.intitule}}</td>
+							<td>{{ques.qualificatif.minimal}}</td>
+							<td>{{ques.qualificatif.maximal}}</td>
+							<td><span ng-click="removeQuestion(rub.idRubrique, ques.idQuestion)" class="fa fa-remove pull-right" style="color: red; cursor: pointer;"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<a class="btn btn-primary" ng-click="cancel()"><span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+		<a class="btn btn-success pull-right" ng-click="cancel()"><span class="glyphicon glyphicon-ok"></span> Valider</a>
 	</div>
 </div>
