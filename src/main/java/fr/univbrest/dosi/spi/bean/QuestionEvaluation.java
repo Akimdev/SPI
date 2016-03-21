@@ -62,7 +62,6 @@ public class QuestionEvaluation implements Serializable {
     @JoinColumn(name = "ID_QUALIFICATIF", referencedColumnName = "ID_QUALIFICATIF")
     @ManyToOne
     private Qualificatif idQualificatif;
-    @JsonIgnore
     @JoinColumn(name = "ID_QUESTION", referencedColumnName = "ID_QUESTION")
     @ManyToOne
     private Question idQuestion;

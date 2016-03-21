@@ -2,20 +2,28 @@
 	<div class="panel panel-default ens-edit">
 		<div class="panel-heading">
 			<strong><span class="glyphicon glyphicon-th"></span>
-				Ã©valuation</strong>
+				&Eacute;valuation</strong>
 		</div>
 		<div class="panel-body">
 <!-- Edition -->
 			<div ng-show="edit">
 				<form class="form-horizontal" name="evaForm">
 					<div class="form-group">
-						<label for="" class="col-sm-2">Numéro Evaluation:<span id="required-field">*</span></label>
+						<label for="" class="col-sm-2">Num&eacute;ro Evaluation:<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="number" class="form-control" ng-model="evaluation.noEvaluation" name="noEvaluation" required>
-							<span style="color:red" ng-show="evaForm.noEvaluation.$dirty && evaForm.noEvaluation.$invalid">
-							<span ng-show="evaForm.noEvaluation.$error.required">Champ obligatoire / Type invalide</span></span>
-						</div>
+						<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-user"></i>
+                        </span>
+							<input type="text" class="form-control" ng-model="evaluation.noEvaluation" name="noEvaluation" 
+							mask='9' repeat="8" restrict="reject" validate="false"
+							ng-em-required="Nom obigatoire"
+							placeholder="Num&eacute;ro de l'&eacute;valuation" required>
+						</div>	
+							<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="evaForm.noEvaluation.$valid"></span>
+                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="evaForm.noEvaluation.$invalid"></span>
 					</div>
+					</div>
+										
 					<div class="form-group">
 						<label for="" class="col-sm-2">Désignation:<span id="required-field">*</span></label>
 						<div class="col-sm-10">
@@ -46,13 +54,13 @@
 					<div class="form-group">
 						<label for="" class="col-sm-2">Début:<span id="required-field">*</span></label>
 						<div class="col-sm-2">
-							<input type="date" class="form-control" ng-model="evaluation.debutReponse" name="debutReponse" required>
+							<input type="text" class="form-control" ng-model="evaluation.debutReponse" name="debutReponse" required>
 							<span style="color:red" ng-show="evaForm.debutReponse.$dirty && evaForm.debutReponse.$invalid">
 							<span ng-show="evaForm.debutReponse.$error.required">Champ obligatoire / Type invalide</span></span>
 						</div>
 						<label for="" class="col-sm-2">Fin:<span id="required-field">*</span></label>
 						<div class="col-sm-2">
-							<input type="date" class="form-control" ng-model="evaluation.finReponse" name="finReponse" required>
+							<input type="text" class="form-control" ng-model="evaluation.finReponse" name="finReponse" required>
 							<span style="color:red" ng-show="evaForm.finReponse.$dirty && evaForm.finReponse.$invalid">
 							<span ng-show="evaForm.finReponse.$error.required">Champ obligatoire / Type invalide</span></span>
 						</div>
