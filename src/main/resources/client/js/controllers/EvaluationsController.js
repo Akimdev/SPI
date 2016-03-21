@@ -185,6 +185,8 @@
         $scope.edit= true;
         var promiseDomain = evaluationsFactory.getDomain();
  		promiseDomain.success(function(data) { 
+ 			$scope.evaluation.debutReponse = $filter('date')(data.debutReponse, "dd-MM-yyyy");
+			$scope.evaluation.finReponse = $filter('date')(data.finReponse, "dd-MM-yyyy");
  			console.log("etats: ",data);
  			$scope.etats = data;
  			$scope.domains = data;
@@ -321,6 +323,10 @@
       $scope.ueSelect=true;
 /** Bouton submit * */
         $scope.submit = function(){
+        	var date = $scope.evaluation.debutReponse.split('/');
+        	$scope.evaluation.debutReponse = new Date(date[1] + '-' + date[0] + '-' + date[2]);
+        	var date2 = $scope.evaluation.finReponse.split('/');
+        	$scope.evaluation.finReponse = new Date(date2[1] + '-' + date2[0] + '-' + date2[2]);
         	$scope.evaluation.code_formation= $scope.selectedPromotion.promotionPK.codeFormation;
 	        console.log($scope.selectedPromotion.promotionPK.codeFormation);
 	        console.log($scope.selectedPromotion);
