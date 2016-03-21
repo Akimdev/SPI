@@ -50,8 +50,8 @@
 					<div class="col-md-3">{{enseignant.pays}}</div>
 				</div>
 			</form>
-			</br> <a class="btn btn-primary" href="#/enseignants"><span
-				class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+			</br> <!-- <a class="btn btn-primary" href="#/enseignants"><span
+				class="glyphicon glyphicon-arrow-left"></span> Retour</a> -->
 		</div>
 		</br> </br>
 		<div class="portlet light ens-edit">
@@ -103,10 +103,10 @@
 						</div>
 					</div>
 				</div>
-				<a class="btn btn-primary" href="#/enseignants"><span
-					class="glyphicon glyphicon-arrow-left"></span> Retour</a>
-			</div>
-
+<!------------------------Boutons Retour et Editer----------->
+			<a class="btn btn-primary" href="#/enseignants"><span
+				class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+		</div>
 			<!------------------------------------------------------------- Edition --------------------------------------------->
 			<div ng-show="edit">
 				<form class="form-horizontal elegant-aero" name="enseignantForm">
@@ -240,12 +240,33 @@
 								<span ng-show="enseignantForm.pays.$error.required">Pays obligatoire</span>
 						</div>
 					</div>
-				</form>
-				<a class="btn btn-success" ng-click="submit()"><span
-					class="glyphicon glyphicon-ok"></span> Valider</a>
-				<button class="btn btn-danger pull-right" ng-click="cancel()">
-					Annuler</button>
-			</div>
+				<div class="form-group">
+					<!------------------------Boutons Valider et Annuler----------->
+				<a class="btn btn-success pull-right" ng-click="submit()"
+				ng-disabled="enseignantForm.nom.$dirty && enseignantForm.nom.$invalid
+							||enseignantForm.prenom.$dirty && enseignantForm.prenom.$invalid
+							||enseignantForm.type.$dirty && enseignantForm.type.$invalid
+							||enseignantForm.email.$dirty && enseignantForm.email.$invalid
+							||enseignantForm.mobile.$dirty && enseignantForm.mobile.$invalid
+							||enseignantForm.adresse.$dirty && enseignantForm.adresse.$invalid
+							|| enseignantForm.codePostale.$dirty && enseignantForm.codePostale.$invalid
+							|| enseignantForm.ville.$dirty && enseignantForm.ville.$invalid
+							|| enseignantForm.pays.$dirty && enseignantForm.pays.$invalid
+							||enseignantForm.nom.$error.required
+							||enseignantForm.prenom.$error.required
+							||enseignantForm.type.$error.required
+							||enseignantForm.email.$error.required
+							||enseignantForm.mobile.$error.required
+							||enseignantForm.adresse.$error.required
+							|| enseignantForm.codePostale.$error.required
+							|| enseignantForm.ville.$error.required
+							|| enseignantForm.pays.$error.required ">			
+				<span class="glyphicon glyphicon-ok"></span> Valider
+					</a>
+					<a class="btn btn-danger pull-left" href="#/qualificatifs"><span
+						class="glyphicon glyphicon-arrow-left"></span> Annuler</a>
+			 </div>
+		  </form>
 		</div>
 	</div>
 </div>
