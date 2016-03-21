@@ -70,7 +70,7 @@ public class QuestionController {
 	 * Retourne une question par ID
 	 */
 	 
-	@RequestMapping(value = "/getQuestionById/{idQuestion}")
+	@RequestMapping(value = "/getQuestionById/{idQuestion}", produces = { MediaType.APPLICATION_JSON_VALUE }, headers = "Accept=application/json")
 	public Question getQuestionById(@PathVariable(value = "idQuestion") Long idQuestion) {
 		return questServ.getQuestionById(idQuestion);
 	}

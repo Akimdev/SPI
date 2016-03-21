@@ -11,7 +11,7 @@
 			</div>
 		</div>
 		<!--------------------------- Consultation --------------------------->
-		<div class="portlet-body form" ng-hide="edit">
+		<div class="portlet-body form" ng-show="edit">
 			<button class="btn btn-warning pull-right" ng-click="edition()">
 				<span class="glyphicon glyphicon-pencil"></span> Editer
 			</button>
@@ -24,17 +24,16 @@
 				</div>
 				<div class="form-group">
 					<div class="col-md-3">
-						<strong>Qualificatif</strong>
+						<strong>Couple qualificatif</strong>
 					</div>
-					<div class="col-md-3">{{qualif.idQualificatif}} /
-						{{qualif.maximal}} - {{qualif.minimal}}</div>
+					<div class="col-md-3"> {{question.idQualificatif.minimal}} / {{question.idQualificatif.maximal}}</div>
 				</div>
 			</form>
 			</br> <a class="btn btn-primary" href="#/questions"><span
 				class="glyphicon glyphicon-arrow-left"></span> Retour</a>
 		</div>
 		<!--------------------------- Edition ------------------------- -->
-		<div ng-show="edit">
+		<div ng-hide="edit">
 			<form class="form-horizontal">
 				<div>
 					<toaster-container
@@ -43,7 +42,7 @@
 						<div ng-repeat="alert in alerts" ng-show="alert.show">
 							<alert type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
 						</div>
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<label for="" class="col-sm-2">idQuestion<span
 								id="required-field">*</span></label>
 							<div class="col-sm-10">
@@ -54,7 +53,7 @@
 									<span ng-show="questionForm.idQuestion.$error.required">IdQuestion
 										obligatoire ou type invalide.</span>
 							</div>
-						</div>
+						</div> -->
 						<div class="form-group">
 							<label for="" class="col-sm-2">Intitul&eacute;<span
 								id="required-field">*</span></label>
@@ -67,7 +66,7 @@
 										obligatoire ou type invalide.</span>
 							</div>
 						</div>
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<label for="" class="col-sm-2">Type<span
 								id="required-field">*</span></label>
 							<div class="col-sm-10">
@@ -78,7 +77,7 @@
 									<span ng-show="questionForm.type.$error.required">Champs
 										obligatoire ou type invalide.</span>
 							</div>
-						</div>
+						</div> -->
 
 						<div class="form-group">
 							<label for="" class="col-sm-2">Qualificatif<span
@@ -91,22 +90,25 @@
 								<select name="qualificatif" ng-model="qualificatif">
 									<option data-ng-repeat="q in qualificatifs"
 										value="{{q.idQualificatif}}"
-										ng-selected="{{q.idQualificatif == selectedOption.idQualificatif}}">{{q.idQualificatif}}
-										/ {{q.maximal}} - {{q.minimal}}</option>
+										ng-selected="{{q.idQualificatif == selectedOption.idQualificatif}}">
+										{{q.minimal}} - {{q.maximal}}</option>
 								</select> <span style="color: red"
 									ng-show="questionForm.qualificatif.$dirty && questionForm.qualificatif.$invalid">
 									<span ng-show="questionForm.qualificatif.$error.required">Champs
 										obligatoire ou type invalide.</span>
 							</div>
 						</div>
-
-					</form>
-					<a class="btn btn-success" ng-click="submit()"
-						ng-disabled="questionForm.idQuestion.$dirty && questionForm.idQuestion.$invalid ||  
+						<div class="form-group">
+							</br> <a class="btn btn-success pull-right" ng-click="submit()"
+								ng-disabled="questionForm.idQuestion.$dirty && questionForm.idQuestion.$invalid ||  
 				questionForm.intitule.$dirty && questionForm.intitule.$invalid ||  
 				questionForm.type.$dirty && questionForm.type.$invalid|| questionForm.$invalid"><span
-						class="glyphicon glyphicon-ok"></span> Valider</a>
-					<button class="btn btn-danger pull-right" ng-click="cancel()">Annuler</button>
+								class="glyphicon glyphicon-ok"></span> Valider</a> <a
+								class="btn btn-danger pull-left" href="#/questions"><span
+								class="glyphicon glyphicon-arrow-left"></span> Annuler</a>
+						</div>
+					</form>
+
 				</div>
 			</form>
 		</div>
