@@ -227,8 +227,10 @@
 		$scope.edit=false;
         var promisesFactory = evaluationsFactory.get($stateParams.id);
      		promisesFactory.success(function(data) {
-     		$scope.isVisible = false;
-     		$scope.evaluation = data;   
+     		data.debutReponse = $filter('date')(data.debutReponse, "dd/MM/yyyy");
+     		data.finReponse = $filter('date')(data.finReponse, "dd/MM/yyyy");
+     		$scope.evaluation = data;  
+     		console.log($scope.evaluation);
      		$scope.etatSelected = data.etat;
      		$scope.ueSelected = data.code_ue;
      		$scope.ecSelected = data.code_ec;
@@ -236,11 +238,38 @@
      	.error(function(data,status){
       		 console.log("impossible de recuperer l'évaluation");
       	});
+     	/** Récuperation du domaine **/
+            var promise2= evaluationsFactory.getDomain();
+            promise2.success(function(data,statut){
+            	$scope.etats= data;
+            	console.log("\tEtats récupérés: ", data);
+            })
+            .error(function(data,statut){
+          	  console.log("impossible de recuperer la liste des etats");
+            });
+        /** chargement des promotions**/
+            var Promotionpromise = evaluationsFactory.listePromotion();
+        	Promotionpromise.success(function(data,status){
+        		$scope.promotionevaluation = data ; 
+        	})
+              .error(function(data,status){
+                    	console.log("impossible de recuperer les promotions") ;
+              });
+        /** chargement des ue **/
+        	var Uepromise = evaluationsFactory.listeUE(); 
+        	Uepromise.success(function(data,status){ 	    		
+        		$scope.ues = data ;
+        	}) 
+        	 .error(function(data,status){
+        		 console.log("impossible de recuperer la liste des UE");
+        	}); 
      }else{
     /** sinon on edite une evaluation existante * */
  		 $scope.edit=true;
          var promisesFactory = evaluationsFactory.get($stateParams.id);
       		promisesFactory.success(function(data) {
+  			data.debutReponse = $filter('date')(data.debutReponse, "dd/MM/yyyy");
+     		data.finReponse = $filter('date')(data.finReponse, "dd/MM/yyyy");
       		$scope.isVisible = false;
       		$scope.evaluation = data;   
       		$scope.etatSelected = data.etat;
@@ -283,11 +312,13 @@
      	});  	  
       }
       $scope.edition = function(){
-    	  var promisessuppression = evaluationsFactory.set($scope.evaluation);    	  
-    	  evaluationsFactory.get($scope.evaluation);
-    	  
-          $scope.edit = true;
+    	  $scope.edit = true;
         }
+      $scope.modifierUe=function(){
+    	  $scope.hideSelectUe=false;
+      }
+      $scope.hideSelectUe=true;
+      $scope.ueSelect=true;
 /** Bouton submit * */
         $scope.submit = function(){
         	$scope.evaluation.code_formation= $scope.selectedPromotion.promotionPK.codeFormation;
