@@ -717,6 +717,7 @@ body,input,select,td,textarea {
 #iconGestion{
 	width: 60px;
 	text-align: center;
+	cursor: pointer;
 }
 
 .searchResult{
@@ -778,4 +779,16 @@ label{
 
 .configEval{
 	border: 0px !important;
+}
+
+.glyphicon-trash{
+	color: #da1b1b;
+}
+
+.glyphicon-edit{
+	color: #11bb80;
+}
+
+.fa-eye{
+	color: #107bb6;
 }

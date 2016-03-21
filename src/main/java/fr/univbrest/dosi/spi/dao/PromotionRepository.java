@@ -11,15 +11,15 @@ import fr.univbrest.dosi.spi.bean.Promotion;
 import fr.univbrest.dosi.spi.bean.PromotionPK;
 
 /**
- * @author DOSI
+ * @author Kenza ABOUAKIL
  *
  */
 @RepositoryRestResource(collectionResourceRel = "promotion", path = "promotion")
 public interface PromotionRepository extends PagingAndSortingRepository<Promotion, PromotionPK> {
 
-	/**
-	 * @author Kenza ABOUAKIL
-	 */
+	@Override
+	List<Promotion> findAll();
+
 	public List<Promotion> findByCodeFormation(@Param("codeFormation") String codeFormation);
 
 	/**

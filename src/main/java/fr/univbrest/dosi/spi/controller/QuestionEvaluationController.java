@@ -1,6 +1,7 @@
 package fr.univbrest.dosi.spi.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,12 +9,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import fr.univbrest.dosi.spi.bean.Qualificatif;
 import fr.univbrest.dosi.spi.bean.Question;
 import fr.univbrest.dosi.spi.bean.QuestionEvaluation;
 import fr.univbrest.dosi.spi.bean.RubriqueEvaluation;
 import fr.univbrest.dosi.spi.bean.utils.QuestionEvaluationUtil;
+import fr.univbrest.dosi.spi.service.QualificatifService;
 import fr.univbrest.dosi.spi.service.QuestionEvaluationService;
 import fr.univbrest.dosi.spi.service.QuestionService;
+import fr.univbrest.dosi.spi.service.RubriqueEvaluationService;
 
 @RestController
 public class QuestionEvaluationController {
@@ -24,13 +29,22 @@ public class QuestionEvaluationController {
 	@Autowired
 	QuestionService questionServ;
 	
-	@RequestMapping(value="/addQuestionEvaluation" , method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@Autowired
+	QualificatifService qualificatifServ;
+	
+	@Autowired
+	RubriqueEvaluationService rubriqueEvaluationSer;
+	
+	@RequestMapping(value="/addQuestionEvaluation" , method = RequestMethod.POST, headers= "Accept=application/json")
 	public String addQuestionEvaluation(@RequestBody final QuestionEvaluationUtil questionEvaluationUtil){
-		QuestionEvaluation questionEvaluation = questionEvaluationServ.getQuestionEvaluation(questionEvaluationUtil.getQuestionEvaluation().getIdQuestionEvaluation());
+		
+		QuestionEvaluation questionEvaluation = questionEvaluationUtil.getQuestionEvaluation();
 		Question question = questionServ.getQuestion(questionEvaluationUtil.getQuestion().getIdQuestion());
 		questionEvaluation.setIdQuestion(question);
+		Qualificatif qualificatif = question.getIdQualificatif();
 		questionEvaluation.setIdQualificatif(null);
-		//questionEvaluation.setIdRubriqueEvaluation(rubriqueEvaluation);
+		RubriqueEvaluation rubriqueEvaluation= rubriqueEvaluationSer.getRubriqueEvaluation(questionEvaluationUtil.getRubriqueEvaluation().getIdRubriqueEvaluation());
+		questionEvaluation.setIdRubriqueEvaluation(rubriqueEvaluation);
 		questionEvaluationServ.addQuestionEvaluation(questionEvaluation);
 		return "succes";
 	}

@@ -57,38 +57,23 @@
 					<table class="table table-bordered table-striped table-hover">
 						<thead>
 							<tr>
-								<!-- <th><div class="th">
-										ID Question <span class="glyphicon glyphicon-chevron-up"
-											data-ng-click=" order('idQuestion') "
-											data-ng-class="{active: row == 'idQuestion'}"></span> <span
-											class="glyphicon glyphicon-chevron-down"
-											data-ng-click=" order('idQuestion') "
-											data-ng-class="{active: row == 'idQuestion'}"></span>
-									</div></th>
 								<th><div class="th">
-										Type <span class="glyphicon glyphicon-chevron-up"
-											data-ng-click=" order('type') "
-											data-ng-class="{active: row == 'type'}"></span> <span
-											class="glyphicon glyphicon-chevron-down"
-											data-ng-click=" order('-type') "
-											data-ng-class="{active: row == '-type'}"></span>
-									</div></th> -->
-								<th><div class="th">
-										Intitul&eacute; <span class="glyphicon glyphicon-chevron-up"
+											Intitul&eacute; <span class="glyphicon glyphicon-chevron-up"
 											data-ng-click=" order('intitule') "
 											data-ng-class="{active: row == 'intitule'}"></span> <span
 											class="glyphicon glyphicon-chevron-down"
 											data-ng-click=" order('-intitule') "
 											data-ng-class="{active: row == '-intitule'}"></span>
-									</div></th>
+									</div>
+								</th>
 								<th>
 									<strong>Qualificatif</strong>
 								</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr style="cursor: pointer" data-ng-repeat="q in currentPageQuestion" class="question">
-								<td ng-click="edit(q)">{{q.intitule}}</td>
+					<tr data-ng-repeat="q in currentPageQuestion | orderBy:'intitule'" class="question">
+								<td>{{q.intitule}}</td>
 								<td></td>
 								<td id="iconGestion" ng-click="show(q)"><span class="fa fa-eye"></span></td>
 								<td id="iconGestion" ng-click="edit(q)"><span class="glyphicon glyphicon-edit"></span></td>
@@ -98,22 +83,22 @@
 					</table>
 					<!-- -------------------------------Footer ----------------------- -->
 					<footer class="table-footer">
-						<div class="row">
-							<div class="col-md-6 page-num-info">
-								<span> Afficher <select data-ng-model="numPerPage"
-									data-ng-options="num for num in numPerPageOpt"
-									data-ng-change="onNumPerPageChange()">
-								</select> par page
-								</span>
-							</div>
-							<div class="col-md-6 text-right pagination-container">
-								<pagination class="pagination-sm" ng-model="currentPage"
-									total-items="filteredStores.length" max-size="4"
-									ng-change="select(currentPage)" items-per-page="numPerPage"
-									rotate="false" boundary-links="true"></pagination>
-							</div>
-						</div>
-					</footer>
+			<div class="row">
+				<div class="col-md-6 page-num-info">
+					<span> Show <select data-ng-model="numPerPage"
+						data-ng-options="num for num in numPerPageOpt"
+						data-ng-change="onNumPerPageChange()">
+					</select> entries per page
+					</span>
+				</div>
+				<div class="col-md-6 text-right pagination-container">
+					<pagination class="pagination-sm" ng-model="currentPage"
+						total-items="filteredQuestion.length" max-size="4"
+						ng-change="select(currentPage)" items-per-page="numPerPage"
+						rotate="false" boundary-links="true"></pagination>
+				</div>
+			</div>
+		</footer>
 				</table>
 			</div>
 		</div>
