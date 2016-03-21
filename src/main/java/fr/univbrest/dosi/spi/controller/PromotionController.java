@@ -1,7 +1,11 @@
 package fr.univbrest.dosi.spi.controller;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import fr.univbrest.dosi.spi.bean.Authentification;
 import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Etudiant;
@@ -35,10 +40,10 @@ public class PromotionController {
 
 	@Autowired
 	private EtudiantService etudiantservice;
-	
+
 	@Autowired
 	FormationService formationservice;
-	
+
 	@Autowired
 	private PromotionService promotionService;
 
@@ -110,6 +115,13 @@ public class PromotionController {
 
 	}
 
+	@RequestMapping(value = "/getPromoByNoEnseignant", produces = { "application/json;charset=UTF-8" })
+	public List<Promotion> getPromoByNoEnseignant(final HttpServletRequest request) {
+		Authentification auth = (Authentification) request.getSession().getAttribute("user");
+		Enseignant ens = auth.getNoEnseignant();
+		return promotionService.getPromoByNoEnseignant(ens.getNoEnseignant());
+	}
+
 	/**
 	 * @author Soukaina BAQLOUL
 	 *
@@ -122,21 +134,41 @@ public class PromotionController {
 	}
 
 	/**
-	 * @author ASSABBAR
+	 * @author Souakaina ASSABAR, Kenza ABOUAKIL
 	 *
 	 *         la methode permet de Lister toutes les promotions
 	 */
-	 
+
 	@RequestMapping(value = "/promotions", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE })
 	public Iterable<Promotion> getPromotions() {
-		return promotionService.getPromotionALL();
+		List p = (List) promotionService.getPromotionALL();
+		// p.sort(p, promotionPK);
+		Collections.sort(p, new Comparator<Promotion>() {
+			@Override
+			public int compare(Promotion p1, Promotion p2) {
+				return p1.getPromotionPK().getAnneeUniversitaire().compareTo(p2.getPromotionPK().getAnneeUniversitaire());
+			}
+		});
+		return p;
+	}
+
+	/**
+	 * @author Zouhair La recuperation du nombre des promotions
+	 *
+	 * @param idRubrique
+	 * @return
+	 */
+
+	@RequestMapping(value = "/nombrePromotions")
+	public int nombrePromotions() {
+		return promotionService.nombrePromotions();
 	}
 
 	/**
 	 *
 	 * @param proEns
 	 */
-	 
+
 	@RequestMapping(value = "/updatePromotion", method = RequestMethod.POST, headers = "Accept=application/json")
 	public void updatePromotion(@RequestBody ProEns proEns) {
 		/** récupération de la promotion à créer ! */
@@ -154,25 +186,5 @@ public class PromotionController {
 		promotion.setFormation(formationExistante);
 		/** ajout de la promotion */
 		promotionService.update(promotion);
-	}
-	
-	/**
-	 * @author Zouhair
-	 * La recuperation du nombre des promotions
-	 * 
-	 * @param idRubrique
-	 * @return
-	 */
-	 
-	@RequestMapping(value="/nombrePromotions")
-	public int nombrePromotions(){
-		return promotionService.nombrePromotions();
-	}
-
-	@RequestMapping(value="/getPromoByNoEnseignant" , produces = { "application/json;charset=UTF-8" })
-	public List<Promotion> getPromoByNoEnseignant(final HttpServletRequest request){
-		Authentification auth = (Authentification) request.getSession().getAttribute("user");
-		Enseignant ens = auth.getNoEnseignant();
-		return promotionService.getPromoByNoEnseignant(ens.getNoEnseignant());
 	}
 }

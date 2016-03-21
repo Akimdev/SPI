@@ -1,6 +1,6 @@
 <!-- 
  -- Author Soukaina ASSABBAR
- -- Détails d'une promotion
+ -- Détails d'un enseignant
  -->
 <div class="page" ng-controller="EnsDetailsController">
 	<div class="portlet light bordered">
@@ -50,8 +50,8 @@
 					<div class="col-md-3">{{enseignant.pays}}</div>
 				</div>
 			</form>
-			</br> <a class="btn btn-primary" href="#/enseignants"><span
-				class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+			</br> <!-- <a class="btn btn-primary" href="#/enseignants"><span
+				class="glyphicon glyphicon-arrow-left"></span> Retour</a> -->
 		</div>
 		</br> </br>
 		<div class="portlet light ens-edit">
@@ -103,10 +103,10 @@
 						</div>
 					</div>
 				</div>
-				<a class="btn btn-primary" href="#/enseignants"><span
-					class="glyphicon glyphicon-arrow-left"></span> Retour</a>
-			</div>
-
+<!------------------------Boutons Retour et Editer----------->
+			<a class="btn btn-primary" href="#/enseignants"><span
+				class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+		</div>
 			<!------------------------------------------------------------- Edition --------------------------------------------->
 			<div ng-show="edit">
 				<form class="form-horizontal elegant-aero" name="enseignantForm">
