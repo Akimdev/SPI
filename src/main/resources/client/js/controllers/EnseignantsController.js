@@ -280,7 +280,7 @@ $scope.refresh();
     ['$scope', '$stateParams','$http', '$location','$filter', 'enseignantsFactory','toaster',
     function($scope, $stateParams , $http, $location, $filter, enseignantsFactory, toaster){      
       $scope.edit= false;    
-
+     
       // si creation d'un nouvel enseignant
       if($stateParams.id == "nouveau"){
         $scope.enseignant= { };

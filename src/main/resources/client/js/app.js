@@ -2,13 +2,10 @@
  * @Author Zouhair Je
  ******************************************************************************/
 
-var app = angular.module("app", [ 'ngRoute',"ui.router", "ui.bootstrap", "oc.lazyLoad",'app.controllers','app.ec', 'app.configEvaluation',
+var app = angular.module("app", ['bootstrap.formGroup', 'ngMask','ngRoute',"ui.router", "ui.bootstrap", "oc.lazyLoad",'app.controllers','app.ec', 'app.configEvaluation',
 		"ngSanitize", 'app.enseignants', 'app.formations', 'app.ue','ngAnimate','toaster', 'app.task',
 		'app.etudiants', 'app.qualificatifs', 'app.questions','app.evaluations', 'app.rubriques', 'easypiechart',
-		'app.form.validation','app.ui.form.ctrls','app.chart.ctrls', 'app.chart.directives',
-		'mgo-angular-wizard', 'textAngular', 'ui.tree', 
-		'app.ui.form.ctrls', 'app.ui.form.directives','app.ui.directives',
-		'app.promotions', 'app.auth', 'ngMask']);
+		'app.promotions', 'app.auth']);
 
 /* To configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
 app.config([ '$ocLazyLoadProvider', function($ocLazyLoadProvider) {
@@ -1688,23 +1685,6 @@ app
 
 		function($rootScope, settings, $state, $route, $location, AuthService) {
 			$rootScope.$state = $state; // state to be accessed from view
-			
-			/*$rootScope.$on("$routeChangeStart", function(e, to) {	
-				if (to.notLoggedNeeded) {
-					return;
-				}
-				AuthService.getUser().success(function(data) {
-					$rootScope.user = data.role;
-					console.log(":" + data.role + ":");
-					$rootScope.userNum = data;
-					if (!data) {
-						$location.path("/pages/signin.html");
-					}
-				}).error(function(data) {
-					$location.path("/pages/signin.html");
-				});
-			});*/
-			
 			$rootScope.$on("$locationChangeStart", function(e, to) {	
 
 				if (to.notLoggedNeeded) {
