@@ -1,7 +1,7 @@
 /*
- * @author Zouhair
  * @author LAKRAA
  */
+ 
 (function() {
   'use strict';
 
@@ -16,7 +16,7 @@
       },
       // renvoi la evaluation avec le code demandé
       get: function(code) { 
-    	  return $http.get('http://localhost:8090//findEvaluationById-' + code);    
+    	  return $http.get('http://localhost:8090/findEvaluationById-' + code);    
       },
       set: function(evaluation) {	
     	  return $http.post('http://localhost:8090/updateEvaluation', evaluation);
@@ -28,7 +28,8 @@
     	  return $http.get('http://localhost:8090/deleteEvaluation-' + idEvaluation);
       },
       getQualificatif: function(idevaluation){
-    	  //return $http.get('http://localhost:8090/getQualificatif/' + idevaluation);
+    	  // return $http.get('http://localhost:8090/getQualificatif/' +
+			// idevaluation);
       },
       getDomain : function(){
     	  return $http.get("http://localhost:8090/getDomaine/ETAT-EVALUATION");
@@ -57,6 +58,7 @@
       listePromotion:function(){
     	  return $http.get("http://localhost:8090/getPromoByNoEnseignant");
       }
+      
     };
   });
     
@@ -65,6 +67,7 @@
     function($scope, $location,$http,$filter, evaluationsFactory){
       // la liste globale des evaluations
     	$scope.refresh = function (){
+    		var init= null;
     		 var promiseEvaluation = evaluationsFactory.all();          
     		 promiseEvaluation.success(function(data) {
     			  $scope.evaluations = data;
@@ -120,73 +123,75 @@
     		);
     	}
      
-      // Crée la page permettant d'ajouter une evaluation
+      /** Crée la page permettant d'ajouter une evaluation * */
       $scope.ajoutEvaluation = function(){
-        $location.path('/evaluation/nouveau'); 
+        $location.path("/evaluations/nouveau"); 
       }
-
-      // affiche les détails d'une evaluation
-      $scope.edit = function(evaluation){
-        //$location.path('/evaluation/' + evaluation.idevaluation);
-      }
+      /** affiche les détails d'une evaluation * */
+      $scope.affiche = function(idEvaluation){
+    	 $location.path("/evaluations/info/"+idEvaluation);
+     }
+     /** Edite une evaluation * */
+     $scope.edit=function(idEvaluation){
+    	 $location.path("/evaluations/"+idEvaluation);
+     }
+     
+      
 
       // supprime une evaluation
       $scope.supprime = function(evaluation){
 
     	  swal({   
-			  title: "Voulez-vous vraiment supprimer cette evaluation ?",   
+			  title: "Voulez-vous vraiment supprimer cette evaluation ?",      
 			  type: "warning",   
 			  showCancelButton: true,   
 			  confirmButtonColor: "#DD6B55",   
-			  confirmButtonText: "OUI",  
-			  cancelButtonText: "NON",   
+			  confirmButtonText: "Oui",  
+			  cancelButtonText: "Non",   
 			  closeOnConfirm: false,   closeOnCancel: false },
 			  function(isConfirm){
-				  if (isConfirm) {
+				  if (isConfirm) {  
 			    	  var promisessuppression  = evaluationsFactory.delete(evaluation.idEvaluation);
 			    	  promisessuppression.success(function(data, status, headers, config) {
 			  			$scope.refresh();
-						swal("Supprimé!", "L'evaluation est supprimée", "success");
+						swal("Supprimé!", "la evaluation est supprimée", "success");
 			      	  });
 			    	  promisessuppression.error(function(data, status, headers, config) {
-			    		  swal("Erreur!", "Vous ne pouvez pas supprimer cette evaluation", "error");
+			    		  swal("Erreur!", "vous pouvez pas supprimer cette evaluation", "error");
 			  		});	
 				  } else {     
-						  swal("Annulé", "", "error");
+						  swal("Ignorer", "", "error");
 				  }
 	  	 });
       }
-      
+      $scope.create=function(e){
+    	  $location.path("/admin/gestion_evaluation/"+e.idEvaluation);
+      };
       $scope.config = function(evaluation){
           $location.path('/evaluation/config/' + evaluation);
       }
-      
-      $scope.refresh();
+	  $scope.refresh();
     }]
   );
 
   app.controller('EvasDetailsController', 
-    ['$scope', '$stateParams','$http', '$location','$filter', 'evaluationsFactory', 'qualificatifsFactory', 'promotionsFactory', 'toaster',
-    function($scope, $stateParams, $http, $location,$filter, evaluationsFactory, qualificatifsFactory, promotionsFactory, toaster){      
+    ['$scope', '$stateParams','$http', '$location','$filter', 'evaluationsFactory', 'promotionsFactory', 'toaster',
+    function($scope, $stateParams, $http, $location,$filter, evaluationsFactory,  promotionsFactory, toaster){      
       $scope.edit= false;    
       
-      // si creation d'une nouvelle evaluation
+      /** si creation d'une nouvelle evaluation * */
       if($stateParams.id == "nouveau"){
         $scope.evaluation= {};
         $scope.edit= true;
         var promiseDomain = evaluationsFactory.getDomain();
  		promiseDomain.success(function(data) { 
+ 			$scope.evaluation.debutReponse = $filter('date')(data.debutReponse, "dd-MM-yyyy");
+			$scope.evaluation.finReponse = $filter('date')(data.finReponse, "dd-MM-yyyy");
  			console.log("etats: ",data);
  			$scope.etats = data;
  			$scope.domains = data;
- 			//$scope.selectedOption = data[0];
- 		});
- 		var promiseQualificatifs = qualificatifsFactory.all();
- 		promiseQualificatifs.success(function(data) {   
- 			$scope.qualificatifs = data;
- 			$scope.selectedOption = data[0];
- 		});
- 		// Récuperation des formations
+ 		})
+ 		/** Récuperation des formations * */
         var promise2= promotionsFactory.getFormations();
         promise2.success(function(data,statut){
         	$scope.formations= data;
@@ -195,7 +200,7 @@
         .error(function(data,statut){
       	  console.log("impossible de recuperer la liste des formations");
         });
- 		// Récuperation du domaine
+ 		/** Récuperation du domaine * */
         var promise2= evaluationsFactory.getDomain();
         promise2.success(function(data,statut){
         	$scope.etats= data;
@@ -219,35 +224,117 @@
     		 console.log("impossible de recuperer la liste des UE");
     	});
 		   
-	 } else { // sinon on edite une evaluation existante
+	 } else if($stateParams.infos && $stateParams.id){ 
+/** sinon on veut voir les informations d'une evaluation existante * */
+		$scope.edit=false;
         var promisesFactory = evaluationsFactory.get($stateParams.id);
-     	promisesFactory.success(function(data) {
-     		$scope.isVisible = true;
-     		$scope.evaluation = data;   console.log("evaluation: ", $scope.evaluation);
-     		var promiseQualificatifs = qualificatifsFactory.all();
-     		promiseQualificatifs.success(function(data) {   
-     			var promiseQualif = evaluationsFactory.getQualificatif($stateParams.id);
-         		promiseQualif.success(function(result){
-     			$scope.qualificatifs = data;
-     			$scope.selectedOption = result;
-         		});
-     		});
-     		
-     	});
-     	
+     		promisesFactory.success(function(data) {
+     		data.debutReponse = $filter('date')(data.debutReponse, "dd/MM/yyyy");
+     		data.finReponse = $filter('date')(data.finReponse, "dd/MM/yyyy");
+     		$scope.evaluation = data;  
+     		console.log($scope.evaluation);
+     		$scope.etatSelected = data.etat;
+     		$scope.ueSelected = data.code_ue;
+     		$scope.ecSelected = data.code_ec;
+     	})
+     	.error(function(data,status){
+      		 console.log("impossible de recuperer l'évaluation");
+      	});
+     	/** Récuperation du domaine **/
+            var promise2= evaluationsFactory.getDomain();
+            promise2.success(function(data,statut){
+            	$scope.etats= data;
+            	console.log("\tEtats récupérés: ", data);
+            })
+            .error(function(data,statut){
+          	  console.log("impossible de recuperer la liste des etats");
+            });
+        /** chargement des promotions**/
+            var Promotionpromise = evaluationsFactory.listePromotion();
+        	Promotionpromise.success(function(data,status){
+        		$scope.promotionevaluation = data ; 
+        	})
+              .error(function(data,status){
+                    	console.log("impossible de recuperer les promotions") ;
+              });
+        /** chargement des ue **/
+        	var Uepromise = evaluationsFactory.listeUE(); 
+        	Uepromise.success(function(data,status){ 	    		
+        		$scope.ues = data ;
+        	}) 
+        	 .error(function(data,status){
+        		 console.log("impossible de recuperer la liste des UE");
+        	}); 
+     }else{
+    /** sinon on edite une evaluation existante * */
+ 		 $scope.edit=true;
+         var promisesFactory = evaluationsFactory.get($stateParams.id);
+      		promisesFactory.success(function(data) {
+  			data.debutReponse = $filter('date')(data.debutReponse, "dd/MM/yyyy");
+     		data.finReponse = $filter('date')(data.finReponse, "dd/MM/yyyy");
+      		$scope.isVisible = false;
+      		$scope.evaluation = data;   
+      		$scope.etatSelected = data.etat;
+      		$scope.ueSelected = data.code_ue;
+      		$scope.ecSelected = data.code_ec;
+      	})
+      	.error(function(data,status){
+       		 console.log("impossible de recuperer l'évaluation");
+       	});
+      	var promise2= promotionsFactory.getFormations();
+         promise2.success(function(data,statut){
+         	$scope.formations= data;
+         	console.log("\tFormations récupérées: ", data);
+         })
+         .error(function(data,statut){
+       	  console.log("impossible de recuperer la liste des formations");
+         });
+  		// Récuperation du domaine
+         var promise2= evaluationsFactory.getDomain();
+         promise2.success(function(data,statut){
+         	$scope.etats= data;
+         	console.log("\tEtats récupérés: ", data);
+         })
+         .error(function(data,statut){
+       	  console.log("impossible de recuperer la liste des etats");
+         });
+         var Promotionpromise = evaluationsFactory.listePromotion();
+     	Promotionpromise.success(function(data,status){
+     		$scope.promotionevaluation = data ; 
+     	})
+           .error(function(data,status){
+                 	console.log("impossible de recuperer les promotions") ;
+           }); 
+     	var Uepromise = evaluationsFactory.listeUE(); 
+     	Uepromise.success(function(data,status){ 	    		
+     		$scope.ues = data ;
+     	}) 
+     	 .error(function(data,status){
+     		 console.log("impossible de recuperer la liste des UE");
+     	});  	  
       }
-
       $scope.edition = function(){
-          var promisessuppression = evaluationsFactory.set($scope.evaluation);    	  
-          evaluationsFactory.get($scope.evaluation);
-          $scope.edit = true;
+    	  $scope.edit = true;
         }
-
+      $scope.modifierUe=function(){
+    	  $scope.hideSelectUe=false;
+      }
+      $scope.hideSelectUe=true;
+      $scope.ueSelect=true;
+/** Bouton submit * */
         $scope.submit = function(){
-	        $scope.evaluation.code_formation= $scope.selectedPromotion.promotionPK.codeFormation;
+        	var date = $scope.evaluation.debutReponse.split('/');
+        	$scope.evaluation.debutReponse = new Date(date[1] + '-' + date[0] + '-' + date[2]);
+        	var date2 = $scope.evaluation.finReponse.split('/');
+        	$scope.evaluation.finReponse = new Date(date2[1] + '-' + date2[0] + '-' + date2[2]);
+        	$scope.evaluation.code_formation= $scope.selectedPromotion.promotionPK.codeFormation;
 	        console.log($scope.selectedPromotion.promotionPK.codeFormation);
 	        console.log($scope.selectedPromotion);
+	        if($scope.ecSelected == undefined){
+	        	$scope.evaluation.code_ec = null;
+	        }else{
 	        $scope.evaluation.code_ec= $scope.ecSelected.elementConstitutifPK.codeEc;
+	        }
 	        console.log($scope.ecSelected);
 	        $scope.evaluation.code_ue= $scope.ueSelected.uniteEnseignementPK.codeUe;
 	        console.log($scope.ueSelected);
@@ -255,14 +342,17 @@
 	        $scope.evaluation.annee= $scope.selectedPromotion.promotionPK.anneeUniversitaire;
 	        console.log($scope.selectedPromotion.promotionPK.anneeUniversitaire);
 	        console.log("submit :",$scope.evaluation);
-        	var promiseajout = evaluationsFactory.add($scope.evaluation);
+	        if($stateParams.id == "nouveau"){
+        	var promiseajout = evaluationsFactory.add($scope.evaluation);}
+	        else{var promiseajout = evaluationsFactory.set($scope.evaluation);}
         	promiseajout.success(function(data, status, headers, config) {
         		console.log("true :",$scope.evaluation);
-        		if($stateParams.id === "nouveau") 
-        			swal("Félicitation!", "La nouvelle evaluation est ajoutée!", "success");
-        		else
+        		if($stateParams.id == "nouveau"){
+        		   swal("Félicitation!", "La nouvelle evaluation est ajoutée!", "success");
+        		} 
+        		else{
         			swal("Félicitation!", "La evaluation est modifiée !", "success");
-        			
+        		}
         		$location.path('/evaluations');
 				
 			});
@@ -274,18 +364,13 @@
                     showCloseButton: true
                 });
         	});
-			$scope.edit = false;
+			$scope.edit = false;  
         }
 
       $scope.edition = function(){
         $scope.edit = true;
       }
       
-      // valide le formulaire d'édition d'une evaluation
-      
-      // TODO coder une fonction submit permettant de modifier une evaluation
-		// et rediriger vers /evaluations
-
       $scope.onchange = function(){
 			$scope.ue = $scope.ueSelected.uniteEnseignementPK;
 			console.log("change ue"+$scope.ue);
@@ -298,8 +383,7 @@
 	    	 });
 			
 		};
-		
-		$scope.onchangeEC = function(){
+	 $scope.onchangeEC = function(){
 			$scope.ec = $scope.ecSelected;
 			console.log("onchangeEc : "+$scope.ec);
 		}
@@ -307,18 +391,13 @@
 		$scope.onchangePro = function(){
 			$scope.promotion = $scope.selectedPromotion;
 		}
-   // annule l'édition
+   /** bouton cancel * */
       $scope.cancel = function(){
-        if(!$scope.evaluations.idEvaluation){
-          $location.path('/evaluations');
-        } else {
-        	$location.path('/evaluations');
-          var e = evaluationFactory.get($stateParams.id);
-          $scope.evaluations = JSON.parse(JSON.stringify(e));
-          $scope.edit = false;
-        }
-      } 
+    	 $location.path('/evaluations');
+      }
+       
 
     }]
   );
 }).call(this);
+

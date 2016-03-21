@@ -1,6 +1,4 @@
 package fr.univbrest.dosi.spi.service;
-
-import java.util.Date;
 import java.util.List;
 
 import junit.framework.Assert;

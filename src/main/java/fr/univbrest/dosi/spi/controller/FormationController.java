@@ -1,6 +1,9 @@
 package fr.univbrest.dosi.spi.controller;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import fr.univbrest.dosi.spi.bean.Formation;
 import fr.univbrest.dosi.spi.bean.UniteEnseignement;
 import fr.univbrest.dosi.spi.service.FormationService;
@@ -17,7 +21,7 @@ import fr.univbrest.dosi.spi.service.FormationService;
  * @author Kenza ABOUAKIL
  *
  */
- 
+
 @RestController
 public class FormationController {
 
@@ -31,17 +35,6 @@ public class FormationController {
 	public @ResponseBody void addFormation(@RequestBody Formation formation) {
 		formationService.addFormation(formation);
 	}
-	/**
-	 * @author Othman
-	 * 
-	 * 		Modification d'une formation existante
-	 * @param formation
-	 * 			: la formation à modifier
-	 */
-	@RequestMapping(value = "/formation/updateFormation", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody void updateFormation(@RequestBody Formation formation) {
-		formationService.updateFormation(formation);
-	}
 
 	/*
 	 * @Inherited
@@ -52,11 +45,20 @@ public class FormationController {
 	}
 
 	/*
+	 * @Author Kenza ABOUAKIL
+	 * 
 	 * @Inherited
 	 */
 	@RequestMapping(value = "/formations", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public List<Formation> getAllFormation() {
-		return formationService.getAllFormation();
+		List formations = formationService.getAllFormation();
+		Collections.sort(formations, new Comparator<Formation>() {
+			@Override
+			public int compare(Formation f1, Formation f2) {
+				return f1.getCodeFormation().compareTo(f2.getCodeFormation());
+			}
+		});
+		return formations;
 	}
 
 	/*
@@ -75,13 +77,23 @@ public class FormationController {
 		return formationService.getNomFormation(codeFormation);
 	}
 
-	/*
-	 * @Inherited
-	 */
-	 
 	@RequestMapping(value = "/formation/getNomFormations", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public List<String> getNomFormations(@RequestBody List<String> codeFormations) {
 		return formationService.getNomFormations(codeFormations);
+	}
+
+	/*
+	 * @Inherited
+	 */
+
+	/**
+	 * @author othman
+	 * @param codeFormation
+	 * @return Cette méthode retourne une liste d'unités d'enseignement en lui donnant comme paramètre un code de formation
+	 **/
+	@RequestMapping(value = "/getUEsByFormation-{codeFormation}", method = RequestMethod.GET, headers = "Accept=application/json")
+	public List<UniteEnseignement> getUEsByCodeFormation(@PathVariable("codeFormation") String codeFormation) {
+		return formationService.getUEsByCodeFormation(codeFormation);
 	}
 
 	/**
@@ -91,15 +103,16 @@ public class FormationController {
 	public long nombreFormations() {
 		return formationService.nombreFormations();
 	}
-	
+
 	/**
-	 * @author othman
-	 * @param codeFormation
-	 * @return Cette méthode retourne une liste d'unités d'enseignement en lui donnant comme paramètre
-	 * un code de formation
-	 **/
-	@RequestMapping(value="/getUEsByFormation-{codeFormation}", method = RequestMethod.GET, headers = "Accept=application/json")
-	public List<UniteEnseignement> getUEsByCodeFormation(@PathVariable("codeFormation")String codeFormation){
-		return formationService.getUEsByCodeFormation(codeFormation);
+	 * @author Othman
+	 *
+	 *         Modification d'une formation existante
+	 * @param formation
+	 *            : la formation à modifier
+	 */
+	@RequestMapping(value = "/formation/updateFormation", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody void updateFormation(@RequestBody Formation formation) {
+		formationService.updateFormation(formation);
 	}
 }

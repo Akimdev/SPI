@@ -14,7 +14,7 @@
 		<div class="portlet-body form" ng-hide="edit">
 			<button class="btn btn-warning pull-right" ng-click="edition()">
 				<span class="glyphicon glyphicon-pencil"></span> Editer
-			</button>
+		  	</button>
 			<form class="form-horizontal form-bordered">
 				<div class="form-group">
 					<div class="col-md-3">
@@ -26,8 +26,8 @@
 					<div class="col-md-3">
 						<strong>Qualificatif</strong>
 					</div>
-					<div class="col-md-3">{{qualif.idQualificatif}} /
-						{{qualif.maximal}} - {{qualif.minimal}}</div>
+					<div class="col-md-3">{{qualificatif.idQualificatif}} /
+						{{qualificatif.maximal}} - {{qualificatif.minimal}}</div>
 				</div>
 			</form>
 			</br> <a class="btn btn-primary" href="#/questions"><span
@@ -40,21 +40,6 @@
 					<toaster-container
 						toaster-options="{'position-class': 'toast-bottom-right'}"></toaster-container>
 					<form class="form-horizontal elegant-aero" name="questionForm">
-						<div ng-repeat="alert in alerts" ng-show="alert.show">
-							<alert type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-						</div>
-						<div class="form-group">
-							<label for="" class="col-sm-2">idQuestion<span
-								id="required-field">*</span></label>
-							<div class="col-sm-10">
-								<input type="number" class="form-control" name="idQuestion"
-									min="1" ng-model="question.idQuestion" ng-disabled="isVisible"
-									required> <span style="color: red"
-									ng-show="questionForm.idQuestion.$dirty && questionForm.idQuestion.$invalid">
-									<span ng-show="questionForm.idQuestion.$error.required">IdQuestion
-										obligatoire ou type invalide.</span>
-							</div>
-						</div>
 						<div class="form-group">
 							<label for="" class="col-sm-2">Intitul&eacute;<span
 								id="required-field">*</span></label>
@@ -88,11 +73,10 @@
 						      ng-options="q.qualif as (q.idQualificatif + '/ ' + q.maximal + ' - ' + q.minimal) for q in qualificatifs.availableOptions track by q.idQualificatif"
 						      ng-model="qualificatifs.selectedOption"></select> -->
 
-								<select name="qualificatif" ng-model="qualificatif">
+								<select name="qualificatif" ng-model="qualif">
 									<option data-ng-repeat="q in qualificatifs"
-										value="{{q.idQualificatif}}"
-										ng-selected="{{q.idQualificatif == selectedOption.idQualificatif}}">{{q.idQualificatif}}
-										/ {{q.maximal}} - {{q.minimal}}</option>
+										value="{{q.idQualificatif}}">
+										{{q.idQualificatif}}/ {{q.maximal}} - {{q.minimal}}</option>
 								</select> <span style="color: red"
 									ng-show="questionForm.qualificatif.$dirty && questionForm.qualificatif.$invalid">
 									<span ng-show="questionForm.qualificatif.$error.required">Champs

@@ -280,7 +280,7 @@ $scope.refresh();
     ['$scope', '$stateParams','$http', '$location','$filter', 'enseignantsFactory','toaster',
     function($scope, $stateParams , $http, $location, $filter, enseignantsFactory, toaster){      
       $scope.edit= false;    
-
+     
       // si creation d'un nouvel enseignant
       if($stateParams.id == "nouveau"){
         $scope.enseignant= { };
@@ -336,6 +336,7 @@ $scope.refresh();
    var promise3= enseignantsFactory.getDomain();
       promise3.success(function(data,statut){
       	$scope.types= data;
+      	$scope.typeSelected= $scope.enseignant.type;
       	console.log("\tTypes récupérés: ", data);
       })
       .error(function(data,statut){
@@ -344,6 +345,7 @@ $scope.refresh();
 	var promisePays= enseignantsFactory.getPays();
 		promisePays.success(function(data,statut){
       	$scope.payss= data;
+      	$scope.paysSelected=$scope.enseignant.pays;
       	console.log("\tPays récupérés: ", data);
       })
       .error(function(data,statut){
@@ -360,7 +362,7 @@ $scope.refresh();
         enseignantsFactory.set($scope.enseignant);        
         $scope.edit = false;        
       }*/
-$scope.submit = function(){
+    		$scope.submit = function(){
     	  $scope.enseignant.type= $scope.typeSelected;
     	  $scope.enseignant.pays= $scope.paysSelected;
     	  console.log($scope.enseignant);
