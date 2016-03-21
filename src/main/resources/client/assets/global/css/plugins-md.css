@@ -32,10 +32,6 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.26);
 }
 
-.md-shadow-z-3, .modal {
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18), 0 6px 6px rgba(0, 0, 0, 0.23);
-}
-
 .md-shadow-z-3-i {
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18), 0 6px 6px rgba(0, 0, 0, 0.24) !important;
 }

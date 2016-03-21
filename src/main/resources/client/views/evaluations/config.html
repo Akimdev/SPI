@@ -81,6 +81,7 @@
 			</div>
 		</div>
 		<!------------------------------------------  -->
+<<<<<<< HEAD
 		<hr />
 		<div class="portlet light">
 			<div class="portlet-title">
@@ -125,4 +126,78 @@
 		<a class="btn btn-primary" ng-click="cancel()"><span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
 		<a class="btn btn-success pull-right" ng-click="cancel()"><span class="glyphicon glyphicon-ok"></span> Valider</a>
 	</div>
+	
+		<a class="btn btn-primary"  ng-click="cancel()"><span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+		
+						<!--------------------Modal Ajouter Rubrique------------------->
+						<a class="demo btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Ajouter Rubrique <i class="fa fa-plus"></i></a>
+									   <!-- Modal -->
+									  <div class="modal fade draggable-modal ui-draggable in" id="myModal" tabindex="-1" aria-hidden="true" role="basic">
+									    <div class="modal-dialog modal-sm" style="width: 600px;">
+									      <div class="modal-content" >
+				                                <div class="modal-header ui-draggable-handle">
+				                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				                                    <h4 class="modal-title">Rubriques Standars</h4>
+				                                </div>
+				                                <div class="modal-body">
+				                                    <form action="#" class="form-horizontal" role="form">
+				                                        <div class="form-group">
+				                                            <label class="control-label col-md-4">Selectionner une rubrique</label>
+				                                            <div class="col-md-8">
+				                                                <select id="select2_sample2" class="form-control select2 select-height" multiple="">
+				                                                    <optgroup label="Rubriques">
+				                                                        <option>TP</option>
+				                                                        <option>TD</option>
+				                                                        <option>CM</option>
+				                                                        <option>TAC</option>
+				                                                        <option>TAF</option>
+				                                                    </optgroup>
+				                                                </select>
+				                                            </div>
+				                                        </div>
+				                                    </form>
+				                                </div>
+				                                <div class="modal-footer">
+				                                    <button class="btn default" data-dismiss="modal" aria-hidden="true">Fermer</button>
+				                                    <button class="btn green" data-dismiss="modal">Ajouter</button>
+				                                </div>
+				                            </div>
+									    </div>
+									  </div>
+					  
+					  <!--------------------Modal Ajouter Question------------------->
+					  <a class="demo btn btn-primary btn-lg" data-toggle="modal" data-target="#questionModal">Ajouter Question <i class="fa fa-plus"></i></a>
+					   <!-- Modal -->
+					  <div class="modal fade draggable-modal ui-draggable in" id="questionModal" tabindex="-1" aria-hidden="true" role="basic">
+					    <div class="modal-dialog modal-sm" style="width: 600px;">
+					      <div class="modal-content" >
+                                <div class="modal-header ui-draggable-handle">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                    <h4 class="modal-title">Questions Standars</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="#" class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4">Selectionner une Question</label>
+                                            <div class="col-md-8">
+                                                <select id="select2_sample2" class="form-control select2 select-height" multiple="">
+                                                    <optgroup label="Rubriques">
+                                                        <option>Intêret</option>
+                                                        <option>Rythme</option>
+                                                        <option>Contenu</option>
+                                                        <option>Volume</option>
+                                                        <option>Sujet</option>
+                                                    </optgroup>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn default" data-dismiss="modal" aria-hidden="true">Fermer</button>
+                                    <button class="btn green" data-dismiss="modal">Ajouter</button>
+                                </div>
+                            </div>
+					    </div>
+					  </div>
 </div>
