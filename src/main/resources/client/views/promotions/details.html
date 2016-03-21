@@ -13,9 +13,6 @@
 		<!--------------------------- Consultation --------------------------->
 		</br>
 		<div class="portlet-body form" ng-hide="edit">
-			<button class="btn btn-warning pull-right" ng-click="edition()">
-				<span class="glyphicon glyphicon-pencil"></span> Editer
-			</button>
 			<form class="form-horizontal form-bordered">
 				<div class="form-group">
 					<div class="col-md-3"><strong>Ann&eacute;e</strong></div>
@@ -55,18 +52,13 @@
 					<div class="col-md-3"><strong>Commentaire</strong></div>
 					<div class="col-md-3">{{promotion.commentaire}}</div>
 				</div>
-				</br> <a class="btn btn-primary" href="#/promotions" ng-hide="promotion.etudiantCollection.length">
-					<span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
 			</form>
-			
-		</div>	
 		</br>
-
-		<div class="media animate" ng-hide="edit">
+		
 		<div class="row">
 			<div class="col-md-6" ng-show="promotion.etudiantCollection.length">
-				<div class="panel-body table-responsive">
-					<span class="cpation-subject font-blue bold uppercase">Etudiants</span>
+						<div class="panel-body table-responsive">
+							<span class="cpation-subject font-blue bold uppercase">Etudiants</span>
 					</br>
 					<table class="table">
 						<thead>
@@ -89,9 +81,13 @@
 				</div>
 			</div>
 		</div>
-		<a class="btn btn-primary" href="#/promotions" ng-show="promotion.etudiantCollection.length">
+		<a class="btn btn-primary" href="#/promotions">
 			<span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+		<button class="btn btn-warning pull-right" ng-click="edition()">
+			<span class="glyphicon glyphicon-pencil"></span> Editer
+		</button>
 	</div>
+	
 
 	<!--------------------------- Edition --------------------------->
 	<div ng-show="edit">

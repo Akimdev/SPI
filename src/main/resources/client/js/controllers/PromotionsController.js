@@ -3,7 +3,7 @@
 
 * Script de controle des promotions
 */
-var edit= false;
+var edit;
 
 (function() {
   'use strict';
@@ -144,6 +144,7 @@ var edit= false;
     	}
       // Crée la page permettant d'ajouter une promotion
       $scope.ajoutPromotion = function(){
+    	  $scope.ajout= true;
     	  edit = true;
           $location.path('/promotion/nouveau/nouveau');
        }
@@ -152,13 +153,13 @@ var edit= false;
       $scope.edit = function (promotionPK){
     	  $scope.ajout= true;
     	  edit=true;
-    	  $location.path("/promotion/"+ promotionPK.anneeUniversitaire + "/" + promotionPK.codeFormation);
+    	  $location.path("/promotion/"+ promotionPK.anneeUniversitaire + "/" + promotionPK.codeFormation+ "/e");
       }
       // affiche les détails d'une promotion
       $scope.affiche= function(promotionPK){
     	  $scope.ajout= false;
     	  edit= false;
-    	  $location.path("/promotion/"+ promotionPK.anneeUniversitaire + "/" + promotionPK.codeFormation);
+    	  $location.path("/promotion/"+ promotionPK.anneeUniversitaire + "/" + promotionPK.codeFormation+ "/c");
       }
 
       // supprime une promotion
@@ -195,16 +196,14 @@ var edit= false;
     ['$scope', '$stateParams', '$location', '$filter', 'promotionsFactory', '$http',
     function($scope, $stateParams, $location,$filter, promotionsFactory, $http){     
     	
-    	$scope.edit= edit;
     	var initAjout= function(){
     		$scope.promotion= { };
-//    		$scope.enseignantSelected= null;
 	        $scope.ajout = true;
     	}
     	
     	var initEdition= function(){
-    		if(edit)
-    	  		$("select option").prop("selected", false);
+//    		if(edit)
+//    	  		$("select option").prop("selected", false);
     		var promoPK = {anneeUniversitaire:  $stateParams.ann, codeFormation: $stateParams.form};
     		//Recuperation de la promotion
             return promotionsFactory.get(promoPK).then(
@@ -265,8 +264,12 @@ var edit= false;
             $scope.ajout= true;
     	}
     	
-    	
-    	
+//    	if($stateParams.edit== "c")
+//			edit= false;
+//    	else
+//    		edit= true;
+    	edit = ($stateParams.edit== "c") ? false : true;
+    	$scope.edit= edit;
     	$http.get('http://localhost:8090/getDomaine/PROCESSUS_STAGE').then(
     			function(data, status, headers, config) {
     	    		$scope.processusStage= [];
@@ -316,6 +319,7 @@ var edit= false;
     	);
 
       $scope.edition = function(){
+			$location.path("/promotion/"+ $stateParams.ann + "/" + $stateParams.form+ "/e");
 			$scope.ajout= false;
 			$scope.edit=edit=true;
       }
@@ -337,7 +341,7 @@ var edit= false;
     			  promiseEnseignant.success(function(data){
     				  $scope.responsable = data;
     				  swal("Félicitation!", "La nouvelle promotion est ajoutée!", "success");
-    	    		  $location.path("/promotion/" + $scope.promotion.promotionPK.anneeUniversitaire + '/' + $scope.promotion.promotionPK.codeFormation);
+    	    		  $location.path("/promotions");
     			  });
     			  promiseEnseignant.error(function(){
       				  swal("Erreur !", "La nouvelle promotion ne peut pas être ajoutée !", "error");
@@ -356,7 +360,7 @@ var edit= false;
     			  promiseEnseignant.success(function(data){
     				  $scope.responsable = data;
     				  swal("Félicitation!", "La promotion est modifiée !", "success");   
-    	    		  $location.path("/promotion/" + $scope.promotion.promotionPK.anneeUniversitaire + '/' + $scope.promotion.promotionPK.codeFormation);
+    	    		  $location.path("/promotions");
     			  });
     			  promiseEnseignant.error(function(data){
     				  swal("Erreur !", "La promotion ne peut pas être modifiée !", "error");    	        			  
