@@ -34,6 +34,11 @@ public class EnseignantController {
 	@Autowired
 	private EnseignantService enseignantService;
 
+	/*
+	 * private enum TypeDroit { CREATE, DELETE, MODIFY, SELECT, }
+	 * 
+	 * /** Service de gestion des enseignants
+	 */
 	@Autowired
 	EnseignantService ensService;
 
@@ -43,8 +48,20 @@ public class EnseignantController {
 	@Autowired
 	private UniteEnseignementService uniteEnseignementService;
 
+	// private final Map<TypeDroit, List<Role>> mapDroits = new HashMap<EnseignantController.TypeDroit, List<Role>>();
+
 	@Autowired
 	User user;
+
+	/*
+	 * public EnseignantController() { this.configure(); }
+	 * 
+	 * private void checkDroits(final TypeDroit typeDroit) { if (!this.mapDroits.get(typeDroit).contains(this.user.getRoles())) { throw new SPIException(SpiExceptionCode.NOT_ENOUGH_RIGHT,
+	 * "L'utilisateur n'a pas les droits suffisants pour effectuer l'action demandée"); } }
+	 * 
+	 * private void configure() { this.mapDroits.put(TypeDroit.CREATE, Arrays.asList(Role.ADMIN, Role.PROF)); this.mapDroits.put(TypeDroit.SELECT, Arrays.asList(Role.ETUDIANT, Role.ADMIN, Role.PROF));
+	 * this.mapDroits.put(TypeDroit.MODIFY, Arrays.asList(Role.ADMIN, Role.PROF)); this.mapDroits.put(TypeDroit.DELETE, Arrays.asList(Role.ADMIN)); }
+	 */
 
 	/**
 	 *
@@ -53,9 +70,12 @@ public class EnseignantController {
 	 * @return le message d'ajout
 	 */
 
+	// @RequestMapping(value="/ajouterEnseignant" , headers="Accept=application/json", method=RequestMethod.POST)
 	@RequestMapping(value = "/ajouterEnseignant", method = RequestMethod.POST, consumes = { "application/json;charset=UTF-8" }, produces = { "application/json;charset=UTF-8" })
 	public final void addEnseignant(@RequestBody final Enseignant enseignant) {
+		// this.checkDroits(TypeDroit.CREATE);
 		enseignantService.addEnseignant(enseignant);
+
 	}
 
 	/**
@@ -65,23 +85,8 @@ public class EnseignantController {
 	 */
 	@RequestMapping(value = "/deleteEnseignant/{noenseignant}")
 	public final void deleteEnseignant(@PathVariable(value = "noenseignant") final Integer noEnseignant) {
+		// this.checkDroits(TypeDroit.DELETE);
 		enseignantService.deleteEnseignant(noEnseignant);
-	}
-
-	/**
-	 * @Author Kenza ABOUAKIL
-	 * @return liste des enseignant
-	 */
-	@RequestMapping("/ens")
-	public final Iterable<Enseignant> enseignant() {
-		List enseignants = (List) enseignantService.listens();
-		Collections.sort(enseignants, new Comparator<Enseignant>() {
-			@Override
-			public int compare(Enseignant e1, Enseignant e2) {
-				return e1.getNom().compareTo(e2.getNom());
-			}
-		});
-		return enseignants;
 	}
 
 	/**
@@ -96,14 +101,30 @@ public class EnseignantController {
 	}
 
 	/**
+	 * @Author Kenza ABOUAKIL
+	 * @return liste des enseignant
+	 */
+	@RequestMapping("/ens")
+	public final Iterable<Enseignant> getAllEnseignant() {
+		List enseignants = (List) enseignantService.listens();
+		Collections.sort(enseignants, new Comparator<Enseignant>() {
+			@Override
+			public int compare(Enseignant e1, Enseignant e2) {
+				return e1.getNom().compareTo(e2.getNom());
+			}
+		});
+		return enseignants;
+	}
+
+	/**
 	 *
 	 * @param noEnseignant
 	 *            l'id de l'enseignant
 	 * @return un enseignant
 	 */
-
 	@RequestMapping(value = "/getens/{noenseignant}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public final Enseignant getEnseignant(@PathVariable(value = "noenseignant") final Integer noEnseignant) {
+		// this.checkDroits(TypeDroit.SELECT);
 		return enseignantService.getEnseignant(noEnseignant);
 	}
 
@@ -114,8 +135,10 @@ public class EnseignantController {
 	 * @return list des enseignant ayant le parmetre nom
 	 */
 
+	// @RequestMapping(value ="/getens/{id}")
 	@RequestMapping(value = "/getensnom/{nom}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public final List<Enseignant> getEnseignantByNom(@PathVariable(value = "nom") final String nom) {
+		// this.checkDroits(TypeDroit.SELECT);
 		return enseignantService.getEnseignantByNom(nom);
 	}
 
@@ -192,8 +215,11 @@ public class EnseignantController {
 	 * @return message de modification
 	 */
 
+	// @RequestMapping(value="/ajouterEnseignant" , headers="Accept=application/json", method=RequestMethod.POST)
 	@RequestMapping(value = "/updateEnseignant", method = RequestMethod.POST, consumes = { "application/json;charset=UTF-8" }, produces = { "application/json;charset=UTF-8" })
 	public final void updateEnseignant(@RequestBody final Enseignant enseignant) {
+		// this.checkDroits(TypeDroit.MODIFY);
 		enseignantService.updateEnseignant(enseignant);
+
 	}
 }

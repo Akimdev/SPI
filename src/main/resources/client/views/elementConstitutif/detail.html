@@ -1,6 +1,6 @@
-<!--
+<!-- @Author Zouhair
  -- Author Kenza ABOUAKIL
- -- Détails d'une promotion
+ -- Détails d'un élément constitutif
  -->
 
 <div class="page" ng-controller="EcDetailsController">
@@ -69,6 +69,7 @@
 					</div>
 					<div class="col-md-3">{{ec.nbhTp}}</div>
 				</div>
+				</br>
 			</form>
 			<!------------------------Boutons Retour et Editer----------->
 			<a class="btn btn-primary" href="#/ec"><span
@@ -77,12 +78,7 @@
 				<span class="glyphicon glyphicon-pencil"></span> Editer
 			</button>
 		</div>
-
-
-
-
-
-
+		<!------------------------Edition------------------------------->
 		<div ng-show="edit">
 				<form class="form-horizontal" name="ecForm">
 					<div class="form-group">

@@ -134,7 +134,7 @@ public class PromotionController {
 	}
 
 	/**
-	 * @author ASSABBAR
+	 * @author Souakaina ASSABAR, Kenza ABOUAKIL
 	 *
 	 *         la methode permet de Lister toutes les promotions
 	 */

@@ -58,20 +58,21 @@
 						<thead>
 							<tr>
 								<th><div class="th">
-										Formation <span class="glyphicon glyphicon-chevron-up"
-											data-ng-click=" order('code') "
-											data-ng-class="{active: row == 'code'}"></span> <span
+										Unit&eacute; d'enseignement <span
+											class="glyphicon glyphicon-chevron-up"
+											data-ng-click=" order('designation') "
+											data-ng-class="{active: row == 'designation'}"></span> <span
 											class="glyphicon glyphicon-chevron-down"
-											data-ng-click=" order('-code') "
-											data-ng-class="{active: row == '-code'}"></span>
+											data-ng-click=" order('-designation') "
+											data-ng-class="{active: row == '-designation'}"></span>
 									</div></th>
 								<th><div class="th">
-										UE <span class="glyphicon glyphicon-chevron-up"
-											data-ng-click=" order('diplome') "
-											data-ng-class="{active: row == 'diplome'}"></span> <span
+										Sigle <span class="glyphicon glyphicon-chevron-up"
+											data-ng-click=" order('codeUe') "
+											data-ng-class="{active: row == 'codeUe'}"></span> <span
 											class="glyphicon glyphicon-chevron-down"
-											data-ng-click=" order('-diplome') "
-											data-ng-class="{active: row == '-diplome'}"></span>
+											data-ng-click=" order('-codeUe') "
+											data-ng-class="{active: row == '-codeUe'}"></span>
 									</div></th>
 								<th><div class="th">
 										Responsable <span class="glyphicon glyphicon-chevron-up"
@@ -82,45 +83,41 @@
 											data-ng-class="{active: row == '-email'}"></span>
 									</div></th>
 								<th><div class="th">
-										Designation <span class="glyphicon glyphicon-chevron-up"
-											data-ng-click=" order('email') "
-											data-ng-class="{active: row == 'email'}"></span> <span
+										Formation <span class="glyphicon glyphicon-chevron-up"
+											data-ng-click=" order('codeFormation') "
+											data-ng-class="{active: row == 'codeFormation'}"></span> <span
 											class="glyphicon glyphicon-chevron-down"
-											data-ng-click=" order('-email') "
-											data-ng-class="{active: row == '-email'}"></span>
+											data-ng-click=" order('-codeFormation') "
+											data-ng-class="{active: row == '-codeFormation'}"></span>
 									</div></th>
 								<th><div class="th">
 										Semestre <span class="glyphicon glyphicon-chevron-up"
-											data-ng-click=" order('email') "
-											data-ng-class="{active: row == 'email'}"></span> <span
+											data-ng-click=" order('semestre') "
+											data-ng-class="{active: row == 'semestre'}"></span> <span
 											class="glyphicon glyphicon-chevron-down"
-											data-ng-click=" order('-email') "
-											data-ng-class="{active: row == '-email'}"></span>
+											data-ng-click=" order('-semestre') "
+											data-ng-class="{active: row == '-semestre'}"></span>
 									</div></th>
 								<th colspan="3"><div class="th">
-										Heures <span class="glyphicon glyphicon-chevron-up"
-											data-ng-click=" order('email') "
-											data-ng-class="{active: row == 'email'}"></span> <span
-											class="glyphicon glyphicon-chevron-down"
-											data-ng-click=" order('-email') "
-											data-ng-class="{active: row == '-email'}"></span>
+										Heures
 									</div></th>
-								<th class="searchResult" colspan="3">Affiche : <b><i>{{currentPageUE.length}} / {{ue.length}}</i></b></th>
+								<th class="searchResult" colspan="3"><i>Affiche :
+										{{currentPageUE.length}} / {{ue.length}}</i></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr data-ng-repeat="u in currentPageUE" class="ue">
-								<td ng-click="afficher(u)">{{u.uniteEnseignementPK.codeUe}}</td>
-			                    <td ng-click="afficher(u)">{{u.designation}}</td>
-			                    <td ng-click="afficher(u)">{{u.noEnseignant.prenom}} {{u.noEnseignant.nom}}</td>
-			                    <td ng-click="afficher(u)">{{u.uniteEnseignementPK.codeFormation}}</td>
-			                    <td ng-click="afficher(u)">{{u.semestre}}</td>
-                    			<td ng-click="afficher(u)"><b>CM : </b>{{u.nbhCm}}</td>
-                    			<td ng-click="afficher(u)"><b>TD : </b>{{u.nbhTd}}</td>
-                    			<td ng-click="afficher(u)"><b>TP : </b>{{u.nbhTp}}</td>
-								<td id="iconGestion" ng-click="afficher(u)"><span class="info fa fa-eye"></td>
-			                    <td id="iconGestion" ng-click="modifier(u)"><span class="edit fa fa-pencil-square-o"></td>
-			                    <td id="iconGestion" ng-click="supprime(u.uniteEnseignementPK)"><span class="remove fa fa-trash"></span></td>
+							<tr data-ng-repeat="u in currentPageUE | orderBy:'designation'"" class="ue">
+								<td>{{u.designation}}</td>
+								<td>{{u.uniteEnseignementPK.codeUe}}</td>
+			                    <td>{{u.noEnseignant.prenom}} {{u.noEnseignant.nom}}</td>
+			                    <td>{{u.uniteEnseignementPK.codeFormation}}</td>
+			                    <td>{{u.semestre}}</td>
+                    			<td><b>CM : </b>{{u.nbhCm}}</td>
+                    			<td><b>TD : </b>{{u.nbhTd}}</td>
+                    			<td><b>TP : </b>{{u.nbhTp}}</td>
+								<td id="iconGestion" ng-click="afficher(u)"><span class="fa fa-eye"></td>
+			                    <td id="iconGestion" ng-click="modifier(u)"><span class="glyphicon glyphicon-edit"></td>
+			                    <td id="iconGestion" ng-click="supprime(u.uniteEnseignementPK)"><span class="glyphicon glyphicon-trash"></span></td>
 							</tr>
 						</tbody>
 					</table>

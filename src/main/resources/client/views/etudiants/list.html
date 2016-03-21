@@ -70,19 +70,19 @@
 									</div></th>
 								<th><div class="th">
 										Formation <span class="glyphicon glyphicon-chevron-up"
-											data-ng-click=" order('email') "
-											data-ng-class="{active: row == 'email'}"></span> <span
+											data-ng-click=" order('formation') "
+											data-ng-class="{active: row == 'formation'}"></span> <span
 											class="glyphicon glyphicon-chevron-down"
-											data-ng-click=" order('-email') "
-											data-ng-class="{active: row == '-email'}"></span>
+											data-ng-click=" order('-formation') "
+											data-ng-class="{active: row == '-formation'}"></span>
 									</div></th>
 								<th><div class="th">
 										Promotion <span class="glyphicon glyphicon-chevron-up"
-											data-ng-click=" order('email') "
-											data-ng-class="{active: row == 'email'}"></span> <span
+											data-ng-click=" order('promotion') "
+											data-ng-class="{active: row == 'promotion'}"></span> <span
 											class="glyphicon glyphicon-chevron-down"
-											data-ng-click=" order('-email') "
-											data-ng-class="{active: row == '-email'}"></span>
+											data-ng-click=" order('-promotion') "
+											data-ng-class="{active: row == '-promotion'}"></span>
 									</div></th>
 								<th><div class="th">
 										E-mail <span class="glyphicon glyphicon-chevron-up"
@@ -97,11 +97,11 @@
 						<tbody>
 							<!-- currentPageEnseignant / enseignants -->
 							<tr data-ng-repeat="e in currentPageEtudiant" class="etudiant">
-								<td ng-click="show(e.noEtudiant)">{{e.nom}}</td>
-								<td ng-click="show(e.noEtudiant)">{{e.prenom}}</td>
-								<td ng-click="show(e.noEtudiant)">{{e.promotion.promotionPK.codeFormation}}</td>
-								<td ng-click="show(e.noEtudiant)">{{e.promotion.promotionPK.anneeUniversitaire}}</td>
-								<td ng-click="show(e.noEtudiant)">{{e.emailUbo}}</td>
+								<td>{{e.nom}}</td>
+								<td>{{e.prenom}}</td>
+								<td>{{e.promotion.promotionPK.codeFormation}}</td>
+								<td>{{e.promotion.promotionPK.anneeUniversitaire}}</td>
+								<td>{{e.emailUbo}}</td>
 								<td id="iconGestion" ng-click="show(e.noEtudiant)"><span class="fa fa-eye"></span></td>
 								<td id="iconGestion" ng-click="edit(e.noEtudiant)"><span class="glyphicon glyphicon-edit"></span></td>
 								<td id="iconGestion" ng-click="supprime(e.noEtudiant)"><span class="glyphicon glyphicon-trash"></span></td>

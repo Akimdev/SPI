@@ -24,10 +24,8 @@
 				</div>
 				<div class="portlet-body">
 					<p>
-						Cette page permet la gestion de l'ensemble des couples de
-						qualificatifs.</br> Consulter, mettre &agrave; jour, supprimer et
-						ajouter les couples de qualificatifs, afin de param&eacute;trer
-						les questions d'une &eacute;valuation.
+						Cette page permet la gestion des &eacute;lements constitutifs.</br> Consulter, mettre &agrave; jour, supprimer et
+						ajouter les &eacute;lements constitutifs.
 					</p>
 				</div>
 			</div>
@@ -106,13 +104,13 @@
 					</thead>
 					<tbody>
 						<!-- currentPageElementConstitutif / ElementConstitutif -->
-						<tr style="cursor: pointer" data-ng-repeat="ec in currentPageEc"
+						<tr data-ng-repeat="ec in currentPageEc"
 							class="promotion">
-							<td ng-click="detail(ec.elementConstitutifPK)">{{ec.elementConstitutifPK.codeEc}}</td>
-							<td ng-click="detail(ec.elementConstitutifPK)">{{ec.elementConstitutifPK.codeUe}}</td>
-							<td ng-click="detail(ec.elementConstitutifPK)">{{ec.description}}</td>
-							<td ng-click="detail(ec.elementConstitutifPK)">{{ec.designation}}</td>
-							<td ng-click="detail(ec.elementConstitutifPK)">{{ec.elementConstitutifPK.codeFormation}}</td>
+							<td>{{ec.elementConstitutifPK.codeEc}}</td>
+							<td>{{ec.elementConstitutifPK.codeUe}}</td>
+							<td>{{ec.description}}</td>
+							<td>{{ec.designation}}</td>
+							<td>{{ec.elementConstitutifPK.codeFormation}}</td>
 							<td id="iconGestion" ng-click="detail(ec.elementConstitutifPK)"><span
 								class="fa fa-eye"></span></td>
 							<td id="iconGestion" ng-click="edit(ec.elementConstitutifPK)"><span
