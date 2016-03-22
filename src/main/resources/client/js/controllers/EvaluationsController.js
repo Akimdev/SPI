@@ -57,6 +57,9 @@
       },
       listePromotion:function(){
     	  return $http.get("http://localhost:8090/getPromoByNoEnseignant");
+      },
+      rubQueEvaluation : function(idEvaluation){
+    	  return $http.get("http://localhost:8090/getRubriqueEvaluationByEvaluation-"+idEvaluation);
       }
       
     };
@@ -265,6 +268,15 @@
         	 .error(function(data,status){
         		 console.log("impossible de recuperer la liste des UE");
         	}); 
+        /** chargement des rubriques et questions d'une évaluation **/
+        	var rubQuesEvapromise = evaluationsFactory.rubQueEvaluation($stateParams.id);
+        	rubQuesEvapromise.success(function(data,status){
+        		$scope.rubriqueEvaluations = data;
+        		console.log("rubriqueEvaluation : ",data);
+        	})
+        	.error(function(data,status){
+       		 console.log("impossible de recuperer les rubriques et questions d'une évaluation");
+       	});
      }else{
     /** sinon on edite une evaluation existante * */
  		 $scope.edit=true;
