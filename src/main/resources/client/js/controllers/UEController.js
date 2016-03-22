@@ -118,8 +118,8 @@ var edit = false;
   			  type: "warning",   
   			  showCancelButton: true,   
   			  confirmButtonColor: "#DD6B55",   
-  			  confirmButtonText: "Oui, je veux le supprimer!",  
-  			  cancelButtonText: "Non, ignorer!",   
+  			  confirmButtonText: "Oui",  
+  			  cancelButtonText: "Non",   
   			  closeOnConfirm: false,   closeOnCancel: false },
   			  function(isConfirm){
   				  if (isConfirm) {  
