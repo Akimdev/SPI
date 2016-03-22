@@ -12,9 +12,6 @@
 		</div>
 		<!--------------------------- Consultation --------------------------->
 		<div class="portlet-body form" ng-hide="edit">
-			<button class="btn btn-warning pull-right" ng-click="edition()">
-				<span class="glyphicon glyphicon-pencil"></span> Editer
-			</button>
 			<form class="form-horizontal form-bordered">
 				<div class="form-group">
 					<div class="col-md-3">
@@ -103,9 +100,12 @@
 						</div>
 					</div>
 				</div>
-<!------------------------Boutons Retour et Editer----------->
+			<!------------------------Boutons Retour et Editer----------->
 			<a class="btn btn-primary" href="#/enseignants"><span
 				class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+			<button class="btn btn-warning pull-right" ng-click="edition()">
+				<span class="glyphicon glyphicon-pencil"></span> Editer
+			</button>
 		</div>
 			<!------------------------------------------------------------- Edition --------------------------------------------->
 			<div ng-show="edit">
@@ -229,7 +229,7 @@
                         </span>	
 							<input class="form-control" name="mobile" type="text" ng-model="enseignant.mobile"
 								mask="09.99.99.99.99" restrict="reject" validate="false"
-								ng-pattern="/^[0][0-9].[0-9][0-9].[0-9][0-9].[0-9][0-9].[0-9][0-9]$/"
+								ng-pattern="/^0[0-9].[0-9][0-9].[0-9][0-9].[0-9][0-9].[0-9][0-9]$/"
 								ng-em-pattern="Format mobile incorrect! Exemple: 06.12.34.56.78" 
 								ng-em-required="Mobile obigatoire" 
 								placeholder="06.12.34.56.78" required/>
@@ -307,10 +307,10 @@
                     <span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="enseignantForm.pays.$invalid"></span>
 					</div></div>
 				</form>
-				<a class="btn btn-success" ng-disabled="enseignantForm.$invalid" ng-click="submit()"><span
-					class="glyphicon glyphicon-ok"></span> Valider</a>
-				<button class="btn btn-danger pull-right" ng-click="cancel()">
+				<button class="btn btn-danger" ng-click="cancel()">
 					Annuler</button>
+				<a class="btn btn-success  pull-right" ng-disabled="enseignantForm.$invalid" ng-click="submit()"><span
+					class="glyphicon glyphicon-ok"></span> Valider</a>
 			</div>
 		</div>
 	</div>

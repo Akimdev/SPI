@@ -370,6 +370,7 @@ $scope.refresh();
 	        	var promisesajout = enseignantsFactory.add($scope.enseignant);
 	        	promisesajout.success(function(data, status) {
 	        		swal("Félicitation!", "Le nouveau enseignant est ajouté!", "success");
+	        		$location.path('/enseignants');
 				});
 	        	promisesajout.error(function(data, status, headers, config) {
 	        		toaster.pop({
@@ -379,12 +380,12 @@ $scope.refresh();
 	                    showCloseButton: true
 	                });
 				});
-	        	$location.path('/enseignants');
 								        }
 			 else{ // modification
 	        	var promisesajout = enseignantsFactory.set($scope.enseignant);
 	        	promisesajout.success(function(data, status, headers, config) {
 	        		swal("Félicitation!", "Enseignant modifié!", "success");
+	        		$location.path('/enseignants');
 				});
 	        	promisesajout.error(function(data, status, headers, config) {
 	        		toaster.pop({

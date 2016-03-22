@@ -165,11 +165,13 @@ var edit = false;
 			var promisesFactory = qualificatifsFactory.getMaxIdQualificatif();
 			promisesFactory.success(function(data) {
 				$scope.qualificatif.idQualificatif = data +1;
-			});      
+			});  
+			$scope.edit=true;
       } else {
     	  	var promisesFactory = qualificatifsFactory.get($stateParams.id);
 	     	promisesFactory.success(function(data) {
 	       		$scope.isVisible = true;
+	       		$scope.edit=
 	     		$scope.qualificatif = data;
 	     		console.log("\tQualificatif récupéré: ", data);
 	     	});

@@ -36,7 +36,7 @@
 		<div class="portlet-title">
 			<div class="caption">
 				<i class="icon-social-dribble font-red"></i> <span
-					class="cpation-subject font-red bold uppercase">Questions</span>
+					class="cpation-subject font-red bold uppercase">Questions standards</span>
 			</div>
 			<div>
 				<!-- ------------------------Bouton ajouter--------------------------------------- -->
@@ -67,14 +67,14 @@
 									</div>
 								</th>
 								<th>
-									<strong>Qualificatif</strong>
+									<strong>Couple qualificatif</strong>
 								</th>
 							</tr>
 						</thead>
 						<tbody>
 					<tr data-ng-repeat="q in currentPageQuestion | orderBy:'intitule'" class="question">
 								<td>{{q.intitule}}</td>
-								<td></td>
+								<td>{{q.idQualificatif.minimal}} - {{q.idQualificatif.maximal}}</td>
 								<td id="iconGestion" ng-click="show(q)"><span class="fa fa-eye"></span></td>
 								<td id="iconGestion" ng-click="edit(q)"><span class="glyphicon glyphicon-edit"></span></td>
 								<td id="iconGestion" ng-click="supprime(q)"><span class="glyphicon glyphicon-trash"></span></td>
@@ -83,22 +83,22 @@
 					</table>
 					<!-- -------------------------------Footer ----------------------- -->
 					<footer class="table-footer">
-			<div class="row">
-				<div class="col-md-6 page-num-info">
-					<span> Show <select data-ng-model="numPerPage"
-						data-ng-options="num for num in numPerPageOpt"
-						data-ng-change="onNumPerPageChange()">
-					</select> entries per page
-					</span>
-				</div>
-				<div class="col-md-6 text-right pagination-container">
-					<pagination class="pagination-sm" ng-model="currentPage"
-						total-items="filteredQuestion.length" max-size="4"
-						ng-change="select(currentPage)" items-per-page="numPerPage"
-						rotate="false" boundary-links="true"></pagination>
-				</div>
-			</div>
-		</footer>
+						<div class="row">
+							<div class="col-md-6 page-num-info">
+								<span> Afficher <select data-ng-model="numPerPage"
+									data-ng-options="num for num in numPerPageOpt"
+									data-ng-change="onNumPerPageChange()">
+								</select> entr&eacute;es par page
+								</span>
+							</div>
+							<div class="col-md-6 text-right pagination-container">
+								<pagination class="pagination-sm" ng-model="currentPage"
+									total-items="filteredStores.length" max-size="4"
+									ng-change="select(currentPage)" items-per-page="numPerPage"
+									rotate="false" boundary-links="true"></pagination>
+							</div>
+						</div>
+					</footer>
 				</table>
 			</div>
 		</div>

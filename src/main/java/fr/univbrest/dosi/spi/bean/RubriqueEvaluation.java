@@ -41,6 +41,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
     @NamedQuery(name = "RubriqueEvaluation.findAll", query = "SELECT r FROM RubriqueEvaluation r"),
     @NamedQuery(name = "RubriqueEvaluation.findByIdRubriqueEvaluation", query = "SELECT r FROM RubriqueEvaluation r WHERE r.idRubriqueEvaluation = :idRubriqueEvaluation"),
     @NamedQuery(name = "RubriqueEvaluation.findByOrdre", query = "SELECT r FROM RubriqueEvaluation r WHERE r.ordre = :ordre"),
+    @NamedQuery(name = "RubriqueEvaluation.findByIdEvaluation", query = "SELECT r FROM RubriqueEvaluation r WHERE r.idEvaluation = :idEvaluation"),
     @NamedQuery(name = "RubriqueEvaluation.findByDesignation", query = "SELECT r FROM RubriqueEvaluation r WHERE r.designation = :designation")})
 public class RubriqueEvaluation implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -58,14 +59,12 @@ public class RubriqueEvaluation implements Serializable {
     @Size(max = 64)
     @Column(name = "DESIGNATION")
     private String designation;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRubriqueEvaluation")
     private Collection<QuestionEvaluation> questionEvaluationCollection;
     @JsonIgnore
     @JoinColumn(name = "ID_EVALUATION", referencedColumnName = "ID_EVALUATION")
     @ManyToOne(optional = false)
     private Evaluation idEvaluation;
-    @JsonIgnore
     @JoinColumn(name = "ID_RUBRIQUE", referencedColumnName = "ID_RUBRIQUE")
     @ManyToOne
     private Rubrique idRubrique;
