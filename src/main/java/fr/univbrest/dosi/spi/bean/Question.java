@@ -45,7 +45,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Question implements Serializable {
 	private static final long serialVersionUID = 1L;
 	//@JsonIgnore
-	// @JsonManagedReference(value="question-Qualificatif")
+	//@JsonManagedReference(value="question-Qualificatif")
 	@JoinColumn(name = "ID_QUALIFICATIF", referencedColumnName = "ID_QUALIFICATIF", nullable = false)
 	@ManyToOne(optional = false)
 	private Qualificatif idQualificatif;
