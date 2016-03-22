@@ -146,7 +146,7 @@ var edit;
       $scope.ajoutPromotion = function(){
     	  $scope.ajout= true;
     	  edit = true;
-          $location.path('/promotion/nouveau/nouveau');
+          $location.path('/promotion/nouveau/nouveau/e');
        }
       
       // modifie les détails d'une promotion
@@ -198,12 +198,13 @@ var edit;
     	
     	var initAjout= function(){
     		$scope.promotion= { };
+    		if(edit)
+    	  		$("select option").prop("selected", false);
 	        $scope.ajout = true;
     	}
     	
     	var initEdition= function(){
-//    		if(edit)
-//    	  		$("select option").prop("selected", false);
+
     		var promoPK = {anneeUniversitaire:  $stateParams.ann, codeFormation: $stateParams.form};
     		//Recuperation de la promotion
             return promotionsFactory.get(promoPK).then(
@@ -222,23 +223,13 @@ var edit;
         	            return promotionsFactory.getEnseignantResponsable(promoPK);
         	        },
         	        function(data3,statut){
-        		      	  console.log("impossible de recuperer les details de la promotion choisie");
+        		      	  console.log("Impossible de recuperer les details de la promotion choisie");
     		        }
             ).then(
             		function(data1,statut){
             			if(data1.data.nom)
             				data1.data.nom= data1.data.nom.toUpperCase();
-    		        	$scope.responsable = data1.data;
-//    		        	$scope.enseignantSelected= $scope.responsable;
-    		        	for (var i=0; i < $scope.enseignants.length; i++) {
-        	        		if ($scope.enseignants[i].noEnseignant == $scope.responsable.noEnseignant) {
-//        	        			$scope.enseignantSelected = $scope.enseignants[i];
-        	        			document.getElementsByName("listeEnseignants").selectedIndex = i;
-        	        			console.log("selected: "+i+" "+document.getElementsByName("listeEnseignants").selectedIndex);
-        	        			break;
-        	        		}
-        	        	}
-    		        	console.log("apreees: ", document.getElementsByName("listeEnseignants").selectedIndex);
+            			$scope.enseignantSelected= $scope.responsable = data1.data;
     		        	// Initialisation du processusStage dans le cas d'une consultation d'une promotion
         				for(var i=0; i< $scope.processusStage.length; i++){
         					if($scope.processusStage[i].rvAbbreviation == $scope.promotion.processusStage) {
@@ -255,21 +246,18 @@ var edit;
     		        
             ).then(
             		function(data,statut){
-    	            	$scope.promotion.etudiantCollection = data.data ;
+    	            	for(var i=0; i<data.data.length; i++)
+    	            		data.data[i].dateNaissance = $filter('date')(data.data[i].dateNaissance, "dd/MM/yyyy");
+            			$scope.promotion.etudiantCollection = data.data ;
     	            },
     	            function(data,statut){
       	          	  console.log("Impossible de recuperer les étudiants de la promotion choisie");
       	            }
             );
-            $scope.ajout= true;
+            $scope.ajout= false;
     	}
     	
-//    	if($stateParams.edit== "c")
-//			edit= false;
-//    	else
-//    		edit= true;
-    	edit = ($stateParams.edit== "c") ? false : true;
-    	$scope.edit= edit;
+    	$scope.edit= edit= ($stateParams.edit== "c") ? false : true;
     	$http.get('http://localhost:8090/getDomaine/PROCESSUS_STAGE').then(
     			function(data, status, headers, config) {
     	    		$scope.processusStage= [];
@@ -366,7 +354,6 @@ var edit;
     				  swal("Erreur !", "La promotion ne peut pas être modifiée !", "error");    	        			  
     			  });
     		  });
-    		  $scope.edit = false;
     	  }
       }
 
@@ -377,6 +364,15 @@ var edit;
       
       $scope.etudiantDetails = function(id){
     	  $location.path("/etudiant/"+id);
+      }
+
+      
+      $scope.onChangeResp = function(){
+    	  console.log($scope.enseignantSelected);
+    	  $scope.enseignantSelected = "j";
+    	  console.log($scope.enseignantSelected);
+    	  $scope.enseignantSelected = undefined;
+    	  console.log($scope.enseignantSelected);
       }
     }]
   );
