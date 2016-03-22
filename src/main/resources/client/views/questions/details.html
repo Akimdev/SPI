@@ -44,11 +44,14 @@
 							<label for="" class="col-sm-2">Intitul&eacute;<span
 								id="required-field">*</span></label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="intitule"
-									ng-model="question.intitule" required> <span
-									style="color: red"
-									ng-show="questionForm.intitule.$dirty && questionForm.intitule.$invalid">
-									<span ng-show="questionForm.intitule.$error.required">Intitul&eacute;
+								<input	type="text"
+										class="form-control"
+										name="intitule"
+										ng-model="question.intitule"
+										required>
+								<span	style="color: red"
+										ng-show="questionForm.intitule.$dirty && questionForm.intitule.$invalid">
+								<span ng-show="questionForm.intitule.$error.required">Intitul&eacute;
 										obligatoire ou type invalide.</span>
 							</div>
 						</div>
