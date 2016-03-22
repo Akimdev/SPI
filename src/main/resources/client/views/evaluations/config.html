@@ -100,7 +100,7 @@
 						</tr>
 					</thead>
 					<tbody ng-repeat="rub in rubriques">
-						<tr class="">
+						<tr class="success">
 							<td colspan="3" class="sbold uppercase"><i class="icon-tag" style="margin-right: 10px;"></i><b> {{rub.designation}}</b></td>
 							<td>
 								<button type="button" ng-click="addQuestion(rub.idRubrique)" data-toggle="modal" data-target="#questionModal" class="btn green btn-outline sbold uppercase plusQues">
@@ -123,7 +123,7 @@
 		</div>
 
 		<a class="btn btn-primary" ng-click="cancel()"><span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
-		<a class="btn btn-success pull-right" ng-click="cancel()"><span class="glyphicon glyphicon-ok"></span> Valider</a>
+		<a class="btn btn-success pull-right" ng-click="submit()"><span class="glyphicon glyphicon-ok"></span> Valider</a>
 	</div>
 	
 	<!--------------------Modal Ajouter Rubrique------------------->
