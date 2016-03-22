@@ -29,6 +29,18 @@
 	  return {
 		  get: function(code) { 
 	    	  return $http.get('http://localhost:8090/findEvaluationById-' + code);    
+	      },
+	      getRubriques: function(){
+	    	  return $http.get('http://localhost:8090/rubriques');
+	      },
+	      getQuestions: function(){
+	    	  return $http.get('http://localhost:8090/questions');
+	      },
+	      getRubrique: function(rubrique){
+	    	  return $http.get('http://localhost:8090/rubrique/' + rubrique);
+	      },
+	      getQuestion: function(question){
+	    	  return $http.get('http://localhost:8090/getQuestionById/' + question);
 	      }
 	  };
    }]);
@@ -37,10 +49,24 @@
 		    function($scope, $stateParams, $location,$filter, configEvalFactory){ 
 	  
 	  	$scope.rubriques = [];
-	  
+	  	$scope.rubriquesSelected = [];
+	  	$scope.questionsOptions = [];
+	  	$scope.questionsSelected = [];
+	  	$scope.questions = [];
+	  	$scope.currentRubrique = null;
+	  	
+	  	var promiseRub = configEvalFactory.getRubriques();
+	  	promiseRub.success(function(data){
+	  		$scope.rubriquesOptions = data;
+	  	});
+	  	
+	  	var promiseQues = configEvalFactory.getQuestions();
+	  	promiseQues.success(function(data){
+	  		$scope.questionsOptions = data;
+	  	});
+	  	
 	  	var promise = configEvalFactory.get($stateParams.id);
 	  	promise.success(function(data){
-	  		console.log(data);
 	  		$scope.eval = data;
 	  	});
 	  	
@@ -49,33 +75,64 @@
 		}
 		
 		$scope.addRubrique = function(){
-			var rubrique = {
-					'idRubrique' : 1,
-					'designation' : "designation",
-					'questions' : []
+			var rubrique = $scope.rubriquesSelected;
+			for(var rub in rubrique){
+				if(rub != 'removeValue' && rub != 'retourValue'){
+					var promiseRub = configEvalFactory.getRubrique(rub);
+					promiseRub.success(function(data){
+						$scope.rubriques.push(data); 
+						$scope.rubriquesSelected = [];
+					})
+					.error(function(){
+					})					
+				}
 			}
-			$scope.rubriques.push(rubrique); 
+		}
+		
+		$scope.checkIfSelected = function(rubrique){
+			var id = parseInt(rubrique);
+			for(var i = 0; i < $scope.rubriques.length; i++){
+				if($scope.rubriques[i].idRubrique === id){
+					return true;					
+				}
+			}
+			return false;
 		}
 		
 		$scope.addQuestion = function(id){
 			var rubrique = $scope.getRubriqueById(id);
-			if(rubrique[0] != null)
-				rubrique[0].questions.push({'idQuestion' : 5, 'intitule': "Some question", qualificatif : {"minimal" : "Faible", "maximal" : "Excellent"}});
+			$scope.currentRubrique = id;
 		}
 		
 		$scope.getRubriqueById = function(id){
 			for(var i = 0; i < $scope.rubriques.length; i++){
 				if($scope.rubriques[i].idRubrique === id)
-					return $scope.rubriques;
+					return $scope.rubriques[i];
 			}
 			return null;
 		}
 		
+		$scope.addQuestions = function(){
+			var rubrique = $scope.getRubriqueById($scope.currentRubrique);
+			if(!rubrique.questions)
+				rubrique.questions = [];
+			
+			for(var ques in $scope.questionsSelected){
+				if(ques != 'removeValue' && ques != 'retourValue'){
+					var promiseQues = configEvalFactory.getQuestion(ques);
+					promiseQues.success(function(data){
+						rubrique.questions.push(data);
+					});
+				}
+			}
+			$scope.questionsSelected = [];
+			console.log(rubrique);
+		};
+		
 		$scope.removeQuestion = function(idRubrique, idQuestion){	
 			var indexQues = -1;		
-			var comArr = $scope.getRubriqueById(idRubrique)[0].questions;
+			var comArr = $scope.getRubriqueById(idRubrique).questions;
 			for( var i = 0; i < comArr.length; i++ ) {
-				console.log("current : ", comArr[i].idQuestion);
 				if( comArr[i].idQuestion === idQuestion ) {
 					indexQues = i;
 					break;
@@ -84,32 +141,33 @@
 			if( indexQues === -1 ) {
 				alert( "Something gone wrong" );
 			}
-			
-			var indexRub = -1;
-			for(var i = 0; i < $scope.rubriques.length; i++){
-				if($scope.rubriques[i].idRubrique === idRubrique)
-					indexRub = i;
+			else{
+				var indexRub = -1;
+				for(var i = 0; i < $scope.rubriques.length; i++){
+					if($scope.rubriques[i].idRubrique === idRubrique)
+						indexRub = i;
+				}
+				$scope.rubriques[indexRub].questions.splice(indexQues, 1);		
 			}
-
-			$scope.rubriques[indexRub].questions.splice(indexQues, 1);		
 		};
 		
 		$scope.removeRubrique = function(idRubrique){	
+			console.log(idRubrique);
 			var indexRub = -1;		
-			var comArr = $scope.getRubriqueById(idRubrique);
-			for( var i = 0; i < comArr.length; i++ ) {
-				console.log("current : ", comArr[i].idRubrique);
-				if( comArr[i].idRubrique === idRubrique ) {
+			for( var i = 0; i < $scope.rubriques.length; i++ ) {
+				console.log("compare " + $scope.rubriques[i].idRubrique + " to " + idRubrique)
+				if( $scope.rubriques[i].idRubrique === idRubrique ) {
 					indexRub = i;
 					break;
 				}
 			}
 			if( indexRub === -1 ) {
 				alert( "Something gone wrong" );
-			}
-
-			$scope.rubriques.splice(indexRub, 1);		
+			} 
+			else
+				$scope.rubriques.splice(indexRub, 1);		
 		};
+		
   }]);
 
  
