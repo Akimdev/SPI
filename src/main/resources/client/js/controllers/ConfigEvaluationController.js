@@ -99,6 +99,24 @@
 			return false;
 		}
 		
+		$scope.checkQuesIfSelected = function(question){
+			if($scope.currentRubrique){
+				if($scope.getRubriqueById($scope.currentRubrique).questions){
+					var comArr = $scope.getRubriqueById($scope.currentRubrique).questions;
+					var id = parseInt(question);
+					for(var i = 0; i < comArr.length; i++){
+						if(comArr[i].idQuestion === id){
+							return true;					
+						}
+					}
+					return false;
+				}
+				else 
+					return false;
+			}
+			else return false;
+		}
+		
 		$scope.addQuestion = function(id){
 			var rubrique = $scope.getRubriqueById(id);
 			$scope.currentRubrique = id;
@@ -126,7 +144,6 @@
 				}
 			}
 			$scope.questionsSelected = [];
-			console.log(rubrique);
 		};
 		
 		$scope.removeQuestion = function(idRubrique, idQuestion){	
@@ -152,10 +169,8 @@
 		};
 		
 		$scope.removeRubrique = function(idRubrique){	
-			console.log(idRubrique);
 			var indexRub = -1;		
 			for( var i = 0; i < $scope.rubriques.length; i++ ) {
-				console.log("compare " + $scope.rubriques[i].idRubrique + " to " + idRubrique)
 				if( $scope.rubriques[i].idRubrique === idRubrique ) {
 					indexRub = i;
 					break;
@@ -164,9 +179,15 @@
 			if( indexRub === -1 ) {
 				alert( "Something gone wrong" );
 			} 
-			else
+			else{
 				$scope.rubriques.splice(indexRub, 1);		
+				$scope.currentRubrique = null;
+			}
 		};
+		
+		$scope.submit = function(){
+			console.log($scope.rubriques);
+		}
 		
   }]);
 
