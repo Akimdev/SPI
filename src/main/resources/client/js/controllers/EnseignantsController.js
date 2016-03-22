@@ -3,9 +3,7 @@
  */
 (function() {
   'use strict';
-
   var app = angular.module('app.enseignants', []);
-
   Array.prototype.removeValue = function(name, value){
 	   var array = $.map(this, function(v,i){
 	      return v[name] === value ? null : v;
@@ -13,71 +11,33 @@
 	   this.length = 0; //clear original array
 	   this.push.apply(this, array); //push all elements except the one we want to delete
 	}
-  
   Array.prototype.retourValue = function(name, value){
 	   var array = $.map(this, function(v,i){
 	      return v[name] === value ? v : null;
 	   });
 	   return array[0];
 	}
-  
   app.factory('enseignantsFactory', ['$http',function($http){
     var list = function() {
-        //var defer = $q.defer();
-
         return  $http.get('http://localhost:8090/ens')
-        /*.then(function(response) {
-           defer.resolve(response.data);
-         });
-
-         return defer.promise;*/
-       };
-    	/*[ 
-      // TODO Constituer la liste des enseignants ici
-      {
-    	  no_enseignant : "1", nom : "SALIOU", prenom : "Philippe", 
-    	  email :"philippe.saliou@gmail.com", sexe : "H", adresse :"6 rue de l'Argoat" ,
-    	  code_postal : "29860", ville : "LE DRENNEC", telephone : "06.29.24.01.00",
-    	  pays : "FR", type : "MCF"
-    		  
-      },
-      {
-    	  no_enseignant : "2", nom : "LALLALI", prenom : "Mounir", 
-    	  email :"mouni.lallali@gmail.com", sexe : "H", adresse :"18rue Jean Jaurès" ,
-    	  code_postal : "29200", ville : "BREST", telephone : "06.32.03.56.32",
-    	  pays : "FR", type : "MCF"
-      },
-      {
-    	  no_enseignant : "3", nom : "LEROUX", prenom : "Pierre", 
-    	  email :"pileroux@gmail.com" , sexe : "H", adresse :"65 route de Gouesnou" ,
-    	  code_postal : "29200", ville : "BREST", telephone : "06.45.95.47.29",
-    	  pays : "FR", type : "INT"
-      }
-    ];*/
-            
+       };       
     var details = [ 
       // Constituer le délail de la liste des enseignants ici
     ];
-
     return {
       // renvoi la liste de tous les enseignants
-      all:list,// function() { //return list; 
-
-     // },
+      all:list,
       // renvoi l'enseignant avec le no_enseignant demandé
       get: function(noEnseignant) { 
     	  // TODO retourner les enseignants
     	  console.log("TODO : get enseignant",noEnseignant);
     	  //return list.retourValue("no_enseignant",idx);
     	  return  $http.get('http://localhost:8090/getens/'+noEnseignant);
-    	  
-   	  },
-   	  
+   	  }, 
    	//ajout d'une nouvel enseignant
      	add: function(enseignant) {
     	  return $http.post('http://localhost:8090/ajouterEnseignant', enseignant);
      	},
-     	
     	set: function(enseignant) {
     	  	  return $http({
     	  		  method: 'POST',
@@ -86,54 +46,6 @@
     	  		  headers:{ 'Content-Type' : 'application/json'}
     	  	  });
     	    },
-//      set: function(enseignant) {
-//        var idx = enseignant.noEnseignant;
-//        // si modification d'un enseignant existant
-//        if(idx){
-//          // TODO alimenter l'objet enseignant trouvé
-//        	console.log("TODO : update enseignant",idx);
-//        	//list.removeValue("no_enseignant",enseignant.no_enseignant);
-//        	//return list.push(enseignant);
-//        	
-//        	var newEnseignant = {
-//          		      "noEnseignant" : idx,
-//         			  "nom" : enseignant.nom,
-//         			  "prenom" : enseignant.prenom,
-//         			  "type" : enseignant.type,
-//         			  "sexe" : enseignant.sexe,
-//         			  "adresse" : enseignant.adresse,
-//         			  "codePostal" : enseignant.codePostal,
-//         			  "ville" : enseignant.ville,
-//         			  "pays" : enseignant.pays,
-//         			  "mobile" : enseignant.mobile,
-//         			  "telephone" : enseignant.telephone,
-//         			  "emailPerso" : enseignant.emailPerso,
-//         			  "emailUbo" : enseignant.emailUbo,
-//         		  };      	  
-//  	        	$http.post('http://localhost:8090/updateEnseignant',newEnseignant);
-//        } else { // si ajout d'un nouvel enseignant
-//          // TODO ajouter un enseignant à la liste
-//        	
-//        	  var newEnseignant = {
-//        		  "noEnseignant" : "8",
-//       			  "nom" : enseignant.nom,
-//       			  "prenom" : enseignant.prenom,
-//       			  "type" : enseignant.type,
-//       			  "sexe" : enseignant.sexe,
-//       			  "adresse" : enseignant.adresse,
-//       			  "codePostal" : enseignant.codePostal,
-//       			  "ville" : enseignant.ville,
-//       			  "pays" : enseignant.pays,
-//       			  "mobile" : enseignant.mobile,
-//       			  "telephone" : enseignant.telephone,
-//       			  "emailPerso" : enseignant.emailPerso,
-//       			  "emailUbo" : enseignant.emailUbo,
-//       		  };      	  
-//	        	$http.post('http://localhost:8090/ajouterEnseignant',newEnseignant);
-//        	
-//        	//return list.push(enseignant);
-//        }
-//      },
       delete: function(noEnseignant) { 
         // TODO Supprimer 
     	  console.log("TODO : supprimer enseignant",noEnseignant);
@@ -217,18 +129,6 @@ $scope.refresh = function(){
 		);
 			}
 $scope.refresh();
-      // la liste globale des enseignants
-      //$scope.enseignants = enseignantsFactory.all();          
-
-      //$scope.formations = [];
-      
-      /*listfrm.fetchPopular(function(data) {
-        	  console.log("TODO 1: entrer fetchpopular");
-    			$scope.formations = data;
-    			console.log("TODO 2: donnee " + data);
-    			console.log("TODO 3: fin fetchpopular");
-    		});*/
-      
       // Crée la page permettant d'ajouter un enseignant
       // TODO Lien vers la page permettant de créer un enseignant /enseignant/nouveau
       $scope.ajoutEnseignant = function(){
@@ -275,7 +175,6 @@ $scope.refresh();
       $scope.refresh();
     }]
   );
-
   app.controller('EnsDetailsController', 
     ['$scope', '$stateParams','$http', '$location','$filter', 'enseignantsFactory','toaster',
     function($scope, $stateParams , $http, $location, $filter, enseignantsFactory, toaster){      
@@ -309,30 +208,7 @@ $scope.refresh();
       	  console.log("impossible de recuperer les details de l'enseignant choisi");
         });
 		$scope.edit= edit;
-}
-/*
-        var e = enseignantsFactory.get($routeParams.id);
-        //alert(e.nom);
-        // clone de l'objet pour conserver l'objet initial
-        //$scope.enseignant= JSON.parse(JSON.stringify(e));
-        
-    	e
-		.success(function(data) {
-		    $scope.enseignants = data;
-		    var promisepromotion = enseignantsFactory.getPromotion(data.noEnseignant);
-		    promisepromotion.success(function(data){
-		    	$scope.enseignant.promotions = data.promotion;
-		    })
-		    .error(function(data){
-		    	$scope.error = 'unable to get the poneys';
-		    })
-		    //$scope.enseignant= JSON.parse(JSON.stringify(data));
-		  }
-		)
-		.error(function(data) {
-			 $scope.error = 'unable to get the poneys';
-		  }
-		);*/
+      		}
    var promise3= enseignantsFactory.getDomain();
       promise3.success(function(data,statut){
       	$scope.types= data;
@@ -354,15 +230,7 @@ $scope.refresh();
     $scope.edition = function(){
         $scope.edit = true;
       }
-
-      // valide le formulaire d'édition d'un enseignant
-      /*$scope.submit = function(){ 
-	  	$scope.enseignant.type= $scope.typeSelected;
-    	$scope.enseignant.pays= $scope.paysSelected;   	 
-        enseignantsFactory.set($scope.enseignant);        
-        $scope.edit = false;        
-      }*/
-    		$scope.submit = function(){
+$scope.submit = function(){
     	  $scope.enseignant.type= $scope.typeSelected;
     	  $scope.enseignant.pays= $scope.paysSelected;
     	  console.log($scope.enseignant);
