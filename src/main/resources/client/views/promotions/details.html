@@ -78,7 +78,7 @@
                              <span class="caption-subject font-blue sbold uppercase bold">Etudiants de la promotion</span>
                          </div>
 						
-						<table class="table"></br></br>
+						<table class="table table-hover"></br></br>
 							<thead>
 								<tr>
 									<th>Num &eacute;tudiant</th>
@@ -89,7 +89,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="e in promotion.etudiantCollection" ng-click="etudiantDetails(e.noEtudiant)" style="cursor:pointer">
+								<tr class="hovered" ng-repeat="e in promotion.etudiantCollection" ng-click="etudiantDetails(e.noEtudiant)" style="cursor:pointer">
 									<td>{{e.noEtudiant}}</td>
 									<td>{{e.nom}}</td>
 									<td>{{e.prenom}}</td>
@@ -259,8 +259,10 @@
 						</div></br>
 				</div></br>
 				<div class="form-group">
-					<a class="btn btn-success pull-right" ng-click="submit()"><span
-						class="glyphicon glyphicon-ok"></span> Valider</a>
+					<a class="btn btn-success pull-right" ng-click="submit()"
+						ng-disabled="promotionForm.anneeUniversitaire.$dirty && promotionForm.anneeUniversitaire.$invalid || promotionForm.nbMaxEtudiant.$dirty && promotionForm.nbMaxEtudiant.$invalid || 
+									promotionForm.siglePromotion.$dirty && promotionForm.siglePromotion.$invalid || promotionForm.codeFormation.$dirty && promotionForm.codeFormation.$invalid || promotionForm.$invalid">
+					<span class="glyphicon glyphicon-ok"></span> Valider</a>
 					<button class="btn btn-danger pull-left" ng-click="cancel()">Annuler</button>
 				</div>
 			</form></br>
