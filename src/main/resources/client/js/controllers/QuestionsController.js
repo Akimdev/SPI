@@ -125,8 +125,8 @@
 			  type: "warning",   
 			  showCancelButton: true,   
 			  confirmButtonColor: "#DD6B55",   
-			  confirmButtonText: "Oui, je veux le supprimer!",  
-			  cancelButtonText: "Non, ignorer!",   
+			  confirmButtonText: "OUI",  
+			  cancelButtonText: "NON",   
 			  closeOnConfirm: false,   closeOnCancel: false },
 			  function(isConfirm){
 				  if (isConfirm) {  
@@ -136,10 +136,10 @@
 			    		$scope.refresh();
 			      	  });
 			    	  promisessuppression.error(function(data, status, headers, config) {
-			    		  swal("Erreur!", "Vous ne pouvez pas supprimer cette question", "error");
+			    		  swal("Erreur!", "Impossible de supprimer la question car elle est déjà referencée", "error");
 			  		});	
 				  } else {     
-						  swal("Ignorer", "", "error");
+						  swal("Annulé", "", "error");
 				  }
 	  	 });    	  
       }
@@ -177,10 +177,8 @@
          		promiseQualif.success(function(result){
          			$scope.qualif = result;
 	     	}).error(function(data){
-         			console.log("erreur existant qual");
          			});
          	}).error(function(data) {   
-     			console.log("erreur existant ques");
             });
      }else{
     	/** modification d'une question **/
@@ -190,12 +188,13 @@
        		$scope.question = data;   
        		var promiseQualif = questionsFactory.getQualificatif($stateParams.id);
            		promiseQualif.success(function(result){
-           			$scope.qualif = result;
+           			for(var i=0; i<$scope.qualificatifs.length; i++){
+           				if(angular.equals($scope.qualificatifs[i], result))
+           					$scope.qualifSelected= $scope.qualificatifs[i];
+           			}
   	     		}).error(function(data){
-           			console.log("erreur recup qualificatif");
                 });
        		}).error(function(data){
-        	 console.log("erreur");
        		});
          }
        	 
@@ -238,7 +237,7 @@
 	    		
 	    	promisesajout.success(function(data, status) {
 	    		if($stateParams.id == "nouveau"){
-	    			swal("Félicitation!", "La question est ajoutée!", "success");
+	    			swal("Félicitation!", "La nouvelle question est ajoutée!!", "success");
 	    		}else{
 	    			swal("Félicitation!", "La question est modifiée!", "success");
 	    		}
@@ -264,13 +263,7 @@
       }
   /** annule l'édition **/
       $scope.cancel = function(){
-        if($stateParams.id == "nouveau"){
-          $location.path('/questions');
-        } else {
-        	$location.path('/question/' + $stateParams.id);
-          //var e = questionFactory.get($stateParams.id);
-          $scope.edit = false;
-        }
+    	  history.back();
       }
     }]
   );

@@ -223,7 +223,6 @@ var edit;
         	            return promotionsFactory.getEnseignantResponsable(promoPK);
         	        },
         	        function(data3,statut){
-        		      	  console.log("Impossible de recuperer les details de la promotion choisie");
     		        }
             ).then(
             		function(data1,statut){
@@ -241,7 +240,6 @@ var edit;
         				//Recuperation des etudiants  
         				return promotionsFactory.getEtudiants(promoPK);
     		        },function(data1,statut){
-      		      	  console.log("Impossible de recuperer l'enseignant resposable de la promotion");
     		        }
     		        
             ).then(
@@ -251,7 +249,6 @@ var edit;
             			$scope.promotion.etudiantCollection = data.data ;
     	            },
     	            function(data,statut){
-      	          	  console.log("Impossible de recuperer les étudiants de la promotion choisie");
       	            }
             );
             $scope.ajout= false;
@@ -270,7 +267,6 @@ var edit;
     		        return promotionsFactory.getEnseignants();
     		    },
     		    function(data, status, headers, config) {
-    			      console.log("Impossible de récuperer le domaine PROCESSUS_STAGE");
 			    }
     		    
     	).then(
@@ -284,7 +280,6 @@ var edit;
 		        	return promotionsFactory.getFormations();
 		        },
 		        function(data1,statut){
-  		      	  console.log("Impossible de recuperer la liste des enseignants");
   		        }
 		        
     	).then(
@@ -293,7 +288,6 @@ var edit;
 		        	$scope.formations= data2.data;
 		        },
 		        function(data2,statut){
-  		      	  console.log("Impossible de recuperer la liste des formations");
   		        }
     	).then(
     			function () {

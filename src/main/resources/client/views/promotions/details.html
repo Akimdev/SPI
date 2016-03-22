@@ -118,6 +118,7 @@
 				
 					<form class="form-body" name="promotionForm">
 						<div class="row">
+						<div form-group class="form-group" form-group-class="has-feedback">
 							<div class="col-md-6">
 								<label class="col-md-4 control-label bold">Ann&eacute;e <span id="required-field"> *</span></label>
 								<div class="col-md-6">
@@ -135,6 +136,9 @@
 	                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="promotionForm.anneeUniversitaire.$invalid"></span>
 								</div>
 							</div>
+							</div>
+							
+							<div form-group class="form-group" form-group-class="has-feedback">
 							<div class="col-md-6">
 								<label class="col-md-4 control-label bold">Nombre max d'&eacute;tudiants <span id="required-field"> *</span></label>
 								<div class="col-md-6">
@@ -151,8 +155,10 @@
 	                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="promotionForm.nbMaxEtudiant.$invalid"></span>
 								</div>
 							</div>
+							</div>
 						</div></br>
 						<div class="row">
+						
 							<div class="col-md-6">
 								<label class="col-md-4 control-label bold">Formation <span id="required-field"> *</span></label>
 								<div class="col-md-6">
@@ -267,5 +273,3 @@
 		</div>
 	</div>
 </div>
-</div>
-
