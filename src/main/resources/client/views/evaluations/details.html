@@ -12,26 +12,34 @@
 						<label for="" class="col-sm-2">Num&eacute;ro Evaluation:<span id="required-field">*</span></label>
 						<div class="col-sm-10">
 						<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-user"></i>
+						<span class="input-group-addon"><i class="icon-notebook"></i>
                         </span>
 							<input type="text" class="form-control" ng-model="evaluation.noEvaluation" name="noEvaluation" 
 							mask='9' repeat="8" restrict="reject" validate="false"
-							ng-em-required="Nom obigatoire"
-							placeholder="Num&eacute;ro de l'&eacute;valuation" required>
+							ng-em-required="N° Evaluation obigatoire"
+							placeholder="Num&eacute;ro de l'&eacute;valuation" required/>
 						</div>	
 							<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="evaForm.noEvaluation.$valid"></span>
-                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="evaForm.noEvaluation.$invalid"></span>
+                    		<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="evaForm.noEvaluation.$invalid"></span>
 					</div>
 					</div>
 										
 					<div class="form-group">
 						<label for="" class="col-sm-2">Désignation:<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" ng-model="evaluation.designation" name="designation"required>
-							<span style="color:red" ng-show="evaForm.designation.$dirty && evaForm.designation.$invalid">
-							<span ng-show="evaForm.designation.$error.required">Champ obligatoire / Type invalide</span></span>
+						<div class="input-group">
+						<span class="input-group-addon"><i class="icon-note"></i>
+						</span>
+							<input type="text" class="form-control" ng-model="evaluation.designation" name="designation"
+							mask='*' repeat="255" restrict="reject" validate="false"
+							ng-em-required="Nom obigatoire"
+							placeholder="Désignation" required/>	
+						</div>	
+							<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="evaForm.designation.$valid"></span>
+                    		<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="evaForm.designation.$invalid"></span>
 						</div>
 					</div>
+					
 					<div class="form-group">
 						<label for="" class="col-sm-2">Etat:<span id="required-field">*</span></label>
 						<div class="col-sm-10">
