@@ -44,8 +44,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 	@NamedQuery(name = "Question.getMaxIdQuestion", query = "SELECT MAX(idQuestion) FROM Question") })
 public class Question implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@JsonIgnore
-	// @JsonManagedReference(value="question-Qualificatif")
+	//@JsonIgnore
+	//@JsonManagedReference(value="question-Qualificatif")
 	@JoinColumn(name = "ID_QUALIFICATIF", referencedColumnName = "ID_QUALIFICATIF", nullable = false)
 	@ManyToOne(optional = false)
 	private Qualificatif idQualificatif;

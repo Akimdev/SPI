@@ -1103,7 +1103,7 @@ app
 							.state(
 									'detailspromotions',
 									{
-										url : "/promotion/:ann/:form",
+										url : "/promotion/:ann/:form/:edit",
 										templateUrl : "views/promotions/details.html",
 										data : {
 											pageTitle : 'Detail des promotions',
@@ -1187,7 +1187,47 @@ app
 							.state(
 									'detailsquestions',
 									{
-										url : "/question/:idQuestion",
+										url : "/question/:id",
+										templateUrl : "views/questions/details.html",
+										data : {
+											pageTitle : 'Details des questions',
+											pageSubTitle : 'Details des questions'
+										},
+										controller : "QuestionDetailsController",
+										resolve : {
+											deps : [
+													'$ocLazyLoad',
+													function($ocLazyLoad) {
+														return $ocLazyLoad
+																.load({
+																	name : 'app',
+																	insertBefore : '#ng_load_plugins_before', // load
+																												// the
+																												// above
+																												// css
+																												// files
+																												// before
+																												// '#ng_load_plugins_before'
+																	files : [
+																			'assets/global/plugins/morris/morris.css',
+																			'assets/admin/pages/css/tasks.css',
+
+																			'assets/global/plugins/morris/morris.min.js',
+																			'assets/global/plugins/morris/raphael-min.js',
+																			'assets/global/plugins/jquery.sparkline.min.js',
+
+																			'assets/admin/pages/scripts/index3.js',
+																			'assets/admin/pages/scripts/tasks.js',
+
+																			'js/controllers/QuestionsController.js' ]
+																});
+													} ]
+										}
+									})
+							.state(
+									'infosQuestion',
+									{
+										url : "/question/:infos/:id",
 										templateUrl : "views/questions/details.html",
 										data : {
 											pageTitle : 'Details des questions',
@@ -1345,13 +1385,13 @@ app
 							
 							// Details Evaluations
 							.state(
-									'detailsevalutations',
+									'Editevalutations',
 									{
 										url : "/evaluations/:id",
 										templateUrl : "views/evaluations/details.html",
 										data : {
-											pageTitle : 'Détails des évaluations',
-											pageSubTitle : 'Détails des évaluations'
+											pageTitle : 'détail dune évaluations',
+											pageSubTitle : 'détail dune évaluations'
 										},
 										controller : "EvasDetailsController",
 										resolve : {
@@ -1386,15 +1426,15 @@ app
 									})
 									
 							.state(
-									'creationEvaluation',
+									'Detailevalutations',
 									{
-										url : "/creationEvaluation",
-										templateUrl : "views/creationEvaluation/list.html",
+										url : "/evaluations/:infos/:id",
+										templateUrl : "views/evaluations/details.html",
 										data : {
-											pageTitle : 'Liste des évaluations',
-											pageSubTitle : 'Liste des évaluations'
+											pageTitle : 'Détail dune évaluations',
+											pageSubTitle : 'détail d'/'une évaluations'
 										},
-										controller : "EvaluationsController",
+										controller : "EvasDetailsController",
 										resolve : {
 											deps : [
 													'$ocLazyLoad',
@@ -1409,7 +1449,18 @@ app
 																												// files
 																												// before
 																												// '#ng_load_plugins_before'
-																	files : [ ]
+																	files : [
+																			'assets/global/plugins/morris/morris.css',
+																			'assets/admin/pages/css/tasks.css',
+
+																			'assets/global/plugins/morris/morris.min.js',
+																			'assets/global/plugins/morris/raphael-min.js',
+																			'assets/global/plugins/jquery.sparkline.min.js',
+
+																			'assets/admin/pages/scripts/index3.js',
+																			'assets/admin/pages/scripts/tasks.js',
+
+																			'js/controllers/EvaluationsController.js' ]
 																});
 													} ]
 										}

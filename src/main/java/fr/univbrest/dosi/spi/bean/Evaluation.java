@@ -97,7 +97,7 @@ public class Evaluation implements Serializable {
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvaluation", fetch = FetchType.LAZY)
 	private Collection<ReponseEvaluation> reponseEvaluationCollection;
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvaluation")
 	private Collection<RubriqueEvaluation> rubriqueEvaluationCollection;
 
