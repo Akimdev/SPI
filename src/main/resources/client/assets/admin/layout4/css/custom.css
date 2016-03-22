@@ -727,6 +727,46 @@ label{
 ::-webkit-scrollbar-thumb { background-color: #ccc; } ‘
 ::-webkit-scrollbar-thumb:hover { background-color: #aaa; }
 
+.rubrique{
+	width: 100%;
+	color: #000;
+	padding: auto;
+	font-weight: bold;
+	margin-top: 15px;
+	margin-bottom: 10px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.question{
+	width: 80%;
+	background: #eee;
+	color: #000;
+	font-weight: bold;
+	padding: 10px;
+	margin-top: 10px;
+	margin-left: 30px;
+	margin-right: auto;
+	cursor: default;
+}
+
+.plusQues{
+	float: right;
+	color: #000;
+	background: #eee;
+	margin-bottom: 30px;
+}
+
+.plusQues:hover{
+	background: silver;
+	color: white;
+	font-weight: bold;	
+}
+
+.configEval{
+	border: 0px !important;
+}
+
 .glyphicon-trash{
 	color: #da1b1b;
 }

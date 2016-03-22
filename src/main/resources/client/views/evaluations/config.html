@@ -2,136 +2,213 @@
 	<div class="portlet light bordered">
 		<div class="portlet-title">
 			<div class="caption">
-				<i class="icon-social-dribble font-red"></i> <span
-					class="cpation-subject font-red bold uppercase">Configurer évaluation</span>
+				<i class="icon-social-dribble font-red"></i> <span class="cpation-subject font-red bold uppercase">évaluation</span>
 			</div>
 		</div>
 		<div class="portlet-body">
 			<div class="portlet box blue">
-		        <div class="portlet-title">
-		            <div class="caption">Informations générales</div>
-		            <div class="tools"><a href="javascript:;" class="collapse"></a></div>
-		        </div>
-		        <div class="portlet-body form">
-		            <form class="form-horizontal" role="form">
-		                <div class="form-body">
-		                    <div class="row">
-		                        <div class="col-md-6">
-		                            <div class="form-group">
-		                                <label class="control-label col-md-3">Désignation</label>
-		                                <div class="col-md-9">
-		                                    <p class="form-control-static"> {{ue.designation}} </p>
-		                                </div>
-		                            </div>
-		                        </div>
-		                        <!--/span-->
-		                        <div class="col-md-6">
-		                            <div class="form-group">
-		                                <label class="control-label col-md-3">Formation</label>
-		                                <div class="col-md-9">
-		                                    <p class="form-control-static"> {{ue.codeFormation}} </p>
-		                                </div>
-		                            </div>
-		                        </div>
-		                        <!--/span-->
-		                    </div>
-		                    <div class="row">
-		                        <div class="col-md-6">
-		                            <div class="form-group">
-		                                <label class="control-label col-md-3">Année universitaire</label>
-		                                <div class="col-md-9">
-		                                    <p class="form-control-static"> {{ue.designation}} </p>
-		                                </div>
-		                            </div>
-		                        </div>
-		                        <!--/span-->
-		                        <div class="col-md-6">
-		                            <div class="form-group">
-		                                <label class="control-label col-md-3">Formation</label>
-		                                <div class="col-md-9">
-		                                    <p class="form-control-static"> {{ue.codeFormation}} </p>
-		                                </div>
-		                            </div>
-		                        </div>
-		                        <!--/span-->
-		                    </div>
+				<div class="portlet-title">
+					<div class="caption">Informations générales</div>
+					<div class="tools">
+						<a href="javascript:;" class="collapse"></a>
+					</div>
+				</div>
+				<div class="portlet-body form">
+					<form class="form-horizontal" role="form">
+						<div class="form-body">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-md-3">Désignation :</label>
+										<div class="col-md-9">
+											<p class="form-control-static">{{eval.designation}}</p>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-md-3">Formation :</label>
+										<div class="col-md-9">
+											<p class="form-control-static">{{eval.code_formation}}</p>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-md-3">Année universitaire :</label>
+										<div class="col-md-9">
+											<p class="form-control-static">{{eval.annee}}</p>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-md-3">Période :</label>
+										<div class="col-md-9">
+											<p class="form-control-static">{{eval.periode}}</p>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-md-3">Unité enseignement :</label>
+										<div class="col-md-9">
+											<p class="form-control-static">{{eval.code_ue}}</p>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-md-6" ng-show="eval.codeEc">
+									<div class="form-group">
+										<label class="control-label col-md-3">Elément constitutif :</label>
+										<div class="col-md-9">
+											<p class="form-control-static">{{eval.codeEc}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 		<!------------------------------------------  -->
-		<a class="btn btn-primary"  ng-click="cancel()"><span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
-		
-						<!--------------------Modal Ajouter Rubrique------------------->
-						<a class="demo btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Ajouter Rubrique <i class="fa fa-plus"></i></a>
-									   <!-- Modal -->
-									  <div class="modal fade draggable-modal ui-draggable in" id="myModal" tabindex="-1" aria-hidden="true" role="basic">
-									    <div class="modal-dialog modal-sm" style="width: 600px;">
-									      <div class="modal-content" >
-				                                <div class="modal-header ui-draggable-handle">
-				                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				                                    <h4 class="modal-title">Rubriques Standars</h4>
-				                                </div>
-				                                <div class="modal-body">
-				                                    <form action="#" class="form-horizontal" role="form">
-				                                        <div class="form-group">
-				                                            <label class="control-label col-md-4">Selectionner une rubrique</label>
-				                                            <div class="col-md-8">
-				                                                <select id="select2_sample2" class="form-control select2 select-height" multiple="">
-				                                                    <optgroup label="Rubriques">
-				                                                        <option>TP</option>
-				                                                        <option>TD</option>
-				                                                        <option>CM</option>
-				                                                        <option>TAC</option>
-				                                                        <option>TAF</option>
-				                                                    </optgroup>
-				                                                </select>
-				                                            </div>
-				                                        </div>
-				                                    </form>
-				                                </div>
-				                                <div class="modal-footer">
-				                                    <button class="btn default" data-dismiss="modal" aria-hidden="true">Fermer</button>
-				                                    <button class="btn green" data-dismiss="modal">Ajouter</button>
-				                                </div>
-				                            </div>
-									    </div>
-									  </div>
-					  
-					  <!--------------------Modal Ajouter Question------------------->
-					  <a class="demo btn btn-primary btn-lg" data-toggle="modal" data-target="#questionModal">Ajouter Question <i class="fa fa-plus"></i></a>
-					   <!-- Modal -->
-					  <div class="modal fade draggable-modal ui-draggable in" id="questionModal" tabindex="-1" aria-hidden="true" role="basic">
-					    <div class="modal-dialog modal-sm" style="width: 600px;">
-					      <div class="modal-content" >
-                                <div class="modal-header ui-draggable-handle">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                    <h4 class="modal-title">Questions Standars</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="#" class="form-horizontal" role="form">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4">Selectionner une Question</label>
-                                            <div class="col-md-8">
-                                                <select id="select2_sample2" class="form-control select2 select-height" multiple="">
-                                                    <optgroup label="Rubriques">
-                                                        <option>Int�ret</option>
-                                                        <option>Rythme</option>
-                                                        <option>Contenu</option>
-                                                        <option>Volume</option>
-                                                        <option>Sujet</option>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn default" data-dismiss="modal" aria-hidden="true">Fermer</button>
-                                    <button class="btn green" data-dismiss="modal">Ajouter</button>
-                                </div>
-                            </div>
-					    </div>
-					  </div>
+		<hr />
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption">
+					<span class="cpation-subject font-red bold uppercase">Configurer évaluation</span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<table class="table configEval">
+					<thead>
+						<tr>
+							<td colspan="4" style="border: 0px !important;">
+								<button type="button" ng-click="" data-toggle="modal" data-target="#modalRubriques" class="btn green btn-outline sbold uppercase pull-right">
+									<span class="glyphicon glyphicon-plus"></span> Rubrique
+								</button>
+							</td>
+						</tr>
+					</thead>
+					<tbody ng-repeat="rub in rubriques">
+						<tr class="">
+							<td colspan="3" class="sbold uppercase"><i class="icon-tag" style="margin-right: 10px;"></i><b> {{rub.designation}}</b></td>
+							<td>
+								<button type="button" ng-click="addQuestion(rub.idRubrique)" data-toggle="modal" data-target="#questionModal" class="btn green btn-outline sbold uppercase plusQues">
+									<span class="glyphicon glyphicon-plus"></span> Question
+								</button>
+								<button type="button" ng-click="removeRubrique(rub.idRubrique)" class="btn red btn-outline sbold uppercase plusQues">
+									<span class="glyphicon glyphicon-remove"></span> Rubrique
+								</button>
+							</td>
+						</tr>
+						<tr id="" ng-repeat="ques in rub.questions">
+							<td><span><i class="icon-question" style="margin-right: 10px;"></i></span> {{ques.intitule}}</td>
+							<td>{{ques.idQualificatif.minimal}}</td>
+							<td>{{ques.idQualificatif.maximal}}</td>
+							<td><span ng-click="removeQuestion(rub.idRubrique, ques.idQuestion)" class="fa fa-remove pull-right" style="color: red; cursor: pointer;"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<a class="btn btn-primary" ng-click="cancel()"><span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+		<a class="btn btn-success pull-right" ng-click="cancel()"><span class="glyphicon glyphicon-ok"></span> Valider</a>
+	</div>
+	
+	<!--------------------Modal Ajouter Rubrique------------------->
+	   <!-- Modal -->
+	  <div class="modal fade draggable-modal ui-draggable in" id="modalRubriques" tabindex="-1" aria-hidden="true" role="basic">
+	    <div class="modal-dialog modal-sm" style="width: 600px;">
+	      <div class="modal-content" >
+               <div class="modal-header ui-draggable-handle">
+                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                   <h4 class="modal-title">Rubriques Standards</h4>
+               </div>
+               <div class="modal-body">
+                   <form action="#" class="form-horizontal" role="form">
+                       <div class="form-group">
+                           <div class="col-md-12">
+                               <table class="table table-hover">
+                              	<thead>
+                             		<tr><td class="uppercase sbold"><b>Selectionner une rubrique :</b></td></tr>
+                              	</thead>
+                               	<tbody>
+                               		<tr ng-repeat="rub in rubriquesOptions">
+                               			<td>{{rub.designation}}</td>
+                               			<td>
+                               				<div class="md-checkbox pull-right">
+												<input type="checkbox" id="{{'rub'+rub.idRubrique}}" value="rub.idRubrique" 
+														class="md-check" ng-model="rubriquesSelected[rub.idRubrique]" 
+														ng-disabled="checkIfSelected(rub.idRubrique)">
+												<label for="{{'rub'+rub.idRubrique}}"><span class="inc"></span> <span class="check"></span><span class="box"></span></label>
+											</div>
+										</td>
+                               		</tr>
+                             	</tbody>
+                               </table>
+                           </div>
+                       </div>
+                   </form>
+               </div>
+               <div class="modal-footer">
+                   <button class="btn default" data-dismiss="modal" aria-hidden="true">Fermer</button>
+                   <button class="btn green" data-dismiss="modal" ng-click="addRubrique()">Ajouter</button>
+               </div>
+           </div>
+	    </div>
+	  </div>
+  
+  <!--------------------Modal Ajouter Question------------------->
+   <!-- Modal -->
+  <div class="modal fade draggable-modal ui-draggable in" id="questionModal" tabindex="-1" aria-hidden="true" role="basic">
+    <div class="modal-dialog modal-sm" style="width: 600px;">
+      <div class="modal-content" >
+            <div class="modal-header ui-draggable-handle">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Questions Standars</h4>
+            </div>
+            <div class="modal-body">
+                <form action="#" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <table class="table table-hover">
+                              	<thead>
+                             		<tr><td class="uppercase sbold"><b>Selectionner les questions � ajouter :</b></td></tr>
+                              	</thead>
+                               	<tbody>
+                               		<tr ng-repeat="ques in questionsOptions">
+                               			<td>{{ques.intitule}}</td>
+                               			<td>
+                               				<div class="md-checkbox pull-right">
+												<input type="checkbox" id="{{'ques'+ques.idQuestion}}" value="ques.idQuestion" 
+														class="md-check" ng-model="questionsSelected[ques.idQuestion]" 
+														ng-disabled="checkQuesIfSelected(ques.idQuestion)">
+												<label for="{{'ques'+ques.idQuestion}}"><span class="inc"></span> <span class="check"></span><span class="box"></span></label>
+											</div>
+										</td>
+                               		</tr>
+                             	</tbody>
+                               </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn default" data-dismiss="modal" aria-hidden="true">Fermer</button>
+                <button class="btn green" data-dismiss="modal" ng-click="addQuestions()">Ajouter</button>
+            </div>
+        </div>
+    </div>
+  </div>
 </div>
