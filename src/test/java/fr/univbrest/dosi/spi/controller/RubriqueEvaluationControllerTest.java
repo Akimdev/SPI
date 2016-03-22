@@ -18,6 +18,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.Test;
 
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.univbrest.dosi.spi.bean.Evaluation;
@@ -86,4 +87,20 @@ public class RubriqueEvaluationControllerTest {
 		
 	}
 	
+	@Test
+	public final void getRubriqueEvaluationByIdTest()throws ClientProtocolException, IOException{
+		
+		final Integer idEvaluation = 1;
+		final HttpClient client = HttpClientBuilder.create().build();
+		final HttpGet mockRequest = new HttpGet("http://localhost:8090/getRubriqueEvaluationByEvaluation-"+idEvaluation);
+		final HttpResponse mockResponse = client.execute(mockRequest);
+
+		Assert.assertEquals(200, mockResponse.getStatusLine().getStatusCode());
+
+		BufferedReader rd;
+		rd = new BufferedReader(new InputStreamReader(mockResponse.getEntity().getContent()));
+		final ObjectMapper mapper = new ObjectMapper();
+		List<RubriqueEvaluation> rubriqueEvaluation;
+		rubriqueEvaluation = mapper.readValue(rd, ArrayList.class);
+	}
 }

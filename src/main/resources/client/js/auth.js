@@ -75,7 +75,7 @@ angular.module('app.auth', [])
 								}
 								//Pour étudiant
 								else if(role === "ETU"){
-									//$location.path('/');
+									$location.path('/');
 								}
 								//Pour Secrétariat
 								else if(role === "SEC"){

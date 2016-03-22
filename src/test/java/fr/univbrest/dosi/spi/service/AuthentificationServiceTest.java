@@ -52,4 +52,11 @@ public class AuthentificationServiceTest {
 		Authentification user = authentificationService.logIn("pseudo", "pwd");
 		Assert.assertNull(user);
 	}
+	
+	@Test
+	public void etudiantMauvaisePromo(){
+		Authentification user = authentificationService.logIn("belhaj.othman@gmail.com", "dosi");
+		Assert.assertNotNull(user);
+		Assert.assertEquals("2015-2016", user.getNoEtudiant().getPromotion().getPromotionPK().getAnneeUniversitaire());
+	}
 }

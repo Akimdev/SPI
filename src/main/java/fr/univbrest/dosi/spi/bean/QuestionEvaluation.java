@@ -27,7 +27,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -63,7 +62,6 @@ public class QuestionEvaluation implements Serializable {
     @JoinColumn(name = "ID_QUALIFICATIF", referencedColumnName = "ID_QUALIFICATIF")
     @ManyToOne
     private Qualificatif idQualificatif;
-    @JsonIgnore
     @JoinColumn(name = "ID_QUESTION", referencedColumnName = "ID_QUESTION")
     @ManyToOne
     private Question idQuestion;

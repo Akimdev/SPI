@@ -5,7 +5,7 @@
   'use strict';
 
   var app = angular.module('app.questions', []);
-  var edit= true;
+
   Array.prototype.removeValue = function(name, value){
 	   var array = $.map(this, function(v,i){
 	      return v[name] === value ? null : v;
@@ -22,8 +22,8 @@
     	  return $http.get('http://localhost:8090/questions');
       },
       // renvoi la question avec le code demandé
-      get: function(idQuestion) { 
-    	  return $http.get('http://localhost:8090/getQuestionById/' + idQuestion);    
+      get: function(code) { 
+    	  return $http.get('http://localhost:8090/getQuestionById/' + code);    
       },
       set: function(question) {	
     	  return $http.post('http://localhost:8090/updateQuestion', question);
@@ -109,24 +109,14 @@
   $scope.refresh();
      
   $scope.ajoutQuestion = function(){
-	  edit = false;
       $location.path('/question/nouveau'); 
    }
   
  
   $scope.edit = function (question){
 	  $location.path("/question/"+ question.idQuestion);
-      edit = false;
-      $scope.edit = edit;
+	 
   }
-  
-  
-  // Affiche les détails des questions
-	$scope.afficheQuestion = function(question){
-	   $location.path('/question/' + question.idQuestion);
-       edit = true;
-       $scope.edit = edit;
-	}
 
       // supprime une question
       $scope.supprime = function(question){
@@ -153,7 +143,14 @@
 				  }
 	  	 });    	  
       }
+      $scope.refresh();
       
+      $scope.edit = function (question){
+    	  $location.path("/question/"+ question.idQuestion);
+      }
+      $scope.show=function(question){
+    	  $location.path("/question/infos/"+ question.idQuestion);
+      }
       
     }]
   );
@@ -161,71 +158,67 @@
   app.controller('QuestionDetailsController', 
     ['$scope', '$stateParams','$http', '$location','$filter', 'questionsFactory', 'qualificatifsFactory', 'toaster',
     function($scope, $stateParams, $http, $location,$filter, questionsFactory, qualificatifsFactory, toaster){      
-      $scope.edit= edit;    
-      
-      // si creation d'une nouvelle question
+      $scope.edit= false;    
+      var promiseQualificatifs = qualificatifsFactory.all();
+		promiseQualificatifs.success(function(data) {   
+			$scope.qualificatifs = data;
+		});  
+      /** si creation d'une nouvelle question **/
       if($stateParams.id == "nouveau"){
         $scope.question= { };
         $scope.edit= true;
- 		var promiseQualificatifs = qualificatifsFactory.all();
- 		promiseQualificatifs.success(function(data) {   
- 			$scope.qualificatifs = data;
- 		});
- 		
- 		var promise = questionsFactory.getMaxIdQuestion();
-		promise.success(function(data){
-			$scope.question.idQuestion = data + 1;
-		});
- 		
-	 } else { // sinon on edite une question existante
-        var promisesFactory2 = questionsFactory.get($stateParams.idQuestion);
-     	promisesFactory2.success(function(res) {
-     		$scope.isVisible = true;
-     		$scope.question = res;   
-     		var promiseQualificatifs = qualificatifsFactory.all();
-     		promiseQualificatifs.success(function(data) {   
-     			var promiseQualif = questionsFactory.getQualificatif(res.idQualificatif.idQualificatif);
+ 	} else if($stateParams.infos) { 
+	/** sinon on edite une question existante **/
+		$scope.edit=false;
+        var promisesFactory = questionsFactory.get($stateParams.id);
+     	promisesFactory.success(function(data) {
+     		$scope.question = data;   
+     		var promiseQualif = questionsFactory.getQualificatif($stateParams.id);
          		promiseQualif.success(function(result){
          			$scope.qualif = result;
-	     			$scope.qualificatifs = data;
-	     			$scope.selectedOption = result;
-         		})
-         		.error(function(data){
-         			toaster.pop({
-                        type: 'error',
-                        title: 'Impossible de récupérer le qualificatif de cette question !',
-                        positionClass: 'toast-bottom-right',
-                        showCloseButton: true
-                    });
-         		});
-     		})
-     		.error(function(data) {   
-     			toaster.pop({
-                    type: 'error',
-                    title: 'Impossible de récupérer les qualificatifs !',
-                    positionClass: 'toast-bottom-right',
-                    showCloseButton: true
+	     	}).error(function(data){
+         			console.log("erreur existant qual");
+         			});
+         	}).error(function(data) {   
+     			console.log("erreur existant ques");
+            });
+     }else{
+    	/** modification d'une question **/
+    	$scope.edit=true;
+    	var promisesFactory = questionsFactory.get($stateParams.id);
+       		promisesFactory.success(function(data) {
+       		$scope.question = data;   
+       		var promiseQualif = questionsFactory.getQualificatif($stateParams.id);
+           		promiseQualif.success(function(result){
+           			$scope.qualif = result;
+  	     		}).error(function(data){
+           			console.log("erreur recup qualificatif");
                 });
-     		});
-     		
-     	});
-      }
+       		}).error(function(data){
+        	 console.log("erreur");
+       		});
+         }
+       	 
+      
       
       $scope.edition = function(){
-    	  edit = false;
-    	  $scope.edit = edit;
+    	$scope.edit = true;
       }
 
 	    $scope.submit = function(){
 	    	var idQualificatif;
-	    	if(typeof $scope.qualificatif === 'undefined')
+	    	var idQualNumber;
+	    	if(typeof $scope.qualificatif === 'undefined'){
 	    		idQualificatif = $scope.qualif.idQualificatif;
-	    	else
+	    		idQualNumber=parseInt(idQualificatif);
+	    	}
+	    	else{
 	    		idQualificatif = $scope.qualificatif;
-	    	
+	    	    idQualNumber=parseInt(idQualificatif);
+	    	}
 	    	var quesQual = {
 		    			"qualificatif" : {
-		    				"idQualificatif" :idQualificatif
+		    				"idQualificatif" :idQualNumber
 		    			},
 		    			"question" : {
 		    				"idQuestion" : $scope.question.idQuestion,
@@ -233,24 +226,23 @@
 			    			"type" : $scope.question.type
 			    		}
     			}
-	    		    	
-	    	var promisesajout;
-	    	if($stateParams.id == "nouveau")
-		    	promisesajout = questionsFactory.add(quesQual);
-	    	else
+	    	
+	    	console.log(quesQual);
+	    	
+	    var promisesajout;
+	    	if($stateParams.id == "nouveau"){
+	    		promisesajout = questionsFactory.add(quesQual);
+	    	}else{
 	    		promisesajout = questionsFactory.set(quesQual);
+	    	}
 	    		
-	    	   	
-        	promisesajout.success(function(data, status, headers, config) {
+	    	promisesajout.success(function(data, status) {
 	    		if($stateParams.id == "nouveau"){
 	    			swal("Félicitation!", "La question est ajoutée!", "success");
-	    		}
-	    		else{
+	    		}else{
 	    			swal("Félicitation!", "La question est modifiée!", "success");
-	    			
-        	}
-	    		
-	    		var promise = questionsFactory.getQualificatifById(idQualificatif);
+	    		}
+	    var promise = questionsFactory.getQualificatifById(idQualificatif);
 	    		
 	    		promise.success(function(data){
 	    			$scope.qualif = data;
@@ -259,30 +251,26 @@
 	    			swal("Erreur !", "Impossible de récupérer la question !", "error");
 	        		$location.path('/questions');
 	    		});
-	    		//$location.path('/question/' + $scope.question.idQuestion);	
+	    		$location.path('/question/' + $scope.question.idQuestion);	
 			})
 			.error(function(data, status, headers, config) {
-        		toaster.pop({
-                    type: 'error',
-                    title: 'Insertion ou modification impossible !',
-                    positionClass: 'toast-bottom-right',
-                    showCloseButton: true
-                });
+				console.log("erreur");
         	});		
-        	$location.path('/questions');
           $scope.edit = false;
         }
 
-
-      // valide le formulaire d'édition d'une question
-      
-      // TODO coder une fonction submit permettant de modifier une question
-		// et rediriger vers /questions
-
-
-   // annule l'édition
+      $scope.edition = function(){
+        $scope.edit = true;
+      }
+  /** annule l'édition **/
       $scope.cancel = function(){
-        history.back();
+        if($stateParams.id == "nouveau"){
+          $location.path('/questions');
+        } else {
+        	$location.path('/question/' + $stateParams.id);
+          //var e = questionFactory.get($stateParams.id);
+          $scope.edit = false;
+        }
       }
     }]
   );
