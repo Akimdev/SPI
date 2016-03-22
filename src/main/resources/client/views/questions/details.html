@@ -12,9 +12,6 @@
 		</div>
 		<!--------------------------- Consultation --------------------------->
 		<div class="portlet-body form" ng-hide="edit">
-			<button class="btn btn-warning pull-right" ng-click="edition()">
-				<span class="glyphicon glyphicon-pencil"></span> Editer
-		  	</button>
 			<form class="form-horizontal form-bordered">
 				<div class="form-group">
 					<div class="col-md-3">
@@ -32,6 +29,9 @@
 			</form>
 			</br> <a class="btn btn-primary" href="#/questions"><span
 				class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+			<button class="btn btn-warning pull-right" ng-click="edition()">
+				<span class="glyphicon glyphicon-pencil"></span> Editer
+		  	</button>
 		</div>
 		<!--------------------------- Edition ------------------------- -->
 		<div ng-show="edit">
@@ -73,12 +73,13 @@
 						</div>
 
 					</form>
-					<a class="btn btn-success" ng-click="submit()"
+					<button class="btn btn-danger" ng-click="cancel()">Annuler</button>
+					<a	class="btn btn-success pull-right"
+						ng-click="submit()"
 						ng-disabled="questionForm.idQuestion.$dirty && questionForm.idQuestion.$invalid ||  
 				questionForm.intitule.$dirty && questionForm.intitule.$invalid ||  
 				questionForm.type.$dirty && questionForm.type.$invalid|| questionForm.$invalid"><span
 						class="glyphicon glyphicon-ok"></span> Valider</a>
-					<button class="btn btn-danger pull-right" ng-click="cancel()">Annuler</button>
 				</div>
 			</form>
 		</div>
