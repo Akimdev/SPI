@@ -41,8 +41,8 @@ public class QuestionEvaluationController {
 		QuestionEvaluation questionEvaluation = questionEvaluationUtil.getQuestionEvaluation();
 		Question question = questionServ.getQuestion(questionEvaluationUtil.getQuestion().getIdQuestion());
 		questionEvaluation.setIdQuestion(question);
-		Qualificatif qualificatif = qualificatifServ.getQualificatif(questionEvaluationUtil.getQualificatif().getIdQualificatif());
-		questionEvaluation.setIdQualificatif(qualificatif);
+		Qualificatif qualificatif = question.getIdQualificatif();
+		questionEvaluation.setIdQualificatif(null);
 		RubriqueEvaluation rubriqueEvaluation= rubriqueEvaluationSer.getRubriqueEvaluation(questionEvaluationUtil.getRubriqueEvaluation().getIdRubriqueEvaluation());
 		questionEvaluation.setIdRubriqueEvaluation(rubriqueEvaluation);
 		questionEvaluationServ.addQuestionEvaluation(questionEvaluation);

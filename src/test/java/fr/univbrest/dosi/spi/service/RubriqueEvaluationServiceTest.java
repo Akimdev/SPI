@@ -1,6 +1,4 @@
 package fr.univbrest.dosi.spi.service;
-
-import java.util.Date;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -30,7 +28,7 @@ public class RubriqueEvaluationServiceTest {
 	RubriqueService rubriqueService;
 	
 	@Test
-	public void addRubriqueEvaluation(){
+	public void addRubriqueEvaluationTest(){
 		RubriqueEvaluation rubriqueEvaluation =new RubriqueEvaluation();
 		final long idrubEva=6;
 		final long idrub=1;
@@ -47,14 +45,14 @@ public class RubriqueEvaluationServiceTest {
 	}
 	
 	@Test
-	public void deleteRubriqueEvaluation(){
+	public void deleteRubriqueEvaluationTest(){
 		rubriqueEvaluationService.deleteRubriqueEvaluation(1L);
 		List<RubriqueEvaluation> listeRubEva = rubriqueEvaluationService.getAllRubriquesEvaluation();
 		Assert.assertEquals(5, listeRubEva.size());
 	}
 	
 	@Test
-	public void updateRubriqueEvaluation(){
+	public void updateRubriqueEvaluationTest(){
 		final Long id=3L;
 		RubriqueEvaluation rubriqueEvaluation=rubriqueEvaluationService.getRubriqueEvaluation(id);
 		System.out.println(rubriqueEvaluation.getDesignation());
@@ -67,4 +65,10 @@ public class RubriqueEvaluationServiceTest {
 	}
 	
 
+	@Test
+	public void getRubriqueEvaluationByIdTest(){
+		final Integer idEvaluation = 1;
+		List<RubriqueEvaluation> listeRubEva = rubriqueEvaluationService.getRubriqueEvaluationsByEvaluation(idEvaluation);
+		Assert.assertNotNull(listeRubEva);
+	}
 }
