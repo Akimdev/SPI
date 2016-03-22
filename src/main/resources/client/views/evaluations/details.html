@@ -139,7 +139,7 @@
 					<div class="col-md-3">{{evaluation.code_formation}}</div>
 				</div>
 				<div class="form-group">
-					<div class="col-md-3"><strong>Anné"</strong></div>
+					<div class="col-md-3"><strong>Année</strong></div>
 					<div class="col-md-3">{{evaluation.annee}}</div>
 				</div>
 				<div class="form-group">
@@ -160,10 +160,47 @@
 					<div class="col-md-3">{{evaluation.finReponse | date:
 						"dd/MM/yyyy"}}</div>
 				</div>
+				
+				<!-- Affichage des rubriques -->
+				
+				<div class="portlet" style="margin-top:10%;">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="fa fa-shopping-cart"></i>Rubriques</div>
+                                    <div class="tools">
+                                        <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="table-scrollable">
+                                        <table class="table table-striped table-bordered table-advance table-hover" data-ng-repeat="re in rubriqueEvaluations" class="rubriqueEvaluation">
+                                            <thead>
+                                                <tr>
+                                                	<th>Ordre </th>
+                                                    <th>Désignation </th>
+                                                    <th>Questions incluses / Couples qualificatifs </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td> {{re.idRubrique.ordre}}</td>
+                                                    <td> {{re.idRubrique.designation}}</td>
+                                                    <td><p data-ng-repeat="q in re.questionEvaluationCollection" class="questionEvaluationCollection">{{q.idQuestion.intitule}} ----> {{q.idQuestion.idQualificatif.maximal}} / {{q.idQuestion.idQualificatif.minimal}}</p></td>
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+				<!-- Fin d'affichage des rubriques -->
+				
 				</br> <a class="btn btn-primary" href="#/evaluations">
 					<span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
 			 </form>
 			</div>
+			
+			
 		</div>
 </div>
 	</div>
