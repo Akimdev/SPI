@@ -1103,7 +1103,7 @@ app
 							.state(
 									'detailspromotions',
 									{
-										url : "/promotion/:ann/:form",
+										url : "/promotion/:ann/:form/:edit",
 										templateUrl : "views/promotions/details.html",
 										data : {
 											pageTitle : 'Detail des promotions',
