@@ -102,6 +102,14 @@
 										data-ng-click=" order('-etat') "
 										data-ng-class="{active: row == '-etat'}"></span>
 								</div></th>
+								<th><div class="th">
+									Responsable <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('periode') "
+										data-ng-class="{active: row == 'periode'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-periode') "
+										data-ng-class="{active: row == '-periode'}"></span>
+								</div></th>
 							<th><div class="th">
 									D&eacute;but <span class="glyphicon glyphicon-chevron-up"
 										data-ng-click=" order('periode') "
@@ -121,18 +129,21 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr data-ng-repeat="e in evaluations| orderBy:'anneeUniversitaire'" class="evaluation">
-							<td ng-click="edit(e.idEvaluation)">{{e.designation}}</td>
-							<td ng-click="edit(e.codeFormation)">{{e.code_formation}}</td>
-							<td ng-click="edit(e.idEvaluation)">{{e.annee}}</td>
-							<td ng-click="edit(e.idEvaluation)">{{e.code_ue}}</td>
-							<td ng-click="edit(e.idEvaluation)">{{e.etat}}</td>
-							<td ng-click="edit(e.idEvaluation)">{{e.debutReponse}}</td>
-							<td ng-click="edit(e.idEvaluation)">{{e.finReponse}}</td>
-							<td id="iconGestion" ng-click="affiche(e.idEvaluation)"><span class="fa fa-eye"></span></td>
-							<td id="iconGestion" ng-click="edit(e.idEvaluation)"><span class="glyphicon glyphicon-edit"></span></td>
+					<tr data-ng-repeat="e in evaluations" class="evaluation">
+							<td ng-click="affiche(e.idEvaluation)">{{e.designation}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.code_formation}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.annee}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.code_ue}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.etat}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.noEnseignant.nom}} {{e.noEnseignant.prenom}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.debutReponse | date: "dd/MM/yyyy"}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.finReponse | date: "dd/MM/yyyy"}}</td>
+							<td ng-click="affiche(e.idEvaluation)"><span  class="eye fa fa-eye"></span></td>
+							<td><span ng-click="edit(e.idEvaluation)" class="glyphicon glyphicon-edit" ></span></td>
+							<td ng-click="info(e.idEvaluation)"><span class="fa fa-caret-square-o-down" ></span></td>
 							<td id="iconGestion" ng-click="config(e.idEvaluation)"><span class="icon-settings"></span></td>
-						</tr>
+							<td ng-click="supprime(e)" ><span class="remove fa fa-trash"></span></td>
+					</tr>
 					</tbody>
 				</table>
 				<!-- -------------------------------Footer ----------------------- -->

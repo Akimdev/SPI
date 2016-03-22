@@ -179,7 +179,7 @@ $scope.refresh();
     ['$scope', '$stateParams','$http', '$location','$filter', 'enseignantsFactory','toaster',
     function($scope, $stateParams , $http, $location, $filter, enseignantsFactory, toaster){      
       $scope.edit= false;    
-
+     
       // si creation d'un nouvel enseignant
       if($stateParams.id == "nouveau"){
         $scope.enseignant= { };
@@ -238,6 +238,7 @@ $scope.submit = function(){
 	        	var promisesajout = enseignantsFactory.add($scope.enseignant);
 	        	promisesajout.success(function(data, status) {
 	        		swal("Félicitation!", "Le nouveau enseignant est ajouté!", "success");
+	        		$location.path('/enseignants');
 				});
 	        	promisesajout.error(function(data, status, headers, config) {
 	        		toaster.pop({
@@ -247,12 +248,12 @@ $scope.submit = function(){
 	                    showCloseButton: true
 	                });
 				});
-	        	$location.path('/enseignants');
 								        }
 			 else{ // modification
 	        	var promisesajout = enseignantsFactory.set($scope.enseignant);
 	        	promisesajout.success(function(data, status, headers, config) {
 	        		swal("Félicitation!", "Enseignant modifié!", "success");
+	        		$location.path('/enseignants');
 				});
 	        	promisesajout.error(function(data, status, headers, config) {
 	        		toaster.pop({

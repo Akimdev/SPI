@@ -1,6 +1,7 @@
 package fr.univbrest.dosi.spi.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import fr.univbrest.dosi.spi.bean.Evaluation;
+import fr.univbrest.dosi.spi.bean.QuestionEvaluation;
 import fr.univbrest.dosi.spi.bean.Rubrique;
 import fr.univbrest.dosi.spi.bean.RubriqueEvaluation;
 import fr.univbrest.dosi.spi.bean.utils.RubriqueEvaluationUtil;
@@ -75,5 +78,26 @@ public class RubriqueEvaluationController {
 	@RequestMapping(value="/nombreRubriquesEvaluation", headers = "Accept=application/json")
 	public int nombreRubriquesEvaluation(){
 		return rubriqueEvaluationServ.nombreRubriquesEvaluation();
+	}
+	/**
+	 * @author Othman
+	 * @param idEvaluation
+	 * retourne une liste de rubrique d'évaluation concernant une évaluation donnée
+	 * @return
+	 */
+	@RequestMapping(value="/getRubriqueEvaluationByEvaluation-{idEvaluation}", headers = "Accept=application/json")
+	public List<RubriqueEvaluation> getRubriqueEvaluationByEvaluation(@PathVariable("idEvaluation") Integer idEvaluation){
+		return rubriqueEvaluationServ.getRubriqueEvaluationsByEvaluation(idEvaluation);
+	}
+	
+	/**
+	 * @author Othman
+	 * @param idRubriqueEvaluation
+	 * retourne une liste de questions incluses dans une évaluation
+	 * @return
+	 */
+	@RequestMapping(value="/getQuestionEvaluationByEvaluation-{idRubriqueEvaluation}", headers = "Accept=application/json")
+	public List<QuestionEvaluation> getQuestionEvaluationByRubriqueEvaluation(@PathVariable("idRubriqueEvaluation")Long idRubriqueEvaluation){
+		return rubriqueEvaluationServ.getQuestionEvaluationByRubriqueEvaluation(idRubriqueEvaluation);
 	}
 }

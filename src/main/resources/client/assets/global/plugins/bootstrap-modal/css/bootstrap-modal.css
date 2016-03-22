@@ -11,6 +11,14 @@
 	overflow: hidden;
 }
 
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+}
 
 /* add a scroll bar to stop page from jerking around */
 .modal-open.page-overflow .page-container,
@@ -38,11 +46,17 @@
 }
 
 .modal {
-	outline: none;
-	position: absolute;
-	margin-top: 0;
-	top: 50%;
-	overflow: visible; /* allow content to popup out (i.e tooltips) */
+  left: 42%;
+  bottom: auto;
+  right: auto;
+  z-index: 1050;
+  padding: 0;
+  width: 500px;
+  margin-left: -250px;
+  border: 1px solid #999999;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  background-clip: padding-box;
 }
 
 .modal.fade {
@@ -54,7 +68,8 @@
 }
 
 .modal.fade.in {
-	top: 50%;
+	top: 40%;
+	width: 800px;
 }
 
 .modal-body {
@@ -90,9 +105,9 @@
 }
 
 .modal.container {
-  width: 940px;
-  margin-left: -470px;
+  max-width: none;
 }
+
 
 /* Modal Overflow */
 

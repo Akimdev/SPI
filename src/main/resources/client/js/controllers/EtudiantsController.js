@@ -42,15 +42,15 @@ var edit= false;
 	  		  headers:{ 'Content-Type' : 'application/json'}
 	  	  });
 	    },
-      set: function(formation) {
-    	  //return $http.post('http://localhost:8090/formations/nouveau', formation);
-      },
+//      set: function(formation) {
+//    	  //return $http.post('http://localhost:8090/formations/nouveau', formation);
+//      },
       edit: function(formation) {
     	  //return $http.post('http://localhost:8090/formations/update', formation);
       },
-      delete: function(code) { 
-    	  //return $http.get('http://localhost:8090/formations/delete', {params: {codeFormation: code}});
-      },
+      delete: function(noEtudiant) { 
+    	  return  $http.get('http://localhost:8090/etudiants/deleteEtudiant'+ noEtudiant);
+        },
       getPays: function(pays){
     	  return $http.get('http://localhost:8090/getDomaine/pays/' + pays);
       },
@@ -138,31 +138,40 @@ var edit= false;
 	$location.path("/etudiant/"+ noEtudiant);
 		}
       // supprime un etudiant
-  	$scope.supprime = function(noEtudiant){   
-  		  swal({   
-  			  title: "Voulez-vous vraiment supprimer cet etudiant ?",      
-  			  type: "warning",   
-  			  showCancelButton: true,   
-  			  confirmButtonColor: "#DD6B55",   
-  			  confirmButtonText: "OUI",  
-  			  cancelButtonText: "NON",   
-  			  closeOnConfirm: false,   closeOnCancel: false },
-  			  function(isConfirm){
-  				  if (isConfirm) {  
-  					  var promise= etudiantsFactory.delete(noEtudiant);
-  					  promise.success(function(data,statut, headers, config){
-  						$scope.refresh();
-  						$scope.currentPageEtudiant.removeValue("noEtudiant",noEtudiant);
-  						swal("Supprimé!", "l'etudiant est supprimé", "success");
-  					});
-  					  promise.error(function(data,statut, headers, config){
-  			    		  swal("Erreur!", "Impossiple de supprimer l'etudiant choisi car il est déja réfferencié", "error");
-  			  		});	
-  					  } else {     
-  						  swal("Annulé", "", "error");
-  					  }
-  					  });  
-  	      }
+	 $scope.supprime = function(noEtudiant){
+     	swal({   
+			  title: "Voulez-vous vraiment supprimer cet etudiant ?",      
+			  type: "warning",   
+			  showCancelButton: true,   
+			  confirmButtonColor: "#DD6B55",   
+			  confirmButtonText: "Oui!",  
+			  cancelButtonText: "Non!",   
+			  closeOnConfirm: false,  closeOnCancel: false },
+			  function(isConfirm){
+				  if (isConfirm) {  
+		        	etudiantsFactory.delete(noEtudiant).then(
+
+		        			function(data){
+				        		swal("Félicitation!", "L'etudiant est supprimé!", "success");
+				        		$scope.refresh();
+				        	},
+				        	function(data){
+				        		swal("Erreur!", "Impossible de supprimer cet etudiant!", "error");
+				        	}
+		        			);
+		        	
+//		        	prom.success(function(data){
+//		        		swal("Félicitation!", "L'etudiant est supprimé!", "success");
+//		        		$scope.refresh();
+//		        	})
+//		        	.error(function(data){
+//		        		swal("Erreur!", "Impossible de supprimer cet etudiant!", "error");
+//		        	});
+				  } else {     
+					  	swal("Ignorer", "", "error");
+				  }
+	  	   }); 
+     }
   	      $scope.refresh();
   	    }]
   	  );

@@ -94,8 +94,8 @@
                     <td ng-click="affiche(e.noEnseignant)">{{e.prenom}}</td>
                     <td ng-click="affiche(e.noEnseignant)">{{e.emailUbo}}</td>
                     <td  id="iconGestion" ng-click="affiche(e.noEnseignant)"><span class="eye fa fa-eye"></td>
-                    <td  id="iconGestion" ng-click="edit(e.noEnseignant)"> <span class="icon-list"><span class="glyphicon glyphicon-edit" ></td>
-                    <td  id="iconGestion" ng-click="supprime(e.noEnseignant)"> <span class="icon-list"><span class="glyphicon glyphicon-trash" ></span></td>
+                    <td  id="iconGestion" ng-click="edit(e.noEnseignant)"><span class="glyphicon glyphicon-edit"></td>
+                    <td  id="iconGestion" ng-click="supprime(e.noEnseignant)"><span class="glyphicon glyphicon-trash" ></span></td>
 				</tr>
 						</tbody>
 					</table>
@@ -106,7 +106,7 @@
 							<span> Afficher <select data-ng-model="numPerPage"
 								data-ng-options="num for num in numPerPageOpt"
 								data-ng-change="onNumPerPageChange()">
-							</select> par page
+							</select> entr&eacute;es par page
 							</span>
 						</div>
 						<div class="col-md-6 text-right pagination-container">

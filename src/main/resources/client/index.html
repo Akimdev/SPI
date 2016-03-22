@@ -53,7 +53,8 @@
 <link href="assets/admin/layout4/css/custom.css" rel="stylesheet"
 	type="text/css" />
 <link href="assets/admin/pages/css/login2.css" rel="stylesheet" type="text/css"/>
-<!-- END THEME STYLES -->
+<link href="assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
+<!-- END THEME STYLES -->	
 
 <link rel="shortcut icon" href="favicon.ico" />
 </head>
@@ -141,9 +142,9 @@
 	<!-- END CORE JQUERY PLUGINS -->
 
 	<!-- BEGIN CORE ANGULARJS PLUGINS -->
-
-	<script src="assets/global/plugins/angularjs/angular.min.js"
-		type="text/javascript"></script>
+	<script src="assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+	<script src="assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
+	<script src="assets/global/plugins/angularjs/angular.min.js" type="text/javascript"></script>
 	<script src="assets/global/plugins/angularjs/angular-sanitize.min.js"
 		type="text/javascript"></script>
 	<script src="assets/global/plugins/angularjs/angular-touch.min.js"
@@ -158,11 +159,38 @@
 		type="text/javascript"></script>
 	<script src="assets/global/plugins/morris/morris.min.js"
 		type="text/javascript"></script>
-	<script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
-	<script src="bower_components/angularjs-toaster/toaster.min.js"></script>
-	<script src="bower_components/angular-route/angular-route.min.js"></script>
-	<script src="bower_components/angularjs-toaster/toaster.js"></script>
-	<script src="bower_components/angular-animate/angular-animate.js"></script>
+		<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+		<script src='bower_components/angular-mask/dist/ngMask.min.js'></script>
+		<script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
+		<script src="bower_components/angularjs-toaster/toaster.min.js"></script>
+		<script src="bower_components/angular-route/angular-route.min.js"></script>
+		<script src="bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <script src="bower_components/jquery-spinner/dist/js/jquery.spinner.min.js"></script>
+        <script src="bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
+        <script src="bower_components/jquery-steps/build/jquery.steps.min.js"></script>
+        <script src="bower_components/toastr/toastr.min.js"></script>
+        <script src="bower_components/bootstrap-file-input/bootstrap.file-input.js"></script>
+        <script src="bower_components/jquery.slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="bower_components/holderjs/holder.js"></script>
+        <script src="bower_components/raphael/raphael-min.js"></script>
+        <script src="bower_components/morris.js/morris.js"></script>
+        <script src="bower_components/flot/jquery.flot.js"></script>
+        <script src="bower_components/flot/jquery.flot.resize.js"></script>
+        <script src="bower_components/flot/jquery.flot.pie.js"></script>
+        <script src="bower_components/flot/jquery.flot.stack.js"></script>
+        <script src="bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+        <script src="bower_components/flot/jquery.flot.time.js"></script>
+        <script src="bower_components/gauge.js/dist/gauge.min.js"></script>
+        <script src="bower_components/jquery.easy-pie-chart/dist/angular.easypiechart.min.js"></script>
+        <script src="bower_components/angular-wizard/dist/angular-wizard.min.js"></script>
+        <script src="bower_components/textAngular/dist/textAngular-rangy.min.js"></script>
+        <script src="bower_components/textAngular/dist/textAngular-sanitize.min.js"></script>
+        <script src="bower_components/textAngular/dist/textAngular.min.js"></script>
+        <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
+        <script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
+        <script src="bower_components/angular-bootstrap-form-group/dist/angular-bootstrap-form-group.min.js"></script>
+        <script src="bower_components/angular-mask/dist/ngMask.min.js"></script>
 	<!-- END CORE ANGULARJS PLUGINS -->
 
 	<!-- build:js({.tmp,client}) scripts/app.js -->
@@ -205,6 +233,7 @@
 	<script src="assets/global/scripts/metronic.js" type="text/javascript"></script>
 	<script src="assets/admin/layout4/scripts/layout.js" type="text/javascript"></script>
 	<script src="assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
+	<script src="assets/admin/pages/scripts/login.js" type="text/javascript"></script>
 	<script src="assets/admin/pages/scripts/login.js" type="text/javascript"></script>
 	<!-- END APP LEVEL JQUERY SCRIPTS -->
 

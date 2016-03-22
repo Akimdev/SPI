@@ -12,175 +12,260 @@
 		</div>
 		<!--------------------------- Consultation --------------------------->
 		</br>
-		<div class="portlet-body form" ng-hide="edit">
+		<div ng-hide="edit">
+			<div class="portlet light bordered">
+				<div class="caption">
+                    <i class="fa fa-info-circle font-blue"></i>
+                    <span class="caption-subject font-blue sbold uppercase bold"> Informations g&eacute;n&eacute;rales</span>
+                </div></br></br>
+				
+					<form class="form-body">
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Ann&eacute;e</label>
+								<div class="col-md-2">{{promotion.promotionPK.anneeUniversitaire}}</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Nombre max d'&eacute;tudiants</label>
+								<div class="col-md-2">{{promotion.nbMaxEtudiant}}</div>
+							</div>
+						</div></br>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Formation</label>
+								<div class="col-md-2">{{promotion.promotionPK.codeFormation}}</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label">Date de rentr&eacute;e</label>
+								<div class="col-md-2">{{promotion.dateRentree | date: "dd/MM/yyyy"}}</div>
+							</div>
+						</div></br>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Sigle</label>
+								<div class="col-md-2">{{promotion.siglePromotion}}</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Lieu de rentr&eacute;e</label>
+								<div class="col-md-2">{{promotion.lieuRentree}}</div>
+							</div>
+						</div></br>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Responsable</label>
+								<div class="col-md-3">{{responsable.nom}} {{responsable.prenom}}</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Processus de stage</label>
+								<div class="col-md-3">{{processusSignification}}</div>
+							</div>
+						</div></br>
+						<div class="row">
+							<div class="col-md-12">
+								<label class="col-md-2 control-label bold">Commentaire</label>
+								<div class="col-md-10">{{promotion.commentaire}}</div>
+							</div>
+						</div>
+					</form></br>
+			</div>
+		
+			<!--------------------------- Liste des étudiants --------------------------->
+			<div class="portlet light ens-edit" ng-show="promotion.etudiantCollection.length">
+				<div class="row">
+					<div class="col-md-9" >
+						<div class="caption">
+                             <i class="fa fa-group font-blue"></i>
+                             <span class="caption-subject font-blue sbold uppercase bold">Etudiants de la promotion</span>
+                         </div>
+						
+						<table class="table"></br></br>
+							<thead>
+								<tr>
+									<th>Num &eacute;tudiant</th>
+									<th>Nom</th>
+									<th>Pr&eacute;nom</th>
+									<th>Date de naissance</th>
+									<th>E-mail</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="e in promotion.etudiantCollection" ng-click="etudiantDetails(e.noEtudiant)" style="cursor:pointer">
+									<td>{{e.noEtudiant}}</td>
+									<td>{{e.nom}}</td>
+									<td>{{e.prenom}}</td>
+									<td>{{e.dateNaissance}}</td>
+									<td>{{e.emailUbo}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>			
+			</div>
+			<a class="btn btn-primary" href="#/promotions">
+				<span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
 			<button class="btn btn-warning pull-right" ng-click="edition()">
 				<span class="glyphicon glyphicon-pencil"></span> Editer
 			</button>
-			<form class="form-horizontal form-bordered">
-				<div class="form-group">
-					<div class="col-md-3"><strong>Ann&eacute;e</strong></div>
-					<div class="col-md-3">{{promotion.promotionPK.anneeUniversitaire}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Formation</strong></div>
-					<div class="col-md-3">{{promotion.promotionPK.codeFormation}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Sigle</strong></div>
-					<div class="col-md-3">{{promotion.siglePromotion}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Responsable</strong></div>
-					<div class="col-md-3">{{responsable.nom}}
-						{{responsable.prenom}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Nombre max d'&eacute;tudiants</strong></div>
-					<div class="col-md-3">{{promotion.nbMaxEtudiant}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Date de rentr&eacute;e</strong></div>
-					<div class="col-md-3">{{promotion.dateRentree | date:
-						"dd/MM/yyyy"}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Lieu de rentr&eacute;e</strong></div>
-					<div class="col-md-3">{{promotion.lieuRentree}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Processus de stage</strong></div>
-					<div class="col-md-3">{{processusSignification}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Commentaire</strong></div>
-					<div class="col-md-3">{{promotion.commentaire}}</div>
-				</div>
-				</br> <a class="btn btn-primary" href="#/promotions" ng-hide="promotion.etudiantCollection.length">
-					<span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
-			</form>
-			
-		</div>	
-		</br>
-
-		<div class="media animate" ng-hide="edit">
-		<div class="row">
-			<div class="col-md-6" ng-show="promotion.etudiantCollection.length">
-				<div class="panel-body table-responsive">
-					<span class="cpation-subject font-blue bold uppercase">Etudiants</span>
-					</br>
-					<table class="table">
-						<thead>
-							<tr>
-								<th>Num &eacute;tudiant</th>
-								<th>Nom</th>
-								<th>Pr&eacute;nom</th>
-								<th>E-mail</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="e in promotion.etudiantCollection">
-								<td>{{e.noEtudiant}}</td>
-								<td>{{e.nom}}</td>
-								<td>{{e.prenom}}</td>
-								<td>{{e.emailUbo}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
 		</div>
-		<a class="btn btn-primary" href="#/promotions" ng-show="promotion.etudiantCollection.length">
-			<span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
-	</div>
 
 	<!--------------------------- Edition --------------------------->
 	<div ng-show="edit">
-		<form class="form-horizontal" name="promotionForm">
-			<div class="form-group">
-				<label for="" class="col-sm-2">Ann&eacute;e
-					<span id="required-field"> *</span></label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control"  name="anneeUniversitaire" maxlength="9"
-						ng-model="promotion.promotionPK.anneeUniversitaire" ng-readonly="!ajout"
-						ng-pattern="/[1,2][0,9][0-9][0-9]-[1,2][0,9][0-9][0-9]/" placeholder="yyyy-yyyy">
-						<span style="color:red" ng-show="promotionForm.anneeUniversitaire.$dirty && promotionForm.anneeUniversitaire.$invalid">
-						<span ng-show="promotionForm.anneeUniversitaire.$error.required">Champ obligatoire / Type invalide</span></span>
+		<div class="portlet light bordered">
+				<div class="caption">
+                    <i class="fa fa-info-circle font-blue"></i>
+                    <span class="caption-subject font-blue sbold uppercase bold"> Informations g&eacute;n&eacute;rales</span>
+                </div></br></br>
+				
+					<form class="form-body" name="promotionForm">
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Ann&eacute;e <span id="required-field"> *</span></label>
+								<div class="col-md-6">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+										<input  type="text" class="form-control" name="anneeUniversitaire"
+												ng-model="promotion.promotionPK.anneeUniversitaire" ng-readonly="!ajout" maxlength="9"
+												mask='2399-2399' repeat="28" restrict="reject" validate="false"
+												ng-pattern="/^[1,2][0-9][0-9][0-9]-[1,2][0-9][0-9][0-9]$/"
+												ng-em-required="Champ obligatoire" 
+												ng-em-pattern="Type invalide"  
+												placeholder="yyyy-yyyy" required>
+									</div>
+									<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="promotionForm.anneeUniversitaire.$valid"></span>
+	                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="promotionForm.anneeUniversitaire.$invalid"></span>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Nombre max d'&eacute;tudiants <span id="required-field"> *</span></label>
+								<div class="col-md-6">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-users"></i></span>
+										<input  type="number" class="form-control" ng-model="promotion.nbMaxEtudiant" 
+											validate="false" mask="9*"
+											ng-pattern="/^[0-9]+$/"
+											ng-em-required="Champ obligatoire" 
+											ng-em-pattern="Type invalide"
+											required>
+									</div>
+									<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="promotionForm.nbMaxEtudiant.$valid"></span>
+	                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="promotionForm.nbMaxEtudiant.$invalid"></span>
+								</div>
+							</div>
+						</div></br>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Formation <span id="required-field"> *</span></label>
+								<div class="col-md-6">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="icon-graduation"></i></span>
+										<select class="form-control" ng-show="ajout" ng-model="formationSelected" ng-options="f.codeFormation for f in formations"/>
+										<input ng-hide="ajout" type="text" class="form-control" ng-model="promotion.promotionPK.codeFormation" ng-readonly="true">
+									</div>
+									<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="promotionForm.codeFormation.$valid"></span>
+	                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="promotionForm.codeFormation.$invalid"></span>
+								</div>
+							</div>
+							<div class="col-md-6"> 
+								<label class="col-md-4 control-label">Date de rentr&eacute;e</label>
+								<div class="col-md-6">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+										<input 	type="text" class="form-control"
+												name="dateRentree" ng-model="promotion.dateRentree"
+												placeholder="dd/mm/yyyy"
+												mask="39/19/2999" restrict="reject" validate="false"
+												ng-pattern="/^[0-3][0-9]/[0,1][0-9]/[1,2][0-9][0-9][0-9]$/"
+												ng-em-required="Champ obligatoire" 
+												ng-em-pattern="Type invalide">
+									</div>
+									<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="promotionForm.dateRentree.$valid"></span>
+	                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="promotionForm.dateRentree.$invalid"></span>
+								</div>
+							</div>
+						</div></br>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Sigle <span id="required-field"> *</span></label>
+								<div class="col-md-6">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-bookmark-o"></i></span>
+										<input 	type="text" class="form-control"
+												name="siglePromotion" ng-model="promotion.siglePromotion"
+												mask='*' repeat="56" restrict="reject" validate="false"
+												ng-pattern="/^[a-zA-Z]+[a-zA-Z0-9_]+$/"
+												ng-em-required="Champ obligatoire" 
+												ng-em-pattern="Type invalide"
+												required>
+									</div>
+									<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="promotionForm.siglePromotion.$valid"></span>
+	                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="promotionForm.siglePromotion.$invalid"></span>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Lieu de rentr&eacute;e</label>
+								<div class="col-md-6">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="icon-pointer"></i></span>
+										<input 	type="text" class="form-control"
+												name="lieuRentree" ng-model="promotion.lieuRentree"
+												mask='*' repeat="56" restrict="reject" validate="false"
+												ng-pattern="/^[a-zA-Z0-9\-.']+$/"
+												ng-em-required="Champ obligatoire" 
+												ng-em-pattern="Type invalide">
+									</div>
+									<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="promotionForm.siglePromotion.$valid"></span>
+	                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="promotionForm.siglePromotion.$invalid"></span>
+								</div>
+							</div>
+						</div></br>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Responsable</label>
+								<div class="col-md-6">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-user-md"></i></span>
+										<select class="form-control" name="listEnseignants" ng-model="enseignantSelected" ng-options="e as (e.nom +' '+ e.prenom) for e in enseignants track by e.noEnseignant"/>
+									</div>
+									<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="promotionForm.listEnseignants.$valid"></span>
+	                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="promotionForm.listEnseignants.$invalid"></span>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Processus de stage</label>
+								<div class="col-md-6">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="icon-calculator"></i></span>
+										<select class="form-control" ng-model="processusStageSelected" name="processusStage" ng-options="p.rvMeaning for p in processusStage"></select>
+									</div>
+									<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="promotionForm.processusStage.$valid"></span>
+	                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="promotionForm.processusStage.$invalid"></span>
+								</div>
+							</div>
+						</div></br>
+						<div class="row">
+							<div class="col-md-10">
+								<label class="col-md-2 control-label bold">Commentaire</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-11">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-comment-o"></i></span>
+									<input type="text" class="form-control" name="commentaire" ng-model="promotion.commentaire">
+								</div>
+								<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="promotionForm.commentaire.$valid"></span>
+	                    		<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="promotionForm.commentaire.$invalid"></span>
+							</div>
+						</div></br>
+				</div></br>
+				<div class="form-group">
+					<a class="btn btn-success pull-right" ng-click="submit()"><span
+						class="glyphicon glyphicon-ok"></span> Valider</a>
+					<button class="btn btn-danger pull-left" ng-click="cancel()">Annuler</button>
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="" class="col-sm-2">Formation<span
-					id="required-field"> *</span></label>
-				<div class="col-sm-10">
-					<select ng-show="ajout" ng-model="formationSelected" ng-options="f.codeFormation for f in formations"/>
-					<span style="color:red" ng-show="promotionForm.codeFormation.$dirty && promotionForm.codeFormation.$invalid">
-					<span ng-show="promotionForm.codeFormation.$error.required">Champ obligatoire / Type invalide</span></span>
-					<input ng-hide="ajout" type="text" class="form-control"
-						ng-model="promotion.promotionPK.codeFormation" ng-readonly="true">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="" class="col-sm-2">Sigle<span
-					id="required-field"> *</span></label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control"
-						ng-model="promotion.siglePromotion" required>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="" class="col-sm-2">Responsable</label>
-				<div class="col-sm-10">
-					<!-- <select name="listeEnseignants" ng-model="enseignantSelected">
-						<option data-ng-repeat="e in enseignants"
-								value="{{e.noEnseignant}}"
-								ng-selected="{{e.noEnseignant == responsable.noEnseignant}}">
-								{{e.nom}} {{e.prenom}}</option>
-					</select> -->
-					<select name="listeEnseignants" ng-model="enseignantSelected" ng-options="e.ens as (e.nom +' '+ e.prenom) for e in enseignants"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="" class="col-sm-2">Nombre max d'&eacute;tudiants<span
-					id="required-field"> *</span></label>
-				<div class="col-sm-10">
-					<input type="number" class="form-control"
-						ng-model="promotion.nbMaxEtudiant" required>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="" class="col-sm-2">Date de rentr&eacute;e</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control"
-						ng-model="promotion.dateRentree" placeholder="dd/mm/yyyy">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="" class="col-sm-2">Lieu de rentr&eacute;e</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control"
-						ng-model="promotion.lieuRentree">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="" class="col-sm-2">Processus de stage</label>
-				<div class="col-sm-10">
-					<select ng-model="processusStageSelected" name="processusStage" ng-options="p.rvMeaning for p in processusStage"></select>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="" class="col-sm-2">Commentaire</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control"
-						ng-model="promotion.commentaire">
-				</div>
-			</div>
-			<div class="form-group">
-				<a class="btn btn-success pull-right" ng-click="submit()"><span
-					class="glyphicon glyphicon-ok"></span> Valider</a>
-				<button class="btn btn-danger pull-left" ng-click="cancel()">Annuler</button>
-			</div>
-		</form>
-		
+			</form></br>
+		</div>
 	</div>
 </div>
 </div>
-</div>
+
