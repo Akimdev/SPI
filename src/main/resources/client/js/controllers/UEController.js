@@ -12,6 +12,9 @@ var edit = false;
         get: function(uniteEnseignementPK) {
         	return $http.post("http://localhost:8090/getUE", uniteEnseignementPK);
         },
+        getDomain : function(){
+      	  return $http.get("http://localhost:8090/getDomaine/SEMESTRE");
+        },
         update: function(ue){
 			return $http.post('http://localhost:8090/updateUE', ue);
 		},
@@ -201,7 +204,16 @@ var edit = false;
             });
         } else { 
             $scope.show();
-        }      
+        }     
+    	
+    	 var promiseGetSemestre= ueFactory.getDomain();
+    	 promiseGetSemestre.success(function(data,statut){
+         	$scope.semestres= data;
+         	$scope.semestreSelected= $scope.ue.semestre;
+         })
+         .error(function(data,statut){
+       	  console.log("impossible de recuperer la liste des types");
+         });
           
         $scope.edition = function(){
         	edit = true;

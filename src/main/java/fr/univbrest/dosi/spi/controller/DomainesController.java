@@ -39,7 +39,7 @@ public class DomainesController {
 			public int compare(CgRefCodes d1, CgRefCodes d2) {
 				return d1.getRvMeaning().compareTo(d2.getRvMeaning());
 			}
-		});
+		});	
 		return domaines;
 	}
 
