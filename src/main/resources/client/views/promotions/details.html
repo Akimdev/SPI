@@ -16,7 +16,7 @@
 	<li><span class="active">Mise &agrave; jour d'une promotion</span></li>
 </ul>
 <!-- END Navigation -->
-<div class="page" ng-controller="PromotionDetailsController">
+<div class="page" ng-controller="PromotionDetailsController as promoDetailCtrl">
 	<div class="portlet light bordered">
 		<div class="portlet-title">
 			<div class="caption">
@@ -26,7 +26,7 @@
 		</div>
 		<!--------------------------- Consultation --------------------------->
 		</br>
-		<div ng-hide="edit">
+		<div ng-hide="promoDetailCtrl.edit">
 			<div class="portlet light bordered">
 				<div class="caption">
                     <i class="fa fa-info-circle font-blue"></i>
@@ -37,54 +37,54 @@
 						<div class="row">
 							<div class="col-md-6">
 								<label class="col-md-4 control-label bold">Ann&eacute;e</label>
-								<div class="col-md-2">{{promotion.promotionPK.anneeUniversitaire}}</div>
+								<div class="col-md-2">{{promoDetailCtrl.promotion.promotionPK.anneeUniversitaire}}</div>
 							</div>
 							<div class="col-md-6">
 								<label class="col-md-4 control-label bold">Nombre max d'&eacute;tudiants</label>
-								<div class="col-md-2">{{promotion.nbMaxEtudiant}}</div>
+								<div class="col-md-2">{{promoDetailCtrl.promotion.nbMaxEtudiant}}</div>
 							</div>
 						</div></br>
 						<div class="row">
 							<div class="col-md-6">
 								<label class="col-md-4 control-label bold">Formation</label>
-								<div class="col-md-2">{{promotion.promotionPK.codeFormation}}</div>
+								<div class="col-md-2">{{promoDetailCtrl.promotion.promotionPK.codeFormation}}</div>
 							</div>
 							<div class="col-md-6">
 								<label class="col-md-4 control-label">Date de rentr&eacute;e</label>
-								<div class="col-md-2">{{promotion.dateRentree | date: "dd/MM/yyyy"}}</div>
+								<div class="col-md-2">{{promoDetailCtrl.promotion.dateRentree | date: "dd/MM/yyyy"}}</div>
 							</div>
 						</div></br>
 						<div class="row">
 							<div class="col-md-6">
 								<label class="col-md-4 control-label bold">Sigle</label>
-								<div class="col-md-2">{{promotion.siglePromotion}}</div>
+								<div class="col-md-2">{{promoDetailCtrl.promotion.siglePromotion}}</div>
 							</div>
 							<div class="col-md-6">
 								<label class="col-md-4 control-label bold">Lieu de rentr&eacute;e</label>
-								<div class="col-md-2">{{promotion.lieuRentree}}</div>
+								<div class="col-md-2">{{promoDetailCtrl.promotion.lieuRentree}}</div>
 							</div>
 						</div></br>
 						<div class="row">
 							<div class="col-md-6">
 								<label class="col-md-4 control-label bold">Responsable</label>
-								<div class="col-md-3">{{responsable.nom}} {{responsable.prenom}}</div>
+								<div class="col-md-3">{{promoDetailCtrl.responsable.nom}} {{promoDetailCtrl.responsable.prenom}}</div>
 							</div>
 							<div class="col-md-6">
 								<label class="col-md-4 control-label bold">Processus de stage</label>
-								<div class="col-md-3">{{processusSignification}}</div>
+								<div class="col-md-3">{{promoDetailCtrl.processusSignification}}</div>
 							</div>
 						</div></br>
 						<div class="row">
 							<div class="col-md-12">
 								<label class="col-md-2 control-label bold">Commentaire</label>
-								<div class="col-md-10">{{promotion.commentaire}}</div>
+								<div class="col-md-10">{{promoDetailCtrl.promotion.commentaire}}</div>
 							</div>
 						</div>
 					</form></br>
 			</div>
 		
 			<!--------------------------- Liste des étudiants --------------------------->
-			<div class="portlet light ens-edit" ng-show="promotion.etudiantCollection.length">
+			<div class="portlet light ens-edit" ng-show="promoDetailCtrl.promotion.etudiantCollection.length">
 				<div class="row">
 					<div class="col-md-9" >
 						<div class="caption">
@@ -103,7 +103,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="hovered" ng-repeat="e in promotion.etudiantCollection" ng-click="etudiantDetails(e.noEtudiant)" style="cursor:pointer">
+								<tr class="hovered" ng-repeat="e in promoDetailCtrl.promotion.etudiantCollection" ng-click="promoDetailCtrl.etudiantDetails(e.noEtudiant)" style="cursor:pointer">
 									<td>{{e.noEtudiant}}</td>
 									<td>{{e.nom}}</td>
 									<td>{{e.prenom}}</td>
@@ -117,19 +117,19 @@
 			</div>
 			<a class="btn btn-primary" href="#/promotions">
 				<span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
-			<button class="btn btn-warning pull-right" ng-click="edition()">
+			<button class="btn btn-warning pull-right" ng-click="promoDetailCtrl.edition()">
 				<span class="glyphicon glyphicon-pencil"></span> Editer
 			</button>
 		</div>
 
 	<!--------------------------- Edition --------------------------->
-	<div ng-show="edit">
+	<div ng-show="promoDetailCtrl.edit">
 		<div class="portlet light bordered">
-				<div class="caption" ng-hide="ajout">
+				<div class="caption" ng-hide="promoDetailCtrl.ajout">
                     <i class="fa fa-gears font-blue"></i>
                     <span class="caption-subject font-blue bold uppercase bold"> Mise &agrave; jour</span>
                 </div>
-                <div class="caption" ng-show="ajout">
+                <div class="caption" ng-show="promoDetailCtrl.ajout">
                     <i class="fa fa-plus font-blue"></i>
                     <span class="caption-subject font-blue sbold uppercase bold"> Nouvelle promotion </span>
                 </div>
@@ -143,7 +143,7 @@
 										<div class="input-group">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 											<input  type="text" class="form-control" name="anneeUniversitaire"
-													ng-model="promotion.promotionPK.anneeUniversitaire" ng-readonly="!ajout" maxlength="9"
+													ng-model="promoDetailCtrl.promotion.promotionPK.anneeUniversitaire" ng-readonly="!promoDetailCtrl.ajout" maxlength="9"
 													mask='2399-2399' repeat="28" restrict="reject" validate="false"
 													ng-pattern="/^[1,2][0-9][0-9][0-9]-[1,2][0-9][0-9][0-9]$/"
 													ng-em-required="Champ obligatoire" 
@@ -163,7 +163,7 @@
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-users"></i></span>
 											<input  type="number" class="form-control"
-													name="nbMaxEtudiant" ng-model="promotion.nbMaxEtudiant" 
+													name="nbMaxEtudiant" ng-model="promoDetailCtrl.promotion.nbMaxEtudiant" 
 													validate="false" mask="999"
 													ng-pattern="/^[0-9]+$/"
 													ng-em-required="Champ obligatoire" 
@@ -183,9 +183,9 @@
 									<div class="col-md-6">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="icon-graduation"></i></span>
-											<select class="form-control" ng-disabled="!ajout"
-													ng-options="f.codeFormation for f in formations"
-													name="codeFormation" ng-model="formationSelected"
+											<select class="form-control" ng-disabled="!promoDetailCtrl.ajout"
+													ng-options="f as (f.codeFormation+'') for f in promoDetailCtrl.formations"
+													name="codeFormation" ng-model="promoDetailCtrl.formationSelected"
 													required/>
 <!-- 											<input ng-hide="ajout" type="text" class="form-control" ng-model="promotion.promotionPK.codeFormation" ng-readonly="true"> -->
 										</div>
@@ -201,7 +201,7 @@
 										<div class="input-group">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 											<input 	type="text" class="form-control"
-													name="dateRentree" ng-model="promotion.dateRentree"
+													name="dateRentree" ng-model="promoDetailCtrl.dateRentree"
 													placeholder="dd/mm/yyyy"
 													mask="39/19/2999" restrict="reject" validate="false"
 													ng-pattern="/^[0-3][0-9]/[0,1][0-9]/[1,2][0-9][0-9][0-9]$/"
@@ -222,7 +222,7 @@
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-bookmark-o"></i></span>
 											<input 	type="text" class="form-control"
-													name="siglePromotion" ng-model="promotion.siglePromotion"
+													name="siglePromotion" ng-model="promoDetailCtrl.promotion.siglePromotion"
 													mask='*' repeat="56" restrict="reject" validate="false"
 													ng-pattern="/^[a-zA-Z]+[a-zA-Z0-9_]+$/"
 													ng-em-required="Champ obligatoire" 
@@ -241,7 +241,7 @@
 										<div class="input-group">
 											<span class="input-group-addon"><i class="icon-pointer"></i></span>
 											<input 	type="text" class="form-control"
-													name="lieuRentree" ng-model="promotion.lieuRentree"
+													name="lieuRentree" ng-model="promoDetailCtrl.promotion.lieuRentree"
 													mask='*' repeat="56" restrict="reject" validate="false"
 													ng-pattern="/^[a-zA-Z0-9\-.']+$/"
 													ng-em-required="Champ obligatoire" 
@@ -260,7 +260,7 @@
 									<div class="col-md-6">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-user-md"></i></span>
-											<select class="form-control" name="listEnseignants" ng-model="enseignantSelected" ng-options="e as (e.nom +' '+ e.prenom) for e in enseignants track by e.noEnseignant"/>
+											<select class="form-control" name="listEnseignants" ng-model="promoDetailCtrl.enseignantSelected" ng-options="e as (e.nom +' '+ e.prenom) for e in promoDetailCtrl.enseignants track by e.noEnseignant"/><!--  track by e.noEnseignant -->
 										</div>
 										<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="promotionForm.listEnseignants.$valid"></span>
 		                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="promotionForm.listEnseignants.$invalid"></span>
@@ -272,7 +272,7 @@
 								<div class="col-md-6">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="icon-calculator"></i></span>
-											<select class="form-control" ng-model="processusStageSelected" name="processusStage" ng-options="p.rvMeaning for p in processusStage"></select>
+											<select class="form-control" ng-model="promoDetailCtrl.processusStageSelected" name="processusStage" ng-options="p as (p.rvMeaning+'') for p in promoDetailCtrl.processusStage"></select>
 										</div>
 										<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="promotionForm.processusStage.$valid"></span>
 		                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="promotionForm.processusStage.$invalid"></span>
@@ -288,7 +288,7 @@
 							<div class="col-md-11">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-comment-o"></i></span>
-									<input type="text" class="form-control" name="commentaire" ng-model="promotion.commentaire">
+									<input type="text" class="form-control" name="commentaire" ng-model="promoDetailCtrl.promotion.commentaire">
 								</div>
 								<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="promotionForm.commentaire.$valid"></span>
 	                    		<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="promotionForm.commentaire.$invalid"></span>
@@ -296,11 +296,11 @@
 						</div></br>
 				</div></br>
 				<div class="form-group">
-					<a class="btn btn-success pull-right" ng-click="submit()"
+					<a class="btn btn-success pull-right" ng-click="promoDetailCtrl.submit()"
 						ng-disabled="promotionForm.anneeUniversitaire.$dirty && promotionForm.anneeUniversitaire.$invalid || promotionForm.nbMaxEtudiant.$dirty && promotionForm.nbMaxEtudiant.$invalid || 
 									promotionForm.siglePromotion.$dirty && promotionForm.siglePromotion.$invalid || promotionForm.codeFormation.$dirty && promotionForm.codeFormation.$invalid || promotionForm.$invalid">
 					<span class="glyphicon glyphicon-ok"></span> Valider</a>
-					<button class="btn btn-danger pull-left" ng-click="cancel()">Annuler</button>
+					<a class="btn btn-primary" href="#/promotions"><span class="glyphicon glyphicon-arrow-left"></span>Annuler</a>
 				</div>
 			</form></br>
 		</div>

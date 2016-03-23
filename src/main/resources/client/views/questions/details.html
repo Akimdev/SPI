@@ -64,7 +64,7 @@
 							<span class="input-group-addon"><i class="fa fa-user"></i>
                         	</span>
 								<input type="text" class="form-control" name="intitule" ng-model="question.intitule" 
-								 mask='%' repeat="120" restrict="reject" validate="false"
+								 repeat="120" restrict="reject" validate="false"
 								 ng-em-required="Intitul&eacute; obigatoire"
       						  	 ng-em-pattern="Format incorrect! exemple:Contenu"
 								 placeholder="Intitul&eacute; du question"  required>
@@ -81,8 +81,8 @@
 							<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-file-text-o"></i></span>
 								<select class="form-control" name="qualificatif" ng-model="qualifSelected"
-										ng-options="q as (q.minimal+' - '+q.maximal) for q in qualificatifs"
-										required/>
+										ng-options="q as (q.minimal+' - '+q.maximal) for q in qualificatifs" 
+										ng-value="q.idQualificatif" required/>
 							</div>	
 						<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="questionForm.qualificatif.$valid"></span>
                     	<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="questionForm.qualificatif.$invalid"></span>
