@@ -238,7 +238,7 @@ $scope.submit = function(){
 	        	var promisesajout = enseignantsFactory.add($scope.enseignant);
 	        	promisesajout.success(function(data, status) {
 	        		swal("Félicitation!", "Le nouveau enseignant est ajouté!", "success");
-	        		$location.path('/enseignants');
+	        		history.back();
 				});
 	        	promisesajout.error(function(data, status, headers, config) {
 	        		toaster.pop({
@@ -253,7 +253,7 @@ $scope.submit = function(){
 	        	var promisesajout = enseignantsFactory.set($scope.enseignant);
 	        	promisesajout.success(function(data, status, headers, config) {
 	        		swal("Félicitation!", "Enseignant modifié!", "success");
-	        		$location.path('/enseignants');
+	        		history.back();
 				});
 	        	promisesajout.error(function(data, status, headers, config) {
 	        		toaster.pop({
@@ -273,13 +273,7 @@ $scope.submit = function(){
         }
       // annule l'édition
       $scope.cancel = function(){
-        if(!$scope.enseignant.noEnseignant){
-          $location.path('/enseignants');
-        } else {
-          var e = enseignantsFactory.get($stateParams.id);
-          $scope.enseignant = JSON.parse(JSON.stringify(e));
-          $scope.edit = false;
-        }
+    	  history.back();
       }      
     }]
   );
