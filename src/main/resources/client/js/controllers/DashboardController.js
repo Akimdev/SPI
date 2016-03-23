@@ -10,6 +10,12 @@ app.factory('informationFactory',['$http',function($http){
 		  getEtudiants:function(){
 			  return $http.get("http://localhost:8090/nombreEtudiants");
 		  },
+		  getUEs:function(){
+			  return $http.get("http://localhost:8090/nombreUEs");
+		  },
+		  getElementConstitutif:function(){
+			  return $http.get("http://localhost:8090/nombreEC");
+		  },
 		  getEnseignants:function(){
 			  return $http.get("http://localhost:8090/nombreEnseignants");
 		  },
@@ -24,6 +30,9 @@ app.factory('informationFactory',['$http',function($http){
 		  },
 		  getQualificatifs:function(){
 			  return $http.get("http://localhost:8090/nombreQualificatifs");
+		  },
+		  getFormation:function(){
+			  return $http.get("http://localhost:8090/nombreFormations");
 		  },
 		  getPromotion: function(){
 	    	  return $http.get('http://localhost:8090/getPromoPKByEtudiant');
@@ -43,13 +52,32 @@ app.controller('DashboardController', function($rootScope, $scope, informationFa
   	  console.log("impossible de recuperer le nombre d'étudiants");
     });
     
-   /* var promise= informationFactory.getUEs();
+    // nombre Formations
+    var promise= informationFactory.getFormation();
+    promise.success(function(data){
+  	  $scope.nombreFormations = data ;
+    })
+    .error(function(data){
+  	  console.log("impossible de recuperer le nombre des formations");
+    });
+    
+    // nombre UE
+    var promise= informationFactory.getUEs();
     promise.success(function(data){
   	  $scope.nombreUEs = data ;
     })
     .error(function(data){
   	  console.log("impossible de recuperer le nombre des unités d'enseignement");
-    });*/
+    });
+    
+    // nombre EC
+    var promise= informationFactory.getElementConstitutif();
+    promise.success(function(data){
+  	  $scope.nombreEC = data ;
+    })
+    .error(function(data){
+  	  console.log("impossible de recuperer le nombre des éléments constitutifs");
+    });
     
     var promise= informationFactory.getQuestions();
     promise.success(function(data){
