@@ -41,29 +41,31 @@
 						<alert type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
 					</div>
 					<div form-group class="form-group" form-group-class="has-feedback">
-						<label for="" class="col-sm-2">Maximal<span
-							id="required-field">*</span></label>
-						<div class="col-sm-10">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="fa fa-user"></i>
-                        		</span>
-								<input 
-									type="text" 
-									class="form-control" 
-									name="nom" 
-									ng-model="qualificatif.maximal"
-									mask='#' 
-									repeat="28" 
-									restrict="reject" 
-									validate="false"
-									ng-pattern="/^[A-Za-z' \-]+$/" 
-									ng-em-required="Qualificatif maximal obigatoire"
-	      						  	ng-em-pattern="Format incorrect! exemple:Fort"
-	      						  	placeholder="Qualificatif maximal"  
-	      						  	required/> 
-      						</div>
-							<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="enseignantForm.nom.$valid"></span>
-                   			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="enseignantForm.nom.$invalid"></span>
+						<div class="col-md-8">
+							<label for="" class="col-md-2">Maximal<span
+								id="required-field">*</span></label>
+							<div class="col-md-6">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user"></i>
+	                        		</span>
+									<input 
+										type="text" 
+										class="form-control" 
+										name="nom" 
+										ng-model="qualificatif.maximal"
+										mask='#' 
+										repeat="28" 
+										restrict="reject" 
+										validate="false"
+										ng-pattern="/^[A-Za-z' \-]+$/" 
+										ng-em-required="Qualificatif maximal obigatoire"
+		      						  	ng-em-pattern="Format incorrect! exemple:Fort"
+		      						  	placeholder="Qualificatif maximal"  
+		      						  	required/> 
+	      						</div>
+								<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="enseignantForm.nom.$valid"></span>
+	                   			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="enseignantForm.nom.$invalid"></span>
+							</div>
 						</div>
 					</div>
 					

@@ -1,31 +1,28 @@
 <!-- 
- -- @Author Mohamed LAKRAA
- -- lister Evaluation
+ -- @Author Othman BELHAJ
+ -- lister Evaluation pour un étudiant inscrit dans une information donnée 
  -->
-<!-- -----------------------------------------------Navigation-------------------------------------- -->
+ <!-- -----------------------------------------------Navigation-------------------------------------- -->
 <ul class="page-breadcrumb breadcrumb">
 	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
 	<li><a href="#/">Administration</a> <i class="fa fa-circle"></i></li>
 	<li><span class="active">Evaluations</span></li>
 </ul>
 <!-- -------------------------------------------END Navigation---------------------------------------- -->
-<div class="page page-table" data-ng-controller="EvaluationsController">
+<div class="page page-table" data-ng-controller="EtudiantEvaluationsController">
 	<!-- ---------------------------------------Note pour la gestion-------------------------------------- -->
 	<div class="row">
 		<div class="col-md-12">
 			<div class="portlet box red">
 				<div class="portlet-title">
 					<div class="caption">
-						<i class="icon-info"></i>Gestion des evaluations
+						<i class="icon-info"></i>Consultation des evaluations
 					</div>
 				</div>
 				<div class="portlet-body">
 					<p>
-						Cette page permet la gestion de l'ensemble des evaluations du
-						d&eacute;partement informatique de l'UBO.</br> Consulter les
-						informations g&eacute;n&eacute;rales, la liste des
-						&eacute;tudiants appartenant &agrave; chacune des promotions,
-						l'ajout, la suppression et la mise &agrave; jour des promotions.
+						Cette page permettra a l'&eacute;tudiant de consulter l'ensemble des &eacute;valuations pour une promotion donn&eacute;e, ainsi que les
+						informations g&eacute;n&eacute;rales de l'&eacute;valuation s&eacute;l&eacute;ctionn&eacute;e.
 					</p>
 				</div>
 
@@ -40,10 +37,6 @@
 				<i class="icon-social-dribble font-red"></i> <span
 					class="cpation-subject font-red bold uppercase">Evaluations</span>
 			</div>
-			<!-- ------------------------Bouton ajouter--------------------------------------- -->
-			<button class="btn blue" ng-click="ajoutEvaluation()">
-				Nouvelle evaluation<i class="fa fa-plus"></i>
-			</button>
 			<!-- -----------------------------Recherche--------------------------------------- -->
 			<div class="row">
 				<span style="float: right;" class="col-sm-4 col-xs-6">
@@ -57,7 +50,7 @@
 		<!----------------------------------------La table de liste ---------------------------------------->
 		<div class="portlet-body">
 			<table class="table-scrollable">
-				<table class="table table-bordered table-striped table-hover">
+				<table class="table table-hover">
 					<thead>
 						<tr>
 							<th><div class="th">
@@ -78,7 +71,8 @@
 										data-ng-class="{active: row == '-codeFormation'}"></span>
 								</div></th>
 							<th><div class="th">
-									Ann&eacute;e <span class="glyphicon glyphicon-chevron-up"
+									Ann&eacute;e <span
+										class="glyphicon glyphicon-chevron-up"
 										data-ng-click=" order('anneeUniversitaire') "
 										data-ng-class="{active: row == 'anneeUniversitaire'}"></span>
 									<span class="glyphicon glyphicon-chevron-down"
@@ -101,8 +95,8 @@
 										data-ng-click=" order('-etat') "
 										data-ng-class="{active: row == '-etat'}"></span>
 								</div></th>
-							<th><div class="th">
-									Responsable <span class="glyphicon glyphicon-chevron-up"
+								<th><div class="th">
+									Enseignant <span class="glyphicon glyphicon-chevron-up"
 										data-ng-click=" order('periode') "
 										data-ng-class="{active: row == 'periode'}"></span> <span
 										class="glyphicon glyphicon-chevron-down"
@@ -128,26 +122,17 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr data-ng-repeat="e in evaluations" class="evaluation">
-							<td>{{e.designation}}</td>
-							<td>{{e.code_formation}}</td>
-							<td>{{e.annee}}</td>
-							<td>{{e.code_ue}}</td>
-							<td>{{e.etat}}</td>
-							<td>{{e.noEnseignant.nom}} {{e.noEnseignant.prenom}}</td>
-							<td>{{e.debutReponse | date: "dd/MM/yyyy"}}</td>
-							<td>{{e.finReponse | date: "dd/MM/yyyy"}}</td>
-							<td id="iconGestion" ng-click="affiche(e.idEvaluation)"><span
-								class="eye fa fa-eye"></span></td>
-							<td id="iconGestion" ng-click="edit(e.idEvaluation)"><span
-								class="glyphicon glyphicon-edit"></span></td>
-							<td id="iconGestion" ng-click="info(e.idEvaluation)"><span
-								class="fa fa-caret-square-o-down"></span></td>
-							<td id="iconGestion" ng-click="config(e.idEvaluation)"><span
-								class="icon-settings"></span></td>
-							<td id="iconGestion" ng-click="supprime(e)"><span
-								class="remove fa fa-trash"></span></td>
-						</tr>
+					<tr data-ng-repeat="e in evaluations" class="evaluation">
+							<td ng-click="affiche(e.idEvaluation)">{{e.designation}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.code_formation}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.annee}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.code_ue}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.etat}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.noEnseignant.nom}} {{e.noEnseignant.prenom}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.debutReponse | date: "dd/MM/yyyy"}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.finReponse | date: "dd/MM/yyyy"}}</td>
+							<td ng-click="affiche(e.idEvaluation)"><span  class="eye fa fa-eye"></span></td>
+					</tr>
 					</tbody>
 				</table>
 				<!-- -------------------------------Footer ----------------------- -->
@@ -168,6 +153,6 @@
 						</div>
 					</div>
 				</footer>
-				</div>
-				</div>
-				</div>
+		</div>
+	</div>
+</div>

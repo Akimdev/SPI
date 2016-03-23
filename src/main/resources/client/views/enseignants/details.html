@@ -119,18 +119,17 @@
 						<label for="" class="col-sm-2">Nom<span
 							id="required-field">*</span></label>
 						<div class="col-sm-10">
-						<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-user"></i>
-                        </span>
-							<input type="text" class="form-control" name="nom" ng-model="enseignant.nom"
-								 mask='#' repeat="28" restrict="reject" validate="false"
-								 ng-pattern="/^[A-Za-z' \-]+$/" 
-								 ng-em-required="Nom obigatoire"
-      						  	 ng-em-pattern="Format incorrect! exemple:Paul"
-      						  	 placeholder="Nom de l'enseignant"  required/> 
-      					</div>
-								<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="enseignantForm.nom.$valid"></span>
-                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="enseignantForm.nom.$invalid"></span>
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user"></i></span>
+								<input type="text" class="form-control" name="nom" ng-model="enseignant.nom"
+									 mask='#' repeat="28" restrict="reject" validate="false"
+									 ng-pattern="/^[A-Za-z' \-]+$/" 
+									 ng-em-required="Nom obigatoire"
+	      						  	 ng-em-pattern="Format incorrect! exemple:Paul"
+	      						  	 placeholder="Nom de l'enseignant"  required/> 
+	      					</div>
+							<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="enseignantForm.nom.$valid"></span>
+	                  		<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="enseignantForm.nom.$invalid"></span>
 						</div>
 					</div>
 					

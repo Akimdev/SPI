@@ -96,7 +96,7 @@ Consulter les informations g&eacute;n&eacute;rales, la liste des &eacute;tudiant
 					</thead>
 					<tbody>
 						<!-- currentPagePromotion / promotions -->
-						<tr style="cursor:pointer" data-ng-repeat="p in currentPagePromotion" class="promotion">
+						<tr style="cursor:pointer" data-ng-repeat="p in currentPagePromotion |orderBy:'promotionPK.anneeUniversitaire'" class="promotion">
 							<td ng-click="affiche(p.promotionPK)">{{p.promotionPK.anneeUniversitaire}}</td>
 							<td ng-click="affiche(p.promotionPK)">{{p.promotionPK.codeFormation}}</td>
 		 					<td ng-click="affiche(p.promotionPK)">{{p.designation}}</td>

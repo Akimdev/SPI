@@ -125,11 +125,11 @@ var edit = false;
   				  if (isConfirm) {  
   		        	var prom = ueFactory.delete(uniteEnseignementPK);
   		        	prom.success(function(data){
-  		        		swal("Félicitation!", "L'unité d'enseignement est supprimée!", "success");
+  		        		swal("", "L'unité d'enseignement est supprimée!", "success");
   		        		$scope.refresh();
   		        	})
   		        	.error(function(data){
-  		        		swal("Erreur!", "Impossible de supprimer cette unité d'enseignement!", "error");
+  		        		swal("Erreur", "Impossible de supprimer cette unité d'enseignement!", "error");
   		        	});
   				  } else {     
   					  	swal("Ignorer", "", "error");
@@ -231,7 +231,7 @@ var edit = false;
         	if($stateParams.codeUe == "nouveau"){
         		var promiseAdd = ueFactory.add(ue);
             	promiseAdd.success(function(data){
-            		swal("Félicitation!", "L'unité d'enseignement est ajoutée!", "success");
+            		swal("", "L'unité d'enseignement est ajoutée!", "success");
             		edit = false;
                     $scope.edit = edit;
                 	$location.path('/ue');
@@ -239,7 +239,7 @@ var edit = false;
             	.error(function(data){
             		swal({
             			title: "Error!",
-            			text: "Insertion impossible !",
+            			text: "Veuillez remplir les champs obligatoires !",
             			type: "error",
             			confirmButtonText: "Ok" 
             		});
@@ -255,7 +255,7 @@ var edit = false;
             	.error(function(data){
             		swal({
             			title: "Error!",
-            			text: "Modification impossible !",
+            			text: "Veuillez remplir les champs obligatoires !",
             			type: "error",
             			confirmButtonText: "Ok" 
             		});
