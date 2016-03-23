@@ -1,0 +1,159 @@
+<!-- 
+ -- @Author Othman BELHAJ
+ -- lister Evaluation pour un étudiant inscrit dans une information donnée 
+ -->
+ <!-- -----------------------------------------------Navigation-------------------------------------- -->
+<ul class="page-breadcrumb breadcrumb">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+	<li><a href="#/">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">Evaluations</span></li>
+</ul>
+<!-- -------------------------------------------END Navigation---------------------------------------- -->
+<div class="page page-table" data-ng-controller="EtudiantEvaluationsController">
+	<!-- ---------------------------------------Note pour la gestion-------------------------------------- -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="portlet box red">
+				<div class="portlet-title">
+					<div class="caption">
+						<i class="icon-info"></i>Consultation des evaluations
+					</div>
+				</div>
+				<div class="portlet-body">
+					<p>
+						Cette page permettra a l'&eacute;tudiant de consulter l'ensemble des &eacute;valuations pour une promotion donn&eacute;e, ainsi que les
+						informations g&eacute;n&eacute;rales de l'&eacute;valuation s&eacute;l&eacute;ctionn&eacute;e.
+					</p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- ---------------------------------FIN--Note pour la gestion-------------------------------------- -->
+	<!-- --------------------------------------- LA GESTION ----------------------------------------------- -->
+	<div class="portlet light bordered">
+		<div class="portlet-title">
+			<div class="caption">
+				<i class="icon-social-dribble font-red"></i> <span
+					class="cpation-subject font-red bold uppercase">Evaluations</span>
+			</div>
+			<!-- -----------------------------Recherche--------------------------------------- -->
+			<div class="row">
+				<span style="float: right;" class="col-sm-4 col-xs-6">
+					<form>
+						<input type="text" placeholder="Recherche" class="form-control"
+							data-ng-model="searchKeywords" data-ng-keyup="search()">
+					</form>
+				</span>
+			</div>
+		</div>
+		<!----------------------------------------La table de liste ---------------------------------------->
+		<div class="portlet-body">
+			<table class="table-scrollable">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th><div class="th">
+									D&eacute;signation <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('periode') "
+										data-ng-class="{active: row == 'periode'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-periode') "
+										data-ng-class="{active: row == '-periode'}"></span>
+								</div></th>
+							<th><div class="th">
+
+									Formation <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('codeFormation') "
+										data-ng-class="{active: row == 'codeFormation'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-codeFormation') "
+										data-ng-class="{active: row == '-codeFormation'}"></span>
+								</div></th>
+							<th><div class="th">
+									Ann&eacute;e <span
+										class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('anneeUniversitaire') "
+										data-ng-class="{active: row == 'anneeUniversitaire'}"></span>
+									<span class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-anneeUniversitaire') "
+										data-ng-class="{active: row == '-anneeUniversitaire'}"></span>
+								</div></th>
+							<th><div class="th">
+									UE <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('codeUE') "
+										data-ng-class="{active: row == 'codeUE'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-codeUE') "
+										data-ng-class="{active: row == '-codeUE'}"></span>
+								</div></th>
+							<th><div class="th">
+									Etat <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('etat') "
+										data-ng-class="{active: row == 'etat'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-etat') "
+										data-ng-class="{active: row == '-etat'}"></span>
+								</div></th>
+								<th><div class="th">
+									Responsable <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('periode') "
+										data-ng-class="{active: row == 'periode'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-periode') "
+										data-ng-class="{active: row == '-periode'}"></span>
+								</div></th>
+							<th><div class="th">
+									D&eacute;but <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('periode') "
+										data-ng-class="{active: row == 'periode'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-periode') "
+										data-ng-class="{active: row == '-periode'}"></span>
+								</div></th>
+							<th><div class="th">
+									Fin <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('periode') "
+										data-ng-class="{active: row == 'periode'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-periode') "
+										data-ng-class="{active: row == '-periode'}"></span>
+								</div></th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr data-ng-repeat="e in evaluations" class="evaluation">
+							<td ng-click="affiche(e.idEvaluation)">{{e.designation}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.code_formation}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.annee}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.code_ue}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.etat}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.noEnseignant.nom}} {{e.noEnseignant.prenom}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.debutReponse | date: "dd/MM/yyyy"}}</td>
+							<td ng-click="affiche(e.idEvaluation)">{{e.finReponse | date: "dd/MM/yyyy"}}</td>
+							<td ng-click="affiche(e.idEvaluation)"><span  class="eye fa fa-eye"></span></td>
+							<td ng-click="info(e.idEvaluation)"><span class="fa fa-caret-square-o-down" ></span></td>
+					</tr>
+					</tbody>
+				</table>
+				<!-- -------------------------------Footer ----------------------- -->
+				<footer class="table-footer">
+					<div class="row">
+						<div class="col-md-6 page-num-info">
+							<span> Afficher <select data-ng-model="numPerPage"
+								data-ng-options="num for num in numPerPageOpt"
+								data-ng-change="onNumPerPageChange()">
+							</select> par page
+							</span>
+						</div>
+						<div class="col-md-6 text-right pagination-container">
+							<pagination class="pagination-sm" ng-model="currentPage"
+								total-items="filteredEvaluation.length" max-size="4"
+								ng-change="select(currentPage)" items-per-page="numPerPage"
+								rotate="false" boundary-links="true"></pagination>
+						</div>
+					</div>
+				</footer>
+		</div>
+	</div>
+</div>

@@ -25,6 +25,12 @@ app.factory('informationFactory',['$http',function($http){
 		  getQualificatifs:function(){
 			  return $http.get("http://localhost:8090/nombreQualificatifs");
 		  },
+		  getPromotion: function(){
+	    	  return $http.get('http://localhost:8090/getPromoPKByEtudiant');
+	      },
+		  getEtudiantEvaluations:function(promotionPK){
+			  return $http.post("http://localhost:8090/nombreEvaluationsPromo",promotionPK);
+		  }
 	  };
   }]);
 app.controller('DashboardController', function($rootScope, $scope, informationFactory, $http, $timeout) {
@@ -92,7 +98,20 @@ app.controller('DashboardController', function($rootScope, $scope, informationFa
     .error(function(data){
   	  console.log("impossible de recuperer le nombre de qualificatif");
     });
-    
+    var promisePromoEtu = informationFactory.getPromotion();
+	promisePromoEtu.success(function(data){
+		 $scope.promotion = data;
+		 var promiseNombreEva = informationFactory.getEtudiantEvaluations($scope.promotion.promotionPK);
+		 promiseNombreEva.success(function(data){
+			 $scope.nombreEtudiantEvaluations = data;
+		 })
+		 .error(function(data){
+			 console.log("impossible de recuperer le nombre d'evaluation concernant un etudiant");
+		 });
+	})
+	.error(function(data){
+		console.log("impossible de recuperer la promotion");
+	});
     $scope.$on('$viewContentLoaded', function() {   
         // initialize core components
         Metronic.initAjax();

@@ -1,0 +1,86 @@
+<div class="page" ng-controller="EtudiantEvaluationsDetailsController">
+	<div class="panel panel-default ens-edit">
+		<div class="panel-heading">
+			<strong><span class="glyphicon glyphicon-th"></span>
+				&Eacute;valuation</strong>
+		</div>
+		<div class="panel-body">
+<!-- Consultation -->
+			<div class="portlet-body form" ng-hide="edit">
+				<div class="media-body">
+			<form class="form-horizontal form-bordered">
+				<div class="form-group">
+					<div class="col-md-3"><strong>Désignation</strong></div>
+					<div class="col-md-3">{{evaluation.designation}}</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3"><strong>Formation</strong></div>
+					<div class="col-md-3">{{evaluation.code_formation}}</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3"><strong>Année</strong></div>
+					<div class="col-md-3">{{evaluation.annee}}</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3"><strong>Code UE</strong></div>
+					<div class="col-md-3">{{evaluation.code_ue}}</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3"><strong>Etat</strong></div>
+					<div class="col-md-3">{{evaluation.etat}}</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3"><strong>Debut réponse</strong></div>
+					<div class="col-md-3">{{evaluation.debutReponse | date:
+						"dd/MM/yyyy"}}</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3"><strong>Fin réponse</strong></div>
+					<div class="col-md-3">{{evaluation.finReponse | date:
+						"dd/MM/yyyy"}}</div>
+				</div>
+				
+				<!-- Affichage des rubriques -->
+				
+<!-- 				<div class="portlet" style="margin-top:10%;"> -->
+<!--                                 <div class="portlet-title"> -->
+<!--                                     <div class="caption"> -->
+<!--                                         <i class="fa fa-shopping-cart"></i>Rubriques</div> -->
+<!--                                     <div class="tools"> -->
+<!--                                         <a href="javascript:;" class="collapse" data-original-title="" title=""> </a> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                                 <div class="portlet-body"> -->
+<!--                                     <div class="table-scrollable"> -->
+<!--                                         <table class="table table-striped table-bordered table-advance table-hover" data-ng-repeat="re in rubriqueEvaluations" class="rubriqueEvaluation"> -->
+<!--                                             <thead> -->
+<!--                                                 <tr> -->
+<!--                                                 	<th>Ordre </th> -->
+<!--                                                     <th>Désignation </th> -->
+<!--                                                     <th>Questions incluses / Couples qualificatifs </th> -->
+<!--                                                 </tr> -->
+<!--                                             </thead> -->
+<!--                                             <tbody> -->
+<!--                                                 <tr> -->
+<!--                                                     <td> {{re.idRubrique.ordre}}</td> -->
+<!--                                                     <td> {{re.idRubrique.designation}}</td> -->
+<!--                                                     <td><p data-ng-repeat="q in re.questionEvaluationCollection" class="questionEvaluationCollection">{{q.idQuestion.intitule}}  {{q.idQuestion.idQualificatif.maximal}} / {{q.idQuestion.idQualificatif.minimal}}</p></td> -->
+<!--                                                 </tr> -->
+                                                
+<!--                                             </tbody> -->
+<!--                                         </table> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+				<!-- Fin d'affichage des rubriques -->
+				
+				</br> <a class="btn btn-primary" href="#/etudiantEvaluations">
+					<span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+			 </form>
+			</div>
+			
+			
+		</div>
+</div>
+	</div>
+</div>
