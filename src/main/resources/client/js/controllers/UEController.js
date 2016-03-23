@@ -148,17 +148,19 @@ var edit = false;
     ['$scope', '$stateParams', '$location', 'ueFactory', 'toaster',
     function($scope, $stateParams, $location, ueFactory, toaster){      
     	$scope.edit = edit;
-    	
     	$scope.show = function(){
     		var uniteEnseignementPK = {
             		"codeFormation" : $stateParams.codeFormation,
             		"codeUe" : $stateParams.codeUe
             };
+    	
     		
             var promisesFactory = ueFactory.get(uniteEnseignementPK);
             promisesFactory.success(function(data) {
          		$scope.ue = data;
-         		$scope.ue.semestre = parseInt(data.semestre);
+         		
+         		$scope.ue.semestre = data.semestre;
+         		$scope.semestreSelected = $scope.ue.semestre;
          		$scope.formations = [{
          				"codeFormation" : data.uniteEnseignementPK.codeFormation
          		}];
@@ -209,8 +211,15 @@ var edit = false;
     	 var promiseGetSemestre= ueFactory.getDomain();
     	 promiseGetSemestre.success(function(data,statut){
          	$scope.semestres= data;
-         	$scope.semestreSelected= $scope.ue.semestre;
+         	for (var i=0; i<$scope.semestres.length; i++){
+         		console.log("compare " + $scope.semestres[i].rvAbbreviation + " to " + $scope.semestreSelected);
+         		console.log("ue.abbreviation : ", $scope.ue.semestre);
+         		if($scope.semestres[i].rvAbbreviation === $scope.ue.semestre.trim()){
+         			$scope.semestreSelected= $scope.semestres[i];
+         		}
+         	}
          })
+         
          .error(function(data,statut){
        	  console.log("impossible de recuperer la liste des types");
          });
@@ -229,7 +238,7 @@ var edit = false;
         					"codeUe" : $scope.ue.uniteEnseignementPK.codeUe
         				},
         				"designation" : $scope.ue.designation,
-        				"semestre" : $scope.ue.semestre,
+        				"semestre" : $scope.semestreSelected.rvAbbreviation,
         				"description" : $scope.ue.description,
         				"nbhCm" : $scope.ue.nbhCm,
         				"nbhTd" : $scope.ue.nbhTd,

@@ -62,9 +62,39 @@
 			</form>
 		</div>      
         <!-- Edition -->
-        <div ng-show="edit">            
+        <div ng-show="edit">   
+        <div class="portlet light bordered">
+        <div class="caption" ng-hide="ajout">
+                    <i class="fa fa-gears font-blue"></i>
+                    <span class="caption-subject font-blue bold uppercase bold"> Mise &agrave; jour</span>
+                </div>
+                <div class="caption" ng-show="ajout">
+                    <i class="fa fa-plus font-blue"></i>
+                    <span class="caption-subject font-blue sbold uppercase bold"> Nouvelle promotion </span>
+                </div> 
+                </br></br></br>
+                        
             <form class="form-horizontal" name="ueForm">
-            
+                
+             <div form-group class="form-group" form-group-class="has-feedback">
+						<label for="" class="col-sm-2">Unit&eacute; d'Enseignement<span
+							id="required-field">*</span></label>
+						<div class="col-sm-10">
+						<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-bookmark-o"></i>
+                        </span>
+							<input type="text" class="form-control" name="codeUe" ng-model="ue.uniteEnseignementPK.codeUe"
+								mask='*' repeat="8"  restrict="reject" validate="false"
+								ng-pattern="/^[A-Za-z éêöôçèàûù']+$/
+								ng-em-required="Unit&eacute; d'Enseignement obigatoire"
+      						  	ng-em-pattern="Format incorrect! exemple:JEE" 
+      						  	placeholder="Unit&eacute; d'Enseignement" required/>
+						</div>
+								<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="ueForm.codeUe.$valid"></span>
+                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="ueForm.codeUe.$invalid"></span>
+						</div>
+					</div>    
+                
             <div form-group class="form-group" form-group-class="has-feedback">
 						<label for="" class="col-sm-2">D&eacute;signation<span
 							id="required-field">*</span></label>
@@ -74,7 +104,7 @@
                         </span>
 							<input type="text" class="form-control" name="designation" ng-model="ue.designation"
 								mask='*' repeat="56"  restrict="reject" validate="false"
-								ng-pattern="/^[A-Za-z' \-]+$/" 
+								ng-pattern="/^[A-Za-z éêöôçèàûù']+$/
 								ng-em-required="D&eacute;signation obigatoire"
       						  	ng-em-pattern="Format incorrect! exemple:JEE" 
       						  	placeholder="D&eacute;signation" required/>
@@ -84,7 +114,7 @@
 						</div>
 					</div>
             
-               <div class="row" style="margin-top:25px; margin-left: 268px;">
+               <div class="row" style="margin-top:40px; margin-left: 268px;">
                <div class="col-md-3" style="margin-right: 80px;">
                 <div class="form-group form-md-line-input has-info">
 						<div class="input-group">
@@ -116,8 +146,8 @@
                  <div class="form-group form-md-line-input has-info">
 						<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-							<select class="form-control edited" id="form_control_1" ng-hide="isVisible" ng-model="semestreSelected" name="semestre" required>
-								<option data-ng-repeat="s in semestres" value="{{s.rvAbbreviation}}">{{s.rvLowValue}}</option>
+							<select class="form-control edited" id="form_control_1" ng-hide="isVisible" ng-model="semestreSelected" name="semestre" 
+									ng-options="s.rvAbbreviation for s in semestres track by s.rvAbbreviation" 	required>
 							</select>
 							<label for="form_control_1">Semestre <span id="required-field">*</span></label>
 						</div>
@@ -126,49 +156,50 @@
 				</div>
 				</div></div>
 						
-				<div form-group class="form-group" form-group-class="has-feedback">
-						<label for="" class="col-sm-2">Description<span
-							id="required-field">*</span></label>
+				<div form-group class="form-group" form-group-class="has-feedback" style="margin-top:40px;">
+						<label for="" class="col-sm-2">Description</label>
 						<div class="col-sm-10">
 						<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-file-text-o"></i>
                         </span>
-							<input type="text" class="form-control" name="description" ng-model="ue.description"
-								mask='*' repeat="56"  restrict="reject" validate="false"
-								ng-pattern="/^[A-Za-z' \-]+$/" 
-								ng-em-required="D&eacute;signation obigatoire"
-      						  	ng-em-pattern="Format incorrect! exemple:JEE" 
-      						  	placeholder="Description" required/>
+							<input type="text" class="form-control" name="description" ng-model="ue.description" 
+      						  	placeholder="Description"/>
 						</div>
-								<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="ueForm.designation.$valid"></span>
-                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="ueForm.designation.$invalid"></span>
 						</div>
 					</div>
-												
-                <div class="form-group">
-                    <label for="" class="col-sm-2">Nombres d'heures (CM)</label>
-                    <div class="col-sm-10">
-                        <input type="number" class="form-control" ng-model="ue.nbhCm">
-                    </div>                    
-                </div>
-                <div class="form-group">
-                    <label for="" class="col-sm-2">Nombres d'heures (TD)</label>
-                    <div class="col-sm-10">
-                        <input type="number" class="form-control" ng-model="ue.nbhTd">
-                    </div>                    
-                </div>
-                <div class="form-group">
-                    <label for="" class="col-sm-2">Nombres d'heures (TP)</label>
-                    <div class="col-sm-10">
-                        <input type="number" class="form-control" ng-model="ue.nbhTp">
-                    </div>                    
-                </div>                
+								
+				<div class="row" style="margin-top:50px; margin-left: 268px;">
+               <div class="col-md-3" style="margin-right: 80px;">
+                <div class="form-group form-md-line-input has-info">
+						<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-sort-numeric-asc"></i></span>
+							<input type="number" class="form-control" ng-model="ue.nbhCm">
+							<label for="form_control_1">Nombres d'heures (CM)</label>
+						</div>
+				</div></div> 
+				
+				               <div class="col-md-3" style="margin-right: 80px;">
+                <div class="form-group form-md-line-input has-info">
+						<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-sort-numeric-asc"></i></span>
+							<input type="number" class="form-control" ng-model="ue.nbhTd">
+							<label for="form_control_1">Nombres d'heures (TD)</label>
+						</div>
+				</div></div> 
+				
+				               <div class="col-md-3" style="margin-right: 80px;">
+                <div class="form-group form-md-line-input has-info">
+						<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-sort-numeric-asc"></i></span>
+							<input type="number" class="form-control" ng-model="ue.nbhTp">
+							<label for="form_control_1">Nombres d'heures (TP)</label>
+						</div>
+				</div></div>              
+  			</div></div>								
+               
 	            <button class="btn btn-danger" ng-click="cancel()"> Annuler</button>
 	            <button ng-click="submit()" class="btn btn-success pull-right" 
-		                ng-disabled="ueForm.codeUe.$dirty && ueForm.codeUe.$invalid || ueForm.codeFormation.$dirty && ueForm.codeFormation.$invalid ||
-					            	 ueForm.enseignant.$dirty && ueForm.enseignant.$invalid || ueForm.designation.$dirty && ueForm.designation.$invalid ||
-					            	 ueForm.semestre.$dirty && ueForm.semestre.$invalid
-					            	 ">Valider</button>
+		                ng-disabled="ueForm.$invalid">Valider</button>
             </form>
         </div>
         <br/>
