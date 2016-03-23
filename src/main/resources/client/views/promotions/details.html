@@ -1,7 +1,21 @@
-<!-- 
+<!-- @Author Zouhair
  -- Author Kenza ABOUAKIL
  -- Détails d'une promotion
  -->
+ <!-- Navigation-Details -->
+<ul class="page-breadcrumb breadcrumb" ng-hide="edit">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">D&eacute;tails d'une promotion</span></li>
+</ul>
+<!-- END Navigation -->
+<!-- Navigation Mise à jour -->
+<ul class="page-breadcrumb breadcrumb" ng-show="edit">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">Mise &agrave; jour d'une promotion</span></li>
+</ul>
+<!-- END Navigation -->
 <div class="page" ng-controller="PromotionDetailsController as promoDetailCtrl">
 	<div class="portlet light bordered">
 		<div class="portlet-title">
