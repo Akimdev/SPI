@@ -123,7 +123,6 @@
 	    	
     	//Affiche les informations sur les elements constitutifs concernant une formation
 	    	$scope.afficheEC = function(uePK){
-	    		console.log(uePK);
 		    	 var promiseEC = formationsFactory.getECsByCodeUe(uePK);
 		    	    promiseEC.success(function(data){
 		    	    	$scope.ecs = data;

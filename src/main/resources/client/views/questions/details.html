@@ -2,12 +2,26 @@
 -- @Author Zouhair JEMMAA
 -- Détails d'une question
 -->
+<!-- Navigation-Details -->
+<ul class="page-breadcrumb breadcrumb" ng-hide="edit">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">D&eacute;tails d'une question standard</span></li>
+</ul>
+<!-- END Navigation -->
+<!-- Navigation Mise à jour -->
+<ul class="page-breadcrumb breadcrumb" ng-show="edit">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">Mise &agrave; jour d'une question standard</span></li>
+</ul>
+<!-- END Navigation -->
 <div class="page" ng-controller="QuestionDetailsController">
 	<div class="portlet light bordered">
 		<div class="portlet-title">
 			<div class="caption">
 				<i class="icon-social-dribble font-red"></i> <span
-					class="cpation-subject font-red bold uppercase">Question</span>
+					class="cpation-subject font-red bold uppercase">Question standards</span>
 			</div>
 		</div>
 		<!--------------------------- Consultation --------------------------->

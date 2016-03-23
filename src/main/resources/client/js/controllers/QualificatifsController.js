@@ -201,6 +201,7 @@ var edit = false;
 	        	var promisesajout = qualificatifsFactory.set($scope.qualificatif);
 	        	promisesajout.success(function(data, status, headers, config) {
 	        		swal("Félicitation!", "Qualificatif modifié!", "success");
+	        		history.back();
 				});
 	        	promisesajout.error(function(data, status, headers, config) {
 	        		toaster.pop({
