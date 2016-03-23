@@ -1,10 +1,7 @@
 package fr.univbrest.dosi.spi.controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Date;
-import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -19,10 +16,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import fr.univbrest.dosi.spi.Application;
 import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Evaluation;
+import fr.univbrest.dosi.spi.bean.PromotionPK;
 import fr.univbrest.dosi.spi.service.EnseignantService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -42,6 +42,27 @@ public class EvaluationControllerTest {
 
 			Assert.assertEquals(200, mockResponse.getStatusLine()
 					.getStatusCode());
+	}
+	
+	@Test
+	public void getEvaluationsPromoTest() throws ClientProtocolException, IOException {
+
+			PromotionPK promotion = new PromotionPK("M2DOSI","2014-2015");
+		
+			final HttpClient client = HttpClientBuilder.create().build();
+
+			final HttpPost mockRequest = new HttpPost("http://localhost:8090/getEvaluationsPromo");
+
+			final ObjectMapper mapper = new ObjectMapper();
+			final com.fasterxml.jackson.databind.ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+			final String jsonInString = ow.writeValueAsString(promotion);
+			mockRequest.addHeader("content-type", "application/json");
+			mockRequest.setEntity(new StringEntity(jsonInString));
+
+			final HttpResponse mockResponse = client.execute(mockRequest);
+
+			// Le code retour HTTP doit être un succès (200)
+			Assert.assertEquals(200, mockResponse.getStatusLine().getStatusCode());
 	}
 	
 	@Test

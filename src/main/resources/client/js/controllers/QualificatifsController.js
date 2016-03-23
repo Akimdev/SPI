@@ -171,15 +171,14 @@ var edit = false;
     	  	var promisesFactory = qualificatifsFactory.get($stateParams.id);
 	     	promisesFactory.success(function(data) {
 	       		$scope.isVisible = true;
-	       		$scope.edit=
 	     		$scope.qualificatif = data;
 	     		console.log("\tQualificatif récupéré: ", data);
 	     	});
       }      
       
       $scope.edition = function(){
-    	  edit = true;
-    	  $scope.edit = edit;
+    	  $scope.edit = true;
+    	  //$scope.edit = edit;
         }
 
         $scope.submit = function(){
@@ -211,28 +210,27 @@ var edit = false;
 	                    showCloseButton: true
 	                });
 				});
-	        	
-	            edit = false;
-	            $scope.edit = edit;
+	            $scope.edit = false;
 	        }
-        	$scope.refresh();
+        	//$scope.refresh();
       }
       $scope.edition = function(){
         $scope.edit = true;
         $scope.button_clicked = true;
       }
-
+      
    // annule l'édition
       $scope.cancel = function(){
-        if($stateParams.id == "nouveau"){
-          $location.path('/qualificatifs');
-        } else {
-        	$location.path('/qualificatifs/'+$stateParams.id);
-            edit = false;
-            $scope.edit = edit;
-        }
+          history.back();
       } 
-
+//      $scope.cancel = function(){
+//          if($routeParams.id == "nouveau"){
+//            $location.path('/admin/qualificatifs');
+//          } else {
+//          	$location.path('qualificatif/'+$stateParams.id);
+//          	$scope.edit = false;
+//          }
+//        } 
     }]
   );
 }).call(this);

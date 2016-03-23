@@ -1,0 +1,107 @@
+<div class="page" ng-controller="EtudiantEvaluationsDetailsController">
+	<div class="panel panel-default ens-edit">
+		<div class="panel-heading">
+			<strong><span class="glyphicon glyphicon-th"></span>
+				&Eacute;valuation</strong>
+		</div>
+		<div class="panel-body">
+				<!--------------------------- Consultation --------------------------->
+		</br>
+		<div ng-hide="edit">
+			<div class="portlet light bordered">
+				<div class="caption">
+                    <i class="fa fa-info-circle font-blue"></i>
+                    <span class="caption-subject font-blue sbold uppercase bold"> Informations g&eacute;n&eacute;rales</span>
+                </div></br></br>
+				
+					<form class="form-body">
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">D&eacute;signation</label>
+								<div class="col-md-2">{{evaluation.designation}}</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Formation</label>
+								<div class="col-md-2">{{evaluation.code_formation}}</div>
+							</div>
+							
+						</div></br>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Ann&eacute;e</label>
+								<div class="col-md-2">{{evaluation.annee}}</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label">Unit&eacute; Enseignement</label>
+								<div class="col-md-2">{{evaluation.code_ue}}</div>
+							</div>
+						</div></br>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Element Constitutif</label>
+								<div class="col-md-2">{{evaluation.code_ec}}</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Etat</label>
+								<div class="col-md-2">{{evaluation.etat}}</div>
+							</div>
+						</div></br>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">D&eacute;but </label>
+								<div class="col-md-3">{{evaluation.debutReponse | date:
+						"dd/MM/yyyy"}}</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Fin</label>
+								<div class="col-md-3">{{evaluation.finReponse | date:
+						"dd/MM/yyyy"}}</div>
+							</div>
+						</div></br>
+					</form></br>
+			</div>
+		
+				<!-- Affichage des rubriques -->
+				
+<!-- 				<div class="portlet" style="margin-top:10%;"> -->
+<!--                                 <div class="portlet-title"> -->
+<!--                                     <div class="caption"> -->
+<!--                                         <i class="fa fa-shopping-cart"></i>Rubriques</div> -->
+<!--                                     <div class="tools"> -->
+<!--                                         <a href="javascript:;" class="collapse" data-original-title="" title=""> </a> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                                 <div class="portlet-body"> -->
+<!--                                     <div class="table-scrollable"> -->
+<!--                                         <table class="table table-striped table-bordered table-advance table-hover" data-ng-repeat="re in rubriqueEvaluations" class="rubriqueEvaluation"> -->
+<!--                                             <thead> -->
+<!--                                                 <tr> -->
+<!--                                                 	<th>Ordre </th> -->
+<!--                                                     <th>Désignation </th> -->
+<!--                                                     <th>Questions incluses / Couples qualificatifs </th> -->
+<!--                                                 </tr> -->
+<!--                                             </thead> -->
+<!--                                             <tbody> -->
+<!--                                                 <tr> -->
+<!--                                                     <td> {{re.idRubrique.ordre}}</td> -->
+<!--                                                     <td> {{re.idRubrique.designation}}</td> -->
+<!--                                                     <td><p data-ng-repeat="q in re.questionEvaluationCollection" class="questionEvaluationCollection">{{q.idQuestion.intitule}}  {{q.idQuestion.idQualificatif.maximal}} / {{q.idQuestion.idQualificatif.minimal}}</p></td> -->
+<!--                                                 </tr> -->
+                                                
+<!--                                             </tbody> -->
+<!--                                         </table> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+				<!-- Fin d'affichage des rubriques -->
+				
+				</br> <a class="btn btn-primary" href="#/etudiantEvaluations">
+					<span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+			 </form>
+			</div>
+			
+			
+		</div>
+</div>
+	</div>
+</div>

@@ -5,7 +5,7 @@
 var app = angular.module("app", ['bootstrap.formGroup', 'ngMask','ngRoute',"ui.router", "ui.bootstrap", "oc.lazyLoad",'app.controllers','app.ec', 'app.configEvaluation',
 		"ngSanitize", 'app.enseignants', 'app.formations', 'app.ue','ngAnimate','toaster', 'app.task',
 		'app.etudiants', 'app.qualificatifs', 'app.questions','app.evaluations', 'app.rubriques', 'easypiechart',
-		'app.promotions', 'app.auth']);
+		'app.promotions', 'app.auth', 'app.etudiantEvaluations']);
 
 /* To configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
 app.config([ '$ocLazyLoadProvider', function($ocLazyLoadProvider) {
@@ -1465,7 +1465,91 @@ app
 													} ]
 										}
 									})
+						// EtudiantEvaluations
+							.state(
+									'etudiantEvaluations',
+									{
+										url : "/etudiantEvaluations",
+										templateUrl : "views/etudiantEvaluation/list.html",
+										data : {
+											pageTitle : 'Liste des évaluations concernant une promotion donnée',
+											pageSubTitle : 'Liste des évaluations concernant une promotion donnée'
+										},
+										controller : "EtudiantEvaluationsController",
+										resolve : {
+											deps : [
+													'$ocLazyLoad',
+													function($ocLazyLoad) {
+														return $ocLazyLoad
+																.load({
+																	name : 'app',
+																	insertBefore : '#ng_load_plugins_before', // load
+																												// the
+																												// above
+																												// css
+																												// files
+																												// before
+																												// '#ng_load_plugins_before'
+																	files : [
+																			'assets/global/plugins/morris/morris.css',
+																			'assets/admin/pages/css/tasks.css',
 
+																			'assets/global/plugins/morris/morris.min.js',
+																			'assets/global/plugins/morris/raphael-min.js',
+																			'assets/global/plugins/jquery.sparkline.min.js',
+
+																			'assets/admin/pages/scripts/index3.js',
+																			'assets/admin/pages/scripts/tasks.js',
+
+																			'js/controllers/EvaluationsController.js' ]
+																});
+													} ]
+										}
+									})
+							
+							// Details etudiantEvaluations
+							.state(
+									'consulterEvalutations',
+									{
+										url : "/etudiantEvaluations/:infos/:id",
+										templateUrl : "views/etudiantEvaluation/details.html",
+										data : {
+											pageTitle : 'détail d évaluation concernant une promotion donnée',
+											pageSubTitle : 'détail d évaluation concernant une promotion donnée'
+										},
+										controller : "EtudiantEvaluationsDetailsController",
+										resolve : {
+											deps : [
+													'$ocLazyLoad',
+													function($ocLazyLoad) {
+														return $ocLazyLoad
+																.load({
+																	name : 'app',
+																	insertBefore : '#ng_load_plugins_before', // load
+																												// the
+																												// above
+																												// css
+																												// files
+																												// before
+																												// '#ng_load_plugins_before'
+																	files : [
+																			'assets/global/plugins/morris/morris.css',
+																			'assets/admin/pages/css/tasks.css',
+
+																			'assets/global/plugins/morris/morris.min.js',
+																			'assets/global/plugins/morris/raphael-min.js',
+																			'assets/global/plugins/jquery.sparkline.min.js',
+
+																			'assets/admin/pages/scripts/index3.js',
+																			'assets/admin/pages/scripts/tasks.js',
+
+																			'js/controllers/EvaluationsController.js' ]
+																});
+													} ]
+										}
+									})
+									
+							
 							// Rubriques
 							.state(
 									'rubriques',
