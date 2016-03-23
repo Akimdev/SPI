@@ -16,4 +16,5 @@ import fr.univbrest.dosi.spi.bean.Evaluation;
 public interface EvaluationRepository extends PagingAndSortingRepository<Evaluation, Integer>{
 
    Evaluation findByIdEvaluation(@Param("idEvaluation") Integer idEvaluation);
+   List<Evaluation> findByFormationAndAnnee(@Param("code_formation")String code_formation, @Param("annee")String anneeUniversitaire);
 }

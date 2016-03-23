@@ -67,6 +67,13 @@ public class EvaluationServiceTest {
 	}
 	
 	@Test
+	public void getEvaluationsPromoTest(){
+		List<Evaluation> listeEvaluationPromo = evaServ.getEvaluationsPromo("M2DOSI", "2014-2015");
+		Assert.assertNotNull(listeEvaluationPromo);
+		Assert.assertTrue(listeEvaluationPromo.size()>0);
+	}
+	
+	@Test
 	public void deleteEvaluationTest(){
 		evaServ.deleteEvaluation(36);
 		List<Evaluation> listeEvaluation = evaServ.getAllEvaluations();
