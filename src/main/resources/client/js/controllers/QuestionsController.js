@@ -176,6 +176,10 @@
      		var promiseQualif = questionsFactory.getQualificatif($stateParams.id);
          		promiseQualif.success(function(result){
          			$scope.qualif = result;
+         			for(var i=0; i<$scope.qualificatifs.length; i++){
+           				if(angular.equals($scope.qualificatifs[i], result))
+           					$scope.qualifSelected= $scope.qualificatifs[i];
+           			}
 	     	}).error(function(data){
          			});
          	}).error(function(data) {   
@@ -207,17 +211,19 @@
 	    $scope.submit = function(){
 	    	var idQualificatif;
 	    	var idQualNumber;
-	    	if(typeof $scope.qualificatif === 'undefined'){
-	    		idQualificatif = $scope.qualif.idQualificatif;
-	    		idQualNumber=parseInt(idQualificatif);
-	    	}
-	    	else{
-	    		idQualificatif = $scope.qualificatif;
-	    	    idQualNumber=parseInt(idQualificatif);
-	    	}
+	    	idQualificatif = $scope.qualifSelected.idQualificatif;
+//	    	if($scope.qualificatif){
+//	    		idQualificatif = $scope.qualif.idQualificatif;
+//	    		idQualNumber=parseInt(idQualificatif);
+//	    	}
+//	    	else{
+//	    		//idQualificatif = $scope.qualificatif;
+//	    	    idQualNumber=parseInt(idQualificatif);
+//	    	}
+	    	
 	    	var quesQual = {
 		    			"qualificatif" : {
-		    				"idQualificatif" :idQualNumber
+		    				"idQualificatif" :idQualificatif
 		    			},
 		    			"question" : {
 		    				"idQuestion" : $scope.question.idQuestion,
@@ -230,6 +236,8 @@
 	    	
 	    var promisesajout;
 	    	if($stateParams.id == "nouveau"){
+	    		quesQual.question.idQuestion = 0;
+	    		quesQual.question.type = "QUS";
 	    		promisesajout = questionsFactory.add(quesQual);
 	    	}else{
 	    		promisesajout = questionsFactory.set(quesQual);
@@ -237,9 +245,11 @@
 	    		
 	    	promisesajout.success(function(data, status) {
 	    		if($stateParams.id == "nouveau"){
-	    			swal("Félicitation!", "La nouvelle question est ajoutée!!", "success");
+	    			swal("Félicitation!", "La nouvelle question est ajoutée !", "success");
+	    			history.back();
 	    		}else{
 	    			swal("Félicitation!", "La question est modifiée!", "success");
+	    			history.back();
 	    		}
 	    var promise = questionsFactory.getQualificatifById(idQualificatif);
 	    		
