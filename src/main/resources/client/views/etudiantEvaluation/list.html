@@ -96,7 +96,7 @@
 										data-ng-class="{active: row == '-etat'}"></span>
 								</div></th>
 								<th><div class="th">
-									Responsable <span class="glyphicon glyphicon-chevron-up"
+									Enseignant <span class="glyphicon glyphicon-chevron-up"
 										data-ng-click=" order('periode') "
 										data-ng-class="{active: row == 'periode'}"></span> <span
 										class="glyphicon glyphicon-chevron-down"
@@ -132,7 +132,6 @@
 							<td ng-click="affiche(e.idEvaluation)">{{e.debutReponse | date: "dd/MM/yyyy"}}</td>
 							<td ng-click="affiche(e.idEvaluation)">{{e.finReponse | date: "dd/MM/yyyy"}}</td>
 							<td ng-click="affiche(e.idEvaluation)"><span  class="eye fa fa-eye"></span></td>
-							<td ng-click="info(e.idEvaluation)"><span class="fa fa-caret-square-o-down" ></span></td>
 					</tr>
 					</tbody>
 				</table>

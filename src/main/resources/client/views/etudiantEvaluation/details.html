@@ -5,41 +5,62 @@
 				&Eacute;valuation</strong>
 		</div>
 		<div class="panel-body">
-<!-- Consultation -->
-			<div class="portlet-body form" ng-hide="edit">
-				<div class="media-body">
-			<form class="form-horizontal form-bordered">
-				<div class="form-group">
-					<div class="col-md-3"><strong>Désignation</strong></div>
-					<div class="col-md-3">{{evaluation.designation}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Formation</strong></div>
-					<div class="col-md-3">{{evaluation.code_formation}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Année</strong></div>
-					<div class="col-md-3">{{evaluation.annee}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Code UE</strong></div>
-					<div class="col-md-3">{{evaluation.code_ue}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Etat</strong></div>
-					<div class="col-md-3">{{evaluation.etat}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Debut réponse</strong></div>
-					<div class="col-md-3">{{evaluation.debutReponse | date:
-						"dd/MM/yyyy"}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Fin réponse</strong></div>
-					<div class="col-md-3">{{evaluation.finReponse | date:
-						"dd/MM/yyyy"}}</div>
-				</div>
+				<!--------------------------- Consultation --------------------------->
+		</br>
+		<div ng-hide="edit">
+			<div class="portlet light bordered">
+				<div class="caption">
+                    <i class="fa fa-info-circle font-blue"></i>
+                    <span class="caption-subject font-blue sbold uppercase bold"> Informations g&eacute;n&eacute;rales</span>
+                </div></br></br>
 				
+					<form class="form-body">
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">D&eacute;signation</label>
+								<div class="col-md-2">{{evaluation.designation}}</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Formation</label>
+								<div class="col-md-2">{{evaluation.code_formation}}</div>
+							</div>
+							
+						</div></br>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Ann&eacute;e</label>
+								<div class="col-md-2">{{evaluation.annee}}</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label">Unit&eacute; Enseignement</label>
+								<div class="col-md-2">{{evaluation.code_ue}}</div>
+							</div>
+						</div></br>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Element Constitutif</label>
+								<div class="col-md-2">{{evaluation.code_ec}}</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Etat</label>
+								<div class="col-md-2">{{evaluation.etat}}</div>
+							</div>
+						</div></br>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">D&eacute;but </label>
+								<div class="col-md-3">{{evaluation.debutReponse | date:
+						"dd/MM/yyyy"}}</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Fin</label>
+								<div class="col-md-3">{{evaluation.finReponse | date:
+						"dd/MM/yyyy"}}</div>
+							</div>
+						</div></br>
+					</form></br>
+			</div>
+		
 				<!-- Affichage des rubriques -->
 				
 <!-- 				<div class="portlet" style="margin-top:10%;"> -->
