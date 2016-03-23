@@ -24,9 +24,10 @@
 						<div class="col-sm-4">
 							<input type="text" class="form-control" name="codeFormation"
 								min="1" ng-model="formation.codeFormation"
-								ng-disabled="isVisible" required> <span
-								style="color: red"
-								ng-show="formationForm.codeFormation.$dirty && formationForm.codeFormation.$invalid">
+								ng-disabled="isVisible" required> 
+								<span
+									style="color: red"
+									ng-show="formationForm.codeFormation.$dirty && formationForm.codeFormation.$invalid">
 								<span ng-show="formationForm.codeFormation.$error.required">Code
 									formation obligatoire.</span>
 						</div>
