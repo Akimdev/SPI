@@ -70,7 +70,7 @@
 			</div>
 		</div>
 		<!---------------------------------------- Evaluations  ---------------------------------------->
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div ng-show="!(user=='ETU')" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			<div class="dashboard-stat green-jungle">
 				<div class="visual">
 					<i class="fa fa-list-alt"> </i>
@@ -82,6 +82,24 @@
 					<div class="desc">Evaluations</div>
 				</div>
 				<a class="more" href="#/evaluations">Afficher la liste<i
+					class="m-icon-swapright m-icon-white"></i>
+				</a>
+			</div>
+		</div>
+		
+		<!---------------------------------------- Evaluations Concernant Un Etudiant---------------------------------------->
+		<div ng-show="user=='ETU'" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat green-jungle">
+				<div class="visual">
+					<i class="fa fa-list-alt"> </i>
+				</div>
+				<div class="details">
+					<div class="number">
+						<span data-counter="counterup" data-value="{{nombreEtudiantEvaluations}}">{{nombreEtudiantEvaluations}}</span>
+					</div>
+					<div class="desc">Evaluations</div>
+				</div>
+				<a class="more" href="#/etudiantEvaluations">Afficher la liste<i
 					class="m-icon-swapright m-icon-white"></i>
 				</a>
 			</div>

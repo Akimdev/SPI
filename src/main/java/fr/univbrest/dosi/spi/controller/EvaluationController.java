@@ -17,6 +17,7 @@ import fr.univbrest.dosi.spi.bean.Authentification;
 import fr.univbrest.dosi.spi.bean.CgRefCodes;
 import fr.univbrest.dosi.spi.bean.Enseignant;
 import fr.univbrest.dosi.spi.bean.Evaluation;
+import fr.univbrest.dosi.spi.bean.PromotionPK;
 import fr.univbrest.dosi.spi.service.DomainesSevices;
 import fr.univbrest.dosi.spi.service.EvaluationService;
 
@@ -80,5 +81,24 @@ public class EvaluationController {
 	@RequestMapping(value = "/nombreEvaluations", headers = "Accept=application/json")
 	public long nombreEvaluations() {
 		return evaServ.nombreEvaluations();
+	}
+	/**
+	 * @author Othman
+	 * @param promotionPK
+	 * @return  le nombre d'évaluations concernant une promotion donnée
+	 */
+	@RequestMapping(value="/nombreEvaluationsPromo",method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE}, headers = "Accept=application/json")
+	public int nombreEvaluationsPromo(@RequestBody PromotionPK promotionPK){
+		return evaServ.nombreEvaluationsPromo(promotionPK.getCodeFormation(), promotionPK.getAnneeUniversitaire());
+	}
+	
+	/**
+	 * @author Othman
+	 * @param promotionPK
+	 * @return liste d'évaluations concernant une promotion
+	 */
+	@RequestMapping(value="/getEvaluationsPromo",method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE}, headers = "Accept=application/json")
+	public List<Evaluation> getEvaluationsPromo(@RequestBody PromotionPK promotionPK){
+		return evaServ.getEvaluationsPromo(promotionPK.getCodeFormation(), promotionPK.getAnneeUniversitaire());
 	}
 }
