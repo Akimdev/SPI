@@ -103,9 +103,15 @@
 								<td>{{e.promotion.promotionPK.codeFormation}}</td>
 								<td>{{e.promotion.promotionPK.anneeUniversitaire}}</td>
 								<td>{{e.emailUbo}}</td>
-								<td id="iconGestion" ng-click="show(e.noEtudiant)"><span class="fa fa-eye"></span></td>
-								<td id="iconGestion" ng-click="edit(e.noEtudiant)"><span class="glyphicon glyphicon-edit"></span></td>
-								<td id="iconGestion" ng-click="supprime(e.noEtudiant)"><span class="glyphicon glyphicon-trash"></span></td>
+								<td id="iconGestion" ng-click="show(e.noEtudiant)">
+									<a href="#" data-toggle="tooltip" data-placement="top" title="Afficher les d&eacute;tails">
+									<span class="fa fa-eye"></span></a></td>
+								<td id="iconGestion" ng-click="edit(e.noEtudiant)">
+			                    	<a href="#" data-toggle="tooltip" data-placement="top" title="Editer">
+			                    	<span class="glyphicon glyphicon-edit"></span></a></td>
+								<td id="iconGestion" ng-click="supprime(e.noEtudiant)">
+			                    	<a href="#" data-toggle="tooltip" data-placement="top" title="Supprimer">
+			                    	<span class="glyphicon glyphicon-trash"></span></a></td>
 							</tr>
 						</tbody>
 					</table>

@@ -131,7 +131,9 @@
 							<td ng-click="affiche(e.idEvaluation)">{{e.noEnseignant.nom}} {{e.noEnseignant.prenom}}</td>
 							<td ng-click="affiche(e.idEvaluation)">{{e.debutReponse | date: "dd/MM/yyyy"}}</td>
 							<td ng-click="affiche(e.idEvaluation)">{{e.finReponse | date: "dd/MM/yyyy"}}</td>
-							<td ng-click="affiche(e.idEvaluation)"><span  class="eye fa fa-eye"></span></td>
+							<td ng-click="affiche(e.idEvaluation)">
+								<a href="#" data-toggle="tooltip" data-placement="top" title="Afficher les d&eacute;tails">
+								<span class="fa fa-eye"></span></a></td>
 					</tr>
 					</tbody>
 				</table>

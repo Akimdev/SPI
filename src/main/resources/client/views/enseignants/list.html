@@ -89,13 +89,19 @@
 						</thead>
 						<tbody>
 							<!-- currentPageEnseignant / enseignants -->
-				<tr style="cursor:pointer" data-ng-repeat="e in currentPageEnseignant" class="enseignant">
-					<td ng-click="affiche(e.noEnseignant)">{{e.nom}}</td>
-                    <td ng-click="affiche(e.noEnseignant)">{{e.prenom}}</td>
-                    <td ng-click="affiche(e.noEnseignant)">{{e.emailUbo}}</td>
-                    <td  id="iconGestion" ng-click="affiche(e.noEnseignant)"><span class="eye fa fa-eye"></td>
-                    <td  id="iconGestion" ng-click="edit(e.noEnseignant)"><span class="glyphicon glyphicon-edit"></td>
-                    <td  id="iconGestion" ng-click="supprime(e.noEnseignant)"><span class="glyphicon glyphicon-trash" ></span></td>
+				<tr data-ng-repeat="e in currentPageEnseignant" class="enseignant">
+					<td>{{e.nom}}</td>
+                    <td>{{e.prenom}}</td>
+                    <td>{{e.emailUbo}}</td>
+                    <td  id="iconGestion" ng-click="affiche(e.noEnseignant)">
+						<a href="#" data-toggle="tooltip" data-placement="top" title="Afficher les d&eacute;tails">
+						<span class="fa fa-eye"></span></a></td>
+                    <td  id="iconGestion" ng-click="edit(e.noEnseignant)">
+                    	<a href="#" data-toggle="tooltip" data-placement="top" title="Editer">
+                    	<span class="glyphicon glyphicon-edit"></span></a></td>
+                    <td  id="iconGestion" ng-click="supprime(e.noEnseignant)">
+                    	<a href="#" data-toggle="tooltip" data-placement="top" title="Supprimer">
+                    	<span class="glyphicon glyphicon-trash"></span></a></td>
 				</tr>
 						</tbody>
 					</table>
