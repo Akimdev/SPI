@@ -2,6 +2,20 @@
  -- @Author Mohamed LAKRAA
  -- Details des qualificatifs
  -->
+<!-- Navigation-Details -->
+<ul class="page-breadcrumb breadcrumb" ng-hide="edit">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">D&eacute;tails d'un qualificatif</span></li>
+</ul>
+<!-- END Navigation -->
+<!-- Navigation Mise à jour -->
+<ul class="page-breadcrumb breadcrumb" ng-show="edit">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">Mise &agrave; jour d'un qualificatif</span></li>
+</ul>
+<!-- END Navigation -->
 <div class="page" ng-controller="QualificatifDetailsController">
 	<div class="portlet light bordered">
 		<div class="portlet-title">
