@@ -37,6 +37,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Evaluation.findAll", query = "SELECT e FROM Evaluation e"),
+    @NamedQuery(name = "Evaluation.findByFormationAndAnnee", query = "SELECT e FROM Evaluation e WHERE e.annee = :annee AND e.code_formation = :code_formation"),
     @NamedQuery(name = "Evaluation.findByIdEvaluation", query = "SELECT e FROM Evaluation e WHERE e.idEvaluation = :idEvaluation"),
     @NamedQuery(name = "Evaluation.findByNoEvaluation", query = "SELECT e FROM Evaluation e WHERE e.noEvaluation = :noEvaluation"),
     @NamedQuery(name = "Evaluation.findByDesignation", query = "SELECT e FROM Evaluation e WHERE e.designation = :designation"),

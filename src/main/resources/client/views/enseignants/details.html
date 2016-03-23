@@ -1,7 +1,21 @@
-<!-- 
+<!--
  -- Author Soukaina ASSABBAR
  -- DÈtails d'un enseignant
  -->
+<!-- Navigation-Details -->
+<ul class="page-breadcrumb breadcrumb" ng-hide="edit">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">D&eacute;tails d'un enseignant</span></li>
+</ul>
+<!-- END Navigation -->
+<!-- Navigation Mise ‡ jour -->
+<ul class="page-breadcrumb breadcrumb" ng-show="edit">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">Mise &agrave; jour d'un enseignant</span></li>
+</ul>
+<!-- END Navigation -->
 <div class="page" ng-controller="EnsDetailsController">
 	<div class="portlet light bordered">
 		<div class="portlet-title">
@@ -12,7 +26,7 @@
 		</div>
 		<!--------------------------- Consultation --------------------------->
 		<div class="portlet-body form" ng-hide="edit">
-			<form class="form-horizontal form-bordered">
+					<form class="form-horizontal form-bordered">
 				<div class="form-group">
 					<div class="col-md-3">
 						<strong>Nom</strong>
@@ -104,7 +118,7 @@
 			<!------------------------Boutons Retour et Editer----------->
 
 			<a class="btn btn-primary" href="#/enseignants"><span
-				class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+							class="glyphicon glyphicon-arrow-left"></span> Retour</a>
 			<button class="btn btn-warning pull-right" ng-click="edition()">
 				<span class="glyphicon glyphicon-pencil"></span> Editer
 			</button>
@@ -117,60 +131,85 @@
 					</div>
 					<div form-group class="form-group" form-group-class="has-feedback">
 						<label for="" class="col-sm-2">Nom<span
-							id="required-field">*</span></label>
+									id="required-field">*</span></label>
 						<div class="col-sm-10">
-						<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-user"></i>
-                        </span>
-							<input type="text" class="form-control" name="nom" ng-model="enseignant.nom"
-								 mask='#' repeat="28" restrict="reject" validate="false"
-								 ng-pattern="/^[A-Za-z' \-]+$/" 
-								 ng-em-required="Nom obigatoire"
-      						  	 ng-em-pattern="Format incorrect! exemple:Paul"
-      						  	 placeholder="Nom de l'enseignant"  required/> 
-      					</div>
-								<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="enseignantForm.nom.$valid"></span>
-                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="enseignantForm.nom.$invalid"></span>
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user"></i></span>
+								<input type="text" class="form-control" name="nom"
+											ng-model="enseignant.nom" mask='#' repeat="28"
+											restrict="reject" validate="false"
+											ng-pattern="/^[A-Za-z' \-]+$/"
+											ng-em-required="Nom obigatoire"
+											ng-em-pattern="Format incorrect! exemple:Paul"
+											placeholder="Nom de l'enseignant" required /> 
+	      					</div>
+							<span
+										class="glyphicon glyphicon-ok form-control-feedback text-success"
+										ng-show="enseignantForm.nom.$valid"></span>
+	                  		<span
+										class="glyphicon glyphicon-remove form-control-feedback text-danger"
+										ng-show="enseignantForm.nom.$invalid"></span>
 						</div>
 					</div>
 					
 					<div form-group class="form-group" form-group-class="has-feedback">
 						<label for="" class="col-sm-2">Pr√©nom<span
-							id="required-field">*</span></label>
+									id="required-field">*</span></label>
 						<div class="col-sm-10">
 						<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-user"></i>
                         </span>
-							<input type="text" class="form-control" name="prenom" ng-model="enseignant.prenom"
-								mask='#' repeat="28"  restrict="reject" validate="false"
-								ng-pattern="/^[A-Za-z' \-]+$/" 
-								ng-em-required="Pr&eacute;nom obigatoire"
-      						  	ng-em-pattern="Format incorrect! exemple:Vincent" 
-      						  	placeholder="Pr&eacute;nom de l'enseignant" required/>
+							<input type="text" class="form-control" name="prenom"
+											ng-model="enseignant.prenom" mask='#' repeat="28"
+											restrict="reject" validate="false"
+											ng-pattern="/^[A-Za-z' \-]+$/"
+											ng-em-required="Pr&eacute;nom obigatoire"
+											ng-em-pattern="Format incorrect! exemple:Vincent"
+											placeholder="Pr&eacute;nom de l'enseignant" required />
 						</div>
-								<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="enseignantForm.prenom.$valid"></span>
-                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="enseignantForm.prenom.$invalid"></span>
+								<span
+										class="glyphicon glyphicon-ok form-control-feedback text-success"
+										ng-show="enseignantForm.prenom.$valid"></span>
+                    			<span
+										class="glyphicon glyphicon-remove form-control-feedback text-danger"
+										ng-show="enseignantForm.prenom.$invalid"></span>
 						</div>
 					</div>
 					
 					<div class="form-group form-md-radios has-success">
 						<label for="" class="col-sm-2" style="color: #000;">Sexe<span
-							id="required-field">*</span></label>
+									id="required-field">*</span></label>
 						<div class="col-sm-10">
 							<div class="md-radio-inline">
-                                                    <div class="md-radio">
-                                                        <input type="radio" id="checkbox2_8" name="radio1" class="md-radiobtn" value="H" ng-model="enseignant.sexe" ng-required="true">
-                                                        <label for="checkbox2_8">
-                                                            <span class="inc"></span>
-                                                            <span class="check"></span>
-                                                            <span class="box"></span>Homme</label>
+                                                    <div
+											class="md-radio">
+                                                        <input
+												type="radio" id="checkbox2_8" name="radio1"
+												class="md-radiobtn" value="H" ng-model="enseignant.sexe"
+												ng-required="true">
+                                                        <label
+												for="checkbox2_8">
+                                                            <span
+												class="inc"></span>
+                                                            <span
+												class="check"></span>
+                                                            <span
+												class="box"></span>Homme</label>
                                                     </div>
-                                                    <div class="md-radio">
-                                                        <input type="radio" id="checkbox2_9" name="radio1" class="md-radiobtn" value="F" ng-model="enseignant.sexe" ng-required="true">
-                                                        <label for="checkbox2_9">
-                                                            <span class="inc"></span>
-                                                            <span class="check"></span>
-                                                            <span class="box"></span>Femme</label>
+                                                    <div
+											class="md-radio">
+                                                        <input
+												type="radio" id="checkbox2_9" name="radio1"
+												class="md-radiobtn" value="F" ng-model="enseignant.sexe"
+												ng-required="true">
+                                                        <label
+												for="checkbox2_9">
+                                                            <span
+												class="inc"></span>
+                                                            <span
+												class="check"></span>
+                                                            <span
+												class="box"></span>Femme</label>
                                                     </div>
                                </div>
 						</div>
@@ -178,35 +217,46 @@
 					
 					 <div class="form-group form-md-line-input has-info">
 						<label for="" class="col-sm-2" style="color: #000;">Type<span
-							id="required-field">*</span></label>
+									id="required-field">*</span></label>
 						<div class="col-md-10">
 						<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-file-text-o"></i></span>
-							<select class="form-control edited" id="form_control_1" ng-hide="isVisible" ng-model="typeSelected" name="type" required>
+						<span class="input-group-addon"><i
+											class="fa fa-file-text-o"></i></span>
+							<select class="form-control edited" id="form_control_1"
+											ng-hide="isVisible" ng-model="typeSelected" name="type"
+											required>
 								<option data-ng-repeat="e in types" value="{{e.rvAbbreviation}}">{{e.rvMeaning}}</option>
 							</select>
 						</div>
-						<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="enseignantForm.type.$valid"></span>
-                    	<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="enseignantForm.type.$invalid"></span>
+						<span
+										class="glyphicon glyphicon-ok form-control-feedback text-success"
+										ng-show="enseignantForm.type.$valid"></span>
+                    	<span
+										class="glyphicon glyphicon-remove form-control-feedback text-danger"
+										ng-show="enseignantForm.type.$invalid"></span>
 					</div>
 					</div>
 										
 					<div form-group class="form-group" form-group-class="has-feedback">
 						<label for="" class="col-sm-2">E-mail<span
-							id="required-field">*</span></label>
+									id="required-field">*</span></label>
 						<div class="col-sm-10">
 						<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-envelope"></i>
                         </span>
 							<input type="text" class="form-control" name="email" ng-model="enseignant.emailUbo"
 								mask='*' repeat="56" restrict="reject" validate="false"
-								ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
+								ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z0-9.-]+\.[a-z.]{2,5}$/"
 								ng-em-required="Email obigatoire"
       						  	ng-em-pattern="Format email incorrect! Exemple: bob@univ-brest.fr" 
 								placeholder="example@example.com" required/>
 						</div>		
-								<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="enseignantForm.email.$valid"></span>
-                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="enseignantForm.email.$invalid"></span>
+								<span
+										class="glyphicon glyphicon-ok form-control-feedback text-success"
+										ng-show="enseignantForm.email.$valid"></span>
+                    			<span
+										class="glyphicon glyphicon-remove form-control-feedback text-danger"
+										ng-show="enseignantForm.email.$invalid"></span>
 						</div>
 					</div>
 					
@@ -217,105 +267,134 @@
 						<span class="input-group-addon"><i class="fa fa-phone"></i>
                         </span>	
 							<input class="form-control" type="text"
-								ng-model="enseignant.telephone" placeholder="05.12.34.56.78">
+											ng-model="enseignant.telephone" placeholder="05.12.34.56.78">
 						</div>		
 						</div>
 					</div>
 					
 					<div form-group class="form-group" form-group-class="has-feedback">
 						<label for="" class="col-sm-2">Mobile<span
-							id="required-field">*</span></label>
+									id="required-field">*</span></label>
 						<div class="col-sm-10">
 						<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-phone"></i>
                         </span>	
-							<input class="form-control" name="mobile" type="text" ng-model="enseignant.mobile"
-								mask="09.99.99.99.99" restrict="reject" validate="false"
-								ng-pattern="/^0[0-9].[0-9][0-9].[0-9][0-9].[0-9][0-9].[0-9][0-9]$/"
-								ng-em-pattern="Format mobile incorrect! Exemple: 06.12.34.56.78" 
-								ng-em-required="Mobile obigatoire" 
-								placeholder="06.12.34.56.78" required/>
+							<input class="form-control" name="mobile" type="text"
+											ng-model="enseignant.mobile" mask="09.99.99.99.99"
+											restrict="reject" validate="false"
+											ng-pattern="/^0[0-9].[0-9][0-9].[0-9][0-9].[0-9][0-9].[0-9][0-9]$/"
+											ng-em-pattern="Format mobile incorrect! Exemple: 06.12.34.56.78"
+											ng-em-required="Mobile obigatoire"
+											placeholder="06.12.34.56.78" required />
 						</div>
-								<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="enseignantForm.mobile.$valid"></span>
-                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="enseignantForm.mobile.$invalid"></span>
+								<span
+										class="glyphicon glyphicon-ok form-control-feedback text-success"
+										ng-show="enseignantForm.mobile.$valid"></span>
+                    			<span
+										class="glyphicon glyphicon-remove form-control-feedback text-danger"
+										ng-show="enseignantForm.mobile.$invalid"></span>
 						</div>
 					</div>
 					
 					<div form-group class="form-group" form-group-class="has-feedback">
 						<label for="" class="col-sm-2">Adresse<span
-							id="required-field">*</span></label>
+									id="required-field">*</span></label>
 						<div class="col-sm-10">
 						<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-home"></i>
                         </span>	
-							<input type="text" class="form-control" name="adresse" ng-model="enseignant.adresse"
-								mask="*" repeat="255" restrict="reject" validate="false" 
-								ng-em-required="Adresse obigatoire" 
-								placeholder="Adresse postale" required/>
+							<input type="text" class="form-control" name="adresse"
+											ng-model="enseignant.adresse" mask="*" repeat="255"
+											restrict="reject" validate="false"
+											ng-em-required="Adresse obigatoire"
+											placeholder="Adresse postale" required />
 						</div>
-								<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="enseignantForm.adresse.$valid"></span>
-                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="enseignantForm.adresse.$invalid"></span>
+								<span
+										class="glyphicon glyphicon-ok form-control-feedback text-success"
+										ng-show="enseignantForm.adresse.$valid"></span>
+                    			<span
+										class="glyphicon glyphicon-remove form-control-feedback text-danger"
+										ng-show="enseignantForm.adresse.$invalid"></span>
 						</div>
 					</div>
 					
 					<div form-group class="form-group" form-group-class="has-feedback">
 						<label for="" class="col-sm-2">Code postal<span
-							id="required-field">*</span></label>
+									id="required-field">*</span></label>
 						<div class="col-sm-10">
 						<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-map-marker"></i>
                         </span>	
-							<input type="text" class="form-control" name="codePostale" ng-model="enseignant.codePostal"
-								mask='99999' restrict="reject" validate="false"
-								ng-pattern="/^[0-9][0-9][0-9][0-9][0-9]$/"
-								ng-em-required="Code postal obigatoire"
-      						  	ng-em-pattern="Format code postal incorrect! Exemple: 29200"
-								placeholder="Example: 29200" required />
+							<input type="text" class="form-control" name="codePostale"
+											ng-model="enseignant.codePostal" mask='99999'
+											restrict="reject" validate="false"
+											ng-pattern="/^[0-9][0-9][0-9][0-9][0-9]$/"
+											ng-em-required="Code postal obigatoire"
+											ng-em-pattern="Format code postal incorrect! Exemple: 29200"
+											placeholder="Example: 29200" required />
 						</div>
-								<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="enseignantForm.codePostale.$valid"></span>
-                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="enseignantForm.codePostale.$invalid"></span>
+								<span
+										class="glyphicon glyphicon-ok form-control-feedback text-success"
+										ng-show="enseignantForm.codePostale.$valid"></span>
+                    			<span
+										class="glyphicon glyphicon-remove form-control-feedback text-danger"
+										ng-show="enseignantForm.codePostale.$invalid"></span>
 						</div>
 					</div>
 					
 					<div form-group class="form-group" form-group-class="has-feedback">
 						<label for="" class="col-sm-2">Ville<span
-							id="required-field">*</span></label>
+									id="required-field">*</span></label>
 						<div class="col-sm-10">
 						<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-map-marker"></i>
                         </span>
-							<input type="text" class="form-control" name="ville" ng-model="enseignant.ville"
-								mask='#' repeat="50" restrict="reject" validate="false"
-								ng-em-required="Ville obigatoire"
-								placeholder="Example: Brest" required/>
+							<input type="text" class="form-control" name="ville"
+											ng-model="enseignant.ville" mask='#' repeat="50"
+											restrict="reject" validate="false"
+											ng-em-required="Ville obigatoire"
+											placeholder="Example: Brest" required />
 						</div>
-								<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="enseignantForm.ville.$valid"></span>
-                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="enseignantForm.ville.$invalid"></span>
+								<span
+										class="glyphicon glyphicon-ok form-control-feedback text-success"
+										ng-show="enseignantForm.ville.$valid"></span>
+                    			<span
+										class="glyphicon glyphicon-remove form-control-feedback text-danger"
+										ng-show="enseignantForm.ville.$invalid"></span>
 						</div>
 					</div>
 					
 					<div class="form-group form-md-line-input">
 						<label for="" class="col-sm-2" style="color: #000;">Pays<span
-							id="required-field">*</span></label>
+									id="required-field">*</span></label>
 						<div class="col-md-10">
 						<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-map-marker"></i>
                         </span>
-							<select class="form-control edited" id="form_control_1" ng-hide="isVisible" ng-model="paysSelected" name="pays" required>
+							<select class="form-control edited" id="form_control_1"
+											ng-hide="isVisible" ng-model="paysSelected" name="pays"
+											required>
 								<option data-ng-repeat="e in payss" value="{{e.rvAbbreviation}}">{{e.rvMeaning}}</option>
 							</select>
 					</div>
-					<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="enseignantForm.pays.$valid"></span>
-                    <span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="enseignantForm.pays.$invalid"></span>
-					</div></div>
+					<span
+										class="glyphicon glyphicon-ok form-control-feedback text-success"
+										ng-show="enseignantForm.pays.$valid"></span>
+                    <span
+										class="glyphicon glyphicon-remove form-control-feedback text-danger"
+										ng-show="enseignantForm.pays.$invalid"></span>
+					</div>
+							</div>
 				</form>
 				<button class="btn btn-danger" ng-click="cancel()">
 					Annuler</button>
-				<a class="btn btn-success  pull-right" ng-disabled="enseignantForm.$invalid" ng-click="submit()"><span
-					class="glyphicon glyphicon-ok"></span> Valider</a>
+				<a class="btn btn-success  pull-right"
+							ng-disabled="enseignantForm.$invalid" ng-click="submit()"><span
+							class="glyphicon glyphicon-ok"></span> Valider</a>
 			</div>
 		</div>
-	</div>
+	
+			</div>
 
 </div>
 

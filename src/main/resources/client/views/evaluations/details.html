@@ -1,47 +1,80 @@
-<div class="page" ng-controller="EvasDetailsController">
+<!-- @Author ZOuhair -->
+<!-- Navigation-Details -->
+<ul class="page-breadcrumb breadcrumb" ng-hide="edit">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+		<li><a href="#">Gestion des &eacute;valuations</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">D&eacute;tails  d'une &eacute;valuation</span></li>
+</ul>
+<!-- END Navigation -->
+<!-- Navigation Mise à jour -->
+<ul class="page-breadcrumb breadcrumb" ng-show="edit">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+		<li><a href="#">Gestion des &eacute;valuations</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">Mise &agrave; jour d'une &eacute;valuation</span></li>
+</ul>
+<!-- END Navigation -->
+<div class="portlet light portlet-fit bordered"
+	ng-controller="EvasDetailsController">
 	<div class="panel panel-default ens-edit">
-		<div class="panel-heading">
-			<strong><span class="glyphicon glyphicon-th"></span>
-				&Eacute;valuation</strong>
+		<div class="portlet-title">
+			<div class="caption">
+				<i class="icon-bubble font-dark"></i> <span
+					class="caption-subject font-dark bold uppercase">
+					&Eacute;valuation</span>
+			</div>
+			<br>
 		</div>
 		<div class="panel-body">
-<!-- Edition -->
+			<!-- Edition -->
 			<div ng-show="edit">
 				<form class="form-horizontal" name="evaForm">
 					<div class="form-group">
-						<label for="" class="col-sm-2">Num&eacute;ro Evaluation:<span id="required-field">*</span></label>
+						<label for="" class="col-sm-2">Num&eacute;ro Evaluation:<span
+							id="required-field">*</span></label>
 						<div class="col-sm-10">
 						<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-user"></i>
+						<span class="input-group-addon"><i class="icon-notebook"></i>
                         </span>
 							<input type="text" class="form-control" ng-model="evaluation.noEvaluation" name="noEvaluation" 
 							mask='9' repeat="8" restrict="reject" validate="false"
-							ng-em-required="Nom obigatoire"
-							placeholder="Num&eacute;ro de l'&eacute;valuation" required>
+							ng-em-required="N° Evaluation obigatoire"
+							placeholder="Num&eacute;ro de l'&eacute;valuation" required/>
 						</div>	
 							<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="evaForm.noEvaluation.$valid"></span>
-                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="evaForm.noEvaluation.$invalid"></span>
+                    		<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="evaForm.noEvaluation.$invalid"></span>
 					</div>
 					</div>
-										
+
 					<div class="form-group">
-						<label for="" class="col-sm-2">Désignation:<span id="required-field">*</span></label>
+						<label for="" class="col-sm-2">Désignation:<span
+							id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" ng-model="evaluation.designation" name="designation"required>
-							<span style="color:red" ng-show="evaForm.designation.$dirty && evaForm.designation.$invalid">
-							<span ng-show="evaForm.designation.$error.required">Champ obligatoire / Type invalide</span></span>
+						<div class="input-group">
+						<span class="input-group-addon"><i class="icon-note"></i>
+						</span>
+							<input type="text" class="form-control" ng-model="evaluation.designation" name="designation"
+							mask='*' repeat="255" restrict="reject" validate="false"
+							ng-em-required="Nom obigatoire"
+							placeholder="Désignation" required/>	
+						</div>	
+							<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="evaForm.designation.$valid"></span>
+                    		<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="evaForm.designation.$invalid"></span>
 						</div>
 					</div>
+					
 					<div class="form-group">
-						<label for="" class="col-sm-2">Etat:<span id="required-field">*</span></label>
+						<label for="" class="col-sm-2">Etat:<span
+							id="required-field">*</span></label>
 						<div class="col-sm-10">
-<!-- 							<input ng-show="edit" type="text" class="form-control" -->
-<!-- 								ng-model="evaluation.etat"/> -->
-							<select ng-hide="isVisible" ng-model="etatSelected" name="etat" required>
+							<!-- 							<input ng-show="edit" type="text" class="form-control" -->
+							<!-- 								ng-model="evaluation.etat"/> -->
+							<select ng-hide="isVisible" ng-model="etatSelected" name="etat"
+								required>
 								<option data-ng-repeat="e in etats" value="{{e.rvAbbreviation}}">{{e.rvMeaning}}</option>
-							</select>
-							<span style="color:red" ng-show="evaForm.etat.$dirty && evaForm.etat.$invalid">
-							<span ng-show="evaForm.etat.$error.required">Champ obligatoire / Type invalide</span></span>
+							</select> <span style="color: red"
+								ng-show="evaForm.etat.$dirty && evaForm.etat.$invalid"> <span
+								ng-show="evaForm.etat.$error.required">Champ obligatoire
+									/ Type invalide</span></span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -52,57 +85,80 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Début:<span id="required-field">*</span></label>
+						<label for="" class="col-sm-2">Début:<span
+							id="required-field">*</span></label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control" ng-model="evaluation.debutReponse" name="debutReponse" required>
-							<span style="color:red" ng-show="evaForm.debutReponse.$dirty && evaForm.debutReponse.$invalid">
-							<span ng-show="evaForm.debutReponse.$error.required">Champ obligatoire / Type invalide</span></span>
+							<input type="text" class="form-control"
+								ng-model="evaluation.debutReponse" name="debutReponse" required>
+							<span style="color: red"
+								ng-show="evaForm.debutReponse.$dirty && evaForm.debutReponse.$invalid">
+								<span ng-show="evaForm.debutReponse.$error.required">Champ
+									obligatoire / Type invalide</span>
+							</span>
 						</div>
-						<label for="" class="col-sm-2">Fin:<span id="required-field">*</span></label>
+						<label for="" class="col-sm-2">Fin:<span
+							id="required-field">*</span></label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control" ng-model="evaluation.finReponse" name="finReponse" required>
-							<span style="color:red" ng-show="evaForm.finReponse.$dirty && evaForm.finReponse.$invalid">
-							<span ng-show="evaForm.finReponse.$error.required">Champ obligatoire / Type invalide</span></span>
+							<input type="text" class="form-control"
+								ng-model="evaluation.finReponse" name="finReponse" required>
+							<span style="color: red"
+								ng-show="evaForm.finReponse.$dirty && evaForm.finReponse.$invalid">
+								<span ng-show="evaForm.finReponse.$error.required">Champ
+									obligatoire / Type invalide</span>
+							</span>
 						</div>
 					</div>
-					
+
 					<div class="form-group">
-						<label for="" class="col-sm-2">Promotion:<span id="required-field">*</span></label>
+						<label for="" class="col-sm-2">Promotion:<span
+							id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<select name="promotion" ng-model="selectedPromotion" ng-options="promotion.promotionPK.codeFormation+' -- '+promotion.promotionPK.anneeUniversitaire for promotion in promotionevaluation" ng-change="onchangePro()">
-                            </select>
-							<span style="color:red" ng-show="evaForm.promotion.$dirty && evaForm.promotion.$invalid">
-							<span ng-show="evaForm.promotion.$error.required">Champ obligatoire / Type invalide</span></span>
+							<select name="promotion" ng-model="selectedPromotion"
+								ng-options="promotion.promotionPK.codeFormation+' -- '+promotion.promotionPK.anneeUniversitaire for promotion in promotionevaluation"
+								ng-change="onchangePro()">
+							</select> <span style="color: red"
+								ng-show="evaForm.promotion.$dirty && evaForm.promotion.$invalid">
+								<span ng-show="evaForm.promotion.$error.required">Champ
+									obligatoire / Type invalide</span>
+							</span>
 						</div>
 					</div>
-					
+
 					<div class="form-group">
-						<label for="" class="col-sm-2">UnitÃ© Enseignement:<span id="required-field">*</span></label>
+						<label for="" class="col-sm-2">Unité Enseignement:<span
+							id="required-field">*</span></label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control"
-								ng-model="evaluation.code_ue" ng-show="isVisible"/>
-	<select  name="ue" ng-model="ueSelected" ng-options="ue as (ue.designation) for ue in ues track by ue.uniteEnseignementPK.codeUe"
-      ng-change="onchange()"/>
-							<span style="color:red" ng-show="evaForm.ue.$dirty && evaForm.ue.$invalid">
-							<span ng-show="evaForm.ue.$error.required">Champ obligatoire / Type invalide</span></span>
+								ng-model="evaluation.code_ue" ng-show="isVisible" /> <select
+								name="ue" ng-model="ueSelected"
+								ng-options="ue as (ue.designation) for ue in ues track by ue.uniteEnseignementPK.codeUe"
+								ng-change="onchange()" /> <span style="color: red"
+								ng-show="evaForm.ue.$dirty && evaForm.ue.$invalid"> <span
+								ng-show="evaForm.ue.$error.required">Champ obligatoire /
+									Type invalide</span></span>
 						</div>
-					</div> 
-					
+					</div>
+
 					<div class="form-group">
 						<label for="" class="col-sm-2">Element Constitutif:</label>
 						<div class="col-sm-10">
-							<input  type="text" class="form-control"
+							<input type="text" class="form-control"
 								ng-model="evaluation.code_ec" ng-show="isVisible">
 							<!-- select ng-hide="isvisible" ng-model="ecSelected" name="ec">
 								<option data-ng-repeat="e in ECs" value="{{e.elementConstitutifPK.codeEc}}">{{e.elementConstitutifPK.codeEc}}</option>
 							</select-->
-							<select ng-model="ecSelected" ng-options="ec.designation for ec in ecs" ng-change="onchangeEC()">
-                            </select>
+							<select ng-model="ecSelected"
+								ng-options="ec.designation for ec in ecs"
+								ng-change="onchangeEC()">
+							</select>
 						</div>
 					</div>
 
 				</form>
-				<button ng-click="submit()" class="btn btn-success"
+				<br>
+				<button class="btn btn-danger pull-left" ng-click="cancel()">
+					Annuler</button>
+				<button ng-click="submit()" class="btn btn-success pull-right"
 					ng-disabled="evaForm.noEvaluation.$dirty && evaForm.noEvaluation.$invalid
 								|| evaForm.designation.$dirty && evaForm.designation.$invalid
 								|| evaForm.etat.$dirty && evaForm.etat.$invalid
@@ -120,88 +176,109 @@
 								|| evaForm.promotion.$error.required
 								|| evaForm.ue.$error.required
 								">Valider</button>
-				<button class="btn btn-danger pull-right" ng-click="cancel()">
-					Annuler	</button>
-		</div>
-<!-- Consultation -->
-			<div class="portlet-body form" ng-hide="edit">
-				<button class="btn btn-warning pull-right" ng-click="edition()">
-					<span class="glyphicon glyphicon-pencil"></span> Editer
-				</button>
-				<div class="media-body">
-			<form class="form-horizontal form-bordered">
-				<div class="form-group">
-					<div class="col-md-3"><strong>Désignation</strong></div>
-					<div class="col-md-3">{{evaluation.designation}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Formation</strong></div>
-					<div class="col-md-3">{{evaluation.code_formation}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Année</strong></div>
-					<div class="col-md-3">{{evaluation.annee}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Code UE</strong></div>
-					<div class="col-md-3">{{evaluation.code_ue}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Etat</strong></div>
-					<div class="col-md-3">{{evaluation.etat}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Debut réponse</strong></div>
-					<div class="col-md-3">{{evaluation.debutReponse | date:
-						"dd/MM/yyyy"}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3"><strong>Fin réponse</strong></div>
-					<div class="col-md-3">{{evaluation.finReponse | date:
-						"dd/MM/yyyy"}}</div>
-				</div>
-				
-				<!-- Affichage des rubriques -->
-				
-				<div class="portlet" style="margin-top:10%;">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="fa fa-shopping-cart"></i>Rubriques</div>
-                                    <div class="tools">
-                                        <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
-                                    </div>
-                                </div>
-                                <div class="portlet-body">
-                                    <div class="table-scrollable">
-                                        <table class="table table-striped table-bordered table-advance table-hover" data-ng-repeat="re in rubriqueEvaluations" class="rubriqueEvaluation">
-                                            <thead>
-                                                <tr>
-                                                	<th>Ordre </th>
-                                                    <th>Désignation </th>
-                                                    <th>Questions incluses / Couples qualificatifs </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td> {{re.idRubrique.ordre}}</td>
-                                                    <td> {{re.idRubrique.designation}}</td>
-                                                    <td><p data-ng-repeat="q in re.questionEvaluationCollection" class="questionEvaluationCollection">{{q.idQuestion.intitule}} ----> {{q.idQuestion.idQualificatif.maximal}} / {{q.idQuestion.idQualificatif.minimal}}</p></td>
-                                                </tr>
-                                                
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-				<!-- Fin d'affichage des rubriques -->
-				
-				</br> <a class="btn btn-primary" href="#/evaluations">
-					<span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
-			 </form>
 			</div>
-			
-			
+			<!-- Consultation -->
+			<div class="portlet-body form" ng-hide="edit">
+				<div class="media-body">
+					<form class="form-horizontal form-bordered">
+						<div class="form-group">
+							<div class="col-md-3">
+								<strong>Désignation</strong>
+							</div>
+							<div class="col-md-3">{{evaluation.designation}}</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-3">
+								<strong>Formation</strong>
+							</div>
+							<div class="col-md-3">{{evaluation.code_formation}}</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-3">
+								<strong>Année</strong>
+							</div>
+							<div class="col-md-3">{{evaluation.annee}}</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-3">
+								<strong>Code UE</strong>
+							</div>
+							<div class="col-md-3">{{evaluation.code_ue}}</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-3">
+								<strong>Etat</strong>
+							</div>
+							<div class="col-md-3">{{evaluation.etat}}</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-3">
+								<strong>Debut réponse</strong>
+							</div>
+							<div class="col-md-3">{{evaluation.debutReponse | date:
+								"dd/MM/yyyy"}}</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-3">
+								<strong>Fin réponse</strong>
+							</div>
+							<div class="col-md-3">{{evaluation.finReponse | date:
+								"dd/MM/yyyy"}}</div>
+						</div>
+
+						<!-- Affichage des rubriques -->
+
+						<div class="portlet light portlet-fit bordered" style="margin-top: 6%;">
+							<div class="portlet-title">
+								<div class="caption">
+									<i class="fa fa-reorder"></i>   Liste des rubriques standards
+								</div>
+								<div class="tools">
+									<a href="javascript:;" class="collapse" data-original-title=""
+										title=""> </a>
+								</div>
+							</div>
+							<div class="portlet-body">
+								<div class="table-scrollable">
+									<table
+										class="table table-bordered table-striped table-condensed flip-content">
+										<thead>
+											<tr>
+												<th style="width:150px">Ordre</th>
+												<th style="width:150px">Désignation</th>
+												<th style="width:450px">Questions incluses</th>
+												<th style="width:450px">Couples qualificatifs</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr data-ng-repeat="re in rubriqueEvaluations" class="rubriqueEvaluation">
+												<td>{{re.idRubrique.ordre}}</td>
+												<td>{{re.idRubrique.designation}}</td>
+												<td><p
+														data-ng-repeat="q in re.questionEvaluationCollection"
+														class="questionEvaluationCollection">{{q.idQuestion.intitule}}</p></td>
+												<td><p data-ng-repeat="q in re.questionEvaluationCollection"
+														class="questionEvaluationCollection">{{q.idQuestion.idQualificatif.maximal}} /
+														{{q.idQuestion.idQualificatif.minimal}}</p>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- Fin d'affichage des rubriques -->
+
+						</br> <a class="btn btn-primary" href="#/evaluations"> <span
+							class="glyphicon glyphicon-arrow-left"></span> Retour
+						</a>
+						<button class="btn btn-warning pull-right" ng-click="edition()">
+							<span class="glyphicon glyphicon-pencil"></span> Editer
+						</button>
+					</form>
+				</div>
+
+
+			</div>
 		</div>
-</div>
 	</div>
-</div>

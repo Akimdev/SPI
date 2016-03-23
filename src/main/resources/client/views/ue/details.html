@@ -1,3 +1,17 @@
+<!-- Navigation-Details -->
+<ul class="page-breadcrumb breadcrumb" ng-hide="edit">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">D&eacute;tails d'une unit&eacute; d'enseignement</span></li>
+</ul>
+<!-- END Navigation -->
+<!-- Navigation Mise à jour -->
+<ul class="page-breadcrumb breadcrumb" ng-show="edit">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">Mise &agrave; jour d'une unit&eacute; d'enseignement</span></li>
+</ul>
+<!-- END Navigation -->
 <div class="page" ng-controller="UEDetailsController">
 	<div class="portlet light bordered">
 		<div class="portlet-title">
@@ -11,7 +25,7 @@
 			<form class="form-horizontal form-bordered">
 				<div class="form-group">
 					<div class="col-md-3">
-						<strong>Unit&eacute; d'enseignement</strong>
+						<strong>Sigle</strong>
 					</div>
 					<div class="col-md-3">{{ue.uniteEnseignementPK.codeUe}}</div>
 				</div>
@@ -48,83 +62,144 @@
 			</form>
 		</div>      
         <!-- Edition -->
-        <div ng-show="edit">            
+        <div ng-show="edit">   
+        <div class="portlet light bordered">
+        <div class="caption" ng-hide="ajout">
+                    <i class="fa fa-gears font-blue"></i>
+                    <span class="caption-subject font-blue bold uppercase bold"> Mise &agrave; jour</span>
+                </div>
+                <div class="caption" ng-show="ajout">
+                    <i class="fa fa-plus font-blue"></i>
+                    <span class="caption-subject font-blue sbold uppercase bold"> Nouvelle promotion </span>
+                </div> 
+                </br></br></br>
+                        
             <form class="form-horizontal" name="ueForm">
-                <div class="form-group">
-                    <label for="" class="col-sm-2">Unit&eacute; d'Enseignement<span id="required-field">*</span></label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" name="codeUe" ng-disabled="!ajout" ng-model="ue.uniteEnseignementPK.codeUe" maxlength="8" ng-pattern="/[A-Z0-9]/">
-                        <span style="color:red" ng-show="ueForm.codeUe.$dirty && ueForm.codeUe.$invalid">
-						<span ng-show="ueForm.codeUe.$error.required">Champs obligatoire ou type invalide.</span>
-                    </div>                    
-                </div>                
-                <div class="form-group">
-                    <label for="" class="col-sm-2">Formation<span id="required-field">*</span></label>
-                    <div class="col-sm-10">
-	                    <select ng-model="ue.uniteEnseignementPK.codeFormation" ng-show="ajout" name="codeFormation" ng-disabled="!ajout">
+                
+             <div form-group class="form-group" form-group-class="has-feedback">
+						<label for="" class="col-sm-2">Unit&eacute; d'Enseignement<span
+							id="required-field">*</span></label>
+						<div class="col-sm-10">
+						<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-bookmark-o"></i>
+                        </span>
+							<input type="text" class="form-control" name="codeUe" ng-model="ue.uniteEnseignementPK.codeUe"
+								mask='*' repeat="8"  restrict="reject" validate="false"
+								ng-pattern="/^[A-Za-z éêöôçèàûù']+$/
+								ng-em-required="Unit&eacute; d'Enseignement obigatoire"
+      						  	ng-em-pattern="Format incorrect! exemple:JEE" 
+      						  	placeholder="Unit&eacute; d'Enseignement" required/>
+						</div>
+								<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="ueForm.codeUe.$valid"></span>
+                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="ueForm.codeUe.$invalid"></span>
+						</div>
+					</div>    
+                
+            <div form-group class="form-group" form-group-class="has-feedback">
+						<label for="" class="col-sm-2">D&eacute;signation<span
+							id="required-field">*</span></label>
+						<div class="col-sm-10">
+						<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-bookmark-o"></i>
+                        </span>
+							<input type="text" class="form-control" name="designation" ng-model="ue.designation"
+								mask='*' repeat="56"  restrict="reject" validate="false"
+								ng-pattern="/^[A-Za-z éêöôçèàûù']+$/
+								ng-em-required="D&eacute;signation obigatoire"
+      						  	ng-em-pattern="Format incorrect! exemple:JEE" 
+      						  	placeholder="D&eacute;signation" required/>
+						</div>
+								<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="ueForm.designation.$valid"></span>
+                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="ueForm.designation.$invalid"></span>
+						</div>
+					</div>
+            
+               <div class="row" style="margin-top:40px; margin-left: 268px;">
+               <div class="col-md-3" style="margin-right: 80px;">
+                <div class="form-group form-md-line-input has-info">
+						<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+							<select class="form-control edited" id="form_control_1" ng-hide="isVisible" ng-model="enseignant" name="enseignant" required>
+								<option data-ng-repeat="ens in enseignants" value="{{ens.noEnseignant}}" ng-selected="{{ens.noEnseignant == responsable.noEnseignant}}">{{ens.nom}} {{ens.prenom}}</option>
+							</select>
+							<label for="form_control_1">Enseignant <span id="required-field">*</span></label>
+						</div>
+						<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="ueForm.enseignant.$valid"></span>
+                    	<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="ueForm.enseignant.$invalid"></span>
+				</div></div>
+				
+               <div class="col-md-3" style="margin-right: 80px;">           
+                  <div class="form-group form-md-line-input has-info">
+						<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-university"></i></span>
+							<select class="form-control edited" id="form_control_1" ng-model="ue.uniteEnseignementPK.codeFormation" ng-show="ajout" name="codeFormation" ng-disabled="!ajout" required>
 							<option data-ng-repeat="f in formations" value="{{f.codeFormation}}">{{f.codeFormation}}</option>
-						</select>                        
-                        <input type="text" class="form-control" name="codeFormation" ng-disabled="!ajout" ng-show="!ajout" ng-model="ue.uniteEnseignementPK.codeFormation" >
-                        <span style="color:red" ng-show="ueForm.codeFormation.$dirty && ueForm.codeFormation.$invalid">
-						<span ng-show="ueForm.codeFormation.$error.required">Champs obligatoire ou type invalide.</span>
-                    </div> 
-                </div>
-                <div class="form-group">
-                    <label for="" class="col-sm-2">Enseignant<span id="required-field">*</span></label>
-                    <div class="col-sm-10">
-	                    <select ng-model="enseignant" name="enseignant">
-							<option data-ng-repeat="ens in enseignants" value="{{ens.noEnseignant}}" ng-selected="{{ens.noEnseignant == responsable.noEnseignant}}">{{ens.nom}} {{ens.prenom}}</option>
-						</select>                        
-                        <span style="color:red" ng-show="ueForm.enseignant.$dirty && ueForm.enseignant.$invalid">
-						<span ng-show="ueForm.enseignant.$error.required">Champs obligatoire ou type invalide.</span>
-                    </div> 
-                </div>
-                <div class="form-group">
-                    <label for="" class="col-sm-2">D&eacute;signation<span id="required-field">*</span></label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" name="designation" ng-model="ue.designation" maxlength="64">
-                        <span style="color:red" ng-show="ueForm.designation.$dirty && ueForm.designation.$invalid">
-						<span ng-show="ueForm.designation.$error.required">Champs obligatoire ou type invalide.</span>
-                    </div>                    
-                </div>
-                <div class="form-group">
-                    <label for="" class="col-sm-2">Semestre<span id="required-field">*</span></label>
-                    <div class="col-sm-10">
-                        <input type="number" class="form-control" name="semestre" ng-model="ue.semestre">
-                        <span style="color:red" ng-show="ueForm.semestre.$dirty && ueForm.semestre.$invalid">
-						<span ng-show="ueForm.semestre.$error.required">Champs obligatoire ou type invalide.</span>
-                    </div>                    
-                </div>
-                <div class="form-group">
-                    <label for="" class="col-sm-2">Description</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" ng-model="ue.description">
-                    </div>                    
-                </div>
-                <div class="form-group">
-                    <label for="" class="col-sm-2">Nombres d'heures (CM)</label>
-                    <div class="col-sm-10">
-                        <input type="number" class="form-control" ng-model="ue.nbhCm">
-                    </div>                    
-                </div>
-                <div class="form-group">
-                    <label for="" class="col-sm-2">Nombres d'heures (TD)</label>
-                    <div class="col-sm-10">
-                        <input type="number" class="form-control" ng-model="ue.nbhTd">
-                    </div>                    
-                </div>
-                <div class="form-group">
-                    <label for="" class="col-sm-2">Nombres d'heures (TP)</label>
-                    <div class="col-sm-10">
-                        <input type="number" class="form-control" ng-model="ue.nbhTp">
-                    </div>                    
-                </div>                
+							</select>
+							<label for="form_control_1">Formation <span id="required-field">*</span></label>
+							<input type="text" class="form-control" name="codeFormation" ng-disabled="!ajout" ng-show="!ajout" ng-model="ue.uniteEnseignementPK.codeFormation" required>
+						</div>
+						<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="ueForm.codeFormation.$valid"></span>
+                    	<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="ueForm.codeFormation.$invalid"></span>
+				</div></div>
+				
+                <div class="col-md-2" >
+                 <div class="form-group form-md-line-input has-info">
+						<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+							<select class="form-control edited" id="form_control_1" ng-hide="isVisible" ng-model="semestreSelected" name="semestre" 
+									ng-options="s.rvAbbreviation for s in semestres track by s.rvAbbreviation" 	required>
+							</select>
+							<label for="form_control_1">Semestre <span id="required-field">*</span></label>
+						</div>
+						<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="ueForm.semestre.$valid"></span>
+                    	<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="ueForm.semestre.$invalid"></span>
+				</div>
+				</div></div>
+						
+				<div form-group class="form-group" form-group-class="has-feedback" style="margin-top:40px;">
+						<label for="" class="col-sm-2">Description</label>
+						<div class="col-sm-10">
+						<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-file-text-o"></i>
+                        </span>
+							<input type="text" class="form-control" name="description" ng-model="ue.description" 
+      						  	placeholder="Description"/>
+						</div>
+						</div>
+					</div>
+								
+				<div class="row" style="margin-top:50px; margin-left: 268px;">
+               <div class="col-md-3" style="margin-right: 80px;">
+                <div class="form-group form-md-line-input has-info">
+						<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-sort-numeric-asc"></i></span>
+							<input type="number" class="form-control" ng-model="ue.nbhCm">
+							<label for="form_control_1">Nombres d'heures (CM)</label>
+						</div>
+				</div></div> 
+				
+				               <div class="col-md-3" style="margin-right: 80px;">
+                <div class="form-group form-md-line-input has-info">
+						<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-sort-numeric-asc"></i></span>
+							<input type="number" class="form-control" ng-model="ue.nbhTd">
+							<label for="form_control_1">Nombres d'heures (TD)</label>
+						</div>
+				</div></div> 
+				
+				               <div class="col-md-3" style="margin-right: 80px;">
+                <div class="form-group form-md-line-input has-info">
+						<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-sort-numeric-asc"></i></span>
+							<input type="number" class="form-control" ng-model="ue.nbhTp">
+							<label for="form_control_1">Nombres d'heures (TP)</label>
+						</div>
+				</div></div>              
+  			</div></div>								
+               
 	            <button class="btn btn-danger" ng-click="cancel()"> Annuler</button>
 	            <button ng-click="submit()" class="btn btn-success pull-right" 
-		                ng-disabled="ueForm.codeUe.$dirty && ueForm.codeUe.$invalid || ueForm.codeFormation.$dirty && ueForm.codeFormation.$invalid ||
-					            	 ueForm.enseignant.$dirty && ueForm.enseignant.$invalid || ueForm.designation.$dirty && ueForm.designation.$invalid ||
-					            	 ueForm.semestre.$dirty && ueForm.semestre.$invalid
-					            	 ">Valider</button>
+		                ng-disabled="ueForm.$invalid">Valider</button>
             </form>
         </div>
         <br/>

@@ -1,5 +1,7 @@
 package fr.univbrest.dosi.spi.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.univbrest.dosi.spi.bean.Authentification;
 import fr.univbrest.dosi.spi.bean.Etudiant;
 import fr.univbrest.dosi.spi.bean.Promotion;
 import fr.univbrest.dosi.spi.bean.utils.EtudiantPromotionUtil;
@@ -83,5 +86,11 @@ public class EtudiantController {
 		return etudiantService.getNombreEtudiants();
 	}
 	
+	@RequestMapping(value="/getPromoPKByEtudiant", produces = { "application/json;charset=UTF-8" })
+	public final Promotion getPromoPKByEtudiant(HttpServletRequest request){
+		Authentification auth = (Authentification) request.getSession().getAttribute("user");
+		Etudiant etudiant = auth.getNoEtudiant();
+		return etudiant.getPromotion();
+	}
 	
 }

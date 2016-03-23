@@ -12,6 +12,9 @@ var edit = false;
         get: function(uniteEnseignementPK) {
         	return $http.post("http://localhost:8090/getUE", uniteEnseignementPK);
         },
+        getDomain : function(){
+      	  return $http.get("http://localhost:8090/getDomaine/SEMESTRE");
+        },
         update: function(ue){
 			return $http.post('http://localhost:8090/updateUE', ue);
 		},
@@ -125,11 +128,11 @@ var edit = false;
   				  if (isConfirm) {  
   		        	var prom = ueFactory.delete(uniteEnseignementPK);
   		        	prom.success(function(data){
-  		        		swal("Félicitation!", "L'unité d'enseignement est supprimée!", "success");
+  		        		swal("", "L'unité d'enseignement est supprimée!", "success");
   		        		$scope.refresh();
   		        	})
   		        	.error(function(data){
-  		        		swal("Erreur!", "Impossible de supprimer cette unité d'enseignement!", "error");
+  		        		swal("Erreur", "Impossible de supprimer cette unité d'enseignement!", "error");
   		        	});
   				  } else {     
   					  	swal("Ignorer", "", "error");
@@ -145,17 +148,19 @@ var edit = false;
     ['$scope', '$stateParams', '$location', 'ueFactory', 'toaster',
     function($scope, $stateParams, $location, ueFactory, toaster){      
     	$scope.edit = edit;
-    	
     	$scope.show = function(){
     		var uniteEnseignementPK = {
             		"codeFormation" : $stateParams.codeFormation,
             		"codeUe" : $stateParams.codeUe
             };
+    	
     		
             var promisesFactory = ueFactory.get(uniteEnseignementPK);
             promisesFactory.success(function(data) {
          		$scope.ue = data;
-         		$scope.ue.semestre = parseInt(data.semestre);
+         		
+         		$scope.ue.semestre = data.semestre;
+         		$scope.semestreSelected = $scope.ue.semestre;
          		$scope.formations = [{
          				"codeFormation" : data.uniteEnseignementPK.codeFormation
          		}];
@@ -201,7 +206,23 @@ var edit = false;
             });
         } else { 
             $scope.show();
-        }      
+        }     
+    	
+    	 var promiseGetSemestre= ueFactory.getDomain();
+    	 promiseGetSemestre.success(function(data,statut){
+         	$scope.semestres= data;
+         	for (var i=0; i<$scope.semestres.length; i++){
+         		console.log("compare " + $scope.semestres[i].rvAbbreviation + " to " + $scope.semestreSelected);
+         		console.log("ue.abbreviation : ", $scope.ue.semestre);
+         		if($scope.semestres[i].rvAbbreviation === $scope.ue.semestre.trim()){
+         			$scope.semestreSelected= $scope.semestres[i];
+         		}
+         	}
+         })
+         
+         .error(function(data,statut){
+       	  console.log("impossible de recuperer la liste des types");
+         });
           
         $scope.edition = function(){
         	edit = true;
@@ -217,7 +238,7 @@ var edit = false;
         					"codeUe" : $scope.ue.uniteEnseignementPK.codeUe
         				},
         				"designation" : $scope.ue.designation,
-        				"semestre" : $scope.ue.semestre,
+        				"semestre" : $scope.semestreSelected.rvAbbreviation,
         				"description" : $scope.ue.description,
         				"nbhCm" : $scope.ue.nbhCm,
         				"nbhTd" : $scope.ue.nbhTd,
@@ -231,7 +252,7 @@ var edit = false;
         	if($stateParams.codeUe == "nouveau"){
         		var promiseAdd = ueFactory.add(ue);
             	promiseAdd.success(function(data){
-            		swal("Félicitation!", "L'unité d'enseignement est ajoutée!", "success");
+            		swal("", "L'unité d'enseignement est ajoutée!", "success");
             		edit = false;
                     $scope.edit = edit;
                 	$location.path('/ue');
@@ -239,7 +260,7 @@ var edit = false;
             	.error(function(data){
             		swal({
             			title: "Error!",
-            			text: "Insertion impossible !",
+            			text: "Veuillez remplir les champs obligatoires !",
             			type: "error",
             			confirmButtonText: "Ok" 
             		});
@@ -255,7 +276,7 @@ var edit = false;
             	.error(function(data){
             		swal({
             			title: "Error!",
-            			text: "Modification impossible !",
+            			text: "Veuillez remplir les champs obligatoires !",
             			type: "error",
             			confirmButtonText: "Ok" 
             		});

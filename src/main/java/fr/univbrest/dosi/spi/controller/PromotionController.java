@@ -1,7 +1,5 @@
 package fr.univbrest.dosi.spi.controller;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -141,15 +139,7 @@ public class PromotionController {
 
 	@RequestMapping(value = "/promotions", produces = { org.springframework.http.MediaType.APPLICATION_JSON_VALUE })
 	public Iterable<Promotion> getPromotions() {
-		List p = (List) promotionService.getPromotionALL();
-		// p.sort(p, promotionPK);
-		Collections.sort(p, new Comparator<Promotion>() {
-			@Override
-			public int compare(Promotion p1, Promotion p2) {
-				return p1.getPromotionPK().getAnneeUniversitaire().compareTo(p2.getPromotionPK().getAnneeUniversitaire());
-			}
-		});
-		return p;
+		return promotionService.getPromotionALL();
 	}
 
 	/**

@@ -2,12 +2,26 @@
 -- @Author Zouhair JEMMAA
 -- Détails d'une question
 -->
+<!-- Navigation-Details -->
+<ul class="page-breadcrumb breadcrumb" ng-hide="edit">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">D&eacute;tails d'une question standard</span></li>
+</ul>
+<!-- END Navigation -->
+<!-- Navigation Mise à jour -->
+<ul class="page-breadcrumb breadcrumb" ng-show="edit">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">Mise &agrave; jour d'une question standard</span></li>
+</ul>
+<!-- END Navigation -->
 <div class="page" ng-controller="QuestionDetailsController">
 	<div class="portlet light bordered">
 		<div class="portlet-title">
 			<div class="caption">
 				<i class="icon-social-dribble font-red"></i> <span
-					class="cpation-subject font-red bold uppercase">Question</span>
+					class="cpation-subject font-red bold uppercase">Question standards</span>
 			</div>
 		</div>
 		<!--------------------------- Consultation --------------------------->
@@ -24,7 +38,7 @@
 						<strong>Qualificatif</strong>
 					</div>
 					<div class="col-md-3">
-						{{question.idQualificatif.maximal}} - {{question.idQualificatif.minimal}}</div>
+						{{qualif.maximal}} - {{qualif.minimal}}</div>
 				</div>
 			</form>
 			</br> <a class="btn btn-primary" href="#/questions"><span
@@ -35,50 +49,51 @@
 		</div>
 		<!--------------------------- Edition ------------------------- -->
 		<div ng-show="edit">
-			<form class="form-horizontal">
+			<form class="form-horizontal elegant-aero" name="questionForm">
 				<div>
 					<toaster-container
 						toaster-options="{'position-class': 'toast-bottom-right'}"></toaster-container>
 					<form class="form-horizontal elegant-aero" name="questionForm">
-						<div class="form-group">
+						
+						
+						<div form-group class="form-group" form-group-class="has-feedback">
 							<label for="" class="col-sm-2">Intitul&eacute;<span
 								id="required-field">*</span></label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="intitule"
-									ng-model="question.intitule" required> <span
-									style="color: red"
-									ng-show="questionForm.intitule.$dirty && questionForm.intitule.$invalid">
-									<span ng-show="questionForm.intitule.$error.required">Intitul&eacute;
-										obligatoire ou type invalide.</span>
+							<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-user"></i>
+                        	</span>
+								<input type="text" class="form-control" name="intitule" ng-model="question.intitule" 
+								 repeat="120" restrict="reject" validate="false"
+								 ng-em-required="Intitul&eacute; obigatoire"
+      						  	 ng-em-pattern="Format incorrect! exemple:Contenu"
+								 placeholder="Intitul&eacute; du question"  required>
+							</div>
+							<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="questionForm.intitule.$valid"></span>
+                    		<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="questionForm.intitule.$invalid"></span>
 							</div>
 						</div>
 
-						<div class="form-group">
-							<label for="" class="col-sm-2">Qualificatif<span
+						<div class="form-group form-md-line-input has-info">
+							<label for="" class="col-sm-2" style="color: #000;">Qualificatif<span
 								id="required-field">*</span></label>
 							<div class="col-sm-10">
-								<!-- <select name="qualificatif"
-						      ng-options="q.qualif as (q.idQualificatif + '/ ' + q.maximal + ' - ' + q.minimal) for q in qualificatifs.availableOptions track by q.idQualificatif"
-						      ng-model="qualificatifs.selectedOption"></select> -->
-
-								<select name="qualificatif" ng-model="qualif">
-									<option data-ng-repeat="q in qualificatifs"
-										value="{{q.idQualificatif}}">
-										{{q.idQualificatif}}/ {{q.maximal}} - {{q.minimal}}</option>
-								</select> <span style="color: red"
-									ng-show="questionForm.qualificatif.$dirty && questionForm.qualificatif.$invalid">
-									<span ng-show="questionForm.qualificatif.$error.required">Champs
-										obligatoire ou type invalide.</span>
+							<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-file-text-o"></i></span>
+								<select class="form-control" name="qualificatif" ng-model="qualifSelected"
+										ng-options="q as (q.minimal+' - '+q.maximal) for q in qualificatifs" 
+										ng-value="q.idQualificatif" required/>
+							</div>	
+						<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="questionForm.qualificatif.$valid"></span>
+                    	<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="questionForm.qualificatif.$invalid"></span>
 							</div>
 						</div>
-
+						
 					</form>
 					<button class="btn btn-danger" ng-click="cancel()">Annuler</button>
 					<a	class="btn btn-success pull-right"
 						ng-click="submit()"
-						ng-disabled="questionForm.idQuestion.$dirty && questionForm.idQuestion.$invalid ||  
-				questionForm.intitule.$dirty && questionForm.intitule.$invalid ||  
-				questionForm.type.$dirty && questionForm.type.$invalid|| questionForm.$invalid"><span
+						ng-disabled="questionForm.$invalid"><span
 						class="glyphicon glyphicon-ok"></span> Valider</a>
 				</div>
 			</form>
