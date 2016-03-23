@@ -10,171 +10,321 @@
 					class="cpation-subject font-red bold uppercase">Etudiant</span>
 			</div>
 		</div>
-		
+
 		<!---------------------- Consultation--------------------  -->
 		<div class="portlet-body form" ng-show="!edit">
 			<form class="form-horizontal form-bordered">
 				<div class="form-group">
 					<div class="col-md-3">
-						<strong>Formation</strong></div>
+						<strong>Formation</strong>
+					</div>
 					<div class="col-md-3">{{etudiant.promotion.promotionPK.codeFormation}}</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-3">
-						<strong>Promotion</strong></div>
+						<strong>Promotion</strong>
+					</div>
 					<div class="col-md-3">{{etudiant.promotion.promotionPK.anneeUniversitaire}}</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-3">
-						<strong>Numéro Etudiant</strong></div>
+						<strong>Numéro Etudiant</strong>
+					</div>
 					<div class="col-md-3">{{etudiant.noEtudiant}}</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-3">
-						<strong>Nom et prénom</strong></div>
+						<strong>Nom et prénom</strong>
+					</div>
 					<div class="col-md-3">{{etudiant.nom}} {{etudiant.prenom}}</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-3">
-						<strong>Sexe</strong></div>
-					<div class="col-md-3">{{etudiant.sexe == "M" ? 'Homme' : 'Femme'}}</div>
+						<strong>Sexe</strong>
+					</div>
+					<div class="col-md-3">{{etudiant.sexe == "M" ? 'Homme' :
+						'Femme'}}</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-3">
-						<strong>Date de Naissance</strong></div>
-					<div class="col-md-3">{{etudiant.dateNaissance | date:"dd/MM/yyyy"}}</div>
+						<strong>Date de Naissance</strong>
+					</div>
+					<div class="col-md-3">{{etudiant.dateNaissance |
+						date:"dd/MM/yyyy"}}</div>
 				</div>
- 				<div class="form-group">
+				<div class="form-group">
 					<div class="col-md-3">
-						<strong>Pays d'origine</strong></div>
+						<strong>Pays d'origine</strong>
+					</div>
 					<div class="col-md-3">{{etudiant.paysOrigine}}</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-3">
-						<strong>Nationalité</strong></div>
+						<strong>Nationalité</strong>
+					</div>
 					<div class="col-md-3">{{etudiant.nationalite}}</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-3">
-						<strong>Email</strong></div>
+						<strong>Email</strong>
+					</div>
 					<div class="col-md-3">{{etudiant.emailUbo}}</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-3">
-						<strong>Université d'origine</strong></div>
+						<strong>Université d'origine</strong>
+					</div>
 					<div class="col-md-3">{{etudiant.universiteOrigine}}</div>
 				</div>
 				<br>
 			</form>
-	<!------------------------Boutons Retour et Editer----------->
-		<a class="btn btn-primary" href="#/etudiants"><span
+			<!------------------------Boutons Retour et Editer----------->
+			<a class="btn btn-primary" href="#/etudiants"><span
 				class="glyphicon glyphicon-arrow-left"></span> Retour</a>
 			<button class="btn btn-warning pull-right" ng-click="edition()">
-			<span class="glyphicon glyphicon-pencil"></span> Editer
+				<span class="glyphicon glyphicon-pencil"></span> Editer
 			</button>
 		</div>
-	<!------------------------------------------------------------- Edition --------------------------------------------->
-	<div ng-show="edit">
-				<form class="form-horizontal elegant-aero" name="etudinantForm">
-					<div ng-repeat="alert in alerts" ng-show="alert.show">
-						<alert type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-					</div>
-					<div class="form-group">
-						<label for="" class="col-sm-2">Numéro Etudiant<span
-							id="required-field">*</span></label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="noEtudiant"
-								ng-model="etudiant.noEtudiant" placeholder="Numero de l'etudiant" ng-pattern="/^[A-Za-z' \-]+$/" required> 
-								<span style="color: red"
-								ng-show="etudiantForm.nom.$dirty && etudiant.nom.$invalid">
-								<span ng-show="etudiantForm.noEtudiant.$error.required">
-								Champ obligatoire / Type invalide</span>
-						</div>
-					</div>
-					
-			<div class="form-group">
-                    <label for="" class="col-sm-2">Formation<span id="required-field">*</span></label>
-                    <div class="col-sm-10">  
-                    <select ng-model="formationSelected" name="codeFormation" >
-							<option data-ng-repeat="f in formations" value="{{f.codeFormation}}">{{f.codeFormation}}</option>
-						</select>                      
-                        
-                        <span style="color:red" ng-show="etudiantForm.codeFormation.$dirty && etudiantForm.codeFormation.$invalid">
-						<span ng-show="etudiantForm.codeFormation.$error.required">Champs obligatoire ou type invalide.</span>
-						<input ng-hide="ajout" type="text" class="form-control" ng-model="etudiant.promotion.promotionPK.codeFormation" ng-readonly="true">
-                    </div> 
-                </div>
-                <div class="form-group">
-                <div class="col-md-6">
-								<label class="col-md-2">Ann&eacute;e <span id="required-field"> *</span></label>
-								<div class="col-md-10">
-										<input  type="text" class="form-control" name="anneeUniversitaire"
-											ng-model="etudiant.anneeUniversitaire" placeholder="yyyy-yyyy"  ng-pattern="/^[1,2][0-9][0-9][0-9]-[1,2][0-9][0-9][0-9]$/"
-											ng-readonly="!ajout" maxlength="9"
-											mask='2399-2399' repeat="28" restrict="reject" validate="false"
-												ng-em-required="Champ obligatoire" 
-												ng-em-pattern="Type invalide"  
-												required>
-									<span style="color: red" ng-show="etudiantForm.anneeUniversitaire.$valid"></span>
-	                    			<span  ng-show="etudiantForm.anneeUniversitaire.$error.required">Champ obligatoire / Type invalide</span>
-								</div>
-							</div>
-			</div>
-					<div class="form-group">
-						<label for="" class="col-sm-2">Nom<span
-							id="required-field">*</span></label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="nom"
-								ng-model="etudiant.nom" placeholder="Nom de l'etudiant" ng-pattern="/^[A-Za-z' \-]+$/" required> 
-								<span style="color: red"
-								ng-show="etudiantForm.nom.$dirty && etudiant.nom.$invalid">
-								<span ng-show="etudiantForm.nom.$error.required">
-								Champ obligatoire / Type invalide</span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="" class="col-sm-2">Prénom<span
-							id="required-field">*</span></label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="nom"
-								ng-model="etudiant.prenom" placeholder="Pr&eacute;nom de l'etudiant" ng-pattern="/^[A-Za-z' \-]+$/" required> 
-								<span style="color: red"
-								ng-show="etudiantForm.prenom.$dirty && etudiant.prenom.$invalid">
-								<span ng-show="etudiantForm.prenom.$error.required">
-								Champ obligatoire / Type invalide</span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="" class="col-sm-2">Sexe<span
-							id="required-field">*</span></label>
-						<div class="col-sm-10">
-							<label class="ui-radio"><input name="radio1" type="radio"
-								value="H" ng-model="etudiant.sexe" ><span>Homme</span></label>
-							<label class="ui-radio"><input name="radio1" type="radio"
-								value="F" ng-model="etudiant.sexe"><span>Femme</span></label>
-						</div>
-					</div>
-					<div class="form-group">
-                    <label for="" class="col-sm-2"> Nationalit&eacute; <span id="required-field">*</span></label>
-                    <div class="col-sm-10">
-                    <input type="text" class="form-control" name="nom"
-								ng-model="etudiant.nationalite" placeholder="Nationalit&eacute; de l'etudiant" ng-pattern="/^[A-Za-z' \-]+$/" required>
-								<span style="color: red" ng-show="etudiant.nationalite.$dirty && etudiant.nationalite.$invalid">
-								<span ng-show="etudiantForm.nationalite.$error.required">
-								Champ obligatoire / Type invalide</span>
-                    </div>                    
-                </div>
-                
-					<!------------------------Boutons Valider et Annuler----------->
-				<div class="form-group">
-					<a class="btn btn-success pull-right" ng-click="submit()"
-						ng-disabled=" ">
-						<span class="glyphicon glyphicon-ok"></span> Valider</a>
-					<a class="btn btn-danger pull-left" href="#/etudiants"><span
-						class="glyphicon glyphicon-arrow-left"></span> Annuler</a>
+		<!------------------------------------------------------------- Edition --------------------------------------------->
+		<div ng-show="edit">
+			<form class="form-horizontal elegant-aero" name="etudiantForm">
+				<div ng-repeat="alert in alerts" ng-show="alert.show">
+					<alert type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
 				</div>
-			</form>	
-		</div>						
+				<div  form-group class="form-group" form-group-class="has-feedback">
+						<label for="" class="col-sm-2">Numéro &eacute;tudiant<span id="required-field">*</span></label>
+						<div class="col-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-slack"></i></span>
+								<input type="text" class="form-control" name="noEtudiant"
+										ng-model="etudiant.noEtudiant" mask="9" repeat="50"
+										restrict="reject" validate="false" 
+										placeholder="Num&eacute;ro de l'&eacute;tudiant"
+										ng-pattern="/^[0-9]+$/"
+										ng-em-required="Num&eacute;ro &eacute;tudiant obigatoire"
+										ng-em-pattern="Format incorrect! exemple:21406961"
+										placeholder="Num&eacute;ro de l'etudiant" 
+										ng-disabled="!ajout" required>
+							</div>
+							<span class="glyphicon glyphicon-ok form-control-feedback text-success"	ng-show="etudiantForm.noEtudiant.$valid"></span>
+							<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="etudiantForm.noEtudiant.$invalid"></span>
+						</div>	
+				</div>			
+				
+				<div form-group class="form-group" form-group-class="has-feedback">
+						<label for="" class="col-sm-2">Formation <span id="required-field"> *</span></label>
+						<div class="col-md-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="icon-graduation"></i></span>
+								<select class="form-control edited" ng-model="formationSelected" name="codeFormation" 
+										ng-change="getAnnee(formationSelected)" 
+										ng-options="f.codeFormation for f in formations track by f.codeFormation" required></select>
+							</div>
+							<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="etudiantForm.codeFormation.$valid"></span>
+                   			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="etudiantForm.codeFormation.$invalid"></span>
+						</div>
+				</div>
+				
+				<div form-group class="form-group" form-group-class="has-feedback">
+						<label for="" class="col-sm-2">Ann&eacute;e <span id="required-field"> *</span></label>
+						<div class="col-md-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="icon-calendar"></i></span>
+								<select class="form-control edited" ng-model="anneeSelected" name="anneeUniversitaire" ng-change="notifyAnnee(anneeSelected)"
+										ng-options="p.promotionPK.anneeUniversitaire for p in promotions track by p.promotionPK.anneeUniversitaire" required></select>
+							</div>
+							<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="etudiantForm.anneeUniversitaire.$valid"></span>
+                   			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="etudiantForm.anneeUniversitaire.$invalid"></span>
+						</div>
+				</div>
+				
+				<div form-group class="form-group" form-group-class="has-feedback">
+					<label for="" class="col-sm-2">Nom<span id="required-field"> *</span></label>
+					<div class="col-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-user"></i></span>
+							<input type="text" class="form-control" name="nom"
+								ng-model="etudiant.nom" placeholder="Nom de l'&eacute;tudiant"
+								ng-pattern="/^[A-Za-z' \-]+$/" required>
+						</div>
+						<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="etudiantForm.nom.$valid"></span>
+                   		<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="etudiantForm.nom.$invalid"></span>
+					</div>
+				</div>
+				
+				<div form-group class="form-group" form-group-class="has-feedback">
+					<label for="" class="col-sm-2">Pr&eacute;nom<span id="required-field"> *</span></label>
+					<div class="col-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-user"></i></span>
+							<input type="text" class="form-control" name="prenom"
+								ng-model="etudiant.prenom"
+								placeholder="Pr&eacute;nom de l'&eacute;tudiant"
+								ng-pattern="/^[A-Za-z' \-]+$/" required> 
+						</div>	
+						<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="etudiantForm.prenom.$valid"></span>
+                   		<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="etudiantForm.prenom.$invalid"></span>
+					</div>
+				</div>
+				
+				<div form-group class="form-group" form-group-class="has-feedback">
+					<label for="" class="col-sm-2">Sexe <span
+						id="required-field">*</span></label>
+					<div class="col-sm-10">
+						<div class="md-radio-inline">
+                                                   <div class="md-radio">
+                                                       <input type="radio" id="checkbox2_8" name="radio1" class="md-radiobtn" value="M" ng-model="etudiant.sexe" ng-required="true">
+                                                       <label for="checkbox2_8">
+                                                           <span class="inc"></span>
+                                                           <span class="check"></span>
+                                                           <span class="box"></span>Homme</label>
+                                                   </div>
+                                                   <div class="md-radio">
+                                                       <input type="radio" id="checkbox2_9" name="radio1" class="md-radiobtn" value="F" ng-model="etudiant.sexe" ng-required="true">
+                                                       <label for="checkbox2_9">
+                                                           <span class="inc"></span>
+                                                           <span class="check"></span>
+                                                           <span class="box"></span>Femme</label>
+                                                   </div>
+                              </div>
+					</div>
+				</div>
+				
+				<div form-group class="form-group" form-group-class="has-feedback">
+					<label for="" class="col-sm-2">Nationnalit&eacute;<span id="required-field"> *</span></label>
+					<div class="col-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-flag"></i></span>
+							<input type="text" class="form-control" name="nationalite"
+								ng-model="etudiant.nationalite"
+								placeholder="Nationalit&eacute; de l'etudiant"
+								ng-pattern="/^[A-Za-z' \-]+$/" required>
+						</div> 
+						<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="etudiantForm.nationalite.$valid"></span>
+                   		<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="etudiantForm.nationalite.$invalid"></span>
+					</div>
+				</div>
+				
+				<div form-group class="form-group" form-group-class="has-feedback">
+					<label for="" class="col-sm-2">Lieu de naissance<span id="required-field"> *</span></label>
+					<div class="col-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+							<input type="text" class="form-control" name="lieuNaissance"
+								ng-model="etudiant.lieuNaissance"
+								placeholder="Lieu de naissance"
+								ng-pattern="/^[A-Za-z' \-]+$/" required>
+						</div> 
+						<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="etudiantForm.lieuNaissance.$valid"></span>
+                   		<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="etudiantForm.lieuNaissance.$invalid"></span>
+					</div>
+				</div>
+				
+				<div form-group class="form-group" form-group-class="has-feedback">
+					<label for="" class="col-sm-2">Date de naissance<span id="required-field"> *</span></label>
+					<div class="col-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+							<input 	type="text" class="form-control"
+									name="dateNaissance" ng-model="etudiant.dateNaissance"
+									placeholder="dd/mm/yyyy"
+									mask="39/19/2999" restrict="reject" validate="false"
+									ng-pattern="/^[0-3][0-9]/[0,1][0-9]/[1,2][0-9][0-9][0-9]$/"
+									ng-em-required="Champ obligatoire" 
+									ng-em-pattern="Type invalide">
+						</div>
+						<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="etudiantForm.dateNaissance.$valid"></span>
+                   		<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="etudiantForm.dateNaissance.$invalid"></span>
+					</div>
+				</div>
+				
+				<div form-group class="form-group" form-group-class="has-feedback">
+						<label for="" class="col-sm-2">Pays d'origine <span id="required-field"> *</span></label>
+						<div class="col-md-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="icon-globe"></i></span>
+								<select class="form-control edited" ng-model="paysSelected" name="paysOrigine" ng-change="notifyPays(paysSelected)"
+										ng-options="p.rvMeaning for p in pays track by p.rvLowValue" required></select>
+							</div>
+							<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="etudiantForm.paysOrigine.$valid"></span>
+                   			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="etudiantForm.paysOrigine.$invalid"></span>
+						</div>
+				</div>
+				
+				<div form-group class="form-group" form-group-class="has-feedback">
+						<label for="" class="col-sm-2">Ville <span id="required-field"> *</span></label>
+						<div class="col-md-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+								<input type="text" class="form-control" name="ville"
+									ng-model="etudiant.ville"
+									placeholder="Ville"
+									ng-pattern="/^[A-Za-z' \-]+$/" 
+									ng-em-required="Ville obligatoire"
+     						  		ng-em-pattern="Format incorrect! Exemple: Brest" 
+     						  	required>
+							</div>
+							<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="etudiantForm.ville.$valid"></span>
+                   			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="etudiantForm.ville.$invalid"></span>
+						</div>
+				</div>
+				
+				<div form-group class="form-group" form-group-class="has-feedback">
+						<label for="" class="col-sm-2">Universit&eacute; d'origine <span id="required-field"> *</span></label>
+						<div class="col-md-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="icon-graduation"></i></span>
+								<select class="form-control edited" ng-model="universiteOrigineSelected" name="universiteOrigine" ng-change="notifyUniv(universiteOrigineSelected)" 
+										ng-options="u.rvMeaning for u in univ track by u.rvLowValue" required></select>
+							</div>
+							<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="etudiantForm.universiteOrigine.$valid"></span>
+                   			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="etudiantForm.universiteOrigine.$invalid"></span>
+						</div>
+				</div>
+				
+				<div form-group class="form-group" form-group-class="has-feedback">
+					<label for="" class="col-sm-2">E-mail <span
+						id="required-field">*</span></label>
+					<div class="col-sm-10">
+					<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-envelope"></i>
+                       </span>
+						<input type="text" class="form-control" name="email" ng-model="etudiant.email"
+							mask='*' repeat="56" restrict="reject" validate="false"
+							ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
+							ng-em-required="Email obigatoire"
+     						  	ng-em-pattern="Format email incorrect! Exemple: bob@gmail.com" 
+							placeholder="example@example.com" required/>
+					</div>		
+							<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="etudiantForm.email.$valid"></span>
+                   			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="etudiantForm.email.$invalid"></span>
+					</div>
+				</div>
+				
+				<div form-group class="form-group" form-group-class="has-feedback">
+					<label for="" class="col-sm-2">Adresse <span
+						id="required-field">*</span></label>
+					<div class="col-sm-10">
+					<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-home"></i>
+                       </span>	
+						<input type="text" class="form-control" name="adresse" ng-model="etudiant.adresse"
+							mask="*" repeat="255" restrict="reject" validate="false" 
+							ng-em-required="Adresse obigatoire" 
+							placeholder="Adresse" required/>
+					</div>
+							<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="etudiantForm.adresse.$valid"></span>
+                   			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="etudiantForm.adresse.$invalid"></span>
+					</div>
+				</div>
+
+				<!------------------------Boutons Valider et Annuler----------->
+				<div class="form-group">
+					<a class="btn btn-success  pull-right" ng-disabled="etudiantForm.$invalid" ng-click="submit()"><span class="glyphicon glyphicon-ok"></span> Valider</a>
+					</a> <a class="btn btn-danger pull-left" href="#/etudiants"><span class="glyphicon glyphicon-arrow-left"></span> Annuler</a>
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
 

@@ -28,12 +28,11 @@ public class EtudiantController {
 	 * @return retourne un message de validation de l'ajout
 	 */
 	@RequestMapping(value="/etudiants/addEtudiant", method = RequestMethod.POST, headers= "Accept=application/json")
-	public String addEtudiant(@RequestBody final EtudiantPromotionUtil etudiantPromotionUtil){
+	public void addEtudiant(@RequestBody final EtudiantPromotionUtil etudiantPromotionUtil){
 		Promotion promotion = promotionService.getPromotion(etudiantPromotionUtil.getPromotion().getPromotionPK());
 		Etudiant etudiant = etudiantPromotionUtil.getEtudiant();
 		etudiant.setPromotion(promotion);
 		etudiantService.addEtudiant(etudiant);
-		return "Succès";
 	}
 	/**
 	 * @author Othman
@@ -41,12 +40,11 @@ public class EtudiantController {
 	 * @return retourne un message de validation de la modification
 	 */
 	@RequestMapping(value="/etudiants/updateEtudiant", method = RequestMethod.POST, headers= "Accept=application/json")
-	public String updateEtudiant(@RequestBody final EtudiantPromotionUtil etudiantPromotionUtil){
+	public void updateEtudiant(@RequestBody final EtudiantPromotionUtil etudiantPromotionUtil){
 		Promotion promotion = promotionService.getPromotion(etudiantPromotionUtil.getPromotion().getPromotionPK());
 		Etudiant etudiant = etudiantPromotionUtil.getEtudiant();
 		etudiant.setPromotion(promotion);
 		etudiantService.updateEtudiant(etudiant);
-		return "Succès";
 	}
 	/**
 	 * @author Othman
@@ -54,9 +52,8 @@ public class EtudiantController {
 	 * @return retourne un message de validation de la suppression
 	 */
 	@RequestMapping(value="/etudiants/deleteEtudiant-{noEtudiant}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public String deleteEtudiant(@PathVariable("noEtudiant")String noEtudiant){
+	public void deleteEtudiant(@PathVariable("noEtudiant")String noEtudiant){
 		etudiantService.deleteEtudiant(noEtudiant);
-		return "Succès";
 	}
 	/**
 	 * 
