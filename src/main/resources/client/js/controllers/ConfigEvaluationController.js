@@ -209,7 +209,7 @@
 					var comArr = $scope.getRubriqueEvaluationById($scope.currentRubrique).questionEvaluationCollection;
 					var id = parseInt(question);
 					for(var i = 0; i < comArr.length; i++){
-						if(comArr[i].idQuestion === id){
+						if(comArr[i].idQuestion.idQuestion === id){
 							return true;					
 						}
 					}
@@ -244,6 +244,7 @@
 		
 		$scope.addQuestions = function(){
 			var rubrique = $scope.getRubriqueEvaluationById($scope.currentRubrique);
+			if(!rubrique.questionEvaluationCollection) rubrique.questionEvaluationCollection = [];
 			var i = 1;
 			for(var ques in $scope.questionsSelected){
 				if(ques != "removeValue" && ques != "retourValue"){
@@ -267,9 +268,9 @@
 							};
 							var promiseQuesEval = configEvalFactory.addQuestionEval(QuesEval);
 							promiseQuesEval.success(function(data){
+								
 							})
 							.error(function(data){
-								
 							});
 						});
 					}
@@ -311,13 +312,13 @@
 		$scope.removeRubrique = function(idRubrique){	
 			var indexRub = -1;		
 			for( var i = 0; i < $scope.rubriques.length; i++ ) {
-				if( $scope.rubriques[i].idRubrique === idRubrique ) {
+				if( $scope.rubriques[i].idRubrique === idRubrique.idRubrique ) {
 					indexRub = i;
 					break;
 				}
 			}
-			if( indexRub === -1 ) {
-				alert( "Something gone wrong" );
+			if(indexRub === -1 ) {
+				swal("Erreur!", "Impossible de supprimer cette rubrique, elle contient des questions !", "error");
 			} 
 			else{
 				var promise = configEvalFactory.deleteRubrique($scope.rubriquesEvaluation[indexRub].idRubriqueEvaluation);
