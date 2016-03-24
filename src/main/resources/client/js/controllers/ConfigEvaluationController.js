@@ -278,6 +278,7 @@
 				i++;
 			}
 			$scope.questionsSelected = [];
+			$location.path("/evaluation/config/"+ $stateParams.id);
 		};
 		
 		$scope.removeQuestion = function(idRubrique, idQuestion){	
