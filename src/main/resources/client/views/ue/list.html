@@ -115,9 +115,15 @@
                     			<td><b>CM : </b>{{u.nbhCm}}</td>
                     			<td><b>TD : </b>{{u.nbhTd}}</td>
                     			<td><b>TP : </b>{{u.nbhTp}}</td>
-								<td id="iconGestion" ng-click="afficher(u)"><span class="fa fa-eye"></td>
-			                    <td id="iconGestion" ng-click="modifier(u)"><span class="glyphicon glyphicon-edit"></td>
-			                    <td id="iconGestion" ng-click="supprime(u.uniteEnseignementPK)"><span class="glyphicon glyphicon-trash"></span></td>
+								<td id="iconGestion" ng-click="afficher(u)">
+									<a href="#" data-toggle="tooltip" data-placement="top" title="Afficher les d&eacute;tails">
+									<span class="fa fa-eye"></span></a></td>
+			                    <td id="iconGestion" ng-click="modifier(u)">
+			                    	<a href="#" data-toggle="tooltip" data-placement="top" title="Editer">
+			                    	<span class="glyphicon glyphicon-edit"></span></a></td>
+			                    <td id="iconGestion" ng-click="supprime(u.uniteEnseignementPK)">
+			                    	<a href="#" data-toggle="tooltip" data-placement="top" title="Supprimer">
+			                    	<span class="glyphicon glyphicon-trash"></span></a></td>
 							</tr>
 						</tbody>
 					</table>

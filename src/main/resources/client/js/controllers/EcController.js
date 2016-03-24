@@ -157,33 +157,34 @@
 		    ['$scope', '$stateParams', '$location', '$filter', 'ecFactory',
 		    function($scope, $stateParams, $location,$filter, ecFactory){ 
 	/** recuperer toutes les formations**/
+	var ctrl = this;
 	var promiseFormations = ecFactory.getFormations();
 		promiseFormations.success(function(data){
-			$scope.formations=data;
+			ctrl.formations=data;
 		}).error(function(data){
 			error("error formations");
 		})
 	/**récupérer tous les enseignants **/ 
 	var promiseEnseignants = ecFactory.getEnseignants();
 	 promiseEnseignants.success(function(data){
-			 $scope.enseignants=data;
+			 ctrl.enseignants=data;
 		 }).error(function(data){
 			 console.log("error enseignants");
 		 });
 	/** récupérer tous les UE**/
 	 var promiseUe = ecFactory.getUEs();
 	 promiseUe.success(function(data){
-		 $scope.ues=data;
+		 ctrl.ues=data;
 	 }).error(function(data){
 		 console
 	 })
 	/** a la base , l'edition est false**/	    	
-		$scope.edit=false;
+		ctrl.edit=false;
 	/** pour créer un ec**/	
 		if($stateParams.new=="nouveau"){
-			$scope.edit=true;
-			$scope.ec={};
-			$scope.ajout=true;
+			ctrl.edit=true;
+			ctrl.ec={};
+			ctrl.ajout=true;
 	/** pour voir les détails d'un ec**/		
 		}else if($stateParams.infos){
 			var elementConstitutifPK = {"codeFormation":$stateParams.id,
@@ -192,8 +193,9 @@
 			/**lors d'un détail , on récupère l'ec désigne **/
 			var promise =ecFactory.get(elementConstitutifPK);
 			promise.success(function(data){
-				$scope.ec=data;
-				console.log($scope.ec);
+				ctrl.ec=data;
+				ctrl.responsable=ctrl.ec.noEnseignant.noEnseignant;
+				console.log(ctrl.ec);
 			}).error(function(data){
 				console.log("error recuperation one");
 			});
@@ -204,17 +206,17 @@
 					"codeEc":$stateParams.id3};
 			var promise =ecFactory.get(elementConstitutifPK);
 			promise.success(function(data){
-				$scope.ec=data;
-				$scope.responsable=$scope.ec.noEnseignant.noEnseignant;
-				console.log($scope.ec);
+				ctrl.ec=data;
+				ctrl.responsable=ctrl.ec.noEnseignant.noEnseignant;
+				console.log(ctrl.ec);
 			}).error(function(data){
 				console.log("error recuperation one");
 			});
-			$scope.edit=true;
+			ctrl.edit=true;
 		}
 	/** la fonction qui permet de modifier un ec **/	
-	$scope.edition=function(){
-		$scope.edit= true;
+	ctrl.edition=function(){
+		ctrl.edit= true;
 		var elementConstitutifPK = {"codeFormation":$stateParams.id,
 									"codeUe":$stateParams.id2,
 									"codeEc":$stateParams.id3};
@@ -222,26 +224,26 @@
 				elementConstitutifPK.codeEc);
 	}
 	/** afin d'annuler **/
-	$scope.cancel=function(){
-		$location.path('/ec');
+	ctrl.cancel=function(){
+		history.back();
 	}
 	/** fonction pour ajouter **/
-	$scope.submit=function(){
+	ctrl.submit=function(){
 		var ecUtil = {
 				"enseignant":{
-					"noEnseignant":$scope.responsable
+					"noEnseignant":ctrl.responsable
 				},
 				"elementConstitutif":{
-					"description": $scope.ec.description,
-						"designation": $scope.ec.designation,
+					"description": ctrl.ec.description,
+						"designation": ctrl.ec.designation,
 						"elementConstitutifPK": {
-						"codeFormation": $scope.ec.elementConstitutifPK.codeFormation,
-						"codeUe": $scope.ec.elementConstitutifPK.codeUe,
-						"codeEc": $scope.ec.elementConstitutifPK.codeEc
+						"codeFormation": ctrl.ec.elementConstitutifPK.codeFormation,
+						"codeUe": ctrl.ec.elementConstitutifPK.codeUe,
+						"codeEc": ctrl.ec.elementConstitutifPK.codeEc
 						},
-						"nbhCm": $scope.ec.nbhCm,
-						"nbhTd": $scope.ec.nbhTd,
-						"nbhTp": $scope.ec.nbhTd
+						"nbhCm": ctrl.ec.nbhCm,
+						"nbhTd": ctrl.ec.nbhTd,
+						"nbhTp": ctrl.ec.nbhTd
 				}
 		};
 		/** si c'est un simple ajout **/
@@ -264,6 +266,7 @@
 				swal("Erreur!", "Le nouveau ElementConstituf n'a pas pu etre modifié!", "error");
 			});
 		}
+		$location.path("/ec");
 	}
 	
 	

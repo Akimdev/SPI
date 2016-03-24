@@ -30,23 +30,20 @@ var edit= false;
       get: function(noEtudiant) { 
     	  return $http.get('http://localhost:8090/etudiants/' + noEtudiant);
       },
-    //ajout d'une nouvel etudiant
+    // ajout d'une nouvel etudiant
    	add: function(etudiant) {
   	  return $http.post('http://localhost:8090/etudiants/addEtudiant', etudiant);
    	},
    	set: function(etudiant) {
-	  	  return $http({
-	  		  method: 'POST',
-	  		  url: 'http://localhost:8090/etudiants/updateEtudiant',
-	  		  data: etudiant,
-	  		  headers:{ 'Content-Type' : 'application/json'}
-	  	  });
-	    },
-//      set: function(formation) {
-//    	  //return $http.post('http://localhost:8090/formations/nouveau', formation);
-//      },
+   		return $http.post('http://localhost:8090/etudiants/updateEtudiant', etudiant);
+
+	  },
+// set: function(formation) {
+// //return $http.post('http://localhost:8090/formations/nouveau', formation);
+// },
       edit: function(formation) {
-    	  //return $http.post('http://localhost:8090/formations/update', formation);
+    	  // return $http.post('http://localhost:8090/formations/update',
+			// formation);
       },
       delete: function(noEtudiant) { 
     	  return  $http.get('http://localhost:8090/etudiants/deleteEtudiant'+ noEtudiant);
@@ -59,6 +56,12 @@ var edit= false;
       },
       getFormations: function(){
      	 return $http.get("http://localhost:8090/formations");
+       },
+       getPromotions: function(codeFormation){
+    	   return $http.get("http://localhost:8090/promotion/findByCodeFormation/" + codeFormation);
+       },
+       getDomaine: function(domaine){
+    	   return $http.get("http://localhost:8090/getDomaine/" + domaine );
        },
       };
   });
@@ -129,12 +132,12 @@ var edit= false;
    // affiche les détail d'un etudiant
       $scope.edit = function (noEtudiant){
 			edit=true;
-			//$scope.ajout = false;
+			// $scope.ajout = false;
     	  $location.path("/etudiant/"+ noEtudiant);
       	}
 	$scope.show= function(noEtudiant){
     	  edit= false;
-    	  //$scope.ajout=false
+    	  // $scope.ajout=false
 	$location.path("/etudiant/"+ noEtudiant);
 		}
       // supprime un etudiant
@@ -160,13 +163,13 @@ var edit= false;
 				        	}
 		        			);
 		        	
-//		        	prom.success(function(data){
-//		        		swal("Félicitation!", "L'etudiant est supprimé!", "success");
-//		        		$scope.refresh();
-//		        	})
-//		        	.error(function(data){
-//		        		swal("Erreur!", "Impossible de supprimer cet etudiant!", "error");
-//		        	});
+// prom.success(function(data){
+// swal("Félicitation!", "L'etudiant est supprimé!", "success");
+// $scope.refresh();
+// })
+// .error(function(data){
+// swal("Erreur!", "Impossible de supprimer cet etudiant!", "error");
+// });
 				  } else {     
 					  	swal("Ignorer", "", "error");
 				  }
@@ -179,102 +182,182 @@ var edit= false;
   app.controller('EtudiantDetailsController', 
     ['$scope', '$stateParams', '$location', '$filter', 'etudiantsFactory','toaster',
     function($scope, $stateParams, $location, $filter, etudiantsFactory,toaster){   
+   	
     	$scope.edit= false;
-//    	etudiantsFactory.getFormations().then(
-//		        // Récuperation des formations
-//    			function(data2,statut){
-//		        	$scope.formations= data2.data;
-//		        },
-//		        function(data2,statut){
-//  		      	  console.log("Impossible de recuperer la liste des formations");
-//  		        }
-//    	).then(
-//    			function(){
-    			// si creation d'un nouvel etudiant
-    				if($stateParams.id == "nouveau"){
-        	        $scope.etudiant= { };
-        	        $scope.edit= true;   
-                    $scope.ajout = true;
-                    var prom = etudiantsFactory.getFormations();
-                    prom.success(function(data){
-                    	$scope.formations = data;
-                    });
-        	      } else { // sinon on edite un etudiant existant
-        	    	  $scope.edit= edit;
-//        	    	  for( var i=0; i< $scope.formations.length; i++){
-//  		        			if($scope.formations[i].codeFormation== $scope.etudiant.promotion.promotionPK.codeFormation)
-//	  		        			$scope.formationSelected= $scope.formations[i];
-//	  		        	}
-    			    	var promise = etudiantsFactory.get($stateParams.id);
-    			        promise.success(function(data){
-    			        	$scope.etudiant = data;
-    			        	var promisePays = etudiantsFactory.getPays($scope.etudiant.paysOrigine);
-    			        	promisePays.success(function(data){
-    			        		$scope.etudiant.paysOrigine = data.rvMeaning;
-    			        	});
-    			        	
-    			        });
-    			        $scope.retour = function(){
-    			        	history.back();
-    			        }
-        	      }
-						$scope.edition = function(){
-							$scope.ajout= false;
-							$scope.edit=edit=true;
-						}
-						
-    			        $scope.submit = function(){
-    			      	  console.log($scope.etudiant);
-    			  		if($stateParams.id == "nouveau"){
-    			  	        	var promisesajout = etudiantsFactory.add($scope.etudiant);
-    			  	        	promisesajout.success(function(data, status) {
-    			  	        		swal("Félicitation!", "Le nouveau etudiant est ajouté!", "success");
-    			  	        		$location.path('/etudiants');
-    			  				});
-    			  	        	promisesajout.error(function(data, status, headers, config) {
-    			  	        		toaster.pop({
-    			  	                    type: 'error',
-    			  	                    title: 'Insertion ou modification impossible. noEtudiant déjà existant',
-    			  	                    positionClass: 'toast-bottom-right',
-    			  	                    showCloseButton: true
-    			  	                });
-    			  				});
-    			  			}
-    			  			 else{ // modification
-    			  	        	var promisesajout = etudiantsFactory.set($scope.etudiant);
-    			  	        	promisesajout.success(function(data, status, headers, config) {
-    			  	        		swal("Félicitation!", "etudiant modifié!", "success");
-    			  	        		$location.path('/etudiants');
-    			  				});
-    			  	        	promisesajout.error(function(data, status, headers, config) {
-    			  	        		toaster.pop({
-    			  	                    type: 'error',
-    			  	                    title: 'Modification echouée',
-    			  	                    positionClass: 'toast-bottom-right',
-    			  	                    showCloseButton: true
-    			  	                });
-    			  				});
-    			  	        	
-    			  	        	$scope.edit = false;
-    			 	        }
-    			     }
+    	$scope.promotions = [];
+    	
+    	var promise = etudiantsFactory.getFormations();
+    	promise.success(function(data){
+    		$scope.formations = data;
+    	});
+    	
+    	var promise = etudiantsFactory.getDomaine("UNIVERSITE");
+    	promise.success(function(data){
+    		$scope.univ = data;
+    	});
+    	
+    	var promise = etudiantsFactory.getDomaine("PAYS");
+    	promise.success(function(data){
+    		$scope.pays = data;
+    	});
+    	
+	// si creation d'un nouvel etudiant
+		if($stateParams.id == "nouveau"){
+        $scope.etudiant= { };
+        $scope.edit= true;   
+        $scope.ajout = true;
+        
+      } else { // sinon on edite un etudiant existant
+    	  $scope.edit= edit;
+	    	var promise = etudiantsFactory.get($stateParams.id);
+	        promise.success(function(data){
+	        	$scope.etudiant = data;
+	        	$scope.formationSelected = $scope.etudiant.promotion.promotionPK.codeFormation;
+	        	$scope.promotionSelected = $scope.etudiant.promotion.promotionPK.anneeUniversitaire;
+	        	$scope.paysSelected = $scope.etudiant.paysOrigine;
+	        	$scope.universiteOrigineSelected = $scope.etudiant.universiteOrigine;
+	        	$scope.anneeSelected = $scope.etudiant.promotion.promotionPK.anneeUniversitaire;
+	        	
+	        	$scope.etudiant.dateNaissance = $filter('date')(data.dateNaissance, "dd/MM/yyyy");
+	
+	        	var promisePays = etudiantsFactory.getPays($scope.etudiant.paysOrigine);
+	        	promisePays.success(function(data){
+	        		$scope.etudiant.paysOrigine = data.rvMeaning;
+	        	});
+	        	
+        		for(var i = 0; i < $scope.formations.length; i++){
+        			if($scope.formations[i].codeFormation === $scope.formationSelected){
+        				$scope.formationSelected = $scope.formations[i];
+        				$scope.getAnnee($scope.formationSelected);
+        				break;
+        			}
+        		}
+        		
+        		for(var i = 0; i < $scope.pays.length; i++){
+        			if($scope.pays[i].rvLowValue == $scope.paysSelected){
+        				$scope.paysSelected = $scope.pays[i];
+        				break;
+        			}
+        		}
+        		
+        		for(var i = 0; i < $scope.univ.length; i++){
+        			if($scope.univ[i].rvLowValue === $scope.universiteOrigineSelected){
+        				$scope.universiteOrigineSelected = $scope.univ[i];
+        				break;
+        			}
+        		}
+        		
+	        });
+      }
+		
+		$scope.retour = function(){
+        	history.back();
+        }
+	
+		$scope.edition = function(){
+			$scope.ajout= false;
+			$scope.edit=edit=true;
+		}
+		
+	        $scope.submit = function(){
+        	
+	        	$scope.etudiant.promotion = {
+	        			"promotionPK" : {
+	        				"codeFormation" :  $scope.formationSelected.codeFormation,
+	        				"anneeUniversitaire" : $scope.anneeSelected.promotionPK.anneeUniversitaire
+	        			}
+	        	};
+	        	$scope.etudiant.paysOrigine = $scope.paysSelected.rvLowValue;
+	        	$scope.etudiant.universiteOrigine = $scope.universiteOrigineSelected.rvLowValue;
+                var date = $scope.etudiant.dateNaissance.split('/');
+  		        $scope.etudiant.dateNaissance = new Date(date[1] + '-' + date[0] + '-' + date[2]); 
+	        	
+	        	var promo = $scope.etudiant.promotion;
+	        	delete $scope.etudiant["promotion"];
+	        	var etudiant = $scope.etudiant;
+	        	var etudiantFullObject = {
+	        			"promotion": {
+	        				"promotionPK": promo.promotionPK 
+	        			},
+	        			"etudiant": etudiant
+	        	};
+	        	
+	        	console.log(etudiantFullObject);
+	        	
+	  		if($stateParams.id == "nouveau"){
+	  	        	var promisesajout = etudiantsFactory.add(etudiantFullObject);
+	  	        	promisesajout.success(function(data, status) {
+	  	        		swal("Félicitation!", "Le nouveau étudiant est ajouté!", "success");
+	  	        		$location.path('/etudiants');
+	  				});
+	  	        	promisesajout.error(function(data, status, headers, config) {
+	  	        		toaster.pop({
+	  	                    type: 'error',
+	  	                    title: 'Insertion ou modification impossible. noEtudiant déjà existant',
+	  	                    positionClass: 'toast-bottom-right',
+	  	                    showCloseButton: true
+	  	                });
+	  				});
+	  			}
+	  			 else{ // modification
+	  	        	var promisesajout = etudiantsFactory.set(etudiantFullObject);
+	  	        	promisesajout.success(function(data, status, headers, config) {
+	  	        		swal("Félicitation!", "L'étudiant modifié!", "success");
+	  	        		$location.path('/etudiants');
+	  				});
+	  	        	promisesajout.error(function(data, status, headers, config) {
+	  	        		toaster.pop({
+	  	                    type: 'error',
+	  	                    title: 'Modification echouée',
+	  	                    positionClass: 'toast-bottom-right',
+	  	                    showCloseButton: true
+	  	                });
+	  				});
+	  	        	
+	  	        	$scope.edit = false;
+	 	        }
+	     }
 
-//    	
-//			        $scope.edition = function(){
-//			            edit = true;
-//			            $scope.ajout= false;
-//			            $scope.button_clicked = true;
-//			          }
-			        // annule l'édition
-    			        $scope.cancel = function(){
-    			            if(!$scope.etudiant.noEtudiant){
-    			              $location.path('/etudiants');
-    			            } else {
-    			              var e = etudiantsFactory.get($stateParams.id);
-    			              $scope.etudiant = JSON.parse(JSON.stringify(e));
-    			              $scope.edit = false;
-    			            }
-    			          } 
+        // annule l'édition
+	        $scope.cancel = function(){
+	            if(!$scope.etudiant.noEtudiant){
+	              $location.path('/etudiants');
+	            } else {
+	              var e = etudiantsFactory.get($stateParams.id);
+	              $scope.etudiant = JSON.parse(JSON.stringify(e));
+	              $scope.edit = false;
+	            }
+	          } 
+	        
+	     
+	        $scope.getAnnee = function(formation){
+	        	$scope.formationSelected = formation;
+	        	var promise = etudiantsFactory.getPromotions(formation.codeFormation);
+	        	promise.success(function(data){
+	        		$scope.promotions = data;
+	        		if($stateParams.id != "nouveau"){
+	        			for(var i = 0; i < $scope.promotions.length; i++){
+	            			if($scope.promotions[i].promotionPK.anneeUniversitaire[i] === $scope.anneeSelected){
+	            				$scope.anneeSelected = $scope.promotions[i].promotionPK.anneeUniversitaire[i];
+	            				break;
+	            			}
+	            		}
+	        		}
+	        	});
+	        }
+	        
+	        $scope.notifyUniv = function(univ){
+	        	$scope.universiteOrigineSelected = univ;
+	        }
+	        
+	        $scope.notifyPays = function(pays){
+	        	$scope.paysSelected = pays;
+	        }
+	        
+	        $scope.notifyAnnee = function(annee){
+	        	$scope.anneeSelected = annee;
+	        }
+	        
     }]
   );
   
