@@ -103,7 +103,7 @@
 		        $scope.filteredQuestion = $filter('orderBy')($scope.listQuestionsOptions, rowName);
 		        return $scope.onOrderChange();
 		      };
-		      $scope.numPerPageOpt = [3, 5, 10, 20];
+		      $scope.numPerPageOpt = [3, 5, 10];
 		      $scope.numPerPage = $scope.numPerPageOpt[2];
 		      $scope.currentPage = 1;
 		      $scope.questionsOptions = [];
