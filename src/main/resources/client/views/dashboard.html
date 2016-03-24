@@ -62,7 +62,7 @@
 					<div class="number">
 						<span data-counter="counterup" data-value="{{nombreRubriques}}">{{nombreRubriques}}</span>
 					</div>
-					<div class="desc">Rubriques</div>
+					<div class="desc">Rubriques standards</div>
 				</div>
 				<a class="more" href="#/rubriques">Afficher la liste<i
 					class="m-icon-swapright m-icon-white"></i>
@@ -86,10 +86,9 @@
 				</a>
 			</div>
 		</div>
-		
 		<!---------------------------------------- Evaluations Concernant Un Etudiant---------------------------------------->
 		<div ng-show="user=='ETU'" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-			<div class="dashboard-stat green-jungle">
+			<div class="dashboard-stat purple">
 				<div class="visual">
 					<i class="fa fa-list-alt"> </i>
 				</div>
@@ -104,9 +103,60 @@
 				</a>
 			</div>
 		</div>
+		<!---------------------------------------- Unités d'enseignement  ---------------------------------------->
+		<div  ng-show="user=='ADM'" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat green-jungle">
+				<div class="visual">
+					<i class="fa fa-list-alt"> </i>
+				</div>
+				<div class="details">
+					<div class="number">
+						<span data-counter="counterup" data-value="{{nombreUEs}}">{{nombreUEs}}</span>
+					</div>
+					<div class="desc">Unit&eacute; d'enseignement</div>
+				</div>
+				<a class="more" href="#/ue">Afficher la liste<i
+					class="m-icon-swapright m-icon-white"></i>
+				</a>
+			</div>
+		</div>
+		<!---------------------------------------- Formations  ---------------------------------------->
+		<div  ng-show="user=='ADM'" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat blue-soft">
+				<div class="visual">
+					<i class="fa fa-list-alt"> </i>
+				</div>
+				<div class="details">
+					<div class="number">
+						<span data-counter="counterup" data-value="{{nombreFormations}}">{{nombreFormations}}</span>
+					</div>
+					<div class="desc">Formations</div>
+				</div>
+				<a class="more" href="#/formations">Afficher la liste<i
+					class="m-icon-swapright m-icon-white"></i>
+				</a>
+			</div>
+		</div>
+		<!---------------------------------------- Elements Constitutifs  -------------------------------->
+		<div  ng-show="user=='ADM'" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat yellow-casablanca">
+				<div class="visual">
+					<i class="fa fa-list-alt"> </i>
+				</div>
+				<div class="details">
+					<div class="number">
+						<span data-counter="counterup" data-value="{{nombreEC}}">{{nombreEC}}</span>
+					</div>
+					<div class="desc">&Eacute;lements Constitutifs</div>
+				</div>
+				<a class="more" href="#/ec">Afficher la liste<i
+					class="m-icon-swapright m-icon-white"></i>
+				</a>
+			</div>
+		</div>
 		<!---------------------------------------- Questions  ---------------------------------------->
 		<div ng-show="user=='ADM'" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-			<div class="dashboard-stat yellow">
+			<div class="dashboard-stat yellow-saffron">
 				<div class="visual">
 					<i class="fa fa-question-circle"> </i>
 				</div>
@@ -114,7 +164,7 @@
 					<div class="number">
 						<span data-counter="counterup" data-value="{{nombreQuestions}}">{{nombreQuestions}}</span>
 					</div>
-					<div class="desc">Questions</div>
+					<div class="desc">Questions standards</div>
 				</div>
 				<a class="more" href="#/questions">Afficher la liste<i
 					class="m-icon-swapright m-icon-white"></i>

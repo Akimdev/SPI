@@ -2,8 +2,21 @@
  -- Author Kenza ABOUAKIL
  -- Détails d'un élément constitutif
  -->
-
 <div class="page" ng-controller="EcDetailsController as EcDetControl">
+<!-- Navigation-Details -->
+<ul class="page-breadcrumb breadcrumb" ng-hide="edit">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">D&eacute;tails d'un &eacute;l&eacute;ment constitutif</span></li>
+</ul>
+<!-- END Navigation -->
+<!-- Navigation Mise à jour -->
+<ul class="page-breadcrumb breadcrumb" ng-show="edit">
+	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">Mise &agrave; jour d'un &eacute;l&eacute;ment constitutif</span></li>
+</ul>
+<!-- END Navigation -->
 	<div class="portlet light bordered">
 		<div class="portlet-title">
 			<div class="caption">
