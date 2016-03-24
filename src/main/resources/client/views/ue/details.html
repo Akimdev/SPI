@@ -1,15 +1,17 @@
 <!-- Navigation-Details -->
 <ul class="page-breadcrumb breadcrumb" ng-hide="edit">
 	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
-		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
-	<li><span class="active">D&eacute;tails d'une unit&eacute; d'enseignement</span></li>
+	<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">D&eacute;tails d'une unit&eacute;
+			d'enseignement</span></li>
 </ul>
 <!-- END Navigation -->
 <!-- Navigation Mise à jour -->
 <ul class="page-breadcrumb breadcrumb" ng-show="edit">
 	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
-		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
-	<li><span class="active">Mise &agrave; jour d'une unit&eacute; d'enseignement</span></li>
+	<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+	<li><span class="active">Mise &agrave; jour d'une
+			unit&eacute; d'enseignement</span></li>
 </ul>
 <!-- END Navigation -->
 <div class="page" ng-controller="UEDetailsController">
@@ -17,10 +19,11 @@
 		<div class="portlet-title">
 			<div class="caption">
 				<i class="icon-social-dribble font-red"></i> <span
-					class="cpation-subject font-red bold uppercase">Unit&eacute; d'enseignement</span>
+					class="cpation-subject font-red bold uppercase">Unit&eacute;
+					d'enseignement</span>
 			</div>
 		</div>
-    	<!--------------------------- Consultation --------------------------->
+		<!--------------------------- Consultation --------------------------->
 		<div class="portlet-body form" ng-hide="edit">
 			<form class="form-horizontal form-bordered">
 				<div class="form-group">
@@ -33,243 +36,291 @@
 					<div class="col-md-3">
 						<strong>Formation</strong>
 					</div>
-					<div class="col-md-3"> {{ue.uniteEnseignementPK.codeFormation}}</div>
+					<div class="col-md-3">
+						{{ue.uniteEnseignementPK.codeFormation}}</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-3">
 						<strong>D&eacute;signation</strong>
 					</div>
-					<div class="col-md-3"> {{ue.designation}}</div>
+					<div class="col-md-3">{{ue.designation}}</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-3">
 						<strong>Enseignant responsable</strong>
 					</div>
-					<div class="col-md-3"> {{ue.noEnseignant.nom}} {{ue.noEnseignant.prenom}}</div>
+					<div class="col-md-3">{{ue.noEnseignant.nom}}
+						{{ue.noEnseignant.prenom}}</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-3">
 						<strong>Nombre heures</strong>
 					</div>
-					<div class="col-md-3"><b>CM : </b> {{ue.nbhCm}}  /  <b>TD : </b>{{ue.nbhTd}}  /  <b>TP : </b>{{ue.nbhTp}}</div>
+					<div class="col-md-3">
+						<b>CM : </b> {{ue.nbhCm}} / <b>TD : </b>{{ue.nbhTd}} / <b>TP :
+						</b>{{ue.nbhTp}}
+					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-md-3">
 						<strong>Semestre</strong>
 					</div>
-					<div class="col-md-3"> {{ue.semestre}}</div>
+					<div class="col-md-3">{{ue.semestre}}</div>
 				</div>
 			</form>
-		</div>      
-        <!-- Edition -->
-        <div ng-show="edit">   
-        <div class="portlet light bordered">
-        <div class="caption" ng-hide="ajout">
-                    <i class="fa fa-gears font-blue"></i>
-                    <span class="caption-subject font-blue bold uppercase bold"> Mise &agrave; jour</span>
-                </div>
-                <div class="caption" ng-show="ajout">
-                    <i class="fa fa-plus font-blue"></i>
-                    <span class="caption-subject font-blue sbold uppercase bold"> Nouvelle promotion </span>
-                </div> 
-                </br></br></br>
-                        
-            <form class="form-horizontal" name="ueForm">
-                
-             <div form-group class="form-group" form-group-class="has-feedback">
-						<label for="" class="col-sm-2">Unit&eacute; d'Enseignement<span
-							id="required-field">*</span></label>
-						<div class="col-sm-10">
-						<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-bookmark-o"></i>
-                        </span>
-							<input type="text" class="form-control" name="codeUe" ng-model="ue.uniteEnseignementPK.codeUe"
-								mask='*' repeat="8"  restrict="reject" validate="false"
-								ng-pattern="/^[A-Za-z éêöôçèàûù']+$/
-								ng-em-required="Unit&eacute; d'Enseignement obigatoire"
-      						  	ng-em-pattern="Format incorrect! exemple:JEE" 
-      						  	placeholder="Unit&eacute; d'Enseignement" required/>
-						</div>
-								<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="ueForm.codeUe.$valid"></span>
-                    			<SPAN CLASS="GLYPHICON GLYPHICON-Remove form-control-feedback text-danger" ng-show="ueForm.codeUe.$invalid"></span>
-						</div>
-					</div>    
-                
-            <div form-group class="form-group" form-group-class="has-feedback">
-						<label for="" class="col-sm-2">D&eacute;signation<span
-							id="required-field">*</span></label>
-						<div class="col-sm-10">
-						<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-bookmark-o"></i>
-                        </span>
-							<input type="text" class="form-control" name="designation" ng-model="ue.designation"
-								mask='*' repeat="56"  restrict="reject" validate="false"
-								ng-pattern="/^[A-Za-z éêöôçèàûù']+$/
-								ng-em-required="D&eacute;signation obigatoire"
-      						  	ng-em-pattern="Format incorrect! exemple:JEE" 
-      						  	placeholder="D&eacute;signation" required/>
-						</div>
-								<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="ueForm.designation.$valid"></span>
-                    			<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="ueForm.designation.$invalid"></span>
-						</div>
-					</div>
-            
-               <div class="row" style="margin-top:40px; margin-left: 268px;">
-               <div class="col-md-3" style="margin-right: 80px;">
-                <div class="form-group form-md-line-input has-info">
-						<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-user"></i></span>
-							<select class="form-control edited" id="form_control_1" ng-hide="isVisible" ng-model="enseignant" name="enseignant" required>
-								<option data-ng-repeat="ens in enseignants" value="{{ens.noEnseignant}}" ng-selected="{{ens.noEnseignant == responsable.noEnseignant}}">{{ens.nom}} {{ens.prenom}}</option>
-							</select>
-							<label for="form_control_1">Enseignant <span id="required-field">*</span></label>
-						</div>
-						<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="ueForm.enseignant.$valid"></span>
-                    	<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="ueForm.enseignant.$invalid"></span>
-				</div></div>
-				
-               <div class="col-md-3" style="margin-right: 80px;">           
-                  <div class="form-group form-md-line-input has-info">
-						<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-university"></i></span>
-							<select class="form-control edited" id="form_control_1" ng-model="ue.uniteEnseignementPK.codeFormation" ng-show="ajout" name="codeFormation" ng-disabled="!ajout" required>
-							<option data-ng-repeat="f in formations" value="{{f.codeFormation}}">{{f.codeFormation}}</option>
-							</select>
-							<label for="form_control_1">Formation <span id="required-field">*</span></label>
-							<input type="text" class="form-control" name="codeFormation" ng-disabled="!ajout" ng-show="!ajout" ng-model="ue.uniteEnseignementPK.codeFormation" required>
-						</div>
-						<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="ueForm.codeFormation.$valid"></span>
-                    	<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="ueForm.codeFormation.$invalid"></span>
-				</div></div>
-				
-                <div class="col-md-2" >
-                 <div class="form-group form-md-line-input has-info">
-						<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-							<select class="form-control edited" id="form_control_1" ng-hide="isVisible" ng-model="semestreSelected" name="semestre" 
-									ng-options="s.rvAbbreviation for s in semestres track by s.rvAbbreviation" 	required>
-							</select>
-							<label for="form_control_1">Semestre <span id="required-field">*</span></label>
-						</div>
-						<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="ueForm.semestre.$valid"></span>
-                    	<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="ueForm.semestre.$invalid"></span>
-				</div>
-				</div></div>
-						
-				<div form-group class="form-group" form-group-class="has-feedback" style="margin-top:40px;">
-						<label for="" class="col-sm-2">Description</label>
-						<div class="col-sm-10">
-						<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-file-text-o"></i>
-                        </span>
-							<input type="text" class="form-control" name="description" ng-model="ue.description" 
-      						  	placeholder="Description"/>
-						</div>
-						</div>
-					</div>
-								
-				<div class="row" style="margin-top:50px; margin-left: 268px;">
-               <div class="col-md-3" style="margin-right: 80px;">
-                <div class="form-group form-md-line-input has-info">
-						<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-sort-numeric-asc"></i></span>
-							<input type="number" class="form-control" ng-model="ue.nbhCm">
-							<label for="form_control_1">Nombres d'heures (CM)</label>
-						</div>
-				</div></div> 
-				
-				               <div class="col-md-3" style="margin-right: 80px;">
-                <div class="form-group form-md-line-input has-info">
-						<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-sort-numeric-asc"></i></span>
-							<input type="number" class="form-control" ng-model="ue.nbhTd">
-							<label for="form_control_1">Nombres d'heures (TD)</label>
-						</div>
-				</div></div> 
-				
-				               <div class="col-md-3" style="margin-right: 80px;">
-                <div class="form-group form-md-line-input has-info">
-						<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-sort-numeric-asc"></i></span>
-							<input type="number" class="form-control" ng-model="ue.nbhTp">
-							<label for="form_control_1">Nombres d'heures (TP)</label>
-						</div>
-				</div></div>              
-  			</div></div>								
-               
-	            <button class="btn btn-danger" ng-click="cancel()"> Annuler</button>
-	            <button ng-click="submit()" class="btn btn-success pull-right" 
-		                ng-disabled="ueForm.$invalid">Valider</button>
-            </form>
-        </div>
-        <br/>
-        <div class="" ng-if="!edit">
-	        <table class="portlet light bordered table table-bordered table-striped table-responsive" ng-show="filled">
-	            <thead>
-	                <tr>
-	                	<th><div class="th">
-	                        Element constitutif
-	                        <span class="glyphicon glyphicon-chevron-up"
-	                              data-ng-click=" order('diplome') "
-	                              data-ng-class="{active: row == 'diplome'}"></span>
-	                        <span class="glyphicon glyphicon-chevron-down"
-	                              data-ng-click=" order('-diplome') "
-	                              data-ng-class="{active: row == '-diplome'}"></span>
-	                    </div></th>
-	                	<th><div class="th">
-	                        Formation
-	                        <span class="glyphicon glyphicon-chevron-up"
-	                              data-ng-click=" order('email') "
-	                              data-ng-class="{active: row == 'email'}"></span>
-	                        <span class="glyphicon glyphicon-chevron-down"
-	                              data-ng-click=" order('-email') "
-	                              data-ng-class="{active: row == '-email'}"></span>
-	                    </div></th> 
-	                    <th><div class="th">
-							Unite d'enseignement
-	                        <span class="glyphicon glyphicon-chevron-up"
-	                              data-ng-click=" order('email') "
-	                              data-ng-class="{active: row == 'email'}"></span>
-	                        <span class="glyphicon glyphicon-chevron-down"
-	                              data-ng-click=" order('-email') "
-	                              data-ng-class="{active: row == '-email'}"></span>
-	                    </div></th>
-	                    <th><div class="th">
-	                        Designation
-	                        <span class="glyphicon glyphicon-chevron-up"
-	                              data-ng-click=" order('code') "
-	                              data-ng-class="{active: row == 'code'}"></span>
-	                        <span class="glyphicon glyphicon-chevron-down"
-	                              data-ng-click=" order('-code') "
-	                              data-ng-class="{active: row == '-code'}"></span>
-	                    </div></th>                   
-	                    <th><div class="th">
-	                        Heures (CM/TD/TP)
-	                        <span class="glyphicon glyphicon-chevron-up"
-	                              data-ng-click=" order('email') "
-	                              data-ng-class="{active: row == 'email'}"></span>
-	                        <span class="glyphicon glyphicon-chevron-down"
-	                              data-ng-click=" order('-email') "
-	                              data-ng-class="{active: row == '-email'}"></span>
-	                    </div></th>
-	                </tr>
-	            </thead>
-	            <tbody>
-	                <tr data-ng-repeat="e in ec" class="ec">
-	                    <td ng-click="">{{e.elementConstitutifPK.codeEc}}</td>
-	                    <td ng-click="">{{e.elementConstitutifPK.codeUe}}</td>
-	                    <td ng-click="">{{e.elementConstitutifPK.codeFormation}}</td>
-	                    <td ng-click="">{{e.description}}</td>
-	                    <td ng-click="">{{e.nbhCm}}/{{e.nbhTd}}/{{e.nbhTp}}</td>
-	                    <td id="iconGestion" ng-click="showEc(q)"><span class="fa fa-eye"></span></td>
-	                </tr>
-	            </tbody>
-	        </table>
-	        <button class="btn btn-primary" ng-click="cancel()"> Retour</button>
+			<br>
+			<button class="btn btn-primary" ng-click="cancel()">Retour</button>
 			<button class="btn btn-warning pull-right" ng-click="edition()">
 				<span class="glyphicon glyphicon-pencil"></span> Editer
 			</button>
-        </div>
-    </div>
-  </div>
+		</div>
+		<!------------------------------------ Edition------------------------------- -->
+		<div ng-show="edit">
+			<div class="caption" ng-show="ajout">
+				<i class="fa fa-plus font-blue"></i> <span
+					class="caption-subject font-blue sbold uppercase bold">
+					Nouvelle promotion </span>
+			</div>
+			<br>
+
+			<form class="form-horizontal" name="ueForm">
+
+				<div form-group class="form-group" form-group-class="has-feedback">
+					<label for="" class="col-sm-2">Unit&eacute; d'Enseignement<span
+						id="required-field">*</span></label>
+					<div class="col-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="fa fa-bookmark-o"></i> </span> <input type="text"
+								class="form-control" name="codeUe"
+								ng-model="ue.uniteEnseignementPK.codeUe" mask='*' repeat="8"
+								restrict="reject" validate="false"
+								ng-pattern="/^[A-Za-z éêöôçèàûù']+$/
+								ng-em-required="
+								Unit&eacute; d'Enseignement
+								obigatoire"
+      						  	ng-em-pattern="Format incorrect! exemple:JEE"
+								placeholder="Unit&eacute; d'Enseignement" required />
+						</div>
+						<span
+							class="glyphicon glyphicon-ok form-control-feedback text-success"
+							ng-show="ueForm.codeUe.$valid"></span> <SPAN
+							CLASS="GLYPHICON GLYPHICON-Remove form-control-feedback text-danger"
+							ng-show="ueForm.codeUe.$invalid"></span>
+					</div>
+				</div>
+
+				<div form-group class="form-group" form-group-class="has-feedback">
+					<label for="" class="col-sm-2">D&eacute;signation<span
+						id="required-field">*</span></label>
+					<div class="col-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="fa fa-bookmark-o"></i> </span> <input type="text"
+								class="form-control" name="designation"
+								ng-model="ue.designation" mask='*' repeat="56" restrict="reject"
+								validate="false"
+								ng-pattern="/^[A-Za-z éêöôçèàûù']+$/
+								ng-em-required="
+								D&eacute;signation
+								obigatoire"
+      						  	ng-em-pattern="Format incorrect! exemple:JEE"
+								placeholder="D&eacute;signation" required />
+						</div>
+						<span
+							class="glyphicon glyphicon-ok form-control-feedback text-success"
+							ng-show="ueForm.designation.$valid"></span> <span
+							class="glyphicon glyphicon-remove form-control-feedback text-danger"
+							ng-show="ueForm.designation.$invalid"></span>
+					</div>
+				</div>
+
+				<!-- Enseignant -->
+				<div form-group class="form-group" form-group-class="has-feedback">
+					<label for="" class="col-sm-2">Enseignant<span
+						id="required-field">*</span></label>
+					<div class="col-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-user"></i></span>
+							<select class="form-control edited" id="form_control_1"
+								ng-hide="isVisible" ng-model="enseignant" name="enseignant"
+								required>
+								<option data-ng-repeat="ens in enseignants"
+									value="{{ens.noEnseignant}}"
+									ng-selected="{{ens.noEnseignant == responsable.noEnseignant}}">{{ens.nom}}
+									{{ens.prenom}}</option>
+							</select>
+						</div>
+						<span
+							class="glyphicon glyphicon-ok form-control-feedback text-success"
+							ng-show="ueForm.enseignant.$valid"></span> <span
+							class="glyphicon glyphicon-remove form-control-feedback text-danger"
+							ng-show="ueForm.enseignant.$invalid"></span>
+					</div>
+				</div>
+
+				<!-- Formation -->
+				<div form-group class="form-group" form-group-class="has-feedback">
+					<label for="" class="col-sm-2">Formation<span
+						id="required-field">*</span></label>
+					<div class="col-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="fa fa-university"></i></span> <select
+								class="form-control edited" id="form_control_1"
+								ng-model="ue.uniteEnseignementPK.codeFormation" ng-show="ajout"
+								name="codeFormation" ng-disabled="!ajout" required>
+								<option data-ng-repeat="f in formations"
+									value="{{f.codeFormation}}">{{f.codeFormation}}</option>
+							</select> <input type="text" class="form-control" name="codeFormation"
+								ng-disabled="!ajout" ng-show="!ajout"
+								ng-model="ue.uniteEnseignementPK.codeFormation" required>
+						</div>
+						<span
+							class="glyphicon glyphicon-ok form-control-feedback text-success"
+							ng-show="ueForm.codeFormation.$valid"></span> <span
+							class="glyphicon glyphicon-remove form-control-feedback text-danger"
+							ng-show="ueForm.codeFormation.$invalid"></span>
+					</div>
+				</div>
+
+				<!-- Semestre -->
+				<div form-group class="form-group" form-group-class="has-feedback">
+					<label for="" class="col-sm-2">Semestre<span
+						id="required-field">*</span></label>
+					<div class="col-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+							<select class="form-control edited" id="form_control_1"
+								ng-hide="isVisible" ng-model="semestreSelected" name="semestre"
+								ng-options="s.rvAbbreviation for s in semestres track by s.rvAbbreviation"
+								required>
+							</select>
+						</div>
+						<span
+							class="glyphicon glyphicon-ok form-control-feedback text-success"
+							ng-show="ueForm.semestre.$valid"></span> <span
+							class="glyphicon glyphicon-remove form-control-feedback text-danger"
+							ng-show="ueForm.semestre.$invalid"></span>
+					</div>
+				</div>
+
+				<!-- Description -->
+				<div form-group class="form-group" form-group-class="has-feedback">
+					<label for="" class="col-sm-2">Description<span
+						id="required-field">*</span></label>
+					<div class="col-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="fa fa-file-text-o"></i> </span> <input type="text"
+								class="form-control" name="description"
+								ng-model="ue.description" placeholder="Description" />
+						</div>
+					</div>
+				</div>
+
+				<!-- Nombres d'heures (CM) -->
+				<div form-group class="form-group" form-group-class="has-feedback">
+					<label for="" class="col-sm-2">Nombres d'heures (CM)</label>
+					<div class="col-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="fa fa-sort-numeric-asc"></i></span> <input type="number"
+								class="form-control" ng-model="ue.nbhCm">
+						</div>
+					</div>
+				</div>
+
+				<!-- Nombres d'heures (TD) -->
+				<div form-group class="form-group" form-group-class="has-feedback">
+					<label for="" class="col-sm-2">Nombres d'heures (TD)</label>
+					<div class="col-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="fa fa-sort-numeric-asc"></i></span> <input type="number"
+								class="form-control" ng-model="ue.nbhTd">
+						</div>
+					</div>
+				</div>
+
+				<!-- Nombres d'heures (TP) -->
+				<div form-group class="form-group" form-group-class="has-feedback">
+					<label for="" class="col-sm-2">Nombres d'heures (TP)</label>
+					<div class="col-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="fa fa-sort-numeric-asc"></i></span> <input type="number"
+								class="form-control" ng-model="ue.nbhTp">
+						</div>
+					</div>
+				</div>
+				<button class="btn btn-danger" ng-click="cancel()">Annuler</button>
+				<button ng-click="submit()" class="btn btn-success pull-right"
+					ng-disabled="ueForm.$invalid">Valider</button>
+			</form>
+		</div>
+
+	</div>
+	<br />
+	<div class="" ng-if="!edit">
+		<table
+			class="portlet light bordered table table-bordered table-striped table-responsive"
+			ng-show="filled">
+			<thead>
+				<tr>
+					<th><div class="th">
+							Element constitutif <span class="glyphicon glyphicon-chevron-up"
+								data-ng-click=" order('diplome') "
+								data-ng-class="{active: row == 'diplome'}"></span> <span
+								class="glyphicon glyphicon-chevron-down"
+								data-ng-click=" order('-diplome') "
+								data-ng-class="{active: row == '-diplome'}"></span>
+						</div></th>
+					<th><div class="th">
+							Formation <span class="glyphicon glyphicon-chevron-up"
+								data-ng-click=" order('email') "
+								data-ng-class="{active: row == 'email'}"></span> <span
+								class="glyphicon glyphicon-chevron-down"
+								data-ng-click=" order('-email') "
+								data-ng-class="{active: row == '-email'}"></span>
+						</div></th>
+					<th><div class="th">
+							Unite d'enseignement <span class="glyphicon glyphicon-chevron-up"
+								data-ng-click=" order('email') "
+								data-ng-class="{active: row == 'email'}"></span> <span
+								class="glyphicon glyphicon-chevron-down"
+								data-ng-click=" order('-email') "
+								data-ng-class="{active: row == '-email'}"></span>
+						</div></th>
+					<th><div class="th">
+							Designation <span class="glyphicon glyphicon-chevron-up"
+								data-ng-click=" order('code') "
+								data-ng-class="{active: row == 'code'}"></span> <span
+								class="glyphicon glyphicon-chevron-down"
+								data-ng-click=" order('-code') "
+								data-ng-class="{active: row == '-code'}"></span>
+						</div></th>
+					<th><div class="th">
+							Heures (CM/TD/TP) <span class="glyphicon glyphicon-chevron-up"
+								data-ng-click=" order('email') "
+								data-ng-class="{active: row == 'email'}"></span> <span
+								class="glyphicon glyphicon-chevron-down"
+								data-ng-click=" order('-email') "
+								data-ng-class="{active: row == '-email'}"></span>
+						</div></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="e in ec" class="ec">
+					<td ng-click="">{{e.elementConstitutifPK.codeEc}}</td>
+					<td ng-click="">{{e.elementConstitutifPK.codeUe}}</td>
+					<td ng-click="">{{e.elementConstitutifPK.codeFormation}}</td>
+					<td ng-click="">{{e.description}}</td>
+					<td ng-click="">{{e.nbhCm}}/{{e.nbhTd}}/{{e.nbhTp}}</td>
+					<td id="iconGestion" ng-click="showEc(q)"><span
+						class="fa fa-eye"></span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
