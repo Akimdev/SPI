@@ -245,8 +245,8 @@ $scope.refresh();
         $scope.edit = true;
       }
 $scope.submit = function(){
-    	  $scope.enseignant.type= $scope.typeSelected;
-    	  $scope.enseignant.pays= $scope.paysSelected;
+    	  $scope.enseignant.type= $scope.typeSelected.rvLowValue;
+    	  $scope.enseignant.pays= $scope.paysSelected.rvLowValue;
     	  console.log($scope.enseignant);
 		if($stateParams.id == "nouveau"){
 	        	var promisesajout = enseignantsFactory.add($scope.enseignant);
