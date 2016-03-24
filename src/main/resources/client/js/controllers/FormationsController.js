@@ -192,13 +192,14 @@
 						swal("Supprimé!", "la formation est supprimée", "success");
 					});
 			    	  promisessuppression.error(function(data, status, headers, config) {
-			    		  swal("Erreur!", "vous ne pouvez pas supprimer cette formation", "error");
+			    		  swal("Erreur!", "vous ne pouvez pas supprimer cette formation car elle est refferencée", "error");
 			  		});	
 					  } else {     
 						  swal("Ignorer", "", "error");
 						  }
 				  });  
       }
+      
       $scope.refresh();
     }]
   );
@@ -261,38 +262,42 @@
 		);
       
       ctrl.submit = function(){
-        	if(ctrl.formation.debutAccreditation && ctrl.formation.finAccreditation){
+        	if(ctrl.dateDebut && ctrl.dateFin){
             	var date = ctrl.dateDebut.split('/');
             	ctrl.formation.debutAccreditation = new Date(date[1] + '-' + date[0] + '-' + date[2]);
             	var date2 = ctrl.dateFin.split('/');
             	ctrl.formation.finAccreditation = new Date(date2[1] + '-' + date2[0] + '-' + date2[2]);
+            	console.log("debut: ", ctrl.formation.debutAccreditation);
+            	console.log("fin: ", ctrl.formation.finAccreditation);
         	}
         	ctrl.formation.diplome = ctrl.diplomeSelected.rvAbbreviation;
         	ctrl.formation.doubleDiplome = ctrl.doubleDiplomeSelected.rvAbbreviation;
     	    if($stateParams.id == "nouveau"){
-    	    	addFormation(ctrl.formation).then(
+    	    	formationsFactory.addFormation(ctrl.formation).then(
     	    			function(data, status, headers, config) {
+    	    				swal("Félicitation!", "La nouvelle formation est ajoutée!", "success");
     		        		$location.path('/formations');
     					},
     					function(data, status, headers, config) {
-    						swal("Erreur!", "Erreur de modification de la formation", "error");
+    						swal("Erreur !", "La nouvelle formation ne peut pas être ajoutée !", "error");
     					}
     	    	);
     	    }
     	    else{
     	    	var promiseUpdate = formationsFactory.updateFormation(ctrl.formation);
     	    	promiseUpdate.success(function(data, status, headers, config) {
-            		$location.path('/formations');
-    				
+    	    		swal("Félicitation!", "La formation est modifiée !", "success"); 
+    	    		$location.path('/formations');
     			})
             	.error(function(data, status, headers, config) {
-            		swal("Erreur!", "Erreur de modification de la formation", "error");
+            		swal("Erreur !", "La formation ne peut pas être modifiée !", "error");
     			});	
     	    }
         }
 
       ctrl.edition = function(){
     	  ctrl.edit = true;
+    	  ctrl.ajout= false;
       }
 
       // annule l'édition
