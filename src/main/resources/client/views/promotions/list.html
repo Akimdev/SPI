@@ -101,9 +101,15 @@ Consulter les informations g&eacute;n&eacute;rales, la liste des &eacute;tudiant
 							<td ng-click="affiche(p.promotionPK)">{{p.promotionPK.codeFormation}}</td>
 		 					<td ng-click="affiche(p.promotionPK)">{{p.designation}}</td>
 							<td ng-click="affiche(p.promotionPK)">{{p.siglePromotion}}</td>
-							<td id="iconGestion"><span ng-click="affiche(p.promotionPK)" class="eye fa fa-eye"></span></td>
-							<td id="iconGestion"><span ng-click="edit(p.promotionPK)" class="glyphicon glyphicon-edit" ></span></td>
-							<td id="iconGestion"><span class="glyphicon glyphicon-trash" ng-click="supprime(p.promotionPK)"></span></td>
+							<td id="iconGestion" ng-click="affiche(p.promotionPK)">
+								<a href="#" data-toggle="tooltip" data-placement="top" title="Afficher les d&eacute;tails">
+								<span class="fa fa-eye"></span></a></td>
+							<td id="iconGestion" ng-click="edit(p.promotionPK)">
+		                    	<a href="#" data-toggle="tooltip" data-placement="top" title="Editer">
+		                    	<span class="glyphicon glyphicon-edit"></span></a></td>
+							<td id="iconGestion" ng-click="supprime(p.promotionPK)">
+		                    	<a href="#" data-toggle="tooltip" data-placement="top" title="Supprimer">
+			                    <span class="glyphicon glyphicon-trash"></span></a></td>
 						</tr>
 					</tbody>
 				</table>

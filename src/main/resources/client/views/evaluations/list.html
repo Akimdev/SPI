@@ -137,16 +137,19 @@
 							<td>{{e.noEnseignant.nom}} {{e.noEnseignant.prenom}}</td>
 							<td>{{e.debutReponse | date: "dd/MM/yyyy"}}</td>
 							<td>{{e.finReponse | date: "dd/MM/yyyy"}}</td>
-							<td id="iconGestion" ng-click="affiche(e.idEvaluation)"><span
-								class="eye fa fa-eye"></span></td>
-							<td id="iconGestion" ng-click="edit(e.idEvaluation)"><span
-								class="glyphicon glyphicon-edit"></span></td>
+							<td id="iconGestion" ng-click="affiche(e.idEvaluation)">
+									<a href="#" data-toggle="tooltip" data-placement="top" title="Afficher les d&eacute;tails">
+									<span class="fa fa-eye"></span></a></td>
+							<td id="iconGestion" ng-click="edit(e.idEvaluation)">
+			                    	<a href="#" data-toggle="tooltip" data-placement="top" title="Editer">
+			                    	<span class="glyphicon glyphicon-edit"></span></a></td>
 							<td id="iconGestion" ng-click="info(e.idEvaluation)"><span
 								class="fa fa-caret-square-o-down"></span></td>
 							<td id="iconGestion" ng-click="config(e.idEvaluation)"><span
 								class="icon-settings"></span></td>
-							<td id="iconGestion" ng-click="supprime(e)"><span
-								class="remove fa fa-trash"></span></td>
+							<td id="iconGestion" ng-click="supprime(e)">
+			                    	<a href="#" data-toggle="tooltip" data-placement="top" title="Supprimer">
+			                    	<span class="glyphicon glyphicon-trash"></span></a></td>
 						</tr>
 					</tbody>
 				</table>

@@ -89,7 +89,59 @@
 	  
 	  	var promiseQues = configEvalFactory.getQuestions();
 	  	promiseQues.success(function(data){
-	  		$scope.questionsOptions = data;
+	  		$scope.listQuestionsOptions = data;
+	  		
+	  		$scope.searchKeywords = '';
+		      $scope.filteredQuestion = [];
+		      $scope.row = '';
+		      
+		      $scope.select = function(page) {
+		        var end, start;
+		        start = (page - 1) * $scope.numPerPage;
+		        end = start + $scope.numPerPage;
+		        return $scope.questionsOptions = $scope.filteredQuestion.slice(start, end);
+		      };
+		      
+		      $scope.onFilterChange = function() {
+		        $scope.select(1);
+		        $scope.currentPage = 1;
+		        return $scope.row = '';
+		      };
+		      
+		      $scope.onNumPerPageChange = function() {
+		        $scope.select(1);
+		        return $scope.currentPage = 1;
+		      };
+		      
+		      $scope.onOrderChange = function() {
+		        $scope.select(1);
+		        return $scope.currentPage = 1;
+		      };
+		      
+		      $scope.search = function() {
+		        $scope.filteredQuestion = $filter('filter')($scope.listQuestionsOptions, $scope.searchKeywords);
+		        return $scope.onFilterChange();
+		      };
+		      $scope.order = function(rowName) {
+		        if ($scope.row === rowName) {
+		          return;
+		        }
+		        $scope.row = rowName;
+		        $scope.filteredQuestion = $filter('orderBy')($scope.listQuestionsOptions, rowName);
+		        return $scope.onOrderChange();
+		      };
+		      $scope.numPerPageOpt = [3, 5, 10];
+		      $scope.numPerPage = $scope.numPerPageOpt[2];
+		      $scope.currentPage = 1;
+		      $scope.questionsOptions = [];
+		      var init = null;
+		      init = function() {
+		        $scope.search();
+		        $scope.order('ordre');
+		        return $scope.select($scope.currentPage);
+		      };
+		      
+		      return init();
 	  	});
 	  	
 	  	var promise = configEvalFactory.get($stateParams.id);

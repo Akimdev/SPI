@@ -24,8 +24,9 @@
 				</div>
 				<div class="portlet-body">
 					<p>
-						Cette page permet la gestion des &eacute;lements constitutifs.</br> Consulter, mettre &agrave; jour, supprimer et
-						ajouter les &eacute;lements constitutifs.
+						Cette page permet la gestion des &eacute;lements constitutifs.</br>
+						Consulter, mettre &agrave; jour, supprimer et ajouter les
+						&eacute;lements constitutifs.
 					</p>
 				</div>
 			</div>
@@ -99,24 +100,32 @@
 										class="glyphicon glyphicon-chevron-down"
 										data-ng-click=" order('-codeFormation') "
 										data-ng-class="{active: row == '-codeFormation'}"></span>
-								</div>
+								</div></th>
+								<th class="searchResult" colspan="3"><i>Affiche :
+										{{currentPageEc.length}} / {{elementConstitutifs.length}}</i></th>
 						</tr>
+						
 					</thead>
 					<tbody>
 						<!-- currentPageElementConstitutif / ElementConstitutif -->
-						<tr data-ng-repeat="ec in currentPageEc"
-							class="promotion">
+						<tr data-ng-repeat="ec in currentPageEc" class="promotion">
 							<td>{{ec.elementConstitutifPK.codeEc}}</td>
 							<td>{{ec.elementConstitutifPK.codeUe}}</td>
 							<td>{{ec.description}}</td>
 							<td>{{ec.designation}}</td>
 							<td>{{ec.elementConstitutifPK.codeFormation}}</td>
-							<td id="iconGestion" ng-click="detail(ec.elementConstitutifPK)"><span
-								class="fa fa-eye"></span></td>
-							<td id="iconGestion" ng-click="edit(ec.elementConstitutifPK)"><span
-								class="glyphicon glyphicon-edit"></span></td>
-							<td id="iconGestion" ng-click="supprime(ec.elementConstitutifPK)"><span
-								class="glyphicon glyphicon-trash"></span></td>
+							<td id="iconGestion" ng-click="detail(ec.elementConstitutifPK)">
+								<a href="#" data-toggle="tooltip" data-placement="top"
+								title="Afficher les d&eacute;tails"> <span class="fa fa-eye"></span></a>
+							</td>
+							<td id="iconGestion" ng-click="edit(ec.elementConstitutifPK)">
+								<a href="#" data-toggle="tooltip" data-placement="top"
+								title="Editer"> <span class="glyphicon glyphicon-edit"></span></a>
+							</td>
+							<td id="iconGestion" ng-click="supprime(ec.elementConstitutifPK)">
+								<a href="#" data-toggle="tooltip" data-placement="top"
+								title="Supprimer"> <span class="glyphicon glyphicon-trash"></span></a>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -138,4 +147,7 @@
 						</div>
 					</div>
 				</footer>
+			</table>
 		</div>
+	</div>
+</div>

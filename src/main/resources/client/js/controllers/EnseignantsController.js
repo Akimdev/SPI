@@ -165,7 +165,7 @@ $scope.refresh();
 						swal("Supprimé!", "l'enseignant est supprimé", "success");
 					});
 					  promise.error(function(data,statut, headers, config){
-			    		  swal("Erreur!", "Impossiple de supprimer l'enseignant choisi car il est déja réfferencié", "error");
+			    		  swal("Erreur!", "Impossiple de supprimer l'enseignant choisi car il est déja réferencé", "error");
 			  		});	
 					  } else {     
 						  swal("Annulé", "", "error");
@@ -179,7 +179,24 @@ $scope.refresh();
     ['$scope', '$stateParams','$http', '$location','$filter', 'enseignantsFactory','toaster',
     function($scope, $stateParams , $http, $location, $filter, enseignantsFactory, toaster){      
       $scope.edit= false;    
-     
+      var promise3= enseignantsFactory.getDomain();
+      promise3.success(function(data,statut){
+      	$scope.types= data;
+      	$scope.typeSelected= $scope.enseignant.type;
+      	console.log("\tTypes récupérés: ", data);
+      })
+      .error(function(data,statut){
+    	  console.log("impossible de recuperer la liste des types");
+      });
+	var promisePays= enseignantsFactory.getPays();
+		promisePays.success(function(data,statut){
+      	$scope.payss= data;
+      	$scope.paysSelected=$scope.enseignant.pays;
+      	console.log("\tPays récupérés: ", data);
+      })
+      .error(function(data,statut){
+    	  console.log("impossible de recuperer la liste des pays");
+      });
       // si creation d'un nouvel enseignant
       if($stateParams.id == "nouveau"){
         $scope.enseignant= { };
@@ -203,36 +220,33 @@ $scope.refresh();
             .error(function(data,statut){
           	  console.log("impossible de recuperer les details de l'enseignant choisi");
             });
+            
+            for (var i=0; i< $scope.types.length; i++){
+            	if($scope.types[i].rvLowValue == $scope.typeSelected){
+            		$scope.typeSelected = $scope.types[i];
+            		break;
+            	}
+            }
+            
+            for (var i=0; i< $scope.payss.length; i++){
+            	if($scope.payss[i].rvLowValue == $scope.paysSelected){
+            		$scope.paysSelected = $scope.payss[i];
+            		break;
+            	}
+            }
         })
         .error(function(data){
       	  console.log("impossible de recuperer les details de l'enseignant choisi");
         });
 		$scope.edit= edit;
       		}
-   var promise3= enseignantsFactory.getDomain();
-      promise3.success(function(data,statut){
-      	$scope.types= data;
-      	$scope.typeSelected= $scope.enseignant.type;
-      	console.log("\tTypes récupérés: ", data);
-      })
-      .error(function(data,statut){
-    	  console.log("impossible de recuperer la liste des types");
-      });
-	var promisePays= enseignantsFactory.getPays();
-		promisePays.success(function(data,statut){
-      	$scope.payss= data;
-      	$scope.paysSelected=$scope.enseignant.pays;
-      	console.log("\tPays récupérés: ", data);
-      })
-      .error(function(data,statut){
-    	  console.log("impossible de recuperer la liste des pays");
-      });
+   
     $scope.edition = function(){
         $scope.edit = true;
       }
 $scope.submit = function(){
-    	  $scope.enseignant.type= $scope.typeSelected;
-    	  $scope.enseignant.pays= $scope.paysSelected;
+    	  $scope.enseignant.type= $scope.typeSelected.rvLowValue;
+    	  $scope.enseignant.pays= $scope.paysSelected.rvLowValue;
     	  console.log($scope.enseignant);
 		if($stateParams.id == "nouveau"){
 	        	var promisesajout = enseignantsFactory.add($scope.enseignant);
@@ -267,6 +281,15 @@ $scope.submit = function(){
 	        	$scope.edit = false;
 	        }
     }
+	  $scope.notifyType = function(type){
+		  $scope.typeSelected = type;
+	  }
+	  
+	  $scope.notifyPays = function(pays){
+		  $scope.paysSelected = pays;
+	  }
+
+
       $scope.edition = function(){
           $scope.edit = true;
           $scope.button_clicked = true;

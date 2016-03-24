@@ -2,7 +2,8 @@
 	<div class="portlet light bordered">
 		<div class="portlet-title">
 			<div class="caption">
-				<i class="icon-social-dribble font-red"></i> <span class="cpation-subject font-red bold uppercase">évaluation</span>
+				<i class="icon-social-dribble font-red"></i> <span
+					class="cpation-subject font-red bold uppercase">évaluation</span>
 			</div>
 		</div>
 		<div class="portlet-body">
@@ -39,7 +40,8 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label class="control-label col-md-3">Année universitaire :</label>
+										<label class="control-label col-md-3">Année
+											universitaire :</label>
 										<div class="col-md-9">
 											<p class="form-control-static">{{eval.annee}}</p>
 										</div>
@@ -59,7 +61,8 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label class="control-label col-md-3">Unité enseignement :</label>
+										<label class="control-label col-md-3">Unité
+											enseignement :</label>
 										<div class="col-md-9">
 											<p class="form-control-static">{{eval.code_ue}}</p>
 										</div>
@@ -68,7 +71,8 @@
 								<!--/span-->
 								<div class="col-md-6" ng-show="eval.codeEc">
 									<div class="form-group">
-										<label class="control-label col-md-3">Elément constitutif :</label>
+										<label class="control-label col-md-3">Elément
+											constitutif :</label>
 										<div class="col-md-9">
 											<p class="form-control-static">{{eval.codeEc}}</p>
 										</div>
@@ -85,7 +89,8 @@
 		<div class="portlet light">
 			<div class="portlet-title">
 				<div class="caption">
-					<span class="cpation-subject font-red bold uppercase">Configurer évaluation</span>
+					<span class="cpation-subject font-red bold uppercase">Configurer
+						évaluation</span>
 				</div>
 			</div>
 			<div class="portlet-body">
@@ -93,7 +98,9 @@
 					<thead>
 						<tr>
 							<td colspan="4" style="border: 0px !important;">
-								<button type="button" ng-click="" data-toggle="modal" data-target="#modalRubriques" class="btn green btn-outline sbold uppercase pull-right">
+								<button type="button" ng-click="" data-toggle="modal"
+									data-target="#modalRubriques"
+									class="btn green btn-outline sbold uppercase pull-right">
 									<span class="glyphicon glyphicon-plus"></span> Rubrique
 								</button>
 							</td>
@@ -103,10 +110,13 @@
 						<tr class="success">
 							<td colspan="3" class="sbold uppercase"><i class="icon-tag" style="margin-right: 10px;"></i><b> {{rub.idRubrique.designation}}</b></td>
 							<td>
-								<button type="button" ng-click="addQuestion(rub.idRubrique)" data-toggle="modal" data-target="#questionModal" class="btn green btn-outline sbold uppercase plusQues">
+								<button type="button" ng-click="addQuestion(rub.idRubrique)"
+									data-toggle="modal" data-target="#questionModal"
+									class="btn green btn-outline sbold uppercase plusQues">
 									<span class="glyphicon glyphicon-plus"></span> Question
 								</button>
-								<button type="button" ng-click="removeRubrique(rub.idRubrique)" class="btn red btn-outline sbold uppercase plusQues">
+								<button type="button" ng-click="removeRubrique(rub.idRubrique)"
+									class="btn red btn-outline sbold uppercase plusQues">
 									<span class="glyphicon glyphicon-remove"></span> Rubrique
 								</button>
 							</td>
@@ -122,93 +132,163 @@
 			</div>
 		</div>
 
-		<a class="btn btn-primary" ng-click="cancel()"><span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
-		<a class="btn btn-success pull-right" ng-click="submit()"><span class="glyphicon glyphicon-ok"></span> Valider</a>
+		<a class="btn btn-primary" ng-click="cancel()"><span
+			class="glyphicon glyphicon-arrow-left"></span> Retour</a> <a
+			class="btn btn-success pull-right" ng-click="submit()"><span
+			class="glyphicon glyphicon-ok"></span> Valider</a>
 	</div>
-	
+
 	<!--------------------Modal Ajouter Rubrique------------------->
-	   <!-- Modal -->
-	  <div class="modal fade draggable-modal ui-draggable in" id="modalRubriques" tabindex="-1" aria-hidden="true" role="basic">
-	    <div class="modal-dialog modal-sm" style="width: 600px;">
-	      <div class="modal-content" >
-               <div class="modal-header ui-draggable-handle">
-                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                   <h4 class="modal-title">Rubriques Standards</h4>
-               </div>
-               <div class="modal-body">
-                   <form action="#" class="form-horizontal" role="form">
-                       <div class="form-group">
-                           <div class="col-md-12">
-                               <table class="table table-hover">
-                              	<thead>
-                             		<tr><td class="uppercase sbold"><b>Selectionner une rubrique :</b></td></tr>
-                              	</thead>
-                               	<tbody>
-                               		<tr ng-repeat="rub in rubriquesOptions">
-                               			<td>{{rub.designation}}</td>
-                               			<td>
-                               				<div class="md-checkbox pull-right">
-												<input type="checkbox" id="{{'rub'+rub.idRubrique}}" value="rub.idRubrique" 
-														class="md-check" ng-model="rubriquesSelected[rub.idRubrique]" 
-														ng-disabled="checkIfSelected(rub.idRubrique)">
-												<label for="{{'rub'+rub.idRubrique}}"><span class="inc"></span> <span class="check"></span><span class="box"></span></label>
+	<!-- Modal -->
+	<div class="modal fade draggable-modal ui-draggable in"
+		id="modalRubriques" tabindex="-1" aria-hidden="true" role="basic">
+		<div class="modal-dialog modal-sm" style="width: 600px;">
+			<div class="modal-content">
+				<div class="modal-header ui-draggable-handle">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true"></button>
+					<h4 class="modal-title">Rubriques Standards</h4>
+				</div>
+				<div class="modal-body">
+					<form action="#" class="form-horizontal" role="form">
+						<div class="form-group">
+							<div class="col-md-12">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<td class="uppercase sbold"><b>Selectionner une
+													rubrique :</b></td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="rub in rubriquesOptions">
+											<td>{{rub.designation}}</td>
+											<td>
+												<div class="md-checkbox pull-right">
+													<input type="checkbox" id="{{'rub'+rub.idRubrique}}"
+														value="rub.idRubrique" class="md-check"
+														ng-model="rubriquesSelected[rub.idRubrique]"
+														ng-disabled="checkIfSelected(rub.idRubrique)"> <label
+														for="{{'rub'+rub.idRubrique}}"><span class="inc"></span>
+														<span class="check"></span><span class="box"></span></label>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="btn default" data-dismiss="modal" aria-hidden="true">Fermer</button>
+					<button class="btn green" data-dismiss="modal"
+						ng-click="addRubrique()">Ajouter</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--------------------Modal Ajouter Question------------------->
+	<!-- Modal -->
+	<div class="modal fade draggable-modal ui-draggable in"
+		id="questionModal" tabindex="-1" aria-hidden="true" role="basic">
+		<div class="modal-dialog modal-sm" style="width: 600px;">
+			<div class="modal-content">
+				<div class="modal-header ui-draggable-handle">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true"></button>
+					<h4 class="modal-title">Questions Standards</h4>
+				</div>
+				<div class="modal-body">
+					<form action="#" class="form-horizontal" role="form">
+						<div class="form-group">
+							<div class="col-md-12">
+								<div class="portlet box green">
+									<div class="portlet-title">
+										<div class="caption">
+											<i class="fa fa-cogs"></i>Questions Standards
+										</div>
+									</div>
+									<div class="portlet-body">
+										<div id="sample_3_wrapper"
+											class="dataTables_wrapper no-footer">
+											<!-- -----------------------------Recherche--------------------------------------- -->
+											<div class="row">
+												<span style="float: right;" class="col-sm-4 col-xs-6">
+													<input type="text" placeholder="Rechercher"
+													class="form-control" data-ng-model="searchKeywords"
+													data-ng-keyup="search()">
+												</span>
 											</div>
-										</td>
-                               		</tr>
-                             	</tbody>
-                               </table>
-                           </div>
-                       </div>
-                   </form>
-               </div>
-               <div class="modal-footer">
-                   <button class="btn default" data-dismiss="modal" aria-hidden="true">Fermer</button>
-                   <button class="btn green" data-dismiss="modal" ng-click="addRubrique()">Ajouter</button>
-               </div>
-           </div>
-	    </div>
-	  </div>
-  
-  <!--------------------Modal Ajouter Question------------------->
-   <!-- Modal -->
-  <div class="modal fade draggable-modal ui-draggable in" id="questionModal" tabindex="-1" aria-hidden="true" role="basic">
-    <div class="modal-dialog modal-sm" style="width: 600px;">
-      <div class="modal-content" >
-            <div class="modal-header ui-draggable-handle">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Questions Standars</h4>
-            </div>
-            <div class="modal-body">
-                <form action="#" class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <table class="table table-hover">
-                              	<thead>
-                             		<tr><td class="uppercase sbold"><b>Selectionner les questions � ajouter :</b></td></tr>
-                              	</thead>
-                               	<tbody>
-                               		<tr ng-repeat="ques in questionsOptions">
-                               			<td>{{ques.intitule}}</td>
-                               			<td>
-                               				<div class="md-checkbox pull-right">
-												<input type="checkbox" id="{{'ques'+ques.idQuestion}}" value="ques.idQuestion" 
-														class="md-check" ng-model="questionsSelected[ques.idQuestion]" 
-														ng-disabled="checkQuesIfSelected(ques.idQuestion)">
-												<label for="{{'ques'+ques.idQuestion}}"><span class="inc"></span> <span class="check"></span><span class="box"></span></label>
-											</div>
-										</td>
-                               		</tr>
-                             	</tbody>
-                               </table>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn default" data-dismiss="modal" aria-hidden="true">Fermer</button>
-                <button class="btn green" data-dismiss="modal" ng-click="addQuestions()">Ajouter</button>
-            </div>
-        </div>
-    </div>
-  </div>
+										</div>
+									</div>
+									<div class="portlet-body">
+										<table class="table-scrollable">
+											<table class="table table-bordered table-striped table-hover">
+												<thead>
+													<tr>
+														<th><div class="th">Question</div></th>
+														<th><div class="th"></div></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="ques in questionsOptions" class="gradeX odd"
+														role="row">
+
+														<td class="sorting_1">{{ques.intitule}}</td>
+
+														<td>
+															<div class="checker">
+																<span><input type="checkbox"
+																	id="{{'ques'+ques.idQuestion}}"
+																	ng-disabled="checkQuesIfSelected(ques.idQuestion)"
+																	ng-model="questionsSelected[ques.idQuestion]"
+																	value="ques.idQuestion" class="checkboxes" value="1"></span>
+																<label for="{{'ques'+ques.idQuestion}}"><span
+																	class="inc"></span> <span class="check"></span><span
+																	class="box"></span></label>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+											<!-- -------------------------------Footer ----------------------- -->
+											<footer class="table-footer">
+												<div class="row">
+													<div class="col-md-6 page-num-info">
+														<span> Afficher <select data-ng-model="numPerPage"
+															data-ng-options="num for num in numPerPageOpt"
+															data-ng-change="onNumPerPageChange()">
+														</select> entr&eacute;es par page
+														</span>
+													</div>
+													<div class="col-md-6 text-right pagination-container">
+														<pagination class="pagination-sm" ng-model="currentPage"
+															total-items="filteredQuestion.length" max-size="4"
+															ng-change="select(currentPage)"
+															items-per-page="numPerPage" rotate="false"
+															boundary-links="true"></pagination>
+													</div>
+												</div>
+											</footer>
+										</table>
+										<div class="modal-footer">
+											<button class="btn default" data-dismiss="modal"
+												aria-hidden="true">Fermer</button>
+											<button class="btn green" data-dismiss="modal"
+												ng-click="addQuestions()">Ajouter</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
+			</div>
+			</form>
+		</div>
+
+	</div>
+</div>
+</div>
 </div>

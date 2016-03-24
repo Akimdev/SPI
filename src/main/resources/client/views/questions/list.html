@@ -75,9 +75,15 @@
 					<tr data-ng-repeat="q in currentPageQuestion | orderBy:'intitule'" class="question">
 								<td>{{q.intitule}}</td>
 								<td>{{q.idQualificatif.minimal}} - {{q.idQualificatif.maximal}}</td>
-								<td id="iconGestion" ng-click="show(q)"><span class="fa fa-eye"></span></td>
-								<td id="iconGestion" ng-click="edit(q)"><span class="glyphicon glyphicon-edit"></span></td>
-								<td id="iconGestion" ng-click="supprime(q)"><span class="glyphicon glyphicon-trash"></span></td>
+								<td id="iconGestion" ng-click="show(q)">
+									<a href="#" data-toggle="tooltip" data-placement="top" title="Afficher les d&eacute;tails">
+									<span class="fa fa-eye"></span></a></td>
+								<td id="iconGestion" ng-click="edit(q)">
+			                    	<a href="#" data-toggle="tooltip" data-placement="top" title="Editer">
+			                    	<span class="glyphicon glyphicon-edit"></span></a></td>
+								<td id="iconGestion" ng-click="supprime(q)">
+			                    	<a href="#" data-toggle="tooltip" data-placement="top" title="Supprimer">
+			                    	<span class="glyphicon glyphicon-trash"></span></a></td>
 							</tr>
 						</tbody>
 					</table>
