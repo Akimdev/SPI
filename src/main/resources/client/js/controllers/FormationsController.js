@@ -1,5 +1,5 @@
 /*
- * @Author Kenza ABOUAKIL (Correction)
+ * @Author Kenza ABOUAKIL (Correction Complete)
  * 
  */
 (function() {
@@ -51,6 +51,7 @@
   
   app.service('conservationVariableService', function(){
 	  this.edit= false;
+	  this.ajout= false;
   });
 
   app.controller('FormationsController',
@@ -147,17 +148,29 @@
 	    	
 		$scope.consulterFormation= function(codeFormation){
 			conservationVariableService.edit= false;
+	    	conservationVariableService.ajout= false;
 			$location.path("/formation/"+ codeFormation);
 		}
+		
+		$scope.consulterUE= function(uePK){
+			$location.path("/ue/"+uePK.codeFormation+ "/"+uePK.codeUe);
+		}
+		
+		$scope.consulterEC= function (ecPK){
+			$location.path("/elementConstitutif/infos"+ ecPK.codeFormation +"/"+ ecPK.codeUe +"/"+ ecPK.codeEc);
+		}
+		
       // Crée la page permettant d'ajouter une formation
       $scope.ajoutFormation = function(){
     	  conservationVariableService.edit= true;
-        $location.path("/formation/nouveau"); 
+    	  conservationVariableService.ajout= true;
+    	  $location.path("/formation/nouveau"); 
       }
 
       // affiche les détails d'une formation
       $scope.edit = function(formation){
     	  conservationVariableService.edit= true;
+    	  conservationVariableService.ajout= false;
     	  $location.path("/formation/"+ formation.codeFormation);
       }
 
@@ -191,10 +204,9 @@
   );
 
   app.controller('FormationDetailsController', 
-    ['$scope', '$stateParams','$http', '$location','$filter', 'formationsFactory',
-    function($scope, $stateParams, $http, $location,$filter, formationsFactory){  
+    ['$scope', '$stateParams','$http', '$location','$filter', 'formationsFactory', 'conservationVariableService', 
+    function($scope, $stateParams, $http, $location,$filter, formationsFactory, conservationVariableService){  
     	var ctrl= this;
-    	ctrl.edit= false;
     	
     	//Récuperation du domaine du double diplome
     	formationsFactory.getDomainDoubleDiplome().then(
@@ -214,14 +226,17 @@
 						ctrl.formation= { };
 						ctrl.diplomeSelected= {};
 						ctrl.doubleDiplomeSelected= {};
-						ctrl.edit= true;    
+						conservationVariableService.ajout= ctrl.ajout= true;
+						conservationVariableService.edit= ctrl.edit= true;    
 					} else { // Edition une formation existante
+						conservationVariableService.ajout= ctrl.ajout= false;
+						ctrl.edit= conservationVariableService.edit;
 						//Récuperation de la formation
 						formationsFactory.get($stateParams.id).then(
 						function(data) {
-							ctrl.formation = data.data;   
-							ctrl.formation.debutAccreditation = $filter('date')(data.debutAccreditation, "dd/MM/yyyy");
-							ctrl.formation.finAccreditation = $filter('date')(data.finAccreditation, "dd/MM/yyyy");
+							ctrl.formation = data.data;
+							ctrl.dateDebut= $filter('date')(ctrl.formation.debutAccreditation, "dd/MM/yyyy");
+							ctrl.dateFin= $filter('date')(ctrl.formation.finAccreditation, "dd/MM/yyyy");
 							for (var i=0; i<ctrl.domaineDoubleDiplome.length; i++){
 								if(ctrl.domaineDoubleDiplome[i].rvAbbreviation == ctrl.formation.doubleDiplome){
 									ctrl.doubleDiplomeSelected= ctrl.domaineDoubleDiplome[i];
@@ -245,31 +260,24 @@
 			}
 		);
       
-      ctrl.edition = function(){
-    	  var promisessuppression = formationsFactory.addFormation(ctrl.formation);    	  
-    	  formationsFactory.get(ctrl.formation);
-    	  ctrl.edit = true;
-        }
       ctrl.submit = function(){
         	if(ctrl.formation.debutAccreditation && ctrl.formation.finAccreditation){
-            	var date = ctrl.formation.debutAccreditation.split('/');
+            	var date = ctrl.dateDebut.split('/');
             	ctrl.formation.debutAccreditation = new Date(date[1] + '-' + date[0] + '-' + date[2]);
-            	var date2 = ctrl.formation.finAccreditation.split('/');
+            	var date2 = ctrl.dateFin.split('/');
             	ctrl.formation.finAccreditation = new Date(date2[1] + '-' + date2[0] + '-' + date2[2]);
         	}
-        	ctrl.formation.diplome = ctrl.diplomeSelected;
-        	ctrl.formation.doubleDiplome = ctrl.doubleDiplomeSelected;
-    	    console.log(ctrl.diplomeSelected);
-    	    console.log("objet en question",ctrl.formation);
+        	ctrl.formation.diplome = ctrl.diplomeSelected.rvAbbreviation;
+        	ctrl.formation.doubleDiplome = ctrl.doubleDiplomeSelected.rvAbbreviation;
     	    if($stateParams.id == "nouveau"){
-        	var promisesajout = formationsFactory.addFormation(ctrl.formation);
-        	promisesajout.success(function(data, status, headers, config) {
-        		$location.path('/formations');
-				
-			});
-        	promisesajout.error(function(data, status, headers, config) {
-				alert( "failure message: " + JSON.stringify({data: data}));
-			});		
+    	    	addFormation(ctrl.formation).then(
+    	    			function(data, status, headers, config) {
+    		        		$location.path('/formations');
+    					},
+    					function(data, status, headers, config) {
+    						swal("Erreur!", "Erreur de modification de la formation", "error");
+    					}
+    	    	);
     	    }
     	    else{
     	    	var promiseUpdate = formationsFactory.updateFormation(ctrl.formation);
@@ -278,31 +286,28 @@
     				
     			})
             	.error(function(data, status, headers, config) {
-    				alert( "failure message: " + JSON.stringify({data: data}));
+            		swal("Erreur!", "Erreur de modification de la formation", "error");
     			});	
     	    }
-			// Making the fields empty
-			//				
-    	    ctrl.formation = {};
-    	    ctrl.edit = false;    
-      // TODO coder une fonction submit permettant de modifier une formation et rediriger vers /formations 
         }
 
       ctrl.edition = function(){
     	  ctrl.edit = true;
       }
 
-   // annule l'édition
+      // annule l'édition
       ctrl.cancel = function(){
-        if(!ctrl.formation.codeFormation){
-          $location.path('/formations');
-        } else {
-        	$location.path('/formations');
-         // var e = formationFactory.get($stateParams.id);
-          //ctrl.formation = JSON.parse(JSON.stringify(e));
-        	ctrl.edit = false;
-        }
+    	  $location.path('/formations');
       } 
+      
+      ctrl.isFormDateSupOK= function() {
+    	  console.log("ctrl.formation.debutAccreditation: "+ ctrl.formation.debutAccreditation);
+    	  console.log("ctrl.formation.debutAccreditation: "+ctrl.formation.debutAccreditation);
+    	  if(ctrl.formation.debutAccreditation && ctrl.formation.finAccreditation)
+    		  return ctrl.formation.debutAccreditation < ctrl.formation.finAccreditation;
+    	else
+    		return true;
+      }
 
     }]
   );

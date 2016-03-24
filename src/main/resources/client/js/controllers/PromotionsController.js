@@ -146,14 +146,14 @@ var edit;
     	$scope.ajoutPromotion = function(){
     		$scope.ajout= true;
     	  edit = true;
-          $location.path('/promotion/nouveau/nouveau/e');
+          $location.path('/promotion/nouveau/nouveau/EDITION');
        }
       
       // modifie les détails d'une promotion
     	$scope.edit = function (promotionPK){
     		$scope.ajout= true;
     	  edit=true;
-    	  $location.path("/promotion/"+ promotionPK.anneeUniversitaire + "/" + promotionPK.codeFormation+ "/e");
+    	  $location.path("/promotion/"+ promotionPK.anneeUniversitaire + "/" + promotionPK.codeFormation+ "/EDITION");
       }
       // affiche les détails d'une promotion
     	$scope.affiche= function(promotionPK){
@@ -213,8 +213,11 @@ var edit;
             			ctrl.dateRentree= $filter('date')(data3.data.dateRentree, "dd/MM/yyyy");
 //        	        	data3.data.dateRentree = $filter('date')(data3.data.dateRentree, "dd/MM/yyyy");
         	        	ctrl.promotion= data3.data;
+        	        	console.log(ctrl.formations);
         				// select la formation;
         				for (var i=0; i < ctrl.formations.length; i++) {
+        					ctrl.formationSelected = {};
+        					console.log(""+ctrl.formations[i].codeFormation, ctrl.formations[i].codeFormation == ctrl.promotion.promotionPK.codeFormation);
         	        		if (ctrl.formations[i].codeFormation == ctrl.promotion.promotionPK.codeFormation) {
         	        			ctrl.formationSelected = ctrl.formations[i];
         	        			break;
@@ -261,7 +264,8 @@ var edit;
             ctrl.ajout= false;
     	}
     	
-    	this.edit= edit= ($stateParams.edit== "c") ? false : true;
+    	this.edit= edit= ($stateParams.edit== "CONSULTATION") ? false : true;
+    	//Récupération du domaine des processus de stage
     	$http.get('http://localhost:8090/getDomaine/PROCESSUS_STAGE').then(
     			function(data, status, headers, config) {
     				ctrl.processusStage= [];
@@ -300,8 +304,10 @@ var edit;
     			function () {
     			// si creation d'une nouvelle promotion
 			      if($stateParams.ann == "nouveau"){
+			    	  $scope.ajout= true;
 			    	  initAjout();
 			      } else { // sinon on edite une promotion existante
+		    		  $scope.ajout= false;
 			    	  initEdition();
 			      }
     			}
