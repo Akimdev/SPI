@@ -75,8 +75,8 @@ angular.module('app.auth', [])
 								}
 								//Pour étudiant
 								else if(role === "ETU"){
+									$rootScope.nameEtudiant = data.noEtudiant.prenom;
 									$location.path('/');
-									console.log("Etudiant !");
 								}
 								//Pour Secrétariat
 								else if(role === "SEC"){
