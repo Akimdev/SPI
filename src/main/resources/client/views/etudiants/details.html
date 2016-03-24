@@ -159,7 +159,7 @@
 							<span class="input-group-addon"><i class="fa fa-user"></i></span>
 							<input type="text" class="form-control" name="nom"
 								ng-model="etudiant.nom" placeholder="Nom de l'&eacute;tudiant"
-								ng-pattern="/^[A-Za-z' \-]+$/" required>
+								ng-pattern="/^[A-Za-z éêëöôçèàûù']+$/" required>
 						</div>
 						<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="etudiantForm.nom.$valid"></span>
                    		<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="etudiantForm.nom.$invalid"></span>
@@ -174,7 +174,7 @@
 							<input type="text" class="form-control" name="prenom"
 								ng-model="etudiant.prenom"
 								placeholder="Pr&eacute;nom de l'&eacute;tudiant"
-								ng-pattern="/^[A-Za-z' \-]+$/" required> 
+								ng-pattern="/^[A-Za-z éêëöôçèàûù']+$/" required> 
 						</div>	
 						<span class="glyphicon glyphicon-ok form-control-feedback text-success" ng-show="etudiantForm.prenom.$valid"></span>
                    		<span class="glyphicon glyphicon-remove form-control-feedback text-danger" ng-show="etudiantForm.prenom.$invalid"></span>

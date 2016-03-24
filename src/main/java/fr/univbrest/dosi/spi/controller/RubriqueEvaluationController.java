@@ -42,14 +42,13 @@ public class RubriqueEvaluationController {
 	 * @return ajouter une nouvelle rubrique évaluation
 	 */
 	@RequestMapping(value="/addRubriqueEvaluation" , method = RequestMethod.POST, headers= "Accept=application/json")
-	public String addRubriqueEvaluation(@RequestBody final RubriqueEvaluationUtil rubriqueEvaluationUtil){
+	public RubriqueEvaluation addRubriqueEvaluation(@RequestBody final RubriqueEvaluationUtil rubriqueEvaluationUtil){
 		RubriqueEvaluation rubriqueEvaluation = rubriqueEvaluationUtil.getRubriqueEvaluation();
 		Evaluation evaluation = evaluationServ.getEvaluation(rubriqueEvaluationUtil.getEvaluation().getIdEvaluation());
 		rubriqueEvaluation.setIdEvaluation(evaluation);
 		Rubrique rubrique = rubriqueServ.getRubrique(rubriqueEvaluationUtil.getRubrique().getIdRubrique());
 		rubriqueEvaluation.setIdRubrique(rubrique);
-		rubriqueEvaluationServ.addRubriqueEvaluation(rubriqueEvaluation);
-		return "succes";
+		return rubriqueEvaluationServ.addRubriqueEvaluation(rubriqueEvaluation);
 	}
 	
 	/**
@@ -60,7 +59,6 @@ public class RubriqueEvaluationController {
 	public void deleteRubriqueEvaluation(@PathVariable("idRubriqueEvaluation")Long idRubriqueEvaluation){
 		rubriqueEvaluationServ.deleteRubriqueEvaluation(idRubriqueEvaluation);
 	}
-	
 	
 	/**
 	 * @author LAKRAA

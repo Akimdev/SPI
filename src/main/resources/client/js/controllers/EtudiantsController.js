@@ -46,7 +46,7 @@ var edit= false;
 			// formation);
       },
       delete: function(noEtudiant) { 
-    	  return  $http.get('http://localhost:8090/etudiants/deleteEtudiant'+ noEtudiant);
+    	  return  $http.get('http://localhost:8090/etudiants/deleteEtudiant-'+ noEtudiant);
         },
       getPays: function(pays){
     	  return $http.get('http://localhost:8090/getDomaine/pays/' + pays);
