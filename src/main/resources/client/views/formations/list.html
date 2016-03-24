@@ -110,7 +110,6 @@
             </thead>
             <tbody>
                 <tr data-ng-repeat="f in formations" class="formation">
-<<<<<<< HEAD
                     <td ng-click="consulterFormation(f.codeFormation)">{{f.codeFormation}}</td>
                     <td ng-click="consulterFormation(f.codeFormation)">{{f.diplome}}{{f.n0Annee}}</td>
                     <td ng-click="consulterFormation(f.codeFormation)" >{{f.nomFormation}}</td>
@@ -118,27 +117,15 @@
                     <td ng-click="consulterFormation(f.codeFormation)" ng-show="f.doubleDiplome=='N'">Non</td>
                     <td ng-click="consulterFormation(f.codeFormation)">{{f.debutAccreditation | date: "dd/MM/yyyy"}} => {{f.finAccreditation | date: "dd/MM/yyyy"}}</td>
                     <td id="iconGestion" ng-click="afficheUEs(f.codeFormation)"><span class="fa fa-chevron-circle-down"></span></td>
-                    <td id="iconGestion" ng-click="consulterFormation(f.codeFormation)"><span class="fa fa-eye"></span></td>
-                    <td id="iconGestion" ng-click="edit(f)"><span class="glyphicon glyphicon-edit"></span></td>
-                    <td id="iconGestion" ng-click="supprime(f)"><span class="glyphicon glyphicon-trash"></span></td>
-=======
-                    <td ng-click="afficheFormation(f.codeFormation)">{{f.codeFormation}}</td>
-                    <td ng-click="afficheFormation(f.codeFormation)">{{f.diplome}}{{f.n0Annee}}</td>
-                    <td ng-click="afficheFormation(f.codeFormation)" >{{f.nomFormation}}</td>
-                    <td ng-click="afficheFormation(f.codeFormation)" ng-show="f.doubleDiplome=='O'">Oui</td>
-                    <td ng-click="afficheFormation(f.codeFormation)" ng-show="f.doubleDiplome=='N'">Non</td>
-                    <td ng-click="afficheFormation(f.codeFormation)">{{f.debutAccreditation | date: "dd/MM/yyyy"}} => {{f.finAccreditation | date: "dd/MM/yyyy"}}</td>
-                    <td id="iconGestion" ng-click="afficheUE(f.codeFormation)"><span class="fa fa-caret-down"></span></td>
-                    <td id="iconGestion" ng-click="afficheFormation(f.codeFormation)">
-						<a href="#" data-toggle="tooltip" data-placement="top" title="Afficher les d&eacute;tails">
-						<span class="fa fa-eye"></span></a></td>
+                    <td id="iconGestion" ng-click="consulterFormation(f.codeFormation)">
+            <a href="#" data-toggle="tooltip" data-placement="top" title="Afficher les d&eacute;tails">
+            <span class="fa fa-eye"></span></a></td>
                     <td id="iconGestion" ng-click="edit(f)">
-                    	<a href="#" data-toggle="tooltip" data-placement="top" title="Editer">
-                    	<span class="glyphicon glyphicon-edit"></span></a></td>
+                      <a href="#" data-toggle="tooltip" data-placement="top" title="Editer">
+                      <span class="glyphicon glyphicon-edit"></span></a></td>
                     <td id="iconGestion" ng-click="supprime(f)">
-                    	<a href="#" data-toggle="tooltip" data-placement="top" title="Supprimer">
-                    	<span class="glyphicon glyphicon-trash"></span></a></td>
->>>>>>> cd07bcff2f88f1b71f6c49702268cd8172ccafb2
+                      <a href="#" data-toggle="tooltip" data-placement="top" title="Supprimer">
+                      <span class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
             </tbody>
         </table>

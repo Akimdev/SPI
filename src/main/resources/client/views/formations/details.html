@@ -2,9 +2,7 @@
  -- @Author Mohamed LAKRAA
  -- Details des formations
  -->
-<<<<<<< HEAD
-<div class="page" ng-controller="FormationDetailsController as formCtrl">
-=======
+
 <!-- Navigation Mise ‡ jour -->
 <ul class="page-breadcrumb breadcrumb" ng-hide="edit">
 	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
@@ -19,8 +17,7 @@
 	<li><span class="active">Mise &agrave; jour d'une formation</span></li>
 </ul>
 <!-- END Navigation -->
-<div class="page" ng-controller="FormationDetailsController">
->>>>>>> cd07bcff2f88f1b71f6c49702268cd8172ccafb2
+<div class="page" ng-controller="FormationDetailsController as formCtrl">
 	<div class="portlet light bordered ens-edit">
 		<div class="portlet-title">
 			<div class="caption">
@@ -71,9 +68,6 @@
 					<div class="form-group">
 						<label for="" class="col-sm-2">Double dipl√¥me</label>
 						<div class="col-sm-4">
-<!-- 							<select ng-model="formCtrl.doubleDiplomeSelected"> -->
-<!-- 								<option data-ng-repeat="domaine in formCtrl.domainesDiplome" value="{{domaine.rvLowValue}}">{{domaine.rvMeaning}}</option> -->
-<!-- 							</select> -->
 								<select ng-model="formCtrl.doubleDiplomeSelected" ng-options="d as d.rvMeaning for d in formCtrl.domaineDoubleDiplome">
 							</select>
 						</div>
