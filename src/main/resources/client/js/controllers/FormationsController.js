@@ -1,3 +1,7 @@
+/*
+ * @Author Kenza ABOUAKIL (Correction)
+ * 
+ */
 (function() {
   'use strict';
 
@@ -31,7 +35,7 @@
     	  return $http.get('http://localhost:8090/getDomaine/DIPLOME');
       },
       
-      getDomainDiplome:function(){
+      getDomainDoubleDiplome:function(){
     	  return $http.get('http://localhost:8090/getDomaine/OUI_NON');
       },
       
@@ -44,11 +48,16 @@
       }
     };
   });
+  
+  app.service('conservationVariableService', function(){
+	  this.edit= false;
+  });
 
-  app.controller('FormationsController', 
-    ['$scope', '$location','$http','$filter', 'formationsFactory',
-    function($scope, $location,$http,$filter, formationsFactory){
-      // la liste globale des formations
+  app.controller('FormationsController',
+    ['$scope', '$location','$http','$filter', 'formationsFactory', 'conservationVariableService',
+    function($scope, $location,$http,$filter, formationsFactory, conservationVariableService){
+    	
+    	// la liste globale des formations
     	$scope.ue = false;
     	$scope.ec = false;
     	$scope.refresh = function (){
@@ -59,12 +68,15 @@
     		      $scope.searchKeywords = '';
     		      $scope.filteredFormation = [];
     		      $scope.row = '';
+    		      
+    		      
     		      $scope.select = function(page) {
     		        var end, start;
     		        start = (page - 1) * $scope.numPerPage;
     		        end = start + $scope.numPerPage;
     		        return $scope.currentPageFormation = $scope.filteredFormation.slice(start, end);
     		      };
+    		      
     		      $scope.onFilterChange = function() {
     		        $scope.select(1);
     		        $scope.currentPage = 1;
@@ -110,7 +122,7 @@
     	   
     	}
     	//Affiche les informations sur les unités d'enseignement concernant une formation
-    	$scope.afficheUE = function(codeFormation){
+    	$scope.afficheUEs = function(codeFormation){
 	    	 var promiseUE = formationsFactory.getUEsByCodeFormation(codeFormation);
 	    	    promiseUE.success(function(data){
 	    	    	$scope.ues = data;
@@ -122,7 +134,7 @@
 	    	}   
 	    	
     	//Affiche les informations sur les elements constitutifs concernant une formation
-	    	$scope.afficheEC = function(uePK){
+	    	$scope.afficheECs = function(uePK){
 		    	 var promiseEC = formationsFactory.getECsByCodeUe(uePK);
 		    	    promiseEC.success(function(data){
 		    	    	$scope.ecs = data;
@@ -131,15 +143,22 @@
 		    	    .error(function(data){
 		    	    	$scope.error = 'unable to get the poneys';
 		    	    });
-		    	} 
+		    	}
+	    	
+		$scope.consulterFormation= function(codeFormation){
+			conservationVariableService.edit= false;
+			$location.path("/formation/"+ codeFormation);
+		}
       // Crée la page permettant d'ajouter une formation
       $scope.ajoutFormation = function(){
+    	  conservationVariableService.edit= true;
         $location.path("/formation/nouveau"); 
       }
 
       // affiche les détails d'une formation
       $scope.edit = function(formation){
-        $location.path("/formation/"+ formation.codeFormation);
+    	  conservationVariableService.edit= true;
+    	  $location.path("/formation/"+ formation.codeFormation);
       }
 
       // supprime une formation
@@ -174,58 +193,76 @@
   app.controller('FormationDetailsController', 
     ['$scope', '$stateParams','$http', '$location','$filter', 'formationsFactory',
     function($scope, $stateParams, $http, $location,$filter, formationsFactory){  
-    	$scope.edit= false;    
-      // si creation d'une nouvelle formation
-      if($stateParams.id == "nouveau"){
-        $scope.formation= { };
-        var promiseDomaines = formationsFactory.getDomain();
-	    promiseDomaines.success(function(data) {
-	      $scope.domaines = data;
-	    });
-	    
-	    var promiseDomainesDiplome = formationsFactory.getDomainDiplome();
-	    promiseDomainesDiplome.success(function(data) {
-	      $scope.domainesDiplome = data;
-	    });
-	    
-        $scope.edit= true;    
-      } else { // sinon on edite une formation existante
-        var f = formationsFactory.get($stateParams.id);
-        var promisesFactory = formationsFactory.get($stateParams.id);
-     	promisesFactory.success(function(data) {
-     		$scope.formation = data;   
-				$scope.formation.debutAccreditation = $filter('date')(data.debutAccreditation, "dd/MM/yyyy");
-				$scope.formation.finAccreditation = $filter('date')(data.finAccreditation, "dd/MM/yyyy");		
-     	});
-     	var promiseDomaines = formationsFactory.getDomain();
-	    promiseDomaines.success(function(data) {
-	      $scope.domaines = data;
-	    });
-	    
-	    var promiseDomainesDiplome = formationsFactory.getDomainDiplome();
-	    promiseDomainesDiplome.success(function(data) {
-	      $scope.domainesDiplome = data;
-	    });
-      }      
+    	var ctrl= this;
+    	ctrl.edit= false;
+    	
+    	//Récuperation du domaine du double diplome
+    	formationsFactory.getDomainDoubleDiplome().then(
+    		function(data) {
+    	    	ctrl.domaineDoubleDiplome = data.data;
+    	    	//Récuperation du domaine des diplomes
+    	    	return formationsFactory.getDomain();
+    		},
+    		function(){
+    			console.log("Impossible de récuperer le domaine du double diplome !");
+			}
+		).then(
+				function(data1) {
+					ctrl.domaineDiplomes = data1.data;
+					// Creation d'une nouvelle formation
+					if($stateParams.id == "nouveau"){
+						ctrl.formation= { };
+						ctrl.diplomeSelected= {};
+						ctrl.doubleDiplomeSelected= {};
+						ctrl.edit= true;    
+					} else { // Edition une formation existante
+						//Récuperation de la formation
+						formationsFactory.get($stateParams.id).then(
+						function(data) {
+							ctrl.formation = data.data;   
+							ctrl.formation.debutAccreditation = $filter('date')(data.debutAccreditation, "dd/MM/yyyy");
+							ctrl.formation.finAccreditation = $filter('date')(data.finAccreditation, "dd/MM/yyyy");
+							for (var i=0; i<ctrl.domaineDoubleDiplome.length; i++){
+								if(ctrl.domaineDoubleDiplome[i].rvAbbreviation == ctrl.formation.doubleDiplome){
+									ctrl.doubleDiplomeSelected= ctrl.domaineDoubleDiplome[i];
+									break;
+								}
+							}
+							for (var i=0; i<ctrl.domaineDiplomes.length; i++){
+								if(ctrl.domaineDiplomes[i].rvAbbreviation == ctrl.formation.diplome){
+									ctrl.diplomeSelected= ctrl.domaineDiplomes[i];
+									break;
+								}
+							}
+						},
+						function(){
+							console.log("Impossible de récuperer la formation !");
+						});
+					}
+			},
+			function(){
+    			console.log("Impossible de récuperer le domaine des diplomes !");
+			}
+		);
       
-      $scope.edition = function(){
-    	  var promisessuppression = formationsFactory.addFormation($scope.formation);    	  
-    	  formationsFactory.get($scope.formation);
-          $scope.edit = true;
+      ctrl.edition = function(){
+    	  var promisessuppression = formationsFactory.addFormation(ctrl.formation);    	  
+    	  formationsFactory.get(ctrl.formation);
+    	  ctrl.edit = true;
         }
-        $scope.submit = function(){
-        	if($scope.formation.debutAccreditation && $scope.formation.finAccreditation){
-            	var date = $scope.formation.debutAccreditation.split('/');
-            	$scope.formation.debutAccreditation = new Date(date[1] + '-' + date[0] + '-' + date[2]);
-            	var date2 = $scope.formation.finAccreditation.split('/');
-            	$scope.formation.finAccreditation = new Date(date2[1] + '-' + date2[0] + '-' + date2[2]);
+      ctrl.submit = function(){
+        	if(ctrl.formation.debutAccreditation && ctrl.formation.finAccreditation){
+            	var date = ctrl.formation.debutAccreditation.split('/');
+            	ctrl.formation.debutAccreditation = new Date(date[1] + '-' + date[0] + '-' + date[2]);
+            	var date2 = ctrl.formation.finAccreditation.split('/');
+            	ctrl.formation.finAccreditation = new Date(date2[1] + '-' + date2[0] + '-' + date2[2]);
         	}
-        	$scope.formation.diplome = $scope.diplomeSelected;
-    	    $scope.formation.doubleDiplome = $scope.doubleDiplomeSelected;
-    	    console.log($scope.diplomeSelected);
-    	    console.log("objet en question",$scope.formation);
+        	ctrl.formation.diplome = ctrl.diplomeSelected;
+        	ctrl.formation.doubleDiplome = ctrl.doubleDiplomeSelected;
+    	    console.log(ctrl.diplomeSelected);
+    	    console.log("objet en question",ctrl.formation);
     	    if($stateParams.id == "nouveau"){
-        	var promisesajout = formationsFactory.addFormation($scope.formation);
+        	var promisesajout = formationsFactory.addFormation(ctrl.formation);
         	promisesajout.success(function(data, status, headers, config) {
         		$location.path('/formations');
 				
@@ -235,7 +272,7 @@
 			});		
     	    }
     	    else{
-    	    	var promiseUpdate = formationsFactory.updateFormation($scope.formation);
+    	    	var promiseUpdate = formationsFactory.updateFormation(ctrl.formation);
     	    	promiseUpdate.success(function(data, status, headers, config) {
             		$location.path('/formations');
     				
@@ -246,24 +283,24 @@
     	    }
 			// Making the fields empty
 			//				
-			$scope.formation = {};
-          $scope.edit = false;    
+    	    ctrl.formation = {};
+    	    ctrl.edit = false;    
       // TODO coder une fonction submit permettant de modifier une formation et rediriger vers /formations 
         }
 
-      $scope.edition = function(){
-        $scope.edit = true;
+      ctrl.edition = function(){
+    	  ctrl.edit = true;
       }
 
    // annule l'édition
-      $scope.cancel = function(){
-        if(!$scope.formation.codeFormation){
+      ctrl.cancel = function(){
+        if(!ctrl.formation.codeFormation){
           $location.path('/formations');
         } else {
         	$location.path('/formations');
          // var e = formationFactory.get($stateParams.id);
-          //$scope.formation = JSON.parse(JSON.stringify(e));
-          $scope.edit = false;
+          //ctrl.formation = JSON.parse(JSON.stringify(e));
+        	ctrl.edit = false;
         }
       } 
 

@@ -2,7 +2,7 @@
  -- @Author Mohamed LAKRAA
  -- Details des formations
  -->
-<div class="page" ng-controller="FormationDetailsController">
+<div class="page" ng-controller="FormationDetailsController as formCtrl">
 	<div class="portlet light bordered ens-edit">
 		<div class="portlet-title">
 			<div class="caption">
@@ -16,28 +16,23 @@
 				<toaster-container
 					toaster-options="{'position-class': 'toast-bottom-right'}"></toaster-container>
 				<form class="form-horizontal elegant-aero" name="formationForm">
-					<div ng-repeat="alert in alerts" ng-show="alert.show">
-						<alert type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+					<div ng-repeat="alert in formCtrl.alerts" ng-show="formCtrl.alert.show">
+						<alert type="formCtrl.alert.type" close="formCtrl.closeAlert($index)">{{alert.msg}}</alert>
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">Code</label>
 						<div class="col-sm-4">
 							<input type="text" class="form-control" name="codeFormation"
-								min="1" ng-model="formation.codeFormation"
-								ng-disabled="isVisible" required> 
-								<span
-									style="color: red"
-									ng-show="formationForm.codeFormation.$dirty && formationForm.codeFormation.$invalid">
-								<span ng-show="formationForm.codeFormation.$error.required">Code
-									formation obligatoire.</span>
+								min="1" ng-model="formCtrl.formation.codeFormation"
+								ng-disabled="formCtrl.isVisible" required> 
+								<span style="color: red" ng-show="formationForm.codeFormation.$dirty && formationForm.codeFormation.$invalid">
+								<span ng-show="formationForm.codeFormation.$error.required">Code formation obligatoire.</span></span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">Diplome</label>
 						<div class="col-sm-4">
-							<select ng-model="diplomeSelected">
-								<option data-ng-repeat="domaine in domaines" value="{{domaine.rvLowValue}}"
-								ng-selected="{{domaine.rvLowValue}}">{{domaine.rvMeaning}}</option>
+							<select ng-model="formCtrl.diplomeSelected" ng-options="do as (do.rvMeaning+'') for do in formCtrl.domaineDiplomes">
 							</select>
 						</div>
 					</div>
@@ -45,22 +40,23 @@
 						<label for="" class="col-sm-2">No. année</label>
 						<div class="col-sm-4">
 							<input type="number" class="form-control"
-								ng-model="formation.n0Annee" placeholder="Numéro d'année">
+								ng-model="formCtrl.formation.n0Annee" placeholder="Numéro d'année">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">Nom formation</label>
 						<div class="col-sm-4">
 							<input type="text" class="form-control"
-								ng-model="formation.nomFormation">
+								ng-model="formCtrl.formation.nomFormation">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">Double diplôme</label>
 						<div class="col-sm-4">
-							<select ng-model="doubleDiplomeSelected">
-								<option data-ng-repeat="domaine in domainesDiplome" value="{{domaine.rvLowValue}}"
-								ng-selected="{{domaine.rvLowValue}}">{{domaine.rvMeaning}}</option>
+<!-- 							<select ng-model="formCtrl.doubleDiplomeSelected"> -->
+<!-- 								<option data-ng-repeat="domaine in formCtrl.domainesDiplome" value="{{domaine.rvLowValue}}">{{domaine.rvMeaning}}</option> -->
+<!-- 							</select> -->
+								<select ng-model="formCtrl.doubleDiplomeSelected" ng-options="d as d.rvMeaning for d in formCtrl.domaineDoubleDiplome">
 							</select>
 						</div>
 					</div>
@@ -68,20 +64,20 @@
 						<label for="" class="col-sm-2">Début d'accréditation</label>
 						<div class="col-sm-4">
 							<input type="text" class="form-control"
-								ng-model="formation.debutAccreditation">
+								ng-model="formCtrl.formation.debutAccreditation">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">Fin d'accréditation</label>
 						<div class="col-sm-4">
 							<input type="text" class="form-control"
-								ng-model="formation.finAccreditation">
+								ng-model="formCtrl.formation.finAccreditation">
 						</div>
 					</div>
 				</form>
-				<a class="btn btn-danger" ng-click="cancel()"><span
+				<a class="btn btn-danger" ng-click="formCtrl.cancel()"><span
 					class="glyphicon glyphicon-remove"></span> Annuler</a>
-				<button class="btn btn-success pull-right" ng-click="submit()"><span
+				<button class="btn btn-success pull-right" ng-click="formCtrl.submit()"><span
 					class="glyphicon glyphicon-ok"></span>
 					Valider</button>
 			</div>
