@@ -222,11 +222,12 @@
 						<div class="input-group">
 						<span class="input-group-addon"><i
 											class="fa fa-file-text-o"></i></span>
-							<select class="form-control edited" id="form_control_1"
-											ng-hide="isVisible" ng-model="typeSelected" name="type"
-											required>
-								<option data-ng-repeat="e in types" value="{{e.rvAbbreviation}}">{{e.rvMeaning}}</option>
-							</select>
+<!-- 							<select class="form-control edited" id="form_control_1" -->
+<!-- 											ng-hide="isVisible" ng-model="typeSelected" name="type" -->
+<!-- 											required> -->
+<!-- 								<option data-ng-repeat="e in types" value="{{e.rvAbbreviation}}">{{e.rvMeaning}}</option> -->
+<!-- 							</select> -->
+								<select class="form-control edited" id="form_control_1" ng-hide="isVisible" ng-model="typeSelected" name="type" ng-change="notifyType(typeSelected)" ng-options="e.rvMeaning for e in types track by e.rvLowValue" ></select>
 						</div>
 						<span
 										class="glyphicon glyphicon-ok form-control-feedback text-success"
@@ -371,11 +372,12 @@
 						<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-map-marker"></i>
                         </span>
-							<select class="form-control edited" id="form_control_1"
-											ng-hide="isVisible" ng-model="paysSelected" name="pays"
-											required>
-								<option data-ng-repeat="e in payss" value="{{e.rvAbbreviation}}">{{e.rvMeaning}}</option>
-							</select>
+<!-- 							<select class="form-control edited" id="form_control_1" -->
+<!-- 											ng-hide="isVisible" ng-model="paysSelected" name="pays" -->
+<!-- 											required> -->
+<!-- 								<option data-ng-repeat="e in payss" value="{{e.rvAbbreviation}}">{{e.rvMeaning}}</option> -->
+<!-- 							</select> -->
+								<select class="form-control edited" id="form_control_1" ng-hide="isVisible" ng-model="paysSelected" name="pays" ng-change="notifyPays(paysSelected)" ng-options="p.rvMeaning for p in payss track by p.rvLowValue" ></select>
 					</div>
 					<span
 										class="glyphicon glyphicon-ok form-control-feedback text-success"
