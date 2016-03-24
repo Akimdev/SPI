@@ -99,9 +99,9 @@
 							</td>
 						</tr>
 					</thead>
-					<tbody ng-repeat="rub in rubriques">
+					<tbody ng-repeat="rub in rubriquesEvaluation">
 						<tr class="success">
-							<td colspan="3" class="sbold uppercase"><i class="icon-tag" style="margin-right: 10px;"></i><b> {{rub.designation}}</b></td>
+							<td colspan="3" class="sbold uppercase"><i class="icon-tag" style="margin-right: 10px;"></i><b> {{rub.idRubrique.designation}}</b></td>
 							<td>
 								<button type="button" ng-click="addQuestion(rub.idRubrique)" data-toggle="modal" data-target="#questionModal" class="btn green btn-outline sbold uppercase plusQues">
 									<span class="glyphicon glyphicon-plus"></span> Question
@@ -111,10 +111,10 @@
 								</button>
 							</td>
 						</tr>
-						<tr id="" ng-repeat="ques in rub.questions">
-							<td><span><i class="icon-question" style="margin-right: 10px;"></i></span> {{ques.intitule}}</td>
-							<td>{{ques.idQualificatif.minimal}}</td>
-							<td>{{ques.idQualificatif.maximal}}</td>
+						<tr id="" ng-repeat="ques in rub.questionEvaluationCollection">
+							<td><span><i class="icon-question" style="margin-right: 10px;"></i></span> {{ques.idQuestion.intitule}}</td>
+							<td>{{ques.idQuestion.idQualificatif.minimal}}</td>
+							<td>{{ques.idQuestion.idQualificatif.maximal}}</td>
 							<td><span ng-click="removeQuestion(rub.idRubrique, ques.idQuestion)" class="fa fa-remove pull-right" style="color: red; cursor: pointer;"></span></td>
 						</tr>
 					</tbody>
