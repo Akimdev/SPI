@@ -2,6 +2,7 @@
  -- Author Kenza ABOUAKIL
  -- Détails d'un élément constitutif
  -->
+<div class="page" ng-controller="EcDetailsController as EcDetControl">
 <!-- Navigation-Details -->
 <ul class="page-breadcrumb breadcrumb" ng-hide="edit">
 	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
@@ -16,7 +17,6 @@
 	<li><span class="active">Mise &agrave; jour d'un &eacute;l&eacute;ment constitutif</span></li>
 </ul>
 <!-- END Navigation -->
-<div class="page" ng-controller="EcDetailsController">
 	<div class="portlet light bordered">
 		<div class="portlet-title">
 			<div class="caption">
@@ -25,87 +25,88 @@
 			</div>
 		</div>
 		<!--------------------------- Consultation --------------------------->
-		<div class="portlet-body form" ng-hide="edit">
-			<form class="form-horizontal form-bordered">
-				<div class="form-group">
-					<div class="col-md-3">
-						<strong>Code EC</strong>
-					</div>
-					<div class="col-md-3">{{ec.elementConstitutifPK.codeEc}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3">
-						<strong>Code UE</strong>
-					</div>
-					<div class="col-md-3">{{ec.elementConstitutifPK.codeUe}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3">
-						<strong>Code Formation</strong>
-					</div>
-					<div class="col-md-3">{{ec.elementConstitutifPK.codeFormation}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3">
-						<strong>Responsable</strong>
-					</div>
-					<div class="col-md-3">{{ec.noEnseignant.prenom}}
-						{{ec.noEnseignant.nom}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3">
-						<strong>Designation</strong>
-					</div>
-					<div class="col-md-3">{{ec.designation}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3">
-						<strong>Description</strong>
-					</div>
-					<div class="col-md-3">{{ec.description}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3">
-						<strong>Nombre d'heures CM</strong>
-					</div>
-					<div class="col-md-3">{{ec.nbhCm}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3">
-						<strong>Nombre d'heures TD</strong>
-					</div>
-					<div class="col-md-3">{{ec.nbhTd}}</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-3">
-						<strong>Nombre d'heures TP</strong>
-					</div>
-					<div class="col-md-3">{{ec.nbhTp}}</div>
-				</div>
-				</br>
-			</form>
+		</br>
+		<div ng-hide="EcDetControl.edit">
+			<div class="portlet light bordered">
+				<div class="caption">
+                    <i class="fa fa-info-circle font-blue"></i>
+                    <span class="caption-subject font-blue sbold uppercase bold"> Informations g&eacute;n&eacute;rales</span>
+                </div></br></br>
+				
+					<form class="form-body">
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Code EC</label>
+								<div class="col-md-2">{{EcDetControl.ec.elementConstitutifPK.codeEc}}</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Code UE</label>
+								<div class="col-md-2">{{EcDetControl.ec.elementConstitutifPK.codeUe}}</div>
+							</div>
+						</div></br>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Code Formation</label>
+								<div class="col-md-2">{{EcDetControl.ec.elementConstitutifPK.codeFormation}}</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label">Responsable</label>
+								<div class="col-md-2">{{EcDetControl.ec.noEnseignant.prenom}}
+						{{EcDetControl.ec.noEnseignant.nom}}</div>
+							</div>
+						</div></br>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">D&eacute;signation</label>
+								<div class="col-md-2">{{EcDetControl.ec.designation}}</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Description</label>
+								<div class="col-md-2">{{EcDetControl.ec.description}}</div>
+							</div>
+						</div></br>
+						<div class="row">
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Nombre d'heures CM</label>
+								<div class="col-md-3">{{EcDetControl.ec.nbhCm}}</div>
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4 control-label bold">Nombre d'heures TD</label>
+								<div class="col-md-3">{{EcDetControl.ec.nbhTd}}</div>
+							</div>
+						</div></br>
+						<div class="row">
+							<div class="col-md-12">
+								<label class="col-md-2 control-label bold">Nombre d'heures TP</label>
+								<div class="col-md-10">{{EcDetControl.ec.nbhTp}}</div>
+							</div>
+						</div>
+					</form></br>
+			</div>
+		
+		
 			<!------------------------Boutons Retour et Editer----------->
 			<a class="btn btn-primary" href="#/ec"><span
 				class="glyphicon glyphicon-arrow-left"></span> Retour</a>
-			<button class="btn btn-warning pull-right" ng-click="edition()">
+			<button class="btn btn-warning pull-right" ng-click="EcDetControl.edition()">
 				<span class="glyphicon glyphicon-pencil"></span> Editer
 			</button>
 		</div>
 		<!------------------------Edition------------------------------->
-		<div ng-show="edit">
+		<div ng-show="EcDetControl.edit">
 				<form class="form-horizontal" name="ecForm">
 					<div class="form-group">
 						<label for="" class="col-sm-2">Code Element Constitutif<span id="required-field">*</span></label>
 						<div class="col-sm-10">
 							<input  type="text" class="form-control" id="codeUE" name="codeUE" maxlength="9"
-								    ng-model="ec.elementConstitutifPK.codeEc" ng-readonly="!ajout" required>
+								    ng-model="EcDetControl.ec.elementConstitutifPK.codeEc" ng-readonly="!EcDetControl.ajout" required>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">Code Formation<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<select ng-show="edit" name="codeFormation" ng-model="ec.elementConstitutifPK.codeFormation" required>
-								<option data-ng-repeat="fr in formations" value="{{fr.codeFormation}}" ng-selected="{{ec.elementConstitutifPK.codeFormation==fr.codeFormation}}">
+							<select ng-show="EcDetControl.edit" name="codeFormation" ng-model="EcDetControl.ec.elementConstitutifPK.codeFormation"  required>
+								<option data-ng-repeat="fr in EcDetControl.formations" value="{{fr.codeFormation}}" ng-selected="{{EcDetControl.ec.elementConstitutifPK.codeFormation==fr.codeFormation}}" ng-disabled="!EcDetControl.ajout">
 								{{fr.codeFormation}}</option>
 							</select>
 							<span style="color:red" ng-show="ecForm.codeFormation.$dirty && ecForm.codeFormation.$invalid">
@@ -113,9 +114,19 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label for="" class="col-sm-2">Unite Enseignement<span id="required-field">*</span></label>
+						<div class="col-sm-10">
+							<select ng-show="EcDetControl.edit" name="ueOfec" ng-model="EcDetControl.ec.elementConstitutifPK.codeUe" required>
+								<option data-ng-repeat="ue in EcDetControl.ues | orderBy:'designation'" value="{{ue.uniteEnseignementPK.codeUe}}" ng-selected="{{EcDetControl.ec.elementConstitutifPK.codeUe==ue.uniteEnseignementPK.codeUe}}" ng-disabled="!EcDetControl.ajout">{{ue.designation}}</option>
+							</select>
+							<input ng-hide="EcDetControl.edit" type="text" class="form-control"
+								ng-model="EcDetControl.ue.designation"></br>
+						</div>
+					</div>
+					<div class="form-group">
 						<label for="" class="col-sm-2">Description<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" ng-model="ec.description" name="description" maxlength="255" required>
+							<input type="text" class="form-control" ng-model="EcDetControl.ec.description" name="description" maxlength="255" required>
 							<span style="color:red" ng-show="ecForm.description.$dirty && ecForm.description.$invalid">
 							<span ng-show="ecForm.description.$error.required">Champ obligatoire / Type invalide</span></span>
 						</div>
@@ -123,39 +134,29 @@
 					<div class="form-group">
 						<label for="" class="col-sm-2">Designation<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" ng-model="ec.designation" required maxlenghth="255">
+							<input type="text" class="form-control" ng-model="EcDetControl.ec.designation" required maxlenghth="255">
 							<span style="color:red" ng-show="ecForm.designation.$dirty && ecForm.designation.$invalid">
 							<span ng-show="ecForm.designation.$error.required">Champ obligatoire / Type invalide</span></span>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-2">Unite Enseignement<span id="required-field">*</span></label>
-						<div class="col-sm-10">
-							<select ng-show="edit" name="ueOfec" ng-model="ec.elementConstitutifPK.codeUe" required>
-								<option data-ng-repeat="ue in ues | orderBy:'designation'" value="{{ue.uniteEnseignementPK.codeUe}}" ng-selected="{{ec.elementConstitutifPK.codeUe==ue.uniteEnseignementPK.codeUe}}">{{ue.designation}}</option>
-							</select>
-							<input ng-hide="edit" type="text" class="form-control"
-								ng-model="ue.designation"></br>
-						</div>
-					</div>
-					<div class="form-group">
 						<label for="" class="col-sm-2">Responsable<span id="required-field">*</span></label>
 						<div class="col-sm-10">
-							<select ng-show="edit" name="responsable" ng-model="responsable"> 
-								<option data-ng-repeat="e in enseignants|orderBy:'nom'" value="{{e.noEnseignant}}" >{{e.nom}} {{e.prenom}}</option>
+							<select ng-show="EcDetControl.edit" name="responsable" ng-model="EcDetControl.responsable"> 
+								<option data-ng-repeat="e in EcDetControl.enseignants|orderBy:'nom'" value="{{e.noEnseignant}}" ng-selected="{{EcDetControl.responsable==e.noEnseignant}}">{{e.nom}} {{e.prenom}}</option>
 							</select>
-							<input ng-hide="edit" type="text" class="form-control"
-								ng-model="responsable.nom"
+							<input ng-hide="EcDetControl.edit" type="text" class="form-control"
+								ng-model="EcDetControl.responsable.nom"
 								placeholder="Nom Responsable"></br>
-							<input ng-hide="edit" type="text"
-								class="form-control" ng-model="responsable.prenom"
+							<input ng-hide="EcDetControl.edit" type="text"
+								class="form-control" ng-model="EcDetControl.responsable.prenom"
 								placeholder="Pr&eacute;nom Responsable">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="" class="col-sm-2">Nombre d'heures CM</label>
 						<div class="col-sm-10">
-							<input name="nbhCM" type="number" class="form-control" ng-model="ec.nbhCm" maxlength="2" required>
+							<input name="nbhCM" type="number" class="form-control" ng-model="EcDetControl.ec.nbhCm" maxlength="2" >
 							<span style="color:red" ng-show="ecForm.nbhCM.$dirty && ecForm.nbhCM.$invalid">
 							<span ng-show="ecForm.nbhCM.$error.required">Champ obligatoire / Type invalide</span>
 						</div>
@@ -163,7 +164,7 @@
 					<div class="form-group">
 						<label for="" class="col-sm-2">Nombre d'heures TD</label>
 						<div class="col-sm-10">
-							<input name="nbhTD" type="number" class="form-control" ng-model="ec.nbhTd" maxlength="2" required>
+							<input name="nbhTD" type="number" class="form-control" ng-model="EcDetControl.ec.nbhTd" maxlength="2" >
 							<span style="color:red" ng-show="ecForm.nbhTD.$dirty && ecForm.nbhTD.$invalid">
 							<span ng-show="ecForm.nbhTD.$error.required">Champ obligatoire / Type invalide</span>
 						</div>
@@ -171,13 +172,13 @@
 					<div class="form-group">
 						<label for="" class="col-sm-2">Nombre d'heures TP</label>
 						<div class="col-sm-10">
-							<input name="nbhTP" type="number" class="form-control" ng-model="ec.nbhTp" maxlength="2" required>
+							<input name="nbhTP" type="number" class="form-control" ng-model="EcDetControl.ec.nbhTp" maxlength="2" >
 							<span style="color:red" ng-show="ecForm.nbhTP.$dirty && ecForm.nbhTP.$invalid">
 							<span ng-show="ecForm.nbhTP.$error.required">Champ obligatoire / Type invalide</span>
 						</div>
 					</div>
 				</form>
-				<a class="btn btn-danger" ng-click="cancel()">
+				<a class="btn btn-danger" ng-click="EcDetControl.cancel()">
 				Annuler</a> <button class="btn btn-success pull-right" ng-disabled="ecForm.codeFormation.$dirty && ecForm.codeFormation.$invalid || ecForm.description.$dirty && ecForm.description.$invalid || 
-								ecForm.designation.$dirty && ecForm.designation.$invalid || ecForm.codeUe.$dirty && ecForm.codeUe.$invalid ||ecForm.codeUe.$dirty && ecForm.codeUe.$invalid ||ecForm.codeEc.$dirty && ecForm.codeEc.$invalid || ecForm.$invalid" ng-click="submit()"><span class="glyphicon glyphicon-ok"></span> Valider</button>
+								ecForm.designation.$dirty && ecForm.designation.$invalid || ecForm.codeUe.$dirty && ecForm.codeUe.$invalid ||ecForm.codeUe.$dirty && ecForm.codeUe.$invalid ||ecForm.codeEc.$dirty && ecForm.codeEc.$invalid || ecForm.$invalid" ng-click="EcDetControl.submit()"><span class="glyphicon glyphicon-ok"></span> Valider</button>
 			</div>
