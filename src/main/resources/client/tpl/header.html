@@ -42,10 +42,10 @@
 				class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
 				data-close-others="true"> <span
 					class="username username-hide-on-mobile" style="text-align: center;margin-right: 15px;"> 
-					<div ng-if="user === 'ADM'">Administrateur</div>
+					<div ng-if="user === 'ADM'">Bienvenue Administrateur</div>
 					<div ng-if="user === 'ENS' && sexeUser=='H'">Bienvenue {{nameUser}}</div>
 					<div ng-if="user === 'ENS' && sexeUser=='F'">Bienvenue {{nameUser}}</div>
-					<div ng-if="user === 'ETU'">Bienvenue Etudiant</div>
+					<div ng-if="user === 'ETU'">Bienvenue {{nameEtudiant}}</div>
 					</span> 
 					<img ng-if="user === 'ADM'" class="img-circle" 
 					src="../../../images/avatar.png" />

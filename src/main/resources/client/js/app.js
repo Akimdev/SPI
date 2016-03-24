@@ -1828,6 +1828,13 @@ app
 				AuthService.getUser().success(function(data) {
 					$rootScope.user = data.role;
 					$rootScope.userNum = data;
+					if (data.role === "ENS"){
+						$rootScope.nameUser = data.noEnseignant.prenom;
+						$rootScope.sexeUser = data.noEnseignant.sexe;
+					}
+					if (data.role === "ETU"){
+						$rootScope.nameEtudiant = data.noEtudiant.prenom;	
+					}
 					if (!data) {
 						$location.path("/pages/signin.html");
 					}
