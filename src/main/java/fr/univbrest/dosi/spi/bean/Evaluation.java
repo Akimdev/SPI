@@ -40,6 +40,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
     @NamedQuery(name = "Evaluation.findByFormationAndAnnee", query = "SELECT e FROM Evaluation e WHERE e.annee = :annee AND e.code_formation = :code_formation"),
     @NamedQuery(name = "Evaluation.findByIdEvaluation", query = "SELECT e FROM Evaluation e WHERE e.idEvaluation = :idEvaluation"),
     @NamedQuery(name = "Evaluation.findByNoEvaluation", query = "SELECT e FROM Evaluation e WHERE e.noEvaluation = :noEvaluation"),
+    @NamedQuery(name = "Evaluation.findByNoEnseignant", query = "SELECT e FROM Evaluation e WHERE e.noEnseignant = :noEnseignant"),
     @NamedQuery(name = "Evaluation.findByDesignation", query = "SELECT e FROM Evaluation e WHERE e.designation = :designation"),
     @NamedQuery(name = "Evaluation.findByEtat", query = "SELECT e FROM Evaluation e WHERE e.etat = :etat"),
     @NamedQuery(name = "Evaluation.findByPeriode", query = "SELECT e FROM Evaluation e WHERE e.periode = :periode"),

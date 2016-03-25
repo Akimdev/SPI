@@ -93,4 +93,20 @@ public class EvaluationService {
 		});
 		return listeEvaluationsSorted;
 	}
+	
+	/**
+	 * @author Othman
+	 * @param enseignant
+	 * @return liste des évaluations concernant un enseignant
+	 */
+	public List<Evaluation> getEvaluationsEnseignant(Enseignant enseignant){
+		List<Evaluation> listeEvaluation = evaRepo.findByNoEnseignant(enseignant);
+		Collections.sort(listeEvaluation, new Comparator<Evaluation>() {
+			@Override
+			public int compare(Evaluation eva1, Evaluation eva2) {
+				return eva1.getDesignation().compareTo(eva2.getDesignation());
+			}
+		});
+		return listeEvaluation;
+	}
 }
