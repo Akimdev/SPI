@@ -122,9 +122,12 @@
 							</td>
 						</tr>
 						<tr id="" ng-repeat="ques in rub.questionEvaluationCollection">
-							<td><span><i class="icon-question" style="margin-right: 10px;"></i></span> {{ques.idQuestion.intitule}}</td>
-							<td>{{ques.idQuestion.idQualificatif.minimal}}</td>
-							<td>{{ques.idQuestion.idQualificatif.maximal}}</td>
+							<td ng-if="ques.idQuestion.intitule"><span><i class="icon-question" style="margin-right: 10px;"></i></span> {{ques.idQuestion.intitule}}</td>
+							<td ng-if="ques.idQuestion.idQualificatif.minimal">{{ques.idQuestion.idQualificatif.minimal}}</td>
+							<td ng-if="ques.idQuestion.idQualificatif.maximal">{{ques.idQuestion.idQualificatif.maximal}}</td>
+							<td ng-if="!ques.idQuestion.intitule"><span><i class="icon-question" style="margin-right: 10px;"></i></span> {{ques.intitule}}</td>
+							<td ng-if="!ques.idQuestion.idQualificatif.minimal">{{ques.idQualificatif.minimal}}</td>
+							<td ng-if="!ques.idQuestion.idQualificatif.maximal">{{ques.idQualificatif.maximal}}</td>
 							<td><span ng-click="removeQuestion(rub.idRubrique, ques.idQuestion)" class="fa fa-remove pull-right" style="color: red; cursor: pointer;"></span></td>
 						</tr>
 					</tbody>
@@ -133,9 +136,7 @@
 		</div>
 
 		<a class="btn btn-primary" ng-click="cancel()"><span
-			class="glyphicon glyphicon-arrow-left"></span> Retour</a> <a
-			class="btn btn-success pull-right" ng-click="submit()"><span
-			class="glyphicon glyphicon-ok"></span> Valider</a>
+			class="glyphicon glyphicon-arrow-left"></span> Retour</a>
 	</div>
 
 	<!--------------------Modal Ajouter Rubrique------------------->

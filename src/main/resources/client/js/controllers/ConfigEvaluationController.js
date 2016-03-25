@@ -249,36 +249,72 @@
 			for(var ques in $scope.questionsSelected){
 				if(ques != "removeValue" && ques != "retourValue"){
 					if($scope.questionsSelected[ques] === true){
+						configEvalFactory.getQuestion(ques).then(
+								function(data) {
+									rubrique.questionEvaluationCollection.push(data.data);
+									var QuesEval = {
+											"question": {
+												"idQuestion" : data.data.idQuestion
+											},
+											"qualificatif" : null,
+											"rubriqueEvaluation": {
+												"idRubriqueEvaluation": rubrique.idRubriqueEvaluation
+											},
+											"questionEvaluation": {
+												"idQuestionEvaluation" : 0,
+												"ordre": i,
+												"intitule": data.data.intitule
+											}
+									};
+									return configEvalFactory.addQuestionEval(QuesEval).then(
+											function(){
+												console.log("Ajoutée avec succes");
+											},
+											function(){
+												console.log("Non qjoutée");
+											}
+									);
+								},
+								function(){
+									console.log("Impossible de récuperer la question!");
+								}
+						);
+						
+						
+						
+						
+						
+						
+						
+						
 						var promiseQues = configEvalFactory.getQuestion(ques);
-						promiseQues.success(function(data){
-							rubrique.questionEvaluationCollection.push(data);
-							var QuesEval = {
-									"question": {
-										"idQuestion" : data.idQuestion
-									},
-									"qualificatif" : null,
-									"rubriqueEvaluation": {
-										"idRubriqueEvaluation": rubrique.idRubriqueEvaluation
-									},
-									"questionEvaluation": {
-										"idQuestionEvaluation" : 0,
-										"ordre": i,
-										"intitule": data.intitule
-									}
-							};
-							var promiseQuesEval = configEvalFactory.addQuestionEval(QuesEval);
-							promiseQuesEval.success(function(data){
-								
-							})
-							.error(function(data){
-							});
-						});
+						//promise 1
+//						promiseQues.success(function(data){
+//							rubrique.questionEvaluationCollection.push(data);
+//							var QuesEval = {
+//									"question": {
+//										"idQuestion" : data.idQuestion
+//									},
+//									"qualificatif" : null,
+//									"rubriqueEvaluation": {
+//										"idRubriqueEvaluation": rubrique.idRubriqueEvaluation
+//									},
+//									"questionEvaluation": {
+//										"idQuestionEvaluation" : 0,
+//										"ordre": i,
+//										"intitule": data.intitule
+//									}
+//							};
+//							var promiseQuesEval = configEvalFactory.addQuestionEval(QuesEval);
+//							//promise 2
+//							promiseQuesEval.success(function(data){})
+//							.error(function(data){});
+//						});
 					}
 				}
 				i++;
 			}
 			$scope.questionsSelected = [];
-			$location.path("/evaluation/config/"+ $stateParams.id);
 		};
 		
 		$scope.removeQuestion = function(idRubrique, idQuestion){	
