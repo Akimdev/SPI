@@ -157,7 +157,7 @@
 		}
 		
 		$scope.consulterEC= function (ecPK){
-			$location.path("/elementConstitutif/infos"+ ecPK.codeFormation +"/"+ ecPK.codeUe +"/"+ ecPK.codeEc);
+			$location.path("/elementConstitutif/infos/"+ ecPK.codeFormation +"/"+ ecPK.codeUe +"/"+ ecPK.codeEc);
 		}
 		
       // Crée la page permettant d'ajouter une formation
@@ -262,37 +262,42 @@
 		);
       
       ctrl.submit = function(){
+    	  var erreur = false;
         	if(ctrl.dateDebut && ctrl.dateFin){
             	var date = ctrl.dateDebut.split('/');
             	ctrl.formation.debutAccreditation = new Date(date[1] + '-' + date[0] + '-' + date[2]);
             	var date2 = ctrl.dateFin.split('/');
             	ctrl.formation.finAccreditation = new Date(date2[1] + '-' + date2[0] + '-' + date2[2]);
-            	console.log("debut: ", ctrl.formation.debutAccreditation);
-            	console.log("fin: ", ctrl.formation.finAccreditation);
+            	if(ctrl.formation.debutAccreditation >= ctrl.formation.finAccreditation){
+            		swal("Erreur !", "La date de début d'accréditation doit être inférieur à la date de fin d'accréditation !", "error");
+            		erreur = true;
+            	}
         	}
-        	ctrl.formation.diplome = ctrl.diplomeSelected.rvAbbreviation;
-        	ctrl.formation.doubleDiplome = ctrl.doubleDiplomeSelected.rvAbbreviation;
-    	    if($stateParams.id == "nouveau"){
-    	    	formationsFactory.addFormation(ctrl.formation).then(
-    	    			function(data, status, headers, config) {
-    	    				swal("Félicitation!", "La nouvelle formation est ajoutée!", "success");
-    		        		$location.path('/formations');
-    					},
-    					function(data, status, headers, config) {
-    						swal("Erreur !", "La nouvelle formation ne peut pas être ajoutée !", "error");
-    					}
-    	    	);
-    	    }
-    	    else{
-    	    	var promiseUpdate = formationsFactory.updateFormation(ctrl.formation);
-    	    	promiseUpdate.success(function(data, status, headers, config) {
-    	    		swal("Félicitation!", "La formation est modifiée !", "success"); 
-    	    		$location.path('/formations');
-    			})
-            	.error(function(data, status, headers, config) {
-            		swal("Erreur !", "La formation ne peut pas être modifiée !", "error");
-    			});	
-    	    }
+        	if(!erreur){
+	        	ctrl.formation.diplome = ctrl.diplomeSelected.rvAbbreviation;
+	        	ctrl.formation.doubleDiplome = ctrl.doubleDiplomeSelected.rvAbbreviation;
+	    	    if($stateParams.id == "nouveau"){
+	    	    	formationsFactory.addFormation(ctrl.formation).then(
+	    	    			function(data, status, headers, config) {
+	    	    				swal("Félicitation!", "La nouvelle formation est ajoutée!", "success");
+	    		        		$location.path('/formations');
+	    					},
+	    					function(data, status, headers, config) {
+	    						swal("Erreur !", "La nouvelle formation ne peut pas être ajoutée !", "error");
+	    					}
+	    	    	);
+	    	    }
+	    	    else{
+	    	    	var promiseUpdate = formationsFactory.updateFormation(ctrl.formation);
+	    	    	promiseUpdate.success(function(data, status, headers, config) {
+	    	    		swal("Félicitation!", "La formation est modifiée !", "success"); 
+	    	    		$location.path('/formations');
+	    			})
+	            	.error(function(data, status, headers, config) {
+	            		swal("Erreur !", "La formation ne peut pas être modifiée !", "error");
+	    			});	
+	    	    }
+        	}
         }
 
       ctrl.edition = function(){
@@ -304,16 +309,6 @@
       ctrl.cancel = function(){
     	  $location.path('/formations');
       } 
-      
-      ctrl.isFormDateSupOK= function() {
-    	  console.log("ctrl.formation.debutAccreditation: "+ ctrl.formation.debutAccreditation);
-    	  console.log("ctrl.formation.debutAccreditation: "+ctrl.formation.debutAccreditation);
-    	  if(ctrl.formation.debutAccreditation && ctrl.formation.finAccreditation)
-    		  return ctrl.formation.debutAccreditation < ctrl.formation.finAccreditation;
-    	else
-    		return true;
-      }
-
     }]
   );
 })();

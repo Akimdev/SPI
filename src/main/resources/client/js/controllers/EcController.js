@@ -269,6 +269,9 @@
 		$location.path("/ec");
 	}
 	
+	ctrl.cancel= function(){
+		history.back();
+	}
 	
 }]);
  

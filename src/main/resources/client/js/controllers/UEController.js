@@ -285,7 +285,7 @@ var edit = false;
         }
         
         $scope.cancel = function(){
-        	$location.path('/ue');
+        	history.back();
         }
         
     }]

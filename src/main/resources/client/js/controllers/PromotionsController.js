@@ -158,8 +158,8 @@ var edit;
       // affiche les détails d'une promotion
     	$scope.affiche= function(promotionPK){
     		$scope.ajout= false;
-    	  edit= false;
-    	  $location.path("/promotion/"+ promotionPK.anneeUniversitaire + "/" + promotionPK.codeFormation+ "/c");
+    		edit= false;
+    		$location.path("/promotion/"+ promotionPK.anneeUniversitaire + "/" + promotionPK.codeFormation+ "/CONSULTATION");
       }
 
       // supprime une promotion
