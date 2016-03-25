@@ -2,22 +2,25 @@
  -- @Author Mohamed LAKRAA
  -- Details des formations
  -->
-
-<!-- Navigation Mise ‡ jour -->
-<ul class="page-breadcrumb breadcrumb" ng-hide="edit">
-	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
-		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
-	<li><span class="active">Mise &agrave; jour d'une formation</span></li>
-</ul>
-<!-- END Navigation -->
-<!-- Navigation Mise ‡ jour -->
-<ul class="page-breadcrumb breadcrumb" ng-show="edit">
-	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
-		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
-	<li><span class="active">Mise &agrave; jour d'une formation</span></li>
-</ul>
-<!-- END Navigation -->
 <div class="page" ng-controller="FormationDetailsController as formCtrl">
+	<!-- Navigation: Mise ‡ jour -->
+	<ul class="page-breadcrumb breadcrumb" ng-hide="formCtrl.edit">
+		<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+			<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+		<li><span class="active">Consultation d'une formation</span></li>
+	</ul>
+	<!-- Navigation: Mise ‡ jour -->
+	<ul class="page-breadcrumb breadcrumb" ng-show="formCtrl.edit && !formCtrl.ajout">
+		<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+			<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+		<li><span class="active">Mise &agrave; jour d'une formation</span></li>
+	</ul>
+	<!-- Navigation: Ajout -->
+	<ul class="page-breadcrumb breadcrumb" ng-show="formCtrl.edit && formCtrl.ajout">
+		<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+			<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+		<li><span class="active">Ajout d'une formation</span></li>
+	</ul>
 	<div class="portlet light bordered">
 		<div class="portlet-title">
 			<div class="caption">
@@ -31,7 +34,7 @@
 			<div class="caption">
                  <i class="fa fa-gears font-blue"></i>
                  <span class="caption-subject font-blue bold uppercase bold"> Informations g&eacute;n&eacute;rales</span>
-             </div>
+             </div></br></br>
 			<div class="form-group col-md-12">
 				<label for="" class="col-sm-2">Code</label>
 				<div class="col-sm-4">{{formCtrl.formation.codeFormation}}</div>
@@ -60,6 +63,13 @@
 				<label for="" class="col-sm-2">Fin d'accr√©ditation</label>
 				<div class="col-sm-4">{{formCtrl.dateFin}}</div>
 			</div></br></br>
+			<div class="row">
+				<a class="btn btn-primary" href="#/formations">
+					<span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+				<button class="btn btn-warning pull-right" ng-click="formCtrl.edition()">
+					<span class="glyphicon glyphicon-pencil"></span> Editer
+				</button>
+			</div>
 		</div>
 
 		<!--------------------------- Edition --------------------------->
@@ -78,7 +88,7 @@
 <!-- 					<div ng-repeat="alert in formCtrl.alerts" ng-show="formCtrl.alert.show"> -->
 <!-- 						<alert type="formCtrl.alert.type" close="formCtrl.closeAlert($index)">{{formCtrl.alert.msg}}</alert> -->
 <!-- 					</div> -->
-					<div class="form-group col-md-12">
+					<div class="form-group col-md-13">
 						<label class="col-sm-2">Code <span id="required-field"> *</span></label>
 							<div form-group class="form-group" form-group-class="has-feedback">
 							<div class="col-sm-4">
@@ -93,7 +103,7 @@
 							</div>
 						</div>
 					</div></br>
-					<div class="form-group col-md-12">
+					<div class="form-group col-md-13">
 						<label class="col-sm-2">Nom formation <span id="required-field"> *</span></label>
 						<div form-group class="form-group" form-group-class="has-feedback">
 							<div class="col-sm-4">
@@ -105,7 +115,7 @@
 							</div>
 						</div>
 					</div></br>
-					<div class="form-group col-md-12">
+					<div class="form-group col-md-13">
 						<label class="col-sm-2">Diplome <span id="required-field"> *</span></label>
 						<div form-group class="form-group" form-group-class="has-feedback">
 							<div class="col-sm-4">
@@ -113,7 +123,7 @@
 							</div>
 						</div>
 					</div></br>
-					<div class="form-group col-md-12">
+					<div class="form-group col-md-13">
 						<label class="col-sm-2">No. ann√©e <span id="required-field"> *</span></label>
 						<div form-group class="form-group" form-group-class="has-feedback">
 							<div class="col-sm-4">
@@ -125,7 +135,7 @@
 							</div>
 						</div>
 					</div></br>
-					<div class="form-group col-md-12">
+					<div class="form-group col-md-13">
 						<label class="col-sm-2">Double dipl√¥me <span id="required-field"> *</span></label>
 						<div form-group class="form-group" form-group-class="has-feedback">
 							<div class="col-sm-4">
@@ -133,7 +143,7 @@
 							</div>
 						</div>
 					</div></br>
-					<div class="form-group col-md-12">
+					<div class="form-group col-md-13">
 						<label for="" class="col-sm-2">D√©but d'accr√©ditation</label>
 						<div form-group class="form-group" form-group-class="has-feedback">
 							<div class="col-sm-4">
@@ -147,7 +157,7 @@
 							</div>
 						</div>
 					</div></br>
-					<div class="form-group col-md-12">
+					<div class="form-group col-md-13">
 						<label for="" class="col-sm-2">Fin d'accr√©ditation</label>
 						<div form-group class="form-group" form-group-class="has-feedback">
 							<div class="col-sm-4">
@@ -162,11 +172,13 @@
 						</div>
 					</div></br></br>
 				</form></br></br>
-				
-			<a class="btn btn-danger" ng-click="formCtrl.cancel()"><span
-				class="glyphicon glyphicon-arrow-left"></span> Annuler</a>
-			<button class="btn btn-success pull-right" ng-click="formCtrl.submit()"><span
-				class="glyphicon glyphicon-ok"></span>Valider</button>
+				<div class="row">
+					<a class="btn btn-danger" ng-click="formCtrl.cancel()"><span
+						class="glyphicon glyphicon-arrow-left"></span> Annuler</a>
+					<button class="btn btn-success pull-right" ng-click="formCtrl.submit()" ng-disabled="formationForm.$invalid">
+							<span class="glyphicon glyphicon-ok"></span>Valider
+					</button>
+				</div>
 			</div>
 	</div>
 </div>

@@ -12,7 +12,7 @@
     return {
       // renvoi la liste de tous les evaluations
       all: function() { 
-    	  return $http.get('http://localhost:8090/evaluations');
+    	  return $http.get('http://localhost:8090/evaluationsEnseignant');
       },
       // renvoi la evaluation avec le code demandé
       get: function(code) { 

@@ -23,7 +23,7 @@ app.factory('informationFactory',['$http',function($http){
 			  return $http.get("http://localhost:8090/nombreQuestions");
 		  },
 		  getEvaluations:function(){
-			  return $http.get("http://localhost:8090/nombreEvaluations");
+			  return $http.get("http://localhost:8090/nombreEvaluationsEnseignant");
 		  },
 		  getPromotions:function(){
 			  return $http.get("http://localhost:8090/nombrePromotions");

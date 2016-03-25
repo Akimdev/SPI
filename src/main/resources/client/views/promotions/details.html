@@ -181,10 +181,6 @@
 									<div class="col-md-6">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="icon-graduation"></i></span>
-<!-- 											<select name="listEnseignants" ng-model="promoDetailCtrl.formationSelected" -->
-<!-- 													ng-disabled="!promoDetailCtrl.ajout" -->
-<!-- 													ng-options="e as (e.nom +' '+ e.prenom) for e in promoDetailCtrl.formations track by e.codeFormation"></select> -->
-													
 											<select class="form-control" ng-disabled="!promoDetailCtrl.ajout"
 													ng-options="f as (f.codeFormation+'') for f in promoDetailCtrl.formations"
 													name="codeFormation" ng-model="promoDetailCtrl.formationSelected"

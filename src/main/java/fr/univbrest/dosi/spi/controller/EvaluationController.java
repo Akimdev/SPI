@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.univbrest.dosi.spi.bean.Authentification;
 import fr.univbrest.dosi.spi.bean.CgRefCodes;
 import fr.univbrest.dosi.spi.bean.Enseignant;
+import fr.univbrest.dosi.spi.bean.Etudiant;
 import fr.univbrest.dosi.spi.bean.Evaluation;
 import fr.univbrest.dosi.spi.bean.PromotionPK;
 import fr.univbrest.dosi.spi.service.DomainesSevices;
@@ -35,6 +36,7 @@ public class EvaluationController {
 	
 	@Autowired
 	DomainesSevices domaineService;
+	
 	
 	@RequestMapping(value="/evaluations")
 	public List<Evaluation> listerEvaluations(){
@@ -82,6 +84,16 @@ public class EvaluationController {
 	public long nombreEvaluations() {
 		return evaServ.nombreEvaluations();
 	}
+	
+	/**
+	 * @author Othman controlleur pour retourner le nombre de formations
+	 */
+	@RequestMapping(value = "/nombreEvaluationsEnseignant", headers = "Accept=application/json")
+	public long nombreEvaluationsEnseignant(HttpServletRequest request) {
+		Authentification auth = (Authentification) request.getSession().getAttribute("user");
+		Enseignant enseignant = auth.getNoEnseignant();
+		return evaServ.getEvaluationsEnseignant(enseignant).size();
+	}
 	/**
 	 * @author Othman
 	 * @param promotionPK
@@ -101,4 +113,16 @@ public class EvaluationController {
 	public List<Evaluation> getEvaluationsPromo(@RequestBody PromotionPK promotionPK){
 		return evaServ.getEvaluationsPromo(promotionPK.getCodeFormation(), promotionPK.getAnneeUniversitaire());
 	}
-}
+	
+	/**
+	 * @author Othman
+	 * @param request
+	 * @return liste des évaluations concernant un enseignant
+	 */
+	@RequestMapping(value="/evaluationsEnseignant", headers = "Accept=application/json")
+	public List<Evaluation> getEvaluationsEnseignant(HttpServletRequest request){
+		Authentification auth = (Authentification) request.getSession().getAttribute("user");
+		Enseignant enseignant = auth.getNoEnseignant();
+		return evaServ.getEvaluationsEnseignant(enseignant);
+		}
+	}
