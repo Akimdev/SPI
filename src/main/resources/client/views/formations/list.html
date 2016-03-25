@@ -52,25 +52,7 @@
 				</div>
 			</div>
 		</div>
-<!-- 		<div class="table-filters"> -->
-<!--             <div class="row"> -->
-<!--                 <div class="col-sm-4 col-xs-6"> -->
-<!--                     <form> -->
-<!--                         <input type="text" -->
-<!--                                placeholder="Rechercher" -->
-<!--                                class="form-control" -->
-<!--                                data-ng-model="searchKeywords" -->
-<!--                                data-ng-keyup="search()"> -->
-<!--                       </form> -->
-<!--                 </div> -->
-<!--                 <div class="col-sm-3 col-xs-6 filter-result-info"> -->
-<!--                     <span> -->
-<!--                         Affiche {{currentPageFormation.length}}/{{formations.length}}  -->
-<!--                     </span>               -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
-            <!----------------------------------------La table de liste ---------------------------------------->
+        <!----------------------------------------La table de liste des Formations ---------------------------------------->
 		<div class="portlet-body">
 			<table class="table-scrollable">
 				<table class="table table-bordered table-striped table-hover">
@@ -124,26 +106,25 @@
                     <th></th>
                     <th></th>
                     <th></th>
+                    
                 </tr>
             </thead>
             <tbody>
                 <tr data-ng-repeat="f in formations" class="formation">
-                    <td ng-click="afficheFormation(f.codeFormation)">{{f.codeFormation}}</td>
-                    <td ng-click="afficheFormation(f.codeFormation)">{{f.diplome}}{{f.n0Annee}}</td>
-                    <td ng-click="afficheFormation(f.codeFormation)" >{{f.nomFormation}}</td>
-                    <td ng-click="afficheFormation(f.codeFormation)" ng-show="f.doubleDiplome=='O'">Oui</td>
-                    <td ng-click="afficheFormation(f.codeFormation)" ng-show="f.doubleDiplome=='N'">Non</td>
-                    <td ng-click="afficheFormation(f.codeFormation)">{{f.debutAccreditation | date: "dd/MM/yyyy"}} => {{f.finAccreditation | date: "dd/MM/yyyy"}}</td>
-                    <td id="iconGestion" ng-click="afficheUE(f.codeFormation)"><span class="fa fa-caret-down"></span></td>
-                    <td id="iconGestion" ng-click="afficheFormation(f.codeFormation)">
-						<a href="#" data-toggle="tooltip" data-placement="top" title="Afficher les d&eacute;tails">
-						<span class="fa fa-eye"></span></a></td>
+                    <td ng-click="consulterFormation(f.codeFormation)">{{f.codeFormation}}</td>
+                    <td ng-click="consulterFormation(f.codeFormation)">{{f.diplome}}{{f.n0Annee}}</td>
+                    <td ng-click="consulterFormation(f.codeFormation)" >{{f.nomFormation}}</td>
+                    <td ng-click="consulterFormation(f.codeFormation)" ng-show="f.doubleDiplome=='O'">Oui</td>
+                    <td ng-click="consulterFormation(f.codeFormation)" ng-show="f.doubleDiplome=='N'">Non</td>
+                    <td ng-click="consulterFormation(f.codeFormation)">{{f.debutAccreditation | date: "dd/MM/yyyy"}} => {{f.finAccreditation | date: "dd/MM/yyyy"}}</td>
+                    <td id="iconGestion" ng-click="afficheUEs(f.codeFormation)">
+                    	<a href="#" data-toggle="tooltip" data-placement="top" title="Afficher les UEs"><span class="fa fa-chevron-circle-down"></span></a></td>
+                    <td id="iconGestion" ng-click="consulterFormation(f.codeFormation)">
+			            <a href="#" data-toggle="tooltip" data-placement="top" title="Afficher les d&eacute;tails"><span class="fa fa-eye"></span></a></td>
                     <td id="iconGestion" ng-click="edit(f)">
-                    	<a href="#" data-toggle="tooltip" data-placement="top" title="Editer">
-                    	<span class="glyphicon glyphicon-edit"></span></a></td>
+                      <a href="#" data-toggle="tooltip" data-placement="top" title="Editer"><span class="glyphicon glyphicon-edit"></span></a></td>
                     <td id="iconGestion" ng-click="supprime(f)">
-                    	<a href="#" data-toggle="tooltip" data-placement="top" title="Supprimer">
-                    	<span class="glyphicon glyphicon-trash"></span></a></td>
+                      <a href="#" data-toggle="tooltip" data-placement="top" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
             </tbody>
         </table>
@@ -231,17 +212,19 @@
                               data-ng-class="{active: row == '-email'}"></span>
                     </div></th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr data-ng-repeat="u in ues" class="ue">
-                    <td ng-click="afficheEC(u.uniteEnseignementPK)">{{u.uniteEnseignementPK.codeUe}}</td>
-                    <td ng-click="afficheEC(u.uniteEnseignementPK)">{{u.designation}}</td>
-                    <td ng-click="afficheEC(u.uniteEnseignementPK)">{{u.noEnseignant.nom}} {{u.noEnseignant.prenom}}</td>
-                     <td ng-click="afficheEC(u.uniteEnseignementPK)">{{u.uniteEnseignementPK.codeFormation}}</td>
-                    <td ng-click="afficheEC(u.uniteEnseignementPK)">{{u.semestre}}</td>
-                    <td ng-click="afficheEC(u.uniteEnseignementPK)">{{u.nbhCm}}/{{u.nbhTd}}/{{u.nbhTp}}</td>
-                    <td><span class="info fa fa-info" ng-click="afficheEC(u.uniteEnseignementPK)"></td>
+                    <td ng-click="afficherECs(u.uniteEnseignementPK)">{{u.uniteEnseignementPK.codeUe}}</td>
+                    <td ng-click="afficherECs(u.uniteEnseignementPK)">{{u.designation}}</td>
+                    <td ng-click="afficherECs(u.uniteEnseignementPK)">{{u.noEnseignant.nom}} {{u.noEnseignant.prenom}}</td>
+                     <td ng-click="afficherECs(u.uniteEnseignementPK)">{{u.uniteEnseignementPK.codeFormation}}</td>
+                    <td ng-click="afficherECs(u.uniteEnseignementPK)">{{u.semestre}}</td>
+                    <td ng-click="afficherECs(u.uniteEnseignementPK)">{{u.nbhCm}}/{{u.nbhTd}}/{{u.nbhTp}}</td>
+                    <td id="iconGestion" ng-click="consulterUE(u.uniteEnseignementPK)"><a href="#" data-toggle="tooltip" data-placement="top" title="Afficher les d&eacute;tails"><span class="fa fa-eye"></span></a></td>
+                    <td><a href="#" data-toggle="tooltip" data-placement="top" title="Afficher les UEs"><span class="info fa fa-chevron-circle-down" ng-click="afficheECs(u.uniteEnseignementPK)"></span></a></td>
                 </tr>
             </tbody>
         </table>
@@ -305,12 +288,12 @@
             </thead>
             <tbody>
                 <tr data-ng-repeat="e in ecs" class="ec">
-                    <td ng-click="affiche(f)">{{e.elementConstitutifPK.codeEc}}</td>
-                    <td ng-click="affiche(f)">{{e.description}}</td>
-                    <td ng-click="affiche(f)">{{e.description}}</td>
-                    <td ng-click="affiche(f)">{{e.elementConstitutifPK.codeFormation}}</td>
-                    <td ng-click="affiche(f)">{{e.elementConstitutifPK.codeUe}}</td>
-                    <td><span class="info fa fa-info" ng-click="afficher(u)"></td>
+                    <td ng-click="consulterEC(e.elementConstitutifPK)">{{e.elementConstitutifPK.codeEc}}</td>
+                    <td ng-click="consulterEC(e.elementConstitutifPK)">{{e.description}}</td>
+                    <td ng-click="consulterEC(e.elementConstitutifPK)">{{e.description}}</td>
+                    <td ng-click="consulterEC(e.elementConstitutifPK)">{{e.elementConstitutifPK.codeFormation}}</td>
+                    <td ng-click="consulterEC(e.elementConstitutifPK)">{{e.elementConstitutifPK.codeUe}}</td>
+                    <td id="iconGestion" ng-click="consulterEC(e.elementConstitutifPK)"><a href="#" data-toggle="tooltip" data-placement="top" title="Afficher les d&eacute;tails"><span class="fa fa-eye"></span></a></td>
                 </tr>
             </tbody>
         </table>

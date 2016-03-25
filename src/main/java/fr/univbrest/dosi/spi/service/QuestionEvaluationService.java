@@ -18,8 +18,8 @@ public class QuestionEvaluationService {
 	
 	
 	
-	public void addQuestionEvaluation(QuestionEvaluation questionEvaluation){
-			questionEvaluationRepo.save(questionEvaluation);
+	public QuestionEvaluation addQuestionEvaluation(QuestionEvaluation questionEvaluation){
+			return questionEvaluationRepo.save(questionEvaluation);
 	}
 	
 	public void updateQuestionEvaluation(QuestionEvaluation questionEvaluation){

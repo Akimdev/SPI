@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import fr.univbrest.dosi.spi.bean.Evaluation;
 import fr.univbrest.dosi.spi.bean.QuestionEvaluation;
+import fr.univbrest.dosi.spi.bean.Rubrique;
 import fr.univbrest.dosi.spi.bean.RubriqueEvaluation;
 import fr.univbrest.dosi.spi.dao.EvaluationRepository;
 import fr.univbrest.dosi.spi.dao.RubriqueEvaluationRepository;
@@ -33,8 +34,8 @@ public class RubriqueEvaluationService {
 	 * ajouter une nouvelle rubrique evaluation
 	 * @param rubriqueEvaluation
 	 */
-	public void addRubriqueEvaluation(RubriqueEvaluation rubriqueEvaluation) {
-		rubriqueEvaluationRepo.save(rubriqueEvaluation);
+	public RubriqueEvaluation addRubriqueEvaluation(RubriqueEvaluation rubriqueEvaluation) {
+		return rubriqueEvaluationRepo.save(rubriqueEvaluation);
 	}
 
 	/**
@@ -43,8 +44,8 @@ public class RubriqueEvaluationService {
 	 * mettre à jour d'une rubrique évaluation
 	 * @param rubriqueEvaluation
 	 */
-	public void updateRubriqueEvaluation(RubriqueEvaluation rubriqueEvaluation) {
-		rubriqueEvaluationRepo.save(rubriqueEvaluation);
+	public RubriqueEvaluation updateRubriqueEvaluation(RubriqueEvaluation rubriqueEvaluation) {
+		return rubriqueEvaluationRepo.save(rubriqueEvaluation);
 	}
 
 	/**

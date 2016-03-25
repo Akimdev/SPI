@@ -2,103 +2,183 @@
  -- @Author Mohamed LAKRAA
  -- Details des formations
  -->
-<!-- Navigation Mise � jour -->
-<ul class="page-breadcrumb breadcrumb" ng-hide="edit">
-	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
-		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
-	<li><span class="active">Mise &agrave; jour d'une formation</span></li>
-</ul>
-<!-- END Navigation -->
-<!-- Navigation Mise � jour -->
-<ul class="page-breadcrumb breadcrumb" ng-show="edit">
-	<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
-		<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
-	<li><span class="active">Mise &agrave; jour d'une formation</span></li>
-</ul>
-<!-- END Navigation -->
-<div class="page" ng-controller="FormationDetailsController">
-	<div class="portlet light bordered ens-edit">
+<div class="page" ng-controller="FormationDetailsController as formCtrl">
+	<!-- Navigation: Mise � jour -->
+	<ul class="page-breadcrumb breadcrumb" ng-hide="formCtrl.edit">
+		<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+			<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+		<li><span class="active">Consultation d'une formation</span></li>
+	</ul>
+	<!-- Navigation: Mise � jour -->
+	<ul class="page-breadcrumb breadcrumb" ng-show="formCtrl.edit && !formCtrl.ajout">
+		<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+			<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+		<li><span class="active">Mise &agrave; jour d'une formation</span></li>
+	</ul>
+	<!-- Navigation: Ajout -->
+	<ul class="page-breadcrumb breadcrumb" ng-show="formCtrl.edit && formCtrl.ajout">
+		<li><a href="#/">Accueil</a> <i class="fa fa-circle"></i> </i>
+			<li><a href="#">Administration</a> <i class="fa fa-circle"></i></li>
+		<li><span class="active">Ajout d'une formation</span></li>
+	</ul>
+	<div class="portlet light bordered">
 		<div class="portlet-title">
 			<div class="caption">
 				<i class="icon-social-dribble font-red"></i> <span
 					class="cpation-subject font-red bold uppercase">Formation</span>
 			</div>
 		</div>
-		<div class="panel-body">
-			<!-- Edition -->
-			<div>
-				<toaster-container
-					toaster-options="{'position-class': 'toast-bottom-right'}"></toaster-container>
-				<form class="form-horizontal elegant-aero" name="formationForm">
-					<div ng-repeat="alert in alerts" ng-show="alert.show">
-						<alert type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-					</div>
-					<div class="form-group">
-						<label for="" class="col-sm-2">Code</label>
-						<div class="col-sm-4">
-							<input type="text" class="form-control" name="codeFormation"
-								min="1" ng-model="formation.codeFormation"
-								ng-disabled="isVisible" required> 
-								<span
-									style="color: red"
-									ng-show="formationForm.codeFormation.$dirty && formationForm.codeFormation.$invalid">
-								<span ng-show="formationForm.codeFormation.$error.required">Code
-									formation obligatoire.</span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="" class="col-sm-2">Diplome</label>
-						<div class="col-sm-4">
-							<select ng-model="diplomeSelected">
-								<option data-ng-repeat="domaine in domaines" value="{{domaine.rvLowValue}}"
-								ng-selected="{{domaine.rvLowValue}}">{{domaine.rvMeaning}}</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="" class="col-sm-2">No. année</label>
-						<div class="col-sm-4">
-							<input type="number" class="form-control"
-								ng-model="formation.n0Annee" placeholder="Numéro d'année">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="" class="col-sm-2">Nom formation</label>
-						<div class="col-sm-4">
-							<input type="text" class="form-control"
-								ng-model="formation.nomFormation">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="" class="col-sm-2">Double diplôme</label>
-						<div class="col-sm-4">
-							<select ng-model="doubleDiplomeSelected">
-								<option data-ng-repeat="domaine in domainesDiplome" value="{{domaine.rvLowValue}}"
-								ng-selected="{{domaine.rvLowValue}}">{{domaine.rvMeaning}}</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="" class="col-sm-2">Début d'accréditation</label>
-						<div class="col-sm-4">
-							<input type="text" class="form-control"
-								ng-model="formation.debutAccreditation">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="" class="col-sm-2">Fin d'accréditation</label>
-						<div class="col-sm-4">
-							<input type="text" class="form-control"
-								ng-model="formation.finAccreditation">
-						</div>
-					</div>
-				</form>
-				<a class="btn btn-danger" ng-click="cancel()"><span
-					class="glyphicon glyphicon-remove"></span> Annuler</a>
-				<button class="btn btn-success pull-right" ng-click="submit()"><span
-					class="glyphicon glyphicon-ok"></span>
-					Valider</button>
+		<!--------------------------- Consultation --------------------------->
+		<div ng-hide="formCtrl.edit">
+			</br></br>
+			<div class="caption">
+                 <i class="fa fa-gears font-blue"></i>
+                 <span class="caption-subject font-blue bold uppercase bold"> Informations g&eacute;n&eacute;rales</span>
+             </div></br></br>
+			<div class="form-group col-md-12">
+				<label for="" class="col-sm-2">Code</label>
+				<div class="col-sm-4">{{formCtrl.formation.codeFormation}}</div>
+			</div></br>
+			<div class="form-group col-md-12">
+				<label for="" class="col-sm-2">Nom formation</label>
+				<div class="col-sm-4">{{formCtrl.formation.nomFormation}}</div>
+			</div></br>
+			<div class="form-group col-md-12">
+				<label for="" class="col-sm-2">Diplome</label>
+				<div class="col-sm-4">{{formCtrl.diplomeSelected.rvMeaning}}</div>
+			</div></br>
+			<div class="form-group col-md-12">
+				<label for="" class="col-sm-2">No. année</label>
+				<div class="col-sm-4">{{formCtrl.formation.n0Annee}}</div>
+			</div></br>
+			<div class="form-group col-md-12">
+				<label for="" class="col-sm-2">Double diplôme</label>
+				<div class="col-sm-4">{{formCtrl.doubleDiplomeSelected.rvMeaning}}</div>
+			</div></br>
+			<div class="form-group col-md-12">
+				<label for="" class="col-sm-2">Début d'accréditation</label>
+				<div class="col-sm-4">{{formCtrl.dateDebut}}</div>
+			</div></br>
+			<div class="form-group col-md-12">
+				<label for="" class="col-sm-2">Fin d'accréditation</label>
+				<div class="col-sm-4">{{formCtrl.dateFin}}</div>
+			</div></br></br>
+			<div class="row">
+				<a class="btn btn-primary" href="#/formations">
+					<span class="glyphicon glyphicon-arrow-left"></span> Retour</a>
+				<button class="btn btn-warning pull-right" ng-click="formCtrl.edition()">
+					<span class="glyphicon glyphicon-pencil"></span> Editer
+				</button>
 			</div>
 		</div>
+
+		<!--------------------------- Edition --------------------------->
+			<div ng-show="formCtrl.edit">
+				<toaster-container toaster-options="{'position-class': 'toast-bottom-right'}"></toaster-container></br></br>
+					<div class="caption" ng-hide="formCtrl.ajout">
+	                    <i class="fa fa-gears font-blue"></i>
+	                    <span class="caption-subject font-blue bold uppercase bold"> Mise &agrave; jour</span>
+	                </div>
+	                <div class="caption" ng-show="formCtrl.ajout">
+	                    <i class="fa fa-plus font-blue"></i>
+	                    <span class="caption-subject font-blue sbold uppercase bold"> Nouvelle formation </span>
+	                </div>
+                </br></br>
+				<form class="form-body" name="formationForm">
+<!-- 					<div ng-repeat="alert in formCtrl.alerts" ng-show="formCtrl.alert.show"> -->
+<!-- 						<alert type="formCtrl.alert.type" close="formCtrl.closeAlert($index)">{{formCtrl.alert.msg}}</alert> -->
+<!-- 					</div> -->
+					<div class="form-group col-md-13">
+						<label class="col-sm-2">Code <span id="required-field"> *</span></label>
+							<div form-group class="form-group" form-group-class="has-feedback">
+							<div class="col-sm-4">
+								<input 	type="text" class="form-control" name="codeFormation"
+										ng-model="formCtrl.formation.codeFormation"
+										mask='w' repeat="28" restrict="reject" validate="false" min="1"
+										ng-pattern="/^.+$/" ng-trim="false"
+										ng-em-required="Champ obligatoire" 
+										ng-em-pattern="Type invalide"  
+										placeholder="Exemple: 'M2DOSI'"
+										ng-disabled="!formCtrl.ajout" required>
+							</div>
+						</div>
+					</div></br>
+					<div class="form-group col-md-13">
+						<label class="col-sm-2">Nom formation <span id="required-field"> *</span></label>
+						<div form-group class="form-group" form-group-class="has-feedback">
+							<div class="col-sm-4">
+								<input 	type="text" class="form-control" name="nomFormation"
+										placeholder=" Exemple: 'Master Développement &aacute; l'Offshore des Systèmes d'Information'"
+										ng-model="formCtrl.formation.nomFormation" restrict="reject" validate="false"
+										ng-em-required="Champ obligatoire"
+										required>
+							</div>
+						</div>
+					</div></br>
+					<div class="form-group col-md-13">
+						<label class="col-sm-2">Diplome <span id="required-field"> *</span></label>
+						<div form-group class="form-group" form-group-class="has-feedback">
+							<div class="col-sm-4">
+								<select class="form-control" ng-model="formCtrl.diplomeSelected" ng-options="do as (do.rvMeaning+'') for do in formCtrl.domaineDiplomes" name="diplome" required> </select>
+							</div>
+						</div>
+					</div></br>
+					<div class="form-group col-md-13">
+						<label class="col-sm-2">No. année <span id="required-field"> *</span></label>
+						<div form-group class="form-group" form-group-class="has-feedback">
+							<div class="col-sm-4">
+								<input 	type="number" class="form-control" name="n0Annee"
+										ng-model="formCtrl.formation.n0Annee"
+										ng-em-required="Champ obligatoire"
+										placeholder="Numéro d'année"
+										required>
+							</div>
+						</div>
+					</div></br>
+					<div class="form-group col-md-13">
+						<label class="col-sm-2">Double diplôme <span id="required-field"> *</span></label>
+						<div form-group class="form-group" form-group-class="has-feedback">
+							<div class="col-sm-4">
+								<select class="form-control" ng-model="formCtrl.doubleDiplomeSelected" ng-options="dn as dn.rvMeaning for dn in formCtrl.domaineDoubleDiplome"></select>
+							</div>
+						</div>
+					</div></br>
+					<div class="form-group col-md-13">
+						<label for="" class="col-sm-2">Début d'accréditation</label>
+						<div form-group class="form-group" form-group-class="has-feedback">
+							<div class="col-sm-4">
+								<input 	type="text" class="form-control" name="startDate"
+										ng-model="formCtrl.dateDebut"
+										valid-date
+										placeholder="dd/mm/yyyy"
+										mask="39/19/2999" restrict="reject" validate="false"
+										ng-pattern="/^[0-3][0-9]/[0,1][0-9]/[1,2][0-9][0-9][0-9]$/"
+										ng-em-pattern="Type invalide">
+							</div>
+						</div>
+					</div></br>
+					<div class="form-group col-md-13">
+						<label for="" class="col-sm-2">Fin d'accréditation</label>
+						<div form-group class="form-group" form-group-class="has-feedback">
+							<div class="col-sm-4">
+								<input 	type="text" class="form-control" name="endDate"
+										ng-model="formCtrl.dateFin"
+										valid-date
+										placeholder="dd/mm/yyyy"
+										mask="39/19/2999" restrict="reject" validate="false"
+										ng-pattern="/^[0-3][0-9]/[0,1][0-9]/[1,2][0-9][0-9][0-9]$/"
+										ng-em-pattern="Type invalide">
+							</div>
+						</div>
+					</div></br></br>
+				</form></br></br>
+				<div class="row">
+					<a class="btn btn-danger" ng-click="formCtrl.cancel()"><span
+						class="glyphicon glyphicon-arrow-left"></span> Annuler</a>
+					<button class="btn btn-success pull-right" ng-click="formCtrl.submit()" ng-disabled="formationForm.$invalid">
+							<span class="glyphicon glyphicon-ok"></span>Valider
+					</button>
+				</div>
+			</div>
 	</div>
 </div>

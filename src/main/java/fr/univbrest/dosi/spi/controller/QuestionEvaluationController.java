@@ -36,7 +36,7 @@ public class QuestionEvaluationController {
 	RubriqueEvaluationService rubriqueEvaluationSer;
 	
 	@RequestMapping(value="/addQuestionEvaluation" , method = RequestMethod.POST, headers= "Accept=application/json")
-	public String addQuestionEvaluation(@RequestBody final QuestionEvaluationUtil questionEvaluationUtil){
+	public QuestionEvaluation addQuestionEvaluation(@RequestBody final QuestionEvaluationUtil questionEvaluationUtil){
 		
 		QuestionEvaluation questionEvaluation = questionEvaluationUtil.getQuestionEvaluation();
 		Question question = questionServ.getQuestion(questionEvaluationUtil.getQuestion().getIdQuestion());
@@ -45,8 +45,7 @@ public class QuestionEvaluationController {
 		questionEvaluation.setIdQualificatif(null);
 		RubriqueEvaluation rubriqueEvaluation= rubriqueEvaluationSer.getRubriqueEvaluation(questionEvaluationUtil.getRubriqueEvaluation().getIdRubriqueEvaluation());
 		questionEvaluation.setIdRubriqueEvaluation(rubriqueEvaluation);
-		questionEvaluationServ.addQuestionEvaluation(questionEvaluation);
-		return "succes";
+		return questionEvaluationServ.addQuestionEvaluation(questionEvaluation);
 	}
 	
 	@RequestMapping(value="/updateQuestionEvaluation" , method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
