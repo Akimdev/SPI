@@ -22,7 +22,7 @@
 					class="cpation-subject font-red bold uppercase">Unit&eacute;
 					d'enseignement</span>
 			</div>
-		</div>
+		</div><div style="height:3em;"></div>
 		<!--------------------------- Consultation --------------------------->
 		<div class="portlet-body form" ng-hide="edit">
 			<form class="form-horizontal form-bordered">
@@ -69,6 +69,73 @@
 				</div>
 			</form>
 			<br>
+			<div class="" ng-if="!edit">
+			<div style="height:3em;"></div>
+	        
+				<table
+					class="portlet light bordered table table-bordered table-striped table-responsive"
+					ng-show="filled">
+				<div class="caption" ng-if="ec.length">
+		            <i class="icon-puzzle font-blue"></i>
+		            <span class="caption-subject font-blue bold uppercase bold">    Elements Constitutifs</span>
+		        </div></br></br>
+					<thead>
+						<tr>
+							<th><div class="th">
+									Element constitutif <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('diplome') "
+										data-ng-class="{active: row == 'diplome'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-diplome') "
+										data-ng-class="{active: row == '-diplome'}"></span>
+								</div></th>
+							<th><div class="th">
+									Formation <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('email') "
+										data-ng-class="{active: row == 'email'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-email') "
+										data-ng-class="{active: row == '-email'}"></span>
+								</div></th>
+							<th><div class="th">
+									Unite d'enseignement <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('email') "
+										data-ng-class="{active: row == 'email'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-email') "
+										data-ng-class="{active: row == '-email'}"></span>
+								</div></th>
+							<th><div class="th">
+									Designation <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('code') "
+										data-ng-class="{active: row == 'code'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-code') "
+										data-ng-class="{active: row == '-code'}"></span>
+								</div></th>
+							<th><div class="th">
+									Heures (CM/TD/TP) <span class="glyphicon glyphicon-chevron-up"
+										data-ng-click=" order('email') "
+										data-ng-class="{active: row == 'email'}"></span> <span
+										class="glyphicon glyphicon-chevron-down"
+										data-ng-click=" order('-email') "
+										data-ng-class="{active: row == '-email'}"></span>
+								</div></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat="e in ec" class="ec">
+							<td ng-click="consulterEC(e.elementConstitutifPK)">{{e.elementConstitutifPK.codeEc}}</td>
+							<td ng-click="consulterEC(e.elementConstitutifPK)">{{e.elementConstitutifPK.codeFormation}}</td>
+							<td ng-click="consulterEC(e.elementConstitutifPK)">{{e.elementConstitutifPK.codeUe}}</td>
+							<td ng-click="consulterEC(e.elementConstitutifPK)">{{e.description}}</td>
+							<td ng-click="consulterEC(e.elementConstitutifPK)">{{e.nbhCm}}/{{e.nbhTd}}/{{e.nbhTp}}</td>
+							<td id="iconGestion" ng-click="consulterEC(e.elementConstitutifPK)"><span
+								class="fa fa-eye"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 			<button class="btn btn-primary" ng-click="cancel()">Retour</button>
 			<button class="btn btn-warning pull-right" ng-click="edition()">
 				<span class="glyphicon glyphicon-pencil"></span> Editer
@@ -262,65 +329,4 @@
 
 	</div>
 	<br />
-	<div class="" ng-if="!edit">
-		<table
-			class="portlet light bordered table table-bordered table-striped table-responsive"
-			ng-show="filled">
-			<thead>
-				<tr>
-					<th><div class="th">
-							Element constitutif <span class="glyphicon glyphicon-chevron-up"
-								data-ng-click=" order('diplome') "
-								data-ng-class="{active: row == 'diplome'}"></span> <span
-								class="glyphicon glyphicon-chevron-down"
-								data-ng-click=" order('-diplome') "
-								data-ng-class="{active: row == '-diplome'}"></span>
-						</div></th>
-					<th><div class="th">
-							Formation <span class="glyphicon glyphicon-chevron-up"
-								data-ng-click=" order('email') "
-								data-ng-class="{active: row == 'email'}"></span> <span
-								class="glyphicon glyphicon-chevron-down"
-								data-ng-click=" order('-email') "
-								data-ng-class="{active: row == '-email'}"></span>
-						</div></th>
-					<th><div class="th">
-							Unite d'enseignement <span class="glyphicon glyphicon-chevron-up"
-								data-ng-click=" order('email') "
-								data-ng-class="{active: row == 'email'}"></span> <span
-								class="glyphicon glyphicon-chevron-down"
-								data-ng-click=" order('-email') "
-								data-ng-class="{active: row == '-email'}"></span>
-						</div></th>
-					<th><div class="th">
-							Designation <span class="glyphicon glyphicon-chevron-up"
-								data-ng-click=" order('code') "
-								data-ng-class="{active: row == 'code'}"></span> <span
-								class="glyphicon glyphicon-chevron-down"
-								data-ng-click=" order('-code') "
-								data-ng-class="{active: row == '-code'}"></span>
-						</div></th>
-					<th><div class="th">
-							Heures (CM/TD/TP) <span class="glyphicon glyphicon-chevron-up"
-								data-ng-click=" order('email') "
-								data-ng-class="{active: row == 'email'}"></span> <span
-								class="glyphicon glyphicon-chevron-down"
-								data-ng-click=" order('-email') "
-								data-ng-class="{active: row == '-email'}"></span>
-						</div></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr data-ng-repeat="e in ec" class="ec">
-					<td ng-click="">{{e.elementConstitutifPK.codeEc}}</td>
-					<td ng-click="">{{e.elementConstitutifPK.codeUe}}</td>
-					<td ng-click="">{{e.elementConstitutifPK.codeFormation}}</td>
-					<td ng-click="">{{e.description}}</td>
-					<td ng-click="">{{e.nbhCm}}/{{e.nbhTd}}/{{e.nbhTp}}</td>
-					<td id="iconGestion" ng-click="showEc(q)"><span
-						class="fa fa-eye"></span></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
 </div>

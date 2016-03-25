@@ -287,7 +287,9 @@ var edit = false;
         $scope.cancel = function(){
         	history.back();
         }
-        
+        $scope.consulterEC= function(elementConstitutifPK){
+        	$location.path("/elementConstitutif/infos/"+elementConstitutifPK.codeFormation+"/"+elementConstitutifPK.codeUe+"/"+elementConstitutifPK.codeEc);
+        }
     }]
   );
 })();
