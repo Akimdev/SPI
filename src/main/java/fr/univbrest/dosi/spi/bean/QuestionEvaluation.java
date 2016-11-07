@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
  
 @Entity
-@Table(name = "QUESTION_EVALUATION", catalog = "", schema = "DOSI")
+@Table(name = "QUESTION_EVALUATION", catalog = "", schema = "SPI")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "QuestionEvaluation.findAll", query = "SELECT q FROM QuestionEvaluation q"),

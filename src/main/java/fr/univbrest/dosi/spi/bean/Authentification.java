@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author DOSI
  */
 @Entity
-@Table(name = "AUTHENTIFICATION", catalog = "", schema = "DOSI")
+@Table(name = "AUTHENTIFICATION", catalog = "", schema = "SPI")
 @XmlRootElement
 @NamedQueries({
 	@NamedQuery(name = "Authentification.findByLoginAndPwd", query = "SELECT a FROM Authentification a WHERE (a.pseudoConnection = :pseudoConnection OR a.loginConnection = :pseudoConnection) AND a.motPasse = :motPasse"),

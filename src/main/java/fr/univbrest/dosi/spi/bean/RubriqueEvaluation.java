@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author DOSI
  */
 @Entity
-@Table(name = "RUBRIQUE_EVALUATION", catalog = "", schema = "DOSI")
+@Table(name = "RUBRIQUE_EVALUATION", catalog = "", schema = "SPI")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "RubriqueEvaluation.findAll", query = "SELECT r FROM RubriqueEvaluation r"),

@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author DOSI
  */
 @Entity
-@Table(name = "EVALUATION", catalog = "", schema = "DOSI", uniqueConstraints = { @UniqueConstraint(columnNames = { "ANNEE_UNIVERSITAIRE", "NO_ENSEIGNANT", "NO_EVALUATION", "CODE_FORMATION", "CODE_UE" }) })
+@Table(name = "EVALUATION", catalog = "", schema = "SPI", uniqueConstraints = { @UniqueConstraint(columnNames = { "ANNEE_UNIVERSITAIRE", "NO_ENSEIGNANT", "NO_EVALUATION", "CODE_FORMATION", "CODE_UE" }) })
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Evaluation.findAll", query = "SELECT e FROM Evaluation e"),
